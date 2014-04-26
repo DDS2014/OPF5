@@ -5,4 +5,4 @@
  * @author Dario
  *
  */
-package hello;
+package domain;
