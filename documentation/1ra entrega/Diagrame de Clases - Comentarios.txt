@@ -1,0 +1,16 @@
+Explico el porque de algunas decisiones respecto al diagrama de clases.
+
+
+1) Cada partido tiene un quipo local y visitante, ambos instancias de la clase Equipo. Esto, por lo menos para la primera 
+entrega no es necesario, pero tal vez mas adelante a la clase Equipo le tengamos que definir comportamiento.
+Sino, pueden ser tranquilamente dos vectores de 5 inscripciones.
+
+2) Respecto al anterior, si dejamos la clase Equipo, esta puede tener como atributo a los jugadores o a las inscripciones,
+pero me pareció más correcta la primera porque yo lo estoy pensando como que cada partido no posee 
+jugadores(de manera lógica), sino que posee inscripciones(cada jugador tiene distintas inscripciones).
+
+3) La subclase de inscripción Condicional posee una clase de Condicion, ya que cada condición tiene comportamiento distinto
+(eso por lo menos supongo yo, igual le voy a mandar un mail al ayudante para verificarlo).
+
+4) Existe una clase de asistencias para hacer la inscripciones mediante prioridad de frecuencia que va a jugar cada jugador,
+y también por las veces que canceló.

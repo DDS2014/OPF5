@@ -1,0 +1,13 @@
+Casos de prueba para el caso de uso "inscribir jugador":
+
+-Cuando inscribo un jugador a un partido, queda inscripto.
+-Cuando inscribo a un jugador desplazando a otro, el desplazador queda inscripto.
+-Cuando inscribo a un jugador desplazando a otro, el desplazado no queda inscripto.
+
+-Cuando la lista tiene 10 inscriptos en modo estándar, no se puede anotar a nadie más.
+-En una lista con 9 estándar y 1 solidario, al agregar a un estándar se desplaza al solidario.
+-En una lista con 8 estándar, 1 solidario y 1 condicional, al agregar a un estándar se desplaza al condicional.
+-En una lista con 8 estándar, 1 solidario y 1 condicional, al agregar a un solidario se desplaza al condicional.
+
+-No se puede inscribir dos veces al mismo jugador.
+-Al haber dos solidarios para desplazar, se desplaza al que se inscribió primero.
