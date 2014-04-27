@@ -33,7 +33,7 @@ public class PruebasDeInscripcionDeJugadores
 	}
 	
 	//TODO FIXME: EL CODIGO DE ESTOS DOS MÉTODOS ES EXACTAMENTE IGUAL!
-	//agregar un metodo intermedio que ejecute el desplazamiento?
+	//agregar un metodo intermedio que ejecute el desplazamiento? o por ahí no sea tan grave meter las dos cosas en el mismo test
 	
 	@Test
 	def public void cuandoUnJugadorDesplazaAOtroElDesplazadoNoQuedaInscripto()
@@ -45,6 +45,17 @@ public class PruebasDeInscripcionDeJugadores
 		//partido.reemplazarJugadorPorOtro(saliente, entrante);
 		
 		//Assert.assertFalse(partido.estaInscripto(saliente));
+	}
+	
+	@Test
+	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar()
+	{
+		//Partido partido = Creacion.crearPartidoLlenoDeEstandares(); 
+		//Jugador colgado = new Jugador ("Fulanito");
+		
+		//partido.inscribir(colgado, new Estandar()); 
+		
+		//Assert.assertFalse(partido.estaInscripto(colgado);
 	}
 
 	

@@ -15,4 +15,8 @@ public class PruebasDeInscripcionDeJugadores {
   @Test
   public void cuandoUnJugadorDesplazaAOtroElDesplazadoNoQuedaInscripto() {
   }
+  
+  @Test
+  public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() {
+  }
 }
