@@ -89,6 +89,7 @@ public class PruebasDeInscripcionDeJugadores
 	
 	//TODO FIXME HORRIBLE REPETICION DE CODIGO ACA!
 	
+	@Test
 	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional()
 	{
 		//Jugador jugadorCondicional = new Jugador("Josecito");
@@ -102,6 +103,7 @@ public class PruebasDeInscripcionDeJugadores
 		//Assert.assertTrue(partido.estaInscripto(jugadorSolidario));
 		//Assert.assertFalse(partido.estaInscripto(jugadorCondicional));
 	}
+	
 }
 
 	

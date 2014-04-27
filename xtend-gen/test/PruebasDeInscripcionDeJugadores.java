@@ -28,6 +28,7 @@ public class PruebasDeInscripcionDeJugadores {
   public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoEstandarDesplazaAlCondicional() {
   }
   
+  @Test
   public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional() {
   }
 }
