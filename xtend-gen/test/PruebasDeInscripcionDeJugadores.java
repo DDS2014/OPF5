@@ -31,4 +31,12 @@ public class PruebasDeInscripcionDeJugadores {
   @Test
   public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional() {
   }
+  
+  @Test
+  public void noSePuedeAnotarAlMismoJugadorDosVeces() {
+  }
+  
+  @Test
+  public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero() {
+  }
 }

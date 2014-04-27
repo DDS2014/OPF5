@@ -48,7 +48,7 @@ public class PruebasDeInscripcionDeJugadores
 	}
 	
 	@Test
-	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar()
+	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion
 	{
 		//Partido partido = Creacion.crearPartidoLlenoDeEstandares(); 
 		//Jugador colgado = new Jugador ("Fulanito");
@@ -104,6 +104,35 @@ public class PruebasDeInscripcionDeJugadores
 		//Assert.assertFalse(partido.estaInscripto(jugadorCondicional));
 	}
 	
+	@Test
+	def public void noSePuedeAnotarAlMismoJugadorDosVeces()
+	{
+		//Jugador jugador = new Jugador("Manuelito");
+		//Partido partido = new Partido(fecha, hora);
+		
+		//partido.inscribir(jugador, new Estandar());
+		//partido.inscribir(jugador, new Estandar());
+		
+		//Assert.assertTrue(partido.obtenerCantidadDeInscriptos() == 1);
+	}
+	
+	@Test
+	def public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero()
+	{
+		//Jugador primerJugador = new Jugador("Danielito");
+		//Jugador segundoJugador = new Jugador("Fernandito");
+		//Partido partido = Creacion.crearPartidoCon8JugadoresEstandar();
+		//partido.inscribir(primerJugador, new Solidario());
+		//partido.inscribir(segundoJugador, new Solidario());
+		//Jugador nuevoJugador = new Jugador("Dieguito");
+		
+		//partido.inscribir(nuevoJugador, new Estandar());
+		
+		//Assert.assertTrue(partido.estaInscripto(nuevoJugador))
+		//Assert.assertTrue(partido.estaInscripto(segundoJugador))
+		//Assert.assertFalse(partido.estaInscripto(primerJugador))
+		
+	}
 }
 
 	
