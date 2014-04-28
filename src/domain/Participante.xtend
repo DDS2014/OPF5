@@ -2,7 +2,7 @@ package domain
 
 class Participante 
 {
-	Jugador jugador;
+	@Property Jugador jugador;
 	TipoDeInscripcion modalidad;
 	
 	new(Jugador jugador, TipoDeInscripcion modalidad) 
@@ -11,8 +11,9 @@ class Participante
 		this.modalidad = modalidad;
 	}
 	
-	def inscribirse(Partido partido) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def inscribirse(Partido partido) 
+	{
+		this.modalidad.inscribirse(partido, this);
 	}
 		
 }

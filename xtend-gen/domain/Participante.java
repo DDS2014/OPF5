@@ -6,17 +6,24 @@ import domain.TipoDeInscripcion;
 
 @SuppressWarnings("all")
 public class Participante {
-  private Jugador jugador;
+  private Jugador _jugador;
+  
+  public Jugador getJugador() {
+    return this._jugador;
+  }
+  
+  public void setJugador(final Jugador jugador) {
+    this._jugador = jugador;
+  }
   
   private TipoDeInscripcion modalidad;
   
   public Participante(final Jugador jugador, final TipoDeInscripcion modalidad) {
-    this.jugador = jugador;
+    this.setJugador(jugador);
     this.modalidad = modalidad;
   }
   
   public void inscribirse(final Partido partido) {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    this.modalidad.inscribirse(partido, this);
   }
 }

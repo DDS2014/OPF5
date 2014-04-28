@@ -1,7 +1,7 @@
 package test
 
 //import static org.junit.Assert.*;
-//import junit.framework.Assert;
+import junit.framework.Assert;
 
 import org.junit.Test;
 import domain.Partido
@@ -21,7 +21,7 @@ public class PruebasDeInscripcionDeJugadores
 		
 		participante.inscribirse(partido);
 		
-		//Assert.assertTrue(partido.estaInscripto(jugador));
+		Assert.assertTrue(partido.estaInscripto(jugador));
 	}
 	
 	@Test
@@ -34,6 +34,7 @@ public class PruebasDeInscripcionDeJugadores
 		//partido.reemplazarJugadorPorOtro(saliente, entrante);
 		
 		//Assert.assertTrue(partido.estaInscripto(entrante));
+		Assert.fail("Not implemented");
 	}
 	
 	//TODO FIXME: EL CODIGO DE ESTOS DOS MÉTODOS ES EXACTAMENTE IGUAL!
@@ -49,6 +50,7 @@ public class PruebasDeInscripcionDeJugadores
 		//partido.reemplazarJugadorPorOtro(saliente, entrante);
 		
 		//Assert.assertFalse(partido.estaInscripto(saliente));
+		Assert.fail("Not implemented");
 	}
 	
 	@Test
@@ -60,6 +62,7 @@ public class PruebasDeInscripcionDeJugadores
 		//partido.inscribir(colgado, new Estandar()); 
 		
 		//Assert.assertFalse(partido.estaInscripto(colgado));
+		Assert.fail("Not implemented");
 	}
 	
 	@Test
@@ -74,6 +77,7 @@ public class PruebasDeInscripcionDeJugadores
 		//Assert.assertTrue(partido.estaInscripto(jugadorNuevo));
 		//Assert.assertFasle(partido.estaInscripto(jugadorSolidario));
 		//esto podrían ser dos casos de prueba pero recordar que el mecanismo de desplazamiento ya se prueba en detalle en otros test. si esos test dan bien entonces estos dos assert van a tener que fallar o tener éxito siempre juntos
+		Assert.fail("Not implemented");
 	}
 	
 	@Test
@@ -89,6 +93,7 @@ public class PruebasDeInscripcionDeJugadores
 		//Assert.assertTrue(partido.estaInscripto(jugadorNuevo));
 		//Assert.assertTrue(partido.estaInscripto(jugadorSolidario));
 		//Assert.assertFalse(partido.estaInscripto(jugadorCondicional));
+		Assert.fail("Not implemented");
 	}
 	
 	//TODO FIXME HORRIBLE REPETICION DE CODIGO ACA!
@@ -106,6 +111,7 @@ public class PruebasDeInscripcionDeJugadores
 		//Assert.assertTrue(partido.estaInscripto(jugadorNuevo));
 		//Assert.assertTrue(partido.estaInscripto(jugadorSolidario));
 		//Assert.assertFalse(partido.estaInscripto(jugadorCondicional));
+		Assert.fail("Not implemented");
 	}
 	
 	@Test
@@ -118,6 +124,7 @@ public class PruebasDeInscripcionDeJugadores
 		//partido.inscribir(jugador, new Estandar());
 		
 		//Assert.assertTrue(partido.obtenerCantidadDeInscriptos() == 1);
+		Assert.fail("Not implemented");
 	}
 	
 	@Test
@@ -135,7 +142,7 @@ public class PruebasDeInscripcionDeJugadores
 		//Assert.assertTrue(partido.estaInscripto(nuevoJugador))
 		//Assert.assertTrue(partido.estaInscripto(segundoJugador))
 		//Assert.assertFalse(partido.estaInscripto(primerJugador))
-		
+		Assert.fail("Not implemented");
 	}
 }
 
