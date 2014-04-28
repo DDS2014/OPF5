@@ -1,21 +1,25 @@
 package test
 
-import static org.junit.Assert.*;
-import junit.framework.Assert;
-
-import domain.*;
+//import static org.junit.Assert.*;
+//import junit.framework.Assert;
 
 import org.junit.Test;
+import domain.Partido
+import domain.Jugador
+import domain.InscripcionEstandar
+import domain.Participante
 
 public class PruebasDeInscripcionDeJugadores
 {
 	@Test
 	def public void inscriboUnJugadorAUnPartidoYQuedaInscripto()
 	{
-		//Partido partido = new Partido(fecha, hora);
-		//Jugador jugador = new Jugador("Pedrito");
+		var partido = new Partido("25/05/2014", "16:00");
 		
-		//partido.inscribir(jugador, new Estandar());
+		var jugador = new Jugador("Pedrito");
+		var participante = new Participante(jugador, new InscripcionEstandar());
+		
+		participante.inscribirse(partido);
 		
 		//Assert.assertTrue(partido.estaInscripto(jugador));
 	}

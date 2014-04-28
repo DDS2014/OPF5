@@ -1,11 +1,23 @@
 package test;
 
+import domain.InscripcionEstandar;
+import domain.Jugador;
+import domain.Participante;
+import domain.Partido;
 import org.junit.Test;
 
 @SuppressWarnings("all")
 public class PruebasDeInscripcionDeJugadores {
   @Test
   public void inscriboUnJugadorAUnPartidoYQuedaInscripto() {
+    Partido _partido = new Partido("25/05/2014", "16:00");
+    Partido partido = _partido;
+    Jugador _jugador = new Jugador("Pedrito");
+    Jugador jugador = _jugador;
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Participante _participante = new Participante(jugador, _inscripcionEstandar);
+    Participante participante = _participante;
+    participante.inscribirse(partido);
   }
   
   @Test
