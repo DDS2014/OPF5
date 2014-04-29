@@ -75,8 +75,23 @@ public class Partido {
     return false;
   }
   
-  public void getJugador() {
+  public boolean hayCondicionales() {
     UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
     throw _unsupportedOperationException;
+  }
+  
+  public Participante getPrimerCondicional() {
+    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
+    throw _unsupportedOperationException;
+  }
+  
+  public boolean reemplazar(final Participante saliente, final Participante entrante) {
+    boolean _xblockexpression = false;
+    {
+      this.participantesConfirmados.remove(saliente);
+      boolean _add = this.participantesConfirmados.add(entrante);
+      _xblockexpression = (_add);
+    }
+    return _xblockexpression;
   }
 }

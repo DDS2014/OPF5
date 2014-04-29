@@ -43,8 +43,23 @@ public class Partido
 		return false;
 	}
 	
-	def getJugador() {
+	
+	def boolean hayCondicionales() 
+	{
+		//este método tiene que devolver true si hay algún jugador inscripto como condicional
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def Participante getPrimerCondicional() 
+	{
+		//este método tiene que darme una referencia al primer condicional que deba echarse
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def reemplazar(Participante saliente, Participante entrante) //permite reemplazar a un jugador (saliente) por otro (entrante)
+	{
+		this.participantesConfirmados.remove(saliente);
+		this.participantesConfirmados.add(entrante);
 	}
 	
 	//TODO usar los tipos posta de fecha y hora

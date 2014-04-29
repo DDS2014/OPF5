@@ -2,8 +2,18 @@ package domain
 
 class InscripcionEstandar extends TipoDeInscripcion
 {
-	def void asd(){
-	printf("hola mundo");
+	override inscribirse(Partido partido, Participante participante)
+	{
+
+	super.inscribirse(partido, participante); //primero ejecuto el comportamiento común
+	//si había lugares libres, la ejecución terminó ahí (ver que en la superclase hay un return)
+	
+	if(partido.hayCondicionales())
+	{
+		var condicional = partido.getPrimerCondicional();
+		partido.reemplazar(condicional, participante);
+	}
+	
 	}
 
 }
