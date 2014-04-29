@@ -1,7 +1,8 @@
 package domain
 
-import java.util.Set
 import java.util.HashSet
+import java.util.Set
+
 
 public class Partido 
 {
@@ -46,14 +47,12 @@ public class Partido
 	
 	def boolean hayCondicionales() 
 	{
-		//este método tiene que devolver true si hay algún jugador inscripto como condicional
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		this.participantesConfirmados.exists([jugador | jugador.modalidad == InscripcionCondicional])
 	}
 	
-	def Participante getPrimerCondicional() 
-	{
-		//este método tiene que darme una referencia al primer participante condicional que deba echarse
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def Participante getPrimerCondicional() //este método tiene que darme una referencia al primer participante condicional que deba echarse
+	{	
+	throw new UnsupportedOperationException("TODO: auto-generated method stub")	
 	}
 	
 	def reemplazar(Participante saliente, Participante entrante) //permite reemplazar a un jugador (saliente) por otro (entrante)
@@ -61,12 +60,11 @@ public class Partido
 		this.participantesConfirmados.remove(saliente);
 		this.participantesConfirmados.add(entrante);
 	}
-	
-	def boolean haySolidarios() 
+
+	def boolean haySolidarios() //Repite el codigo de hayCondicionales, capas se puedan poner en el mismo metodo los dos
 	{
-		//este método tiene que devolver true si hay algún jugador inscripto como solidario
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+		this.participantesConfirmados.exists([jugador | jugador.modalidad == InscripcionSolidaria])
+	} 
 	
 	def Participante getPrimerSolidario() 
 	{

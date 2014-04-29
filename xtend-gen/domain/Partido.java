@@ -1,8 +1,11 @@
 package domain;
 
 import com.google.common.base.Objects;
+import domain.InscripcionCondicional;
+import domain.InscripcionSolidaria;
 import domain.Jugador;
 import domain.Participante;
+import domain.TipoDeInscripcion;
 import java.util.HashSet;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -43,8 +46,7 @@ public class Partido {
   public Iterable<Jugador> getJugadoresConfirmados() {
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
-        Jugador _jugador = p.getJugador();
-        return _jugador;
+        return p.getJugador();
       }
     };
     return IterableExtensions.<Participante, Jugador>map(this.participantesConfirmados, _function);
@@ -63,8 +65,7 @@ public class Partido {
     final Iterable<Jugador> confirmados = this.getJugadoresConfirmados();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador j) {
-        boolean _equals = Objects.equal(j, jugador);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf(Objects.equal(j, jugador));
       }
     };
     boolean _exists = IterableExtensions.<Jugador>exists(confirmados, _function);
@@ -75,33 +76,40 @@ public class Partido {
   }
   
   public boolean hayCondicionales() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
+      public Boolean apply(final Participante jugador) {
+        TipoDeInscripcion _modalidad = jugador.getModalidad();
+        return Boolean.valueOf(Objects.equal(_modalidad, InscripcionCondicional.class));
+      }
+    };
+    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
   }
   
   public Participante getPrimerCondicional() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    throw new UnsupportedOperationException("TODO: auto-generated method stub");
   }
   
   public boolean reemplazar(final Participante saliente, final Participante entrante) {
     boolean _xblockexpression = false;
     {
       this.participantesConfirmados.remove(saliente);
-      boolean _add = this.participantesConfirmados.add(entrante);
-      _xblockexpression = (_add);
+      _xblockexpression = this.participantesConfirmados.add(entrante);
     }
     return _xblockexpression;
   }
   
   public boolean haySolidarios() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
+      public Boolean apply(final Participante jugador) {
+        TipoDeInscripcion _modalidad = jugador.getModalidad();
+        return Boolean.valueOf(Objects.equal(_modalidad, InscripcionSolidaria.class));
+      }
+    };
+    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
   }
   
   public Participante getPrimerSolidario() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    throw new UnsupportedOperationException("TODO: auto-generated method stub");
   }
   
   public int obtenerCantidadDeInscriptos() {

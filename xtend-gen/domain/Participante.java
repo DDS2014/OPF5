@@ -16,14 +16,23 @@ public class Participante {
     this._jugador = jugador;
   }
   
-  private TipoDeInscripcion modalidad;
+  private TipoDeInscripcion _modalidad;
+  
+  public TipoDeInscripcion getModalidad() {
+    return this._modalidad;
+  }
+  
+  public void setModalidad(final TipoDeInscripcion modalidad) {
+    this._modalidad = modalidad;
+  }
   
   public Participante(final Jugador jugador, final TipoDeInscripcion modalidad) {
     this.setJugador(jugador);
-    this.modalidad = modalidad;
+    this.setModalidad(modalidad);
   }
   
   public void inscribirse(final Partido partido) {
-    this.modalidad.inscribirse(partido, this);
+    TipoDeInscripcion _modalidad = this.getModalidad();
+    _modalidad.inscribirse(partido, this);
   }
 }

@@ -1,13 +1,16 @@
 package test
 
 //import static org.junit.Assert.*;
-import junit.framework.Assert;
 
-import org.junit.Test;
-import domain.Partido
-import domain.Jugador
-import domain.InscripcionEstandar
+
+import org.junit.Test
+import org.junit.Assert
 import domain.Participante
+import domain.InscripcionEstandar
+import domain.Jugador
+import domain.Partido
+import domain.InscripcionSolidaria
+import domain.InscripcionCondicional
 
 public class PruebasDeInscripcionDeJugadores
 {
@@ -25,7 +28,7 @@ public class PruebasDeInscripcionDeJugadores
 	}
 	
 	@Test
-	def public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscripto()
+	def public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscriptoYElDesplazadoSale()
 	{
 		var partido = new Partido("25/06/2014", "08:30");
 		var saliente = new Participante( new Jugador("Juancito"), new InscripcionEstandar());
@@ -34,82 +37,141 @@ public class PruebasDeInscripcionDeJugadores
 		partido.reemplazar(saliente, entrante);
 		
 		Assert.assertTrue(partido.estaInscripto(entrante.jugador)); //esta inscripto juancito, no me importa como
+		Assert.assertFalse(partido.estaInscripto(saliente.jugador));
 	}
 	
-	//TODO FIXME: EL CODIGO DE ESTOS DOS MÉTODOS ES EXACTAMENTE IGUAL!
-	//agregar un metodo intermedio que ejecute el desplazamiento? o por ahí no sea tan grave meter las dos cosas en el mismo test
+	
+	@Test 
+	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion //TODO Refactor
+	{
+	var partidoEstandar = new Partido ("25/06/2014", "08:30");
+	var part1 = new Participante(new Jugador("Pepe"), new InscripcionEstandar());
+	var	part2 = new Participante(new Jugador("Luis"), new InscripcionEstandar());
+	var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
+	var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
+	var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
+	var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
+	var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
+	var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
+	var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
+	var	part10 = new Participante(new Jugador("Lucas"), new InscripcionEstandar());
+		part1.inscribirse(partidoEstandar);
+		part2.inscribirse(partidoEstandar);
+		part3.inscribirse(partidoEstandar);
+		part4.inscribirse(partidoEstandar);
+		part5.inscribirse(partidoEstandar);
+		part6.inscribirse(partidoEstandar);
+		part7.inscribirse(partidoEstandar);
+		part8.inscribirse(partidoEstandar);
+		part9.inscribirse(partidoEstandar);
+		part10.inscribirse(partidoEstandar);
+	var colgado = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
+		
+		colgado.inscribirse(partidoEstandar); 
+		
+		Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
+	}
 	
 	@Test
-	def public void cuandoUnJugadorDesplazaAOtroElDesplazadoNoQuedaInscripto()
+	def public void enUnaListaCon9EstandarY1SolidarioPuedeEntrarOtroEstandarDesplazandoAlSolidario() //TODO Refactor
 	{
-		var partido = new Partido("25/06/2014", "08:30");
-		var saliente = new Participante( new Jugador("Juancito"), new InscripcionEstandar());
-		var entrante = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
-
-		partido.reemplazar(saliente, entrante);
+	var partido = new Partido ("25/06/2014", "08:30")	
+	var part1 = new Participante(new Jugador("Pepe"), new InscripcionEstandar());
+	var	part2 = new Participante(new Jugador("Luis"), new InscripcionEstandar());
+	var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
+	var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
+	var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
+	var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
+	var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
+	var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
+	var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
+	var jugadorSolidario = new Participante(new Jugador("Marquitos"), new InscripcionSolidaria);
+	part1.inscribirse(partido);
+	part2.inscribirse(partido);
+	part3.inscribirse(partido);
+	part4.inscribirse(partido);
+	part5.inscribirse(partido);
+	part6.inscribirse(partido);
+	part7.inscribirse(partido);
+	part8.inscribirse(partido);
+	part9.inscribirse(partido);
+	jugadorSolidario.inscribirse(partido);
+	var	jugadorNuevo = new Participante(new Jugador("Miguelito"),new InscripcionEstandar);
 		
-		Assert.assertFalse(partido.estaInscripto(saliente.jugador)); //esta inscripto juancito, no me importa como
-	}
-	
-	@Test ()
-	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion
-	{
-		//Partido partido = Creacion.crearPartidoLlenoDeEstandares(); 
-		//Jugador colgado = new Jugador ("Fulanito");
+	jugadorNuevo.inscribirse(partido);
 		
-		//partido.inscribir(colgado, new Estandar()); 
-		
-		//Assert.assertFalse(partido.estaInscripto(colgado));
-		Assert.fail("Not implemented");
-	}
-	
-	@Test
-	def public void enUnaListaCon9EstandarY1SolidarioPuedeEntrarOtroEstandarDesplazandoAlSolidario()
-	{
-		//Jugador jugadorSolidario = new Jugador("Marquitos");
-		//Partido partido = Creacion.crearPartidoCon9EstandarY1Solidario(jugadorSolidario); //lo que se pasa por parámetro es el jugador solidario para verificar después que se lo relegó
-		//Jugador jugadorNuevo = new Jugador("Miguelito");
-		
-		//partido.inscribir(jugadorNuevo, new Estandar());
-		
-		//Assert.assertTrue(partido.estaInscripto(jugadorNuevo));
-		//Assert.assertFasle(partido.estaInscripto(jugadorSolidario));
+	Assert.assertTrue(partido.estaInscripto(jugadorNuevo.jugador));
+	Assert.assertFalse(partido.estaInscripto(jugadorSolidario.jugador));
 		//esto podrían ser dos casos de prueba pero recordar que el mecanismo de desplazamiento ya se prueba en detalle en otros test. si esos test dan bien entonces estos dos assert van a tener que fallar o tener éxito siempre juntos
-		Assert.fail("Not implemented");
-	}
+		}
 	
 	@Test
-	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoEstandarDesplazaAlCondicional()
+	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoEstandarDesplazaAlCondicional() //TODO Refactor
 	{
-		//Jugador jugadorCondicional = new Jugador("Josecito");
-		//Jugador jugadorSolidario = new Jugador("Ricardito");
-		//Partido partido = Creacion.crearPartidoCon8Estandar1Solidarioy1Condicional(jugadorSolidario, jugadorCondicional);
-		//Jugador jugadorNuevo = new Jugador("Pablito");
+	var partido = new Partido ("25/06/2014", "08:30")	
+	var part1 = new Participante(new Jugador("Pepe"), new InscripcionEstandar());
+	var	part2 = new Participante(new Jugador("Luis"), new InscripcionEstandar());
+	var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
+	var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
+	var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
+	var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
+	var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
+	var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
+	var jugadorCondicional = new Participante(new Jugador("Josecito"), new InscripcionCondicional);
+	var jugadorSolidario = new Participante(new Jugador("Marquitos"), new InscripcionSolidaria);
+	part1.inscribirse(partido);
+	part2.inscribirse(partido);
+	part3.inscribirse(partido);
+	part4.inscribirse(partido);
+	part5.inscribirse(partido);
+	part6.inscribirse(partido);
+	part7.inscribirse(partido);
+	part8.inscribirse(partido);
+	jugadorSolidario.inscribirse(partido);
+	jugadorCondicional.inscribirse(partido);	
+	var jugadorNuevo = new Participante( new Jugador("Pablito"), new InscripcionEstandar);
 		
-		//partido.inscribir(jugadorNuevo, new Estandar());
-		
-		//Assert.assertTrue(partido.estaInscripto(jugadorNuevo));
-		//Assert.assertTrue(partido.estaInscripto(jugadorSolidario));
-		//Assert.assertFalse(partido.estaInscripto(jugadorCondicional));
-		Assert.fail("Not implemented");
+	jugadorNuevo.inscribirse(partido);
+
+	Assert.assertTrue(partido.estaInscripto(jugadorNuevo.jugador));
+	Assert.assertTrue(partido.estaInscripto(jugadorSolidario.jugador));
+	Assert.assertFalse(partido.estaInscripto(jugadorCondicional.jugador));
 	}
 	
 	//TODO FIXME HORRIBLE REPETICION DE CODIGO ACA!
 	
 	@Test
-	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional()
+	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional() //TODO Refactor
 	{
-		//Jugador jugadorCondicional = new Jugador("Josecito");
-		//Jugador jugadorSolidario = new Jugador("Ricardito");
-		//Partido partido = Creacion.crearPartidoCon8Estandar1Solidarioy1Condicional(jugadorSolidario, jugadorCondicional);
-		//Jugador jugadorNuevo = new Jugador("Pablito");
+		var partido = new Partido ("25/06/2014", "08:30");
+		var jugadorSolidario = new Participante(new Jugador("Ricardito"), new InscripcionSolidaria);
+		var jugadorCondicional = new Participante(new Jugador("Josecito"), new InscripcionCondicional);
+		var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
+		var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
+		var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
+		var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
+		var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
+		var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
+		var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
+		var	part10 = new Participante(new Jugador("Lucas"), new InscripcionEstandar());
+		part3.inscribirse(partido);
+		part4.inscribirse(partido);
+		part5.inscribirse(partido);
+		part6.inscribirse(partido);
+		part7.inscribirse(partido);
+		part8.inscribirse(partido);
+		part9.inscribirse(partido);
+		part10.inscribirse(partido);
+		jugadorSolidario.inscribirse(partido);
+		jugadorCondicional.inscribirse(partido);
+		var jugadorNuevoSolidario = new Participante(new Jugador("Pablito"), new InscripcionSolidaria);
 		
-		//partido.inscribir(jugadorNuevo, new Solidario());
+		jugadorNuevoSolidario.inscribirse(partido);
 		
-		//Assert.assertTrue(partido.estaInscripto(jugadorNuevo));
-		//Assert.assertTrue(partido.estaInscripto(jugadorSolidario));
-		//Assert.assertFalse(partido.estaInscripto(jugadorCondicional));
-		Assert.fail("Not implemented");
+		Assert.assertTrue(partido.estaInscripto(jugadorNuevoSolidario.jugador));
+		Assert.assertTrue(partido.estaInscripto(jugadorSolidario.jugador));
+		Assert.assertFalse(partido.estaInscripto(jugadorCondicional.jugador));
+		
 	}
 	
 	@Test
@@ -122,25 +184,42 @@ public class PruebasDeInscripcionDeJugadores
 		participante.inscribirse(partido);
 		participante.inscribirse(partido);		
 		
-		Assert.assertTrue(partido.obtenerCantidadDeInscriptos() == 1);
+		Assert.assertEquals(1,partido.obtenerCantidadDeInscriptos());
 	}
 	
 	@Test
-	def public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero()
+	def public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero() //TODO Refactor
 	{
-		//Jugador primerJugador = new Jugador("Danielito");
-		//Jugador segundoJugador = new Jugador("Fernandito");
-		//Partido partido = Creacion.crearPartidoCon8JugadoresEstandar();
-		//partido.inscribir(primerJugador, new Solidario());
-		//partido.inscribir(segundoJugador, new Solidario());
-		//Jugador nuevoJugador = new Jugador("Dieguito");
+		var partido = new Partido ("25/06/2014", "08:30");
+		var primerJugador = new Participante(new Jugador("Danielito"), new InscripcionSolidaria);
+		var segundoJugador = new Participante(new Jugador("Fernandito"), new InscripcionSolidaria);
+		var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
+		var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
+		var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
+		var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
+		var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
+		var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
+		var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
+		var	part10 = new Participante(new Jugador("Lucas"), new InscripcionEstandar());
+		part3.inscribirse(partido);
+		part4.inscribirse(partido);
+		part5.inscribirse(partido);
+		part6.inscribirse(partido);
+		part7.inscribirse(partido);
+		part8.inscribirse(partido);
+		part9.inscribirse(partido);
+		part10.inscribirse(partido);
 		
-		//partido.inscribir(nuevoJugador, new Estandar());
+		primerJugador.inscribirse(partido);
+		segundoJugador.inscribirse(partido);
+		var nuevoJugador = new Participante(new Jugador("Dieguito"), new InscripcionEstandar());
 		
-		//Assert.assertTrue(partido.estaInscripto(nuevoJugador))
-		//Assert.assertTrue(partido.estaInscripto(segundoJugador))
-		//Assert.assertFalse(partido.estaInscripto(primerJugador))
-		Assert.fail("Not implemented");
+		nuevoJugador.inscribirse(partido);
+		
+		Assert.assertTrue(partido.estaInscripto(nuevoJugador.jugador))
+		Assert.assertTrue(partido.estaInscripto(segundoJugador.jugador))
+		Assert.assertFalse(partido.estaInscripto(primerJugador.jugador))
+		
 	}
 }
 

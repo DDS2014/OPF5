@@ -3,7 +3,7 @@ package domain
 class Participante 
 {
 	@Property Jugador jugador;
-	TipoDeInscripcion modalidad;
+	@Property TipoDeInscripcion modalidad;
 	
 	new(Jugador jugador, TipoDeInscripcion modalidad) 
 	{
