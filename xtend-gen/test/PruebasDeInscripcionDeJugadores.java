@@ -25,12 +25,38 @@ public class PruebasDeInscripcionDeJugadores {
   
   @Test
   public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscripto() {
-    Assert.fail("Not implemented");
+    Partido _partido = new Partido("25/06/2014", "08:30");
+    Partido partido = _partido;
+    Jugador _jugador = new Jugador("Juancito");
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Participante _participante = new Participante(_jugador, _inscripcionEstandar);
+    Participante saliente = _participante;
+    Jugador _jugador_1 = new Jugador("Jorgito");
+    InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
+    Participante _participante_1 = new Participante(_jugador_1, _inscripcionEstandar_1);
+    Participante entrante = _participante_1;
+    partido.reemplazar(saliente, entrante);
+    Jugador _jugador_2 = entrante.getJugador();
+    boolean _estaInscripto = partido.estaInscripto(_jugador_2);
+    Assert.assertTrue(_estaInscripto);
   }
   
   @Test
   public void cuandoUnJugadorDesplazaAOtroElDesplazadoNoQuedaInscripto() {
-    Assert.fail("Not implemented");
+    Partido _partido = new Partido("25/06/2014", "08:30");
+    Partido partido = _partido;
+    Jugador _jugador = new Jugador("Juancito");
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Participante _participante = new Participante(_jugador, _inscripcionEstandar);
+    Participante saliente = _participante;
+    Jugador _jugador_1 = new Jugador("Jorgito");
+    InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
+    Participante _participante_1 = new Participante(_jugador_1, _inscripcionEstandar_1);
+    Participante entrante = _participante_1;
+    partido.reemplazar(saliente, entrante);
+    Jugador _jugador_2 = saliente.getJugador();
+    boolean _estaInscripto = partido.estaInscripto(_jugador_2);
+    Assert.assertFalse(_estaInscripto);
   }
   
   @Test

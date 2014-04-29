@@ -27,14 +27,13 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscripto()
 	{
-		//Partido partido = new Partido(fecha, hora);
-		//Jugador saliente = new Jugador("Juancito");
-		//Jugador entrante = new Jugador("Jorgito");
+		var partido = new Partido("25/06/2014", "08:30");
+		var saliente = new Participante( new Jugador("Juancito"), new InscripcionEstandar());
+		var entrante = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
+
+		partido.reemplazar(saliente, entrante);
 		
-		//partido.reemplazarJugadorPorOtro(saliente, entrante);
-		
-		//Assert.assertTrue(partido.estaInscripto(entrante));
-		Assert.fail("Not implemented");
+		Assert.assertTrue(partido.estaInscripto(entrante.jugador)); //esta inscripto juancito, no me importa como
 	}
 	
 	//TODO FIXME: EL CODIGO DE ESTOS DOS MÉTODOS ES EXACTAMENTE IGUAL!
@@ -43,14 +42,13 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void cuandoUnJugadorDesplazaAOtroElDesplazadoNoQuedaInscripto()
 	{
-		//Partido partido = new Partido(fecha, hora);
-		//Jugador saliente = new Jugador("Juancito");
-		//Jugador entrante = new Jugador("Jorgito");
+		var partido = new Partido("25/06/2014", "08:30");
+		var saliente = new Participante( new Jugador("Juancito"), new InscripcionEstandar());
+		var entrante = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
 
-		//partido.reemplazarJugadorPorOtro(saliente, entrante);
+		partido.reemplazar(saliente, entrante);
 		
-		//Assert.assertFalse(partido.estaInscripto(saliente));
-		Assert.fail("Not implemented");
+		Assert.assertFalse(partido.estaInscripto(saliente.jugador)); //esta inscripto juancito, no me importa como
 	}
 	
 	@Test
