@@ -52,7 +52,7 @@ public class Partido
 	
 	def Participante getPrimerCondicional() 
 	{
-		//este método tiene que darme una referencia al primer condicional que deba echarse
+		//este método tiene que darme una referencia al primer participante condicional que deba echarse
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
@@ -60,6 +60,18 @@ public class Partido
 	{
 		this.participantesConfirmados.remove(saliente);
 		this.participantesConfirmados.add(entrante);
+	}
+	
+	def boolean haySolidarios() 
+	{
+		//este método tiene que devolver true si hay algún jugador inscripto como solidario
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def Participante getPrimerSolidario() 
+	{
+		//este método tiene que darme una referencia al primer participante solidario que deba echarse
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
 	//TODO usar los tipos posta de fecha y hora

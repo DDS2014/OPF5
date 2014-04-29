@@ -94,4 +94,14 @@ public class Partido {
     }
     return _xblockexpression;
   }
+  
+  public boolean haySolidarios() {
+    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
+    throw _unsupportedOperationException;
+  }
+  
+  public Participante getPrimerSolidario() {
+    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
+    throw _unsupportedOperationException;
+  }
 }

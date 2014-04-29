@@ -12,7 +12,17 @@ class InscripcionEstandar extends TipoDeInscripcion
 	{
 		var condicional = partido.getPrimerCondicional();
 		partido.reemplazar(condicional, participante);
+		return;
 	}
+	
+	if(partido.haySolidarios())
+	{
+		var solidario = partido.getPrimerSolidario();
+		partido.reemplazar(solidario, participante);
+		return;
+	}
+	//si no salió por ningún lado, es que no encontró forma de meterse en el partido
+	throw new RuntimeException("No hay lugar en el partido"); //TODO PONER UNA EXCEPCIÓN POSTA, PERSONALIZADA
 	
 	}
 

@@ -12,6 +12,15 @@ public class InscripcionEstandar extends TipoDeInscripcion {
     if (_hayCondicionales) {
       Participante condicional = partido.getPrimerCondicional();
       partido.reemplazar(condicional, participante);
+      return;
     }
+    boolean _haySolidarios = partido.haySolidarios();
+    if (_haySolidarios) {
+      Participante solidario = partido.getPrimerSolidario();
+      partido.reemplazar(solidario, participante);
+      return;
+    }
+    RuntimeException _runtimeException = new RuntimeException("No hay lugar en el partido");
+    throw _runtimeException;
   }
 }
