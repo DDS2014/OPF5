@@ -81,7 +81,18 @@ public class PruebasDeInscripcionDeJugadores {
   
   @Test
   public void noSePuedeAnotarAlMismoJugadorDosVeces() {
-    Assert.fail("Not implemented");
+    Jugador _jugador = new Jugador("Manuelito");
+    Jugador jugador = _jugador;
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Participante _participante = new Participante(jugador, _inscripcionEstandar);
+    Participante participante = _participante;
+    Partido _partido = new Partido("25/06/2014", "08:30");
+    Partido partido = _partido;
+    participante.inscribirse(partido);
+    participante.inscribirse(partido);
+    int _obtenerCantidadDeInscriptos = partido.obtenerCantidadDeInscriptos();
+    boolean _equals = (_obtenerCantidadDeInscriptos == 1);
+    Assert.assertTrue(_equals);
   }
   
   @Test

@@ -55,9 +55,8 @@ public class Partido {
     return (_length < 10);
   }
   
-  public boolean confirmarAsistencia(final Participante participante) {
-    boolean _add = this.participantesConfirmados.add(participante);
-    return _add;
+  public void confirmarAsistencia(final Participante participante) {
+    this.participantesConfirmados.add(participante);
   }
   
   public boolean estaInscripto(final Jugador jugador) {
@@ -103,5 +102,9 @@ public class Partido {
   public Participante getPrimerSolidario() {
     UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
     throw _unsupportedOperationException;
+  }
+  
+  public int obtenerCantidadDeInscriptos() {
+    return ((Object[])Conversions.unwrapArray(this.participantesConfirmados, Object.class)).length;
   }
 }

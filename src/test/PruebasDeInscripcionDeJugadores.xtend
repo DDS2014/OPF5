@@ -51,7 +51,7 @@ public class PruebasDeInscripcionDeJugadores
 		Assert.assertFalse(partido.estaInscripto(saliente.jugador)); //esta inscripto juancito, no me importa como
 	}
 	
-	@Test
+	@Test ()
 	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion
 	{
 		//Partido partido = Creacion.crearPartidoLlenoDeEstandares(); 
@@ -115,14 +115,14 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void noSePuedeAnotarAlMismoJugadorDosVeces()
 	{
-		//Jugador jugador = new Jugador("Manuelito");
-		//Partido partido = new Partido(fecha, hora);
+		var jugador = new Jugador("Manuelito");
+		var participante = new Participante(jugador, new InscripcionEstandar);
+		var partido = new Partido("25/06/2014", "08:30");
 		
-		//partido.inscribir(jugador, new Estandar());
-		//partido.inscribir(jugador, new Estandar());
+		participante.inscribirse(partido);
+		participante.inscribirse(partido);		
 		
-		//Assert.assertTrue(partido.obtenerCantidadDeInscriptos() == 1);
-		Assert.fail("Not implemented");
+		Assert.assertTrue(partido.obtenerCantidadDeInscriptos() == 1);
 	}
 	
 	@Test

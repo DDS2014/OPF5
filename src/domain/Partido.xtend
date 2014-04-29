@@ -26,7 +26,7 @@ public class Partido
 		return (this.participantesConfirmados.length < 10);
 	}
 	
-	def confirmarAsistencia(Participante participante)
+	def void confirmarAsistencia(Participante participante)
 	{
 		this.participantesConfirmados.add(participante);
 	}
@@ -72,6 +72,11 @@ public class Partido
 	{
 		//este método tiene que darme una referencia al primer participante solidario que deba echarse
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def obtenerCantidadDeInscriptos() 
+	{
+		return this.participantesConfirmados.length();
 	}
 	
 	//TODO usar los tipos posta de fecha y hora

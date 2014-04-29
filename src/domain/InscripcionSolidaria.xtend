@@ -1,11 +1,13 @@
 package domain
 
-class InscripcionEstandar extends TipoDeInscripcion
+class InscripcionSolidaria extends TipoDeInscripcion
 {
 	override inscribirse(Partido partido, Participante participante)
 	{
 
 	super.inscribirse(partido, participante); //primero ejecuto el comportamiento común
+	
+	//OJO: CÓDIGO REPETIDO
 	
 	if(partido.hayLugaresLibres() == false)
 	{
@@ -17,17 +19,9 @@ class InscripcionEstandar extends TipoDeInscripcion
 			return;
 		}
 		
-		if(partido.haySolidarios())
-		{
-			var solidario = partido.getPrimerSolidario();
-			partido.reemplazar(solidario, participante);
-			return;
-		}
 		//si no salió por ningún lado, es que no encontró forma de meterse en el partido
-		throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
-		
-		}
+		throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante); // TODO hacer más interesante a esta excepción
+	}
 	
 	}
-
 }

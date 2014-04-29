@@ -10,7 +10,6 @@ public abstract class TipoDeInscripcion {
     boolean _equals = (_hayLugaresLibres == true);
     if (_equals) {
       partido.confirmarAsistencia(participante);
-      return;
     }
   }
 }
