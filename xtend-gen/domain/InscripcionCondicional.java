@@ -12,7 +12,8 @@ public class InscripcionCondicional extends TipoDeInscripcion {
     boolean _hayLugaresLibres = partido.hayLugaresLibres();
     boolean _equals = (_hayLugaresLibres == false);
     if (_equals) {
-      throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
+      ImposibleAnotarseException _imposibleAnotarseException = new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
+      throw _imposibleAnotarseException;
     }
   }
 }

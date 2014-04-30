@@ -46,7 +46,8 @@ public class Partido {
   public Iterable<Jugador> getJugadoresConfirmados() {
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
-        return p.getJugador();
+        Jugador _jugador = p.getJugador();
+        return _jugador;
       }
     };
     return IterableExtensions.<Participante, Jugador>map(this.participantesConfirmados, _function);
@@ -54,7 +55,7 @@ public class Partido {
   
   public boolean hayLugaresLibres() {
     int _length = ((Object[])Conversions.unwrapArray(this.participantesConfirmados, Object.class)).length;
-    return (_length < 10);
+    return (_length <= 10);
   }
   
   public void confirmarAsistencia(final Participante participante) {
@@ -65,7 +66,8 @@ public class Partido {
     final Iterable<Jugador> confirmados = this.getJugadoresConfirmados();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador j) {
-        return Boolean.valueOf(Objects.equal(j, jugador));
+        boolean _equals = Objects.equal(j, jugador);
+        return Boolean.valueOf(_equals);
       }
     };
     boolean _exists = IterableExtensions.<Jugador>exists(confirmados, _function);
@@ -79,21 +81,25 @@ public class Partido {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante jugador) {
         TipoDeInscripcion _modalidad = jugador.getModalidad();
-        return Boolean.valueOf(Objects.equal(_modalidad, InscripcionCondicional.class));
+        boolean _equals = Objects.equal(_modalidad, InscripcionCondicional.class);
+        return Boolean.valueOf(_equals);
       }
     };
-    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    return _exists;
   }
   
   public Participante getPrimerCondicional() {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
+    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
+    throw _unsupportedOperationException;
   }
   
   public boolean reemplazar(final Participante saliente, final Participante entrante) {
     boolean _xblockexpression = false;
     {
       this.participantesConfirmados.remove(saliente);
-      _xblockexpression = this.participantesConfirmados.add(entrante);
+      boolean _add = this.participantesConfirmados.add(entrante);
+      _xblockexpression = (_add);
     }
     return _xblockexpression;
   }
@@ -102,14 +108,17 @@ public class Partido {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante jugador) {
         TipoDeInscripcion _modalidad = jugador.getModalidad();
-        return Boolean.valueOf(Objects.equal(_modalidad, InscripcionSolidaria.class));
+        boolean _equals = Objects.equal(_modalidad, InscripcionSolidaria.class);
+        return Boolean.valueOf(_equals);
       }
     };
-    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    return _exists;
   }
   
   public Participante getPrimerSolidario() {
-    throw new UnsupportedOperationException("TODO: auto-generated method stub");
+    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
+    throw _unsupportedOperationException;
   }
   
   public int obtenerCantidadDeInscriptos() {

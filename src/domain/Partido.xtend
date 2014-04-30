@@ -24,7 +24,7 @@ public class Partido
 
 	def boolean hayLugaresLibres() 
 	{
-		return (this.participantesConfirmados.length < 10);
+		return (this.participantesConfirmados.length <= 10);
 	}
 	
 	def void confirmarAsistencia(Participante participante)
