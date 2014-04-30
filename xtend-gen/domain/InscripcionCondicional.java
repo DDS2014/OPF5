@@ -16,7 +16,8 @@ public class InscripcionCondicional extends TipoDeInscripcion {
     if (_inscribirse) {
       return true;
     } else {
-      throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
+      ImposibleAnotarseException _imposibleAnotarseException = new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
+      throw _imposibleAnotarseException;
     }
   }
 }

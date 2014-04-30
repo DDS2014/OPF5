@@ -43,7 +43,8 @@ public class Partido {
   public Iterable<Jugador> getJugadoresConfirmados() {
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
-        return p.getJugador();
+        Jugador _jugador = p.getJugador();
+        return _jugador;
       }
     };
     return IterableExtensions.<Participante, Jugador>map(this.participantesConfirmados, _function);
@@ -62,7 +63,8 @@ public class Partido {
     final Iterable<Jugador> confirmados = this.getJugadoresConfirmados();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador j) {
-        return Boolean.valueOf(Objects.equal(j, jugador));
+        boolean _equals = Objects.equal(j, jugador);
+        return Boolean.valueOf(_equals);
       }
     };
     boolean _exists = IterableExtensions.<Jugador>exists(confirmados, _function);
@@ -76,28 +78,32 @@ public class Partido {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante participante) {
         boolean _sosCondicional = participante.sosCondicional();
-        return Boolean.valueOf((_sosCondicional == true));
+        boolean _equals = (_sosCondicional == true);
+        return Boolean.valueOf(_equals);
       }
     };
-    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    return _exists;
   }
   
   public Participante getPrimerCondicional() {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante participante) {
-        return Boolean.valueOf(participante.sosCondicional());
+        boolean _sosCondicional = participante.sosCondicional();
+        return Boolean.valueOf(_sosCondicional);
       }
     };
     Iterable<Participante> condicionales = IterableExtensions.<Participante>filter(this.participantesConfirmados, _function);
     final Iterable<Participante> _converted_condicionales = (Iterable<Participante>)condicionales;
-    return ((Participante[])Conversions.unwrapArray(_converted_condicionales, Participante.class))[1];
+    return ((Participante[])Conversions.unwrapArray(_converted_condicionales, Participante.class))[0];
   }
   
   public boolean reemplazar(final Participante saliente, final Participante entrante) {
     boolean _xblockexpression = false;
     {
       this.participantesConfirmados.remove(saliente);
-      _xblockexpression = this.participantesConfirmados.add(entrante);
+      boolean _add = this.participantesConfirmados.add(entrante);
+      _xblockexpression = (_add);
     }
     return _xblockexpression;
   }
@@ -106,21 +112,24 @@ public class Partido {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante participante) {
         boolean _sosSolidario = participante.sosSolidario();
-        return Boolean.valueOf((_sosSolidario == true));
+        boolean _equals = (_sosSolidario == true);
+        return Boolean.valueOf(_equals);
       }
     };
-    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
+    return _exists;
   }
   
   public Participante getPrimerSolidario() {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante participante) {
-        return Boolean.valueOf(participante.sosSolidario());
+        boolean _sosSolidario = participante.sosSolidario();
+        return Boolean.valueOf(_sosSolidario);
       }
     };
     Iterable<Participante> solidarios = IterableExtensions.<Participante>filter(this.participantesConfirmados, _function);
     final Iterable<Participante> _converted_solidarios = (Iterable<Participante>)solidarios;
-    return ((Participante[])Conversions.unwrapArray(_converted_solidarios, Participante.class))[1];
+    return ((Participante[])Conversions.unwrapArray(_converted_solidarios, Participante.class))[0];
   }
   
   public int obtenerCantidadDeInscriptos() {

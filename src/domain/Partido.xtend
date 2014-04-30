@@ -53,7 +53,7 @@ public class Partido
 	def Participante getPrimerCondicional() //este método tiene que darme una referencia al primer participante condicional que deba echarse
 	{	
 	var condicionales = this.participantesConfirmados.filter([participante | participante.sosCondicional()]);
-	return condicionales.get(1)
+	return condicionales.get(0)
 	}
 	
 	def reemplazar(Participante saliente, Participante entrante) //permite reemplazar a un jugador (saliente) por otro (entrante)
@@ -70,7 +70,7 @@ public class Partido
 	def getPrimerSolidario() 
 	{
 	var solidarios = this.participantesConfirmados.filter([participante | participante.sosSolidario()]);
-	return solidarios.get(1)
+	return solidarios.get(0)
 	}
 	
 	def obtenerCantidadDeInscriptos() 

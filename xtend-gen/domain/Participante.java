@@ -46,7 +46,8 @@ public class Participante {
   
   public boolean inscribirse(final Partido partido) {
     TipoDeInscripcion _modalidad = this.getModalidad();
-    return _modalidad.inscribirse(partido, this);
+    boolean _inscribirse = _modalidad.inscribirse(partido, this);
+    return _inscribirse;
   }
   
   public boolean sosCondicional() {
