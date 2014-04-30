@@ -15,5 +15,15 @@ class Participante
 	{
 		this.modalidad.inscribirse(partido, this);
 	}
+	
+	def boolean sosCondicional() 
+	{
+		return modalidad.esCondicional();
+	}
+	
+	def boolean sosSolidario()
+	{
+		return modalidad.esSolidaria();
+	}
 		
 }

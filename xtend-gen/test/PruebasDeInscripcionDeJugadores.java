@@ -1,11 +1,13 @@
 package test;
 
+import domain.ImposibleAnotarseException;
 import domain.InscripcionCondicional;
 import domain.InscripcionEstandar;
 import domain.InscripcionSolidaria;
 import domain.Jugador;
 import domain.Participante;
 import domain.Partido;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -104,10 +106,19 @@ public class PruebasDeInscripcionDeJugadores {
     InscripcionEstandar _inscripcionEstandar_10 = new InscripcionEstandar();
     Participante _participante_10 = new Participante(_jugador_10, _inscripcionEstandar_10);
     Participante colgado = _participante_10;
-    colgado.inscribirse(partidoEstandar);
-    Jugador _jugador_11 = colgado.getJugador();
-    boolean _estaInscripto = partidoEstandar.estaInscripto(_jugador_11);
-    Assert.assertFalse(_estaInscripto);
+    try {
+      colgado.inscribirse(partidoEstandar);
+      Assert.fail("No falló la inscripción aunque el partido estaba lleno, algo anda mal");
+    } catch (final Throwable _t) {
+      if (_t instanceof ImposibleAnotarseException) {
+        final ImposibleAnotarseException excepcion = (ImposibleAnotarseException)_t;
+        Jugador _jugador_11 = colgado.getJugador();
+        boolean _estaInscripto = partidoEstandar.estaInscripto(_jugador_11);
+        Assert.assertFalse(_estaInscripto);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
   }
   
   @Test

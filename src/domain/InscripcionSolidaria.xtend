@@ -2,26 +2,31 @@ package domain
 
 class InscripcionSolidaria extends TipoDeInscripcion
 {
+	override esSolidaria()
+	{
+		return true;
+	}
+	
 	override inscribirse(Partido partido, Participante participante)
 	{
 
-	super.inscribirse(partido, participante); //primero ejecuto el comportamiento común
-	
-	//OJO: CÓDIGO REPETIDO
-	
-	if(partido.hayLugaresLibres() == false)
-	{
-		
-		if(partido.hayCondicionales())
+		if (super.inscribirse(partido, participante))
 		{
-			var condicional = partido.getPrimerCondicional();
-			partido.reemplazar(condicional, participante);
-			return;
+			return true;	
+		}
+		else
+		{
+			if(partido.hayCondicionales())
+			{
+				var condicional = partido.getPrimerCondicional();
+				partido.reemplazar(condicional, participante);
+				return true;
+			}
+			
+			//si no salió por ningún lado, es que no encontró forma de meterse en el partido
+			throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante); // TODO hacer más interesante a esta excepción
 		}
 		
-		//si no salió por ningún lado, es que no encontró forma de meterse en el partido
-		throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante); // TODO hacer más interesante a esta excepción
-	}
 	
 	}
 }

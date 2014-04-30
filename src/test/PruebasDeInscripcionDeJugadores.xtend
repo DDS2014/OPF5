@@ -11,6 +11,7 @@ import domain.Jugador
 import domain.Partido
 import domain.InscripcionSolidaria
 import domain.InscripcionCondicional
+import domain.ImposibleAnotarseException
 
 public class PruebasDeInscripcionDeJugadores
 {
@@ -63,13 +64,20 @@ public class PruebasDeInscripcionDeJugadores
 		part6.inscribirse(partidoEstandar);
 		part7.inscribirse(partidoEstandar);
 		part8.inscribirse(partidoEstandar);
-		part9.inscribirse(partidoEstandar);
+		part9.inscribirse(partidoEstandar);		
 		part10.inscribirse(partidoEstandar);
-	var colgado = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
+		var colgado = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
 		
-		colgado.inscribirse(partidoEstandar); 
+		try
+		{		
+			colgado.inscribirse(partidoEstandar); 
+			Assert.fail("No falló la inscripción aunque el partido estaba lleno, algo anda mal");
+		}
+		catch(ImposibleAnotarseException excepcion)
+		{
+			Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
+		}
 		
-		Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
 	}
 	
 	@Test

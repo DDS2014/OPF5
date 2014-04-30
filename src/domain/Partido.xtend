@@ -24,7 +24,7 @@ public class Partido
 
 	def boolean hayLugaresLibres() 
 	{
-		return (this.participantesConfirmados.length <= 10);
+		return (this.participantesConfirmados.length < 10);
 	}
 	
 	def void confirmarAsistencia(Participante participante)
@@ -47,7 +47,7 @@ public class Partido
 	
 	def boolean hayCondicionales() 
 	{
-		this.participantesConfirmados.exists([jugador | jugador.modalidad == InscripcionCondicional])
+		this.participantesConfirmados.exists([participante | participante.sosCondicional() == true])
 	}
 	
 	def Participante getPrimerCondicional() //este método tiene que darme una referencia al primer participante condicional que deba echarse
@@ -63,7 +63,7 @@ public class Partido
 
 	def boolean haySolidarios() //Repite el codigo de hayCondicionales, capas se puedan poner en el mismo metodo los dos
 	{
-		this.participantesConfirmados.exists([jugador | jugador.modalidad == InscripcionSolidaria])
+		this.participantesConfirmados.exists([participante | participante.sosSolidario() == true])
 	} 
 	
 	def Participante getPrimerSolidario() 

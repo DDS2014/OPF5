@@ -1,11 +1,8 @@
 package domain;
 
 import com.google.common.base.Objects;
-import domain.InscripcionCondicional;
-import domain.InscripcionSolidaria;
 import domain.Jugador;
 import domain.Participante;
-import domain.TipoDeInscripcion;
 import java.util.HashSet;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -55,7 +52,7 @@ public class Partido {
   
   public boolean hayLugaresLibres() {
     int _length = ((Object[])Conversions.unwrapArray(this.participantesConfirmados, Object.class)).length;
-    return (_length <= 10);
+    return (_length < 10);
   }
   
   public void confirmarAsistencia(final Participante participante) {
@@ -79,9 +76,9 @@ public class Partido {
   
   public boolean hayCondicionales() {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
-      public Boolean apply(final Participante jugador) {
-        TipoDeInscripcion _modalidad = jugador.getModalidad();
-        boolean _equals = Objects.equal(_modalidad, InscripcionCondicional.class);
+      public Boolean apply(final Participante participante) {
+        boolean _sosCondicional = participante.sosCondicional();
+        boolean _equals = (_sosCondicional == true);
         return Boolean.valueOf(_equals);
       }
     };
@@ -106,9 +103,9 @@ public class Partido {
   
   public boolean haySolidarios() {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
-      public Boolean apply(final Participante jugador) {
-        TipoDeInscripcion _modalidad = jugador.getModalidad();
-        boolean _equals = Objects.equal(_modalidad, InscripcionSolidaria.class);
+      public Boolean apply(final Participante participante) {
+        boolean _sosSolidario = participante.sosSolidario();
+        boolean _equals = (_sosSolidario == true);
         return Boolean.valueOf(_equals);
       }
     };

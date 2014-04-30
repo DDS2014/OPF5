@@ -4,30 +4,32 @@ class InscripcionEstandar extends TipoDeInscripcion
 {
 	override inscribirse(Partido partido, Participante participante)
 	{
-
-	super.inscribirse(partido, participante); //primero ejecuto el comportamiento común
 	
-	if(partido.hayLugaresLibres() == false)
-	{
-		
-		if(partido.hayCondicionales())
+		if (super.inscribirse(partido, participante))
 		{
-			var condicional = partido.getPrimerCondicional();
-			partido.reemplazar(condicional, participante);
-			return;
+			return true;
 		}
-		
-		if(partido.haySolidarios())
+		else
 		{
-			var solidario = partido.getPrimerSolidario();
-			partido.reemplazar(solidario, participante);
-			return;
-		}
-		//si no salió por ningún lado, es que no encontró forma de meterse en el partido
-		throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
-		
+			if(partido.hayCondicionales())
+			{
+				var condicional = partido.getPrimerCondicional();
+				partido.reemplazar(condicional, participante);
+				return true;
+			}
+			
+			if(partido.haySolidarios())
+			{
+				var solidario = partido.getPrimerSolidario();
+				partido.reemplazar(solidario, participante);
+				return true;
+			}
+			//si no salió por ningún lado, es que no encontró forma de meterse en el partido
+			throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
+			
 		}
 	
 	}
+	
 
 }

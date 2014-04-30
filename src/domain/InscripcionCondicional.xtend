@@ -2,6 +2,10 @@ package domain
 
 class InscripcionCondicional extends TipoDeInscripcion
 {
+	override esCondicional()
+	{
+		return true;
+	}
 	
 	override inscribirse(Partido partido, Participante participante)
 	{
@@ -9,9 +13,12 @@ class InscripcionCondicional extends TipoDeInscripcion
 		//TODO: antes de ejecutar el super, preguntar por la condicion!
 		//si la condición no se cumple, el jugador no va a querer inscribirse y debe tirarse una excepción acá
 			
-		super.inscribirse(partido, participante); 
+		if (super.inscribirse(partido, participante)) //primero ejecuto el comportamiento común
+		{
+			return true;
+		}
 		
-		if(partido.hayLugaresLibres() == false)
+		else
 		{
 			throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
 		
