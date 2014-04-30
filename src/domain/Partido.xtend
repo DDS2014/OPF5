@@ -3,12 +3,12 @@ package domain
 import java.util.HashSet
 import java.util.Set
 
-
 public class Partido 
 {
 	@Property String fecha;
 	@Property String hora;
 	Set<Participante> participantesConfirmados;
+	
 	
 	new(String fecha, String hora) 
 	{
@@ -52,7 +52,8 @@ public class Partido
 	
 	def Participante getPrimerCondicional() //este método tiene que darme una referencia al primer participante condicional que deba echarse
 	{	
-	throw new UnsupportedOperationException("TODO: auto-generated method stub")	
+	var condicionales = this.participantesConfirmados.filter([participante | participante.sosCondicional()]);
+	return condicionales.get(1)
 	}
 	
 	def reemplazar(Participante saliente, Participante entrante) //permite reemplazar a un jugador (saliente) por otro (entrante)
@@ -66,10 +67,10 @@ public class Partido
 		this.participantesConfirmados.exists([participante | participante.sosSolidario() == true])
 	} 
 	
-	def Participante getPrimerSolidario() 
+	def getPrimerSolidario() 
 	{
-		//este método tiene que darme una referencia al primer participante solidario que deba echarse
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	var solidarios = this.participantesConfirmados.filter([participante | participante.sosSolidario()]);
+	return solidarios.get(1)
 	}
 	
 	def obtenerCantidadDeInscriptos() 

@@ -22,8 +22,7 @@ public class InscripcionSolidaria extends TipoDeInscripcion {
         partido.reemplazar(condicional, participante);
         return true;
       }
-      ImposibleAnotarseException _imposibleAnotarseException = new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
-      throw _imposibleAnotarseException;
+      throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
     }
   }
 }

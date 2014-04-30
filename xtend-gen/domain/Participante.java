@@ -3,6 +3,7 @@ package domain;
 import domain.Jugador;
 import domain.Partido;
 import domain.TipoDeInscripcion;
+import java.util.Date;
 
 @SuppressWarnings("all")
 public class Participante {
@@ -26,15 +27,26 @@ public class Participante {
     this._modalidad = modalidad;
   }
   
+  private Date _fecha;
+  
+  public Date getFecha() {
+    return this._fecha;
+  }
+  
+  public void setFecha(final Date fecha) {
+    this._fecha = fecha;
+  }
+  
   public Participante(final Jugador jugador, final TipoDeInscripcion modalidad) {
     this.setJugador(jugador);
     this.setModalidad(modalidad);
+    Date _date = new Date();
+    this.setFecha(_date);
   }
   
   public boolean inscribirse(final Partido partido) {
     TipoDeInscripcion _modalidad = this.getModalidad();
-    boolean _inscribirse = _modalidad.inscribirse(partido, this);
-    return _inscribirse;
+    return _modalidad.inscribirse(partido, this);
   }
   
   public boolean sosCondicional() {

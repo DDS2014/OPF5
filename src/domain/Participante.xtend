@@ -1,14 +1,18 @@
 package domain
 
-class Participante 
+import java.util.Date
+
+class Participante
 {
 	@Property Jugador jugador;
 	@Property TipoDeInscripcion modalidad;
+	@Property Date fecha;
 	
 	new(Jugador jugador, TipoDeInscripcion modalidad) 
 	{
 		this.jugador = jugador;
 		this.modalidad = modalidad;
+		this.fecha = new Date();
 	}
 	
 	def inscribirse(Partido partido) 
@@ -25,5 +29,6 @@ class Participante
 	{
 		return modalidad.esSolidaria();
 	}
-		
+
+	 
 }

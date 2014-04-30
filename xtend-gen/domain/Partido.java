@@ -43,8 +43,7 @@ public class Partido {
   public Iterable<Jugador> getJugadoresConfirmados() {
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
-        Jugador _jugador = p.getJugador();
-        return _jugador;
+        return p.getJugador();
       }
     };
     return IterableExtensions.<Participante, Jugador>map(this.participantesConfirmados, _function);
@@ -63,8 +62,7 @@ public class Partido {
     final Iterable<Jugador> confirmados = this.getJugadoresConfirmados();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador j) {
-        boolean _equals = Objects.equal(j, jugador);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf(Objects.equal(j, jugador));
       }
     };
     boolean _exists = IterableExtensions.<Jugador>exists(confirmados, _function);
@@ -78,25 +76,28 @@ public class Partido {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante participante) {
         boolean _sosCondicional = participante.sosCondicional();
-        boolean _equals = (_sosCondicional == true);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf((_sosCondicional == true));
       }
     };
-    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
-    return _exists;
+    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
   }
   
   public Participante getPrimerCondicional() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
+      public Boolean apply(final Participante participante) {
+        return Boolean.valueOf(participante.sosCondicional());
+      }
+    };
+    Iterable<Participante> condicionales = IterableExtensions.<Participante>filter(this.participantesConfirmados, _function);
+    final Iterable<Participante> _converted_condicionales = (Iterable<Participante>)condicionales;
+    return ((Participante[])Conversions.unwrapArray(_converted_condicionales, Participante.class))[1];
   }
   
   public boolean reemplazar(final Participante saliente, final Participante entrante) {
     boolean _xblockexpression = false;
     {
       this.participantesConfirmados.remove(saliente);
-      boolean _add = this.participantesConfirmados.add(entrante);
-      _xblockexpression = (_add);
+      _xblockexpression = this.participantesConfirmados.add(entrante);
     }
     return _xblockexpression;
   }
@@ -105,17 +106,21 @@ public class Partido {
     final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
       public Boolean apply(final Participante participante) {
         boolean _sosSolidario = participante.sosSolidario();
-        boolean _equals = (_sosSolidario == true);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf((_sosSolidario == true));
       }
     };
-    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
-    return _exists;
+    return IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
   }
   
   public Participante getPrimerSolidario() {
-    UnsupportedOperationException _unsupportedOperationException = new UnsupportedOperationException("TODO: auto-generated method stub");
-    throw _unsupportedOperationException;
+    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
+      public Boolean apply(final Participante participante) {
+        return Boolean.valueOf(participante.sosSolidario());
+      }
+    };
+    Iterable<Participante> solidarios = IterableExtensions.<Participante>filter(this.participantesConfirmados, _function);
+    final Iterable<Participante> _converted_solidarios = (Iterable<Participante>)solidarios;
+    return ((Participante[])Conversions.unwrapArray(_converted_solidarios, Participante.class))[1];
   }
   
   public int obtenerCantidadDeInscriptos() {
