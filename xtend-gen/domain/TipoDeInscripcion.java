@@ -3,13 +3,22 @@ package domain;
 import domain.Participante;
 import domain.Partido;
 import java.util.List;
-import java.util.Set;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public abstract class TipoDeInscripcion {
+  private int _prioridad;
+  
+  public int getPrioridad() {
+    return this._prioridad;
+  }
+  
+  public void setPrioridad(final int prioridad) {
+    this._prioridad = prioridad;
+  }
+  
   public boolean inscribir(final Partido partido, final Participante participante) {
-    Set<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
+    List<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
     List<Participante> jugadores = IterableExtensions.<Participante>toList(_participantesConfirmados);
     boolean seInscribio = false;
     boolean _hayLugaresLibres = partido.hayLugaresLibres();

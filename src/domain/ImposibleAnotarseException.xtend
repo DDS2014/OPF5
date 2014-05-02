@@ -1,4 +1,4 @@
-package Domain
+package domain
 
 class ImposibleAnotarseException extends RuntimeException //TODO hacer más interesante a esta excepción
 {

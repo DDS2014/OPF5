@@ -5,9 +5,11 @@ import domain.Jugador;
 import domain.Participante;
 import domain.Partido;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class Condicion_LimiteDeEdad implements Condicion {
@@ -59,14 +61,14 @@ public class Condicion_LimiteDeEdad implements Condicion {
   }
   
   public boolean seCumple(final Partido partido) {
-    Set<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
+    List<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
         Jugador _jugador = p.getJugador();
         return _jugador;
       }
     };
-    Iterable<Jugador> _map = IterableExtensions.<Participante, Jugador>map(_participantesConfirmados, _function);
+    List<Jugador> _map = ListExtensions.<Participante, Jugador>map(_participantesConfirmados, _function);
     Set<Jugador> jugadores = IterableExtensions.<Jugador>toSet(_map);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
     Set<Jugador> jugadoresQueCumplen = _hashSet;

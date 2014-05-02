@@ -1,4 +1,4 @@
-package Domain
+package domain
 
 public class InscripcionCondicional extends TipoDeInscripcion{
 	@Property int prioridad=3

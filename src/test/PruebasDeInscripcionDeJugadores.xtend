@@ -12,6 +12,8 @@ import domain.Partido
 import domain.InscripcionSolidaria
 import domain.InscripcionCondicional
 import domain.ImposibleAnotarseException
+import java.util.Date
+import domain.Condicion_LimiteDeEdad
 
 public class PruebasDeInscripcionDeJugadores
 {

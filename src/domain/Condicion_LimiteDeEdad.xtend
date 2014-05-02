@@ -1,6 +1,6 @@
-package Domain
+package domain
 
-import Domain.Condicion
+import domain.Condicion
 import java.util.HashSet
 import java.util.Set
 

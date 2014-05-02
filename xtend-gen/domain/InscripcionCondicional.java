@@ -9,6 +9,16 @@ import domain.TipoDeInscripcion;
 
 @SuppressWarnings("all")
 public class InscripcionCondicional extends TipoDeInscripcion {
+  private int _prioridad = 3;
+  
+  public int getPrioridad() {
+    return this._prioridad;
+  }
+  
+  public void setPrioridad(final int prioridad) {
+    this._prioridad = prioridad;
+  }
+  
   private Condicion _condicion;
   
   public Condicion getCondicion() {
