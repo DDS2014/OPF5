@@ -17,6 +17,16 @@ public class Participante {
     this._jugador = jugador;
   }
   
+  private Date _fechaInscripcion;
+  
+  public Date getFechaInscripcion() {
+    return this._fechaInscripcion;
+  }
+  
+  public void setFechaInscripcion(final Date fechaInscripcion) {
+    this._fechaInscripcion = fechaInscripcion;
+  }
+  
   private TipoDeInscripcion _modalidad;
   
   public TipoDeInscripcion getModalidad() {
@@ -27,36 +37,16 @@ public class Participante {
     this._modalidad = modalidad;
   }
   
-  private Date _fecha;
-  
-  public Date getFecha() {
-    return this._fecha;
-  }
-  
-  public void setFecha(final Date fecha) {
-    this._fecha = fecha;
-  }
-  
   public Participante(final Jugador jugador, final TipoDeInscripcion modalidad) {
     this.setJugador(jugador);
-    this.setModalidad(modalidad);
     Date _date = new Date();
-    this.setFecha(_date);
+    this.setFechaInscripcion(_date);
+    this.setModalidad(modalidad);
   }
   
   public boolean inscribirse(final Partido partido) {
     TipoDeInscripcion _modalidad = this.getModalidad();
-    boolean _inscribirse = _modalidad.inscribirse(partido, this);
-    return _inscribirse;
-  }
-  
-  public boolean sosCondicional() {
-    TipoDeInscripcion _modalidad = this.getModalidad();
-    return _modalidad.esCondicional();
-  }
-  
-  public boolean sosSolidario() {
-    TipoDeInscripcion _modalidad = this.getModalidad();
-    return _modalidad.esSolidaria();
+    boolean _inscribir = _modalidad.inscribir(partido, this);
+    return _inscribir;
   }
 }

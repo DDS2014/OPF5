@@ -1,31 +1,28 @@
-package domain
+package Domain
 
-abstract class TipoDeInscripcion 
-{
-	def boolean inscribirse(Partido partido, Participante participante) //esta es la stateless
-	{
-		if (partido.hayLugaresLibres() == true)
-		{
-			partido.confirmarAsistencia(participante);
-			return true;
+import java.util.List
+
+public abstract class TipoDeInscripcion {
+	@Property int prioridad
+	
+	def boolean inscribir(Partido partido,Participante participante){
+		var List<Participante> jugadores = partido.participantesConfirmados.toList
+		var seInscribio=false
+		
+		if(partido.hayLugaresLibres){
+			seInscribio= partido.confirmarAsistencia(participante)
 		}
-		else
-		{
-			return false;
+		else{	
+			var i=0
+			while(!seInscribio && i<jugadores.size){
+				var saliente = jugadores.get(i) 
+				seInscribio = saliente.modalidad.reemplazar(partido, participante, saliente)
+				i=i+1
+			}
 		}
-		//este if es el código que comparten todos los tipos de inscripción
-		//pongo un return adentro porque el "else" es lo que van a implementar las subclases (obviamente no en un bloque else)
+		
+		return seInscribio
 	}
 	
-	def boolean esCondicional()
-	{
-		return false;
-	}
-	
-	def boolean esSolidaria()
-	
-	{
-		return false;
-	}
-	
+	def abstract boolean reemplazar(Partido partido, Participante entrante,Participante saliente)
 }

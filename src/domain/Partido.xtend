@@ -1,83 +1,77 @@
-package domain
+package Domain
 
-import java.util.HashSet
-import java.util.Set
+import java.util.Date
+import java.util.List
+import java.util.Comparator
+import java.util.Collections
+import java.util.ArrayList
 
-public class Partido 
-{
-	@Property String fecha;
-	@Property String hora;
-	Set<Participante> participantesConfirmados;
+public class Partido implements Comparator<Participante> {
+	@Property Date fecha
+	@Property List<Participante> participantesConfirmados
 	
-	
-	new(String fecha, String hora) 
-	{
-		this.fecha = fecha;
-		this.hora = hora;
-		this.participantesConfirmados = new HashSet();		
-	}
-
-	def Iterable<Jugador> getJugadoresConfirmados() //este método obtiene la lista de jugadores confirmados
-	{
-		return participantesConfirmados.map([p | p.getJugador]);	
-	}
-
-	def boolean hayLugaresLibres() 
-	{
-		return (this.participantesConfirmados.length < 10);
+	//CONSTRUCTOR
+	new(Date fecha){
+		this.fecha=fecha
+		this.participantesConfirmados=new ArrayList()
 	}
 	
-	def void confirmarAsistencia(Participante participante)
-	{
-		this.participantesConfirmados.add(participante);
+	//Inscripcion
+	def jugadoresConfirmados(){
+		participantesConfirmados.map[p|p.jugador].toList
 	}
 	
-	def boolean estaInscripto(Jugador jugador) 
-	{
-		val confirmados = this.getJugadoresConfirmados();
-		
-		if (confirmados.exists([j | j == jugador])) //si alguno de los confirmados es este jugador...
-		{
-			return true	
+	def estaInscripto(Jugador jugador){
+		var List<Jugador> jugadores = jugadoresConfirmados()
+		jugadores.contains(jugador)
+	}
+	
+	def boolean inscribir(Jugador jugador,TipoDeInscripcion modalidad){
+		//Creo una nueva instancia de participante para el jugador a inscribirse
+		val participante = new Participante(jugador,modalidad)
+		return participante.inscribirse(this)
+	}
+	
+	def boolean hayLugaresLibres(){
+		return this.participantesConfirmados.size<10
+	}
+	
+	//Inscribe al participante
+	def boolean confirmarAsistencia(Participante participante){
+		if(!estaInscripto(participante.jugador)){
+			this.participantesConfirmados.add(participante)
+			Collections.sort(this.participantesConfirmados,this)
+			return true
 		}
-		
-		return false;
+		else{
+			return false
+		}
 	}
 	
-	
-	def boolean hayCondicionales() 
-	{
-		this.participantesConfirmados.exists([participante | participante.sosCondicional() == true])
+	//Reemplaza a un jugador entrante por el saliente
+	def boolean reemplazar(Participante entrante,Participante saliente){
+		if(!estaInscripto(entrante.jugador)){//Primero ve si lo puede agregar, y lo agrega al final
+			participantesConfirmados.remove(saliente)//Despues borra al otro
+			confirmarAsistencia(entrante)
+		}
 	}
 	
-	def Participante getPrimerCondicional() //este método tiene que darme una referencia al primer participante condicional que deba echarse
-	{	
-	var condicionales = this.participantesConfirmados.filter([participante | participante.sosCondicional()]);
-	return condicionales.get(0)
+	override compare(Participante arg0, Participante arg1) {
+		if(arg0.modalidad.prioridad>arg1.modalidad.prioridad){
+			return -1;
+		}
+		else if(arg0.modalidad.prioridad<arg1.modalidad.prioridad){
+			return 1;
+		}
+		else{
+			if(arg0.fechaInscripcion<arg1.fechaInscripcion){
+				return -1;
+			}
+			else if(arg0.fechaInscripcion>arg1.fechaInscripcion){
+				return 1;
+			}
+			else return 0;
+		}
 	}
-	
-	def reemplazar(Participante saliente, Participante entrante) //permite reemplazar a un jugador (saliente) por otro (entrante)
-	{
-		this.participantesConfirmados.remove(saliente);
-		this.participantesConfirmados.add(entrante);
-	}
-
-	def boolean haySolidarios() //Repite el codigo de hayCondicionales, capas se puedan poner en el mismo metodo los dos
-	{
-		this.participantesConfirmados.exists([participante | participante.sosSolidario() == true])
-	} 
-	
-	def getPrimerSolidario() 
-	{
-	var solidarios = this.participantesConfirmados.filter([participante | participante.sosSolidario()]);
-	return solidarios.get(0)
-	}
-	
-	def obtenerCantidadDeInscriptos() 
-	{
-		return this.participantesConfirmados.length();
-	}
-	
-	//TODO usar los tipos posta de fecha y hora
 	
 }

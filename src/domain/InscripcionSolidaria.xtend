@@ -1,32 +1,17 @@
-package domain
+package Domain
 
-class InscripcionSolidaria extends TipoDeInscripcion
-{
-	override esSolidaria()
-	{
-		return true;
-	}
+public class InscripcionSolidaria extends TipoDeInscripcion{
+	@Property int prioridad=2
 	
-	override inscribirse(Partido partido, Participante participante)
-	{
-
-		if (super.inscribirse(partido, participante))
+	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
+		if(entrante.modalidad instanceof InscripcionEstandar)
 		{
-			return true;	
+			//Estandar reemplaza a solidario
+			return partido.reemplazar(entrante,saliente)
 		}
-		else
-		{
-			if(partido.hayCondicionales())
-			{
-				var condicional = partido.getPrimerCondicional();
-				partido.reemplazar(condicional, participante);
-				return true;
-			}
-			
-			//si no salió por ningún lado, es que no encontró forma de meterse en el partido
-			throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante); // TODO hacer más interesante a esta excepción
+		else{
+			//No se si un solidario puede reemplazar a otro solidario
+			return false
 		}
-		
-	
 	}
 }

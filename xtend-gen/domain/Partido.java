@@ -1,138 +1,93 @@
 package domain;
 
-import com.google.common.base.Objects;
 import domain.Jugador;
 import domain.Participante;
+import domain.TipoDeInscripcion;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class Partido {
-  private String _fecha;
+  private Date _fecha;
   
-  public String getFecha() {
+  public Date getFecha() {
     return this._fecha;
   }
   
-  public void setFecha(final String fecha) {
+  public void setFecha(final Date fecha) {
     this._fecha = fecha;
   }
   
-  private String _hora;
+  private Set<Participante> _participantesConfirmados;
   
-  public String getHora() {
-    return this._hora;
+  public Set<Participante> getParticipantesConfirmados() {
+    return this._participantesConfirmados;
   }
   
-  public void setHora(final String hora) {
-    this._hora = hora;
+  public void setParticipantesConfirmados(final Set<Participante> participantesConfirmados) {
+    this._participantesConfirmados = participantesConfirmados;
   }
   
-  private Set<Participante> participantesConfirmados;
-  
-  public Partido(final String fecha, final String hora) {
+  public Partido(final Date fecha) {
     this.setFecha(fecha);
-    this.setHora(hora);
     HashSet<Participante> _hashSet = new HashSet<Participante>();
-    this.participantesConfirmados = _hashSet;
+    this.setParticipantesConfirmados(_hashSet);
   }
   
-  public Iterable<Jugador> getJugadoresConfirmados() {
+  public List<Jugador> getJugadoresConfirmados() {
+    Set<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
         Jugador _jugador = p.getJugador();
         return _jugador;
       }
     };
-    return IterableExtensions.<Participante, Jugador>map(this.participantesConfirmados, _function);
-  }
-  
-  public boolean hayLugaresLibres() {
-    int _length = ((Object[])Conversions.unwrapArray(this.participantesConfirmados, Object.class)).length;
-    return (_length < 10);
-  }
-  
-  public void confirmarAsistencia(final Participante participante) {
-    this.participantesConfirmados.add(participante);
+    Iterable<Jugador> _map = IterableExtensions.<Participante, Jugador>map(_participantesConfirmados, _function);
+    List<Jugador> _list = IterableExtensions.<Jugador>toList(_map);
+    return _list;
   }
   
   public boolean estaInscripto(final Jugador jugador) {
-    final Iterable<Jugador> confirmados = this.getJugadoresConfirmados();
-    final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
-      public Boolean apply(final Jugador j) {
-        boolean _equals = Objects.equal(j, jugador);
-        return Boolean.valueOf(_equals);
-      }
-    };
-    boolean _exists = IterableExtensions.<Jugador>exists(confirmados, _function);
-    if (_exists) {
-      return true;
+    List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
+    boolean _contains = _jugadoresConfirmados.contains(jugador);
+    return _contains;
+  }
+  
+  public boolean inscribir(final Jugador jugador, final TipoDeInscripcion modalidad) {
+    Participante _participante = new Participante(jugador, modalidad);
+    final Participante participante = _participante;
+    return participante.inscribirse(this);
+  }
+  
+  public boolean hayLugaresLibres() {
+    Set<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+    int _size = _participantesConfirmados.size();
+    return (_size < 10);
+  }
+  
+  public boolean confirmarAsistencia(final Participante participante) {
+    Jugador _jugador = participante.getJugador();
+    boolean _estaInscripto = this.estaInscripto(_jugador);
+    if (_estaInscripto) {
+      Set<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+      return _participantesConfirmados.add(participante);
+    } else {
+      return false;
     }
-    return false;
   }
   
-  public boolean hayCondicionales() {
-    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
-      public Boolean apply(final Participante participante) {
-        boolean _sosCondicional = participante.sosCondicional();
-        boolean _equals = (_sosCondicional == true);
-        return Boolean.valueOf(_equals);
-      }
-    };
-    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
-    return _exists;
-  }
-  
-  public Participante getPrimerCondicional() {
-    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
-      public Boolean apply(final Participante participante) {
-        boolean _sosCondicional = participante.sosCondicional();
-        return Boolean.valueOf(_sosCondicional);
-      }
-    };
-    Iterable<Participante> condicionales = IterableExtensions.<Participante>filter(this.participantesConfirmados, _function);
-    final Iterable<Participante> _converted_condicionales = (Iterable<Participante>)condicionales;
-    return ((Participante[])Conversions.unwrapArray(_converted_condicionales, Participante.class))[0];
-  }
-  
-  public boolean reemplazar(final Participante saliente, final Participante entrante) {
-    boolean _xblockexpression = false;
-    {
-      this.participantesConfirmados.remove(saliente);
-      boolean _add = this.participantesConfirmados.add(entrante);
-      _xblockexpression = (_add);
+  public boolean reemplazar(final Participante entrante, final Participante saliente) {
+    Boolean _xifexpression = null;
+    boolean _confirmarAsistencia = this.confirmarAsistencia(entrante);
+    if (_confirmarAsistencia) {
+      Set<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+      boolean _remove = _participantesConfirmados.remove(saliente);
+      _xifexpression = Boolean.valueOf(_remove);
     }
-    return _xblockexpression;
-  }
-  
-  public boolean haySolidarios() {
-    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
-      public Boolean apply(final Participante participante) {
-        boolean _sosSolidario = participante.sosSolidario();
-        boolean _equals = (_sosSolidario == true);
-        return Boolean.valueOf(_equals);
-      }
-    };
-    boolean _exists = IterableExtensions.<Participante>exists(this.participantesConfirmados, _function);
-    return _exists;
-  }
-  
-  public Participante getPrimerSolidario() {
-    final Function1<Participante,Boolean> _function = new Function1<Participante,Boolean>() {
-      public Boolean apply(final Participante participante) {
-        boolean _sosSolidario = participante.sosSolidario();
-        return Boolean.valueOf(_sosSolidario);
-      }
-    };
-    Iterable<Participante> solidarios = IterableExtensions.<Participante>filter(this.participantesConfirmados, _function);
-    final Iterable<Participante> _converted_solidarios = (Iterable<Participante>)solidarios;
-    return ((Participante[])Conversions.unwrapArray(_converted_solidarios, Participante.class))[0];
-  }
-  
-  public int obtenerCantidadDeInscriptos() {
-    return ((Object[])Conversions.unwrapArray(this.participantesConfirmados, Object.class)).length;
+    return (_xifexpression).booleanValue();
   }
 }

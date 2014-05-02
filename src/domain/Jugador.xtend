@@ -1,13 +1,13 @@
-package domain
+package Domain
 
-class Jugador 
-{	
-	String nombre;
+public class Jugador {
+	@Property String nombre
+	@Property String apellido
+	@Property int edad
+	@Property String documento
 	
-	
-	new(String nombre) 
-	{
-		this.nombre = nombre;
+	new(String nombre,int edad){
+		this.nombre=nombre
+		this.edad=edad
 	}
-	
 }

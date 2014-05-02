@@ -1,29 +1,28 @@
-package domain
+package Domain
 
-class InscripcionCondicional extends TipoDeInscripcion
-{
-	override esCondicional()
-	{
-		return true;
+public class InscripcionCondicional extends TipoDeInscripcion{
+	@Property int prioridad=3
+	@Property Condicion condicion
+	
+	new(Condicion condicion){
+		this.condicion=condicion
 	}
 	
-	override inscribirse(Partido partido, Participante participante)
-	{
-		
-		//TODO: antes de ejecutar el super, preguntar por la condicion!
-		//si la condición no se cumple, el jugador no va a querer inscribirse y debe tirarse una excepción acá
-			
-		if (super.inscribirse(partido, participante)) //primero ejecuto el comportamiento común
-		{
-			return true;
+	override inscribir(Partido partido,Participante participante){
+		if(partido.hayLugaresLibres()){
+			if(condicion.seCumple(partido)) partido.confirmarAsistencia(participante) 
+			else
+				return false
 		}
-		
-		else
-		{
-			throw new ImposibleAnotarseException("No hay lugar en el partido", partido, participante);
-		
+		else{
+			return super.inscribir(partido,participante)
 		}
-		
 	}
-		
+	
+	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
+		if(entrante.modalidad instanceof InscripcionEstandar || entrante.modalidad instanceof InscripcionSolidaria)
+			return partido.reemplazar(entrante,saliente)//Estandar y solidaria reemplaza a condicional
+		else return false//Un condicional no puede reemplazar a otro condicional
+	}
+	
 }

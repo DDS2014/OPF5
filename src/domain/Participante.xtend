@@ -1,34 +1,19 @@
-package domain
+package Domain
 
 import java.util.Date
 
-class Participante
-{
-	@Property Jugador jugador;
-	@Property TipoDeInscripcion modalidad;
-	@Property Date fecha;
+public class Participante {
+	@Property Jugador jugador
+	@Property Date fechaInscripcion//Por ahora no se esta usando
+	@Property TipoDeInscripcion modalidad
 	
-	new(Jugador jugador, TipoDeInscripcion modalidad) 
-	{
-		this.jugador = jugador;
-		this.modalidad = modalidad;
-		this.fecha = new Date();
+	new(Jugador jugador, TipoDeInscripcion modalidad){
+		this.jugador=jugador
+		this.fechaInscripcion=new Date
+		this.modalidad=modalidad
 	}
 	
-	def inscribirse(Partido partido) 
-	{
-		this.modalidad.inscribirse(partido, this);
+	def boolean inscribirse(Partido partido){
+		modalidad.inscribir(partido,this)
 	}
-	
-	def boolean sosCondicional() 
-	{
-		return modalidad.esCondicional();
-	}
-	
-	def boolean sosSolidario()
-	{
-		return modalidad.esSolidaria();
-	}
-
-	 
 }

@@ -18,9 +18,9 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void inscriboUnJugadorAUnPartidoYQuedaInscripto()
 	{
-		var partido = new Partido("25/05/2014", "16:00");
+		var partido = new Partido(new Date);
 		
-		var jugador = new Jugador("Pedrito");
+		var jugador = new Jugador("Pedrito",23);
 		var participante = new Participante(jugador, new InscripcionEstandar());
 		
 		participante.inscribirse(partido);
@@ -31,9 +31,9 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscriptoYElDesplazadoSale()
 	{
-		var partido = new Partido("25/06/2014", "08:30");
-		var saliente = new Participante( new Jugador("Juancito"), new InscripcionEstandar());
-		var entrante = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
+		var partido = new Partido(new Date);
+		var saliente = new Participante( new Jugador("Juancito",25), new InscripcionEstandar());
+		var entrante = new Participante(new Jugador("Jorgito",20), new InscripcionEstandar());
 
 		partido.reemplazar(saliente, entrante);
 		
@@ -41,21 +41,20 @@ public class PruebasDeInscripcionDeJugadores
 		Assert.assertFalse(partido.estaInscripto(saliente.jugador));
 	}
 	
-	
 	@Test 
 	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion //TODO Refactor
 	{
-	var partidoEstandar = new Partido ("25/06/2014", "08:30");
-	var part1 = new Participante(new Jugador("Pepe"), new InscripcionEstandar());
-	var	part2 = new Participante(new Jugador("Luis"), new InscripcionEstandar());
-	var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
-	var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
-	var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
-	var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
-	var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
-	var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
-	var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
-	var	part10 = new Participante(new Jugador("Lucas"), new InscripcionEstandar());
+	var partidoEstandar = new Partido (new Date);
+	var part1 = new Participante(new Jugador("Pepe",20), new InscripcionEstandar());
+	var	part2 = new Participante(new Jugador("Luis",35), new InscripcionEstandar());
+	var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
+	var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
+	var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
+	var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
+	var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
+	var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
+	var	part9 = new Participante(new Jugador("Carlos",20), new InscripcionEstandar());
+	var	part10 = new Participante(new Jugador("Lucas",20), new InscripcionEstandar());
 		part1.inscribirse(partidoEstandar);
 		part2.inscribirse(partidoEstandar);
 		part3.inscribirse(partidoEstandar);
@@ -66,7 +65,7 @@ public class PruebasDeInscripcionDeJugadores
 		part8.inscribirse(partidoEstandar);
 		part9.inscribirse(partidoEstandar);		
 		part10.inscribirse(partidoEstandar);
-		var colgado = new Participante(new Jugador("Jorgito"), new InscripcionEstandar());
+		var colgado = new Participante(new Jugador("Jorgito",20), new InscripcionEstandar());
 		
 		try
 		{		
@@ -83,17 +82,17 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void enUnaListaCon9EstandarY1SolidarioPuedeEntrarOtroEstandarDesplazandoAlSolidario() //TODO Refactor
 	{
-	var partido = new Partido ("25/06/2014", "08:30")	
-	var part1 = new Participante(new Jugador("Pepe"), new InscripcionEstandar());
-	var	part2 = new Participante(new Jugador("Luis"), new InscripcionEstandar());
-	var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
-	var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
-	var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
-	var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
-	var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
-	var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
-	var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
-	var jugadorSolidario = new Participante(new Jugador("Marquitos"), new InscripcionSolidaria);
+	var partido = new Partido (new Date)	
+	var part1 = new Participante(new Jugador("Pepe",20), new InscripcionEstandar());
+	var	part2 = new Participante(new Jugador("Luis",35), new InscripcionEstandar());
+	var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
+	var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
+	var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
+	var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
+	var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
+	var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
+	var	part9 = new Participante(new Jugador("Carlos",20), new InscripcionEstandar());
+	var jugadorSolidario = new Participante(new Jugador("Marquitos",20), new InscripcionSolidaria);
 	part1.inscribirse(partido);
 	part2.inscribirse(partido);
 	part3.inscribirse(partido);
@@ -104,7 +103,7 @@ public class PruebasDeInscripcionDeJugadores
 	part8.inscribirse(partido);
 	part9.inscribirse(partido);
 	jugadorSolidario.inscribirse(partido);
-	var	jugadorNuevo = new Participante(new Jugador("Miguelito"),new InscripcionEstandar);
+	var	jugadorNuevo = new Participante(new Jugador("Miguelito",20),new InscripcionEstandar);
 		
 	jugadorNuevo.inscribirse(partido);
 		
@@ -116,17 +115,17 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoEstandarDesplazaAlCondicional() //TODO Refactor
 	{
-	var partido = new Partido ("25/06/2014", "08:30")	
-	var part1 = new Participante(new Jugador("Pepe"), new InscripcionEstandar());
-	var	part2 = new Participante(new Jugador("Luis"), new InscripcionEstandar());
-	var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
-	var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
-	var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
-	var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
-	var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
-	var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
-	var jugadorCondicional = new Participante(new Jugador("Josecito"), new InscripcionCondicional);
-	var jugadorSolidario = new Participante(new Jugador("Marquitos"), new InscripcionSolidaria);
+	var partido = new Partido (new Date)	
+	var part1 = new Participante(new Jugador("Pepe",20), new InscripcionEstandar());
+	var	part2 = new Participante(new Jugador("Luis",35), new InscripcionEstandar());
+	var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
+	var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
+	var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
+	var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
+	var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
+	var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
+	var jugadorCondicional = new Participante(new Jugador("Josecito",34), new InscripcionCondicional(new Condicion_LimiteDeEdad(20,2,true,true)));
+	var jugadorSolidario = new Participante(new Jugador("Marquitos",20), new InscripcionSolidaria);
 	part1.inscribirse(partido);
 	part2.inscribirse(partido);
 	part3.inscribirse(partido);
@@ -137,7 +136,7 @@ public class PruebasDeInscripcionDeJugadores
 	part8.inscribirse(partido);
 	jugadorSolidario.inscribirse(partido);
 	jugadorCondicional.inscribirse(partido);	
-	var jugadorNuevo = new Participante( new Jugador("Pablito"), new InscripcionEstandar);
+	var jugadorNuevo = new Participante( new Jugador("Pablito",20), new InscripcionEstandar);
 		
 	jugadorNuevo.inscribirse(partido);
 
@@ -151,17 +150,17 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional() //TODO Refactor
 	{
-		var partido = new Partido ("25/06/2014", "08:30");
-		var jugadorSolidario = new Participante(new Jugador("Ricardito"), new InscripcionSolidaria);
-		var jugadorCondicional = new Participante(new Jugador("Josecito"), new InscripcionCondicional);
-		var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
-		var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
-		var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
-		var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
-		var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
-		var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
-		var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
-		var	part10 = new Participante(new Jugador("Lucas"), new InscripcionEstandar());
+		var partido = new Partido (new Date);
+		var jugadorSolidario = new Participante(new Jugador("Ricardito",25), new InscripcionSolidaria);
+		var jugadorCondicional = new Participante(new Jugador("Josecito",34), new InscripcionCondicional(new Condicion_LimiteDeEdad(20,2,true,true)));
+		var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
+		var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
+		var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
+		var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
+		var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
+		var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
+		var	part9 = new Participante(new Jugador("Carlos",20), new InscripcionEstandar());
+		var	part10 = new Participante(new Jugador("Lucas",22), new InscripcionEstandar());
 		part3.inscribirse(partido);
 		part4.inscribirse(partido);
 		part5.inscribirse(partido);
@@ -172,7 +171,7 @@ public class PruebasDeInscripcionDeJugadores
 		part10.inscribirse(partido);
 		jugadorSolidario.inscribirse(partido);
 		jugadorCondicional.inscribirse(partido);
-		var jugadorNuevoSolidario = new Participante(new Jugador("Pablito"), new InscripcionSolidaria);
+		var jugadorNuevoSolidario = new Participante(new Jugador("Pablito",20), new InscripcionSolidaria);
 		
 		jugadorNuevoSolidario.inscribirse(partido);
 		
@@ -185,30 +184,31 @@ public class PruebasDeInscripcionDeJugadores
 	@Test
 	def public void noSePuedeAnotarAlMismoJugadorDosVeces()
 	{
-		var jugador = new Jugador("Manuelito");
+		var jugador = new Jugador("Manuelito",24);
 		var participante = new Participante(jugador, new InscripcionEstandar);
-		var partido = new Partido("25/06/2014", "08:30");
+		var partido = new Partido(new Date);
 		
 		participante.inscribirse(partido);
 		participante.inscribirse(partido);		
 		
-		Assert.assertEquals(1,partido.obtenerCantidadDeInscriptos());
+		//Assert.assertEquals(1,partido.obtenerCantidadDeInscriptos());
+		Assert.assertEquals(1,partido.participantesConfirmados.size);
 	}
 	
 	@Test
 	def public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero() //TODO Refactor
 	{
-		var partido = new Partido ("25/06/2014", "08:30");
-		var primerJugador = new Participante(new Jugador("Danielito"), new InscripcionSolidaria);
-		var segundoJugador = new Participante(new Jugador("Fernandito"), new InscripcionSolidaria);
-		var	part3 = new Participante(new Jugador("Juan"), new InscripcionEstandar());
-		var	part4 = new Participante(new Jugador("Alberto"), new InscripcionEstandar());
-		var	part5 = new Participante(new Jugador("Fabio"), new InscripcionEstandar());
-		var	part6 = new Participante(new Jugador("Alejo"), new InscripcionEstandar());
-		var	part7 = new Participante(new Jugador("Casio"), new InscripcionEstandar());
-		var	part8 = new Participante(new Jugador("Alan"), new InscripcionEstandar());
-		var	part9 = new Participante(new Jugador("Carlos"), new InscripcionEstandar());
-		var	part10 = new Participante(new Jugador("Lucas"), new InscripcionEstandar());
+		var partido = new Partido (new Date);
+		var primerJugador = new Participante(new Jugador("Danielito",25), new InscripcionSolidaria);
+		var segundoJugador = new Participante(new Jugador("Fernandito",24), new InscripcionSolidaria);
+		var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
+		var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
+		var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
+		var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
+		var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
+		var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
+		var	part9 = new Participante(new Jugador("Carlos",20), new InscripcionEstandar());
+		var	part10 = new Participante(new Jugador("Lucas",22), new InscripcionEstandar());
 		part3.inscribirse(partido);
 		part4.inscribirse(partido);
 		part5.inscribirse(partido);
@@ -220,7 +220,7 @@ public class PruebasDeInscripcionDeJugadores
 		
 		primerJugador.inscribirse(partido);
 		segundoJugador.inscribirse(partido);
-		var nuevoJugador = new Participante(new Jugador("Dieguito"), new InscripcionEstandar());
+		var nuevoJugador = new Participante(new Jugador("Dieguito",18), new InscripcionEstandar());
 		
 		nuevoJugador.inscribirse(partido);
 		
