@@ -37,7 +37,7 @@ public class PruebasDeInscripcionDeJugadores
 		var saliente = new Participante( new Jugador("Juancito",25), new InscripcionEstandar());
 		var entrante = new Participante(new Jugador("Jorgito",20), new InscripcionEstandar());
 
-		partido.reemplazar(saliente, entrante);
+		partido.reemplazar(entrante, saliente);
 		
 		Assert.assertTrue(partido.estaInscripto(entrante.jugador)); //esta inscripto juancito, no me importa como
 		Assert.assertFalse(partido.estaInscripto(saliente.jugador));
@@ -68,16 +68,17 @@ public class PruebasDeInscripcionDeJugadores
 		part9.inscribirse(partidoEstandar);		
 		part10.inscribirse(partidoEstandar);
 		var colgado = new Participante(new Jugador("Jorgito",20), new InscripcionEstandar());
+		Assert.assertFalse(colgado.inscribirse(partidoEstandar));
 		
-		try
-		{		
-			colgado.inscribirse(partidoEstandar); 
-			Assert.fail("No falló la inscripción aunque el partido estaba lleno, algo anda mal");
-		}
-		catch(ImposibleAnotarseException excepcion)
-		{
-			Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
-		}
+		//try
+		//{		
+		//	colgado.inscribirse(partidoEstandar); 
+		//	Assert.fail("No falló la inscripción aunque el partido estaba lleno, algo anda mal");
+		//}
+		//catch(ImposibleAnotarseException excepcion)
+		//{
+		//	Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
+		//}
 		
 	}
 	
