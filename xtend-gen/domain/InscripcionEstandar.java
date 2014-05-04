@@ -16,6 +16,10 @@ public class InscripcionEstandar extends TipoDeInscripcion {
     this._prioridad = prioridad;
   }
   
+  public InscripcionEstandar(final Participante participante) {
+    super(participante);
+  }
+  
   public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {
     return false;
   }

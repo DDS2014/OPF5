@@ -4,8 +4,14 @@ import java.util.List
 
 public abstract class TipoDeInscripcion {
 	@Property int prioridad
+	Participante participante;
 	
-	def boolean inscribir(Partido partido,Participante participante){
+	new(Participante participante)
+	{
+		this.participante = participante;
+	}
+	
+	def boolean inscribir(Partido partido){
 		var List<Participante> jugadores = partido.participantesConfirmados.toList
 		var seInscribio=false
 		

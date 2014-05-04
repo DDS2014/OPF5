@@ -29,18 +29,19 @@ public class InscripcionCondicional extends TipoDeInscripcion {
     this._condicion = condicion;
   }
   
-  public InscripcionCondicional(final Condicion condicion) {
+  public InscripcionCondicional(final Participante participante, final Condicion condicion) {
+    super(participante);
     this.setCondicion(condicion);
   }
   
-  public boolean inscribir(final Partido partido, final Participante participante) {
+  public boolean inscribir(final Partido partido) {
     Condicion _condicion = this.getCondicion();
     boolean _seCumple = _condicion.seCumple(partido);
     boolean _not = (!_seCumple);
     if (_not) {
       return false;
     } else {
-      return super.inscribir(partido, participante);
+      return super.inscribir(partido);
     }
   }
   

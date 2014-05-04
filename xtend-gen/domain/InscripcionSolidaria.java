@@ -17,6 +17,10 @@ public class InscripcionSolidaria extends TipoDeInscripcion {
     this._prioridad = prioridad;
   }
   
+  public InscripcionSolidaria(final Participante participante) {
+    super(participante);
+  }
+  
   public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {
     TipoDeInscripcion _modalidad = entrante.getModalidad();
     if ((_modalidad instanceof InscripcionEstandar)) {

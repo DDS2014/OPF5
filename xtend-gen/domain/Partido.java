@@ -64,8 +64,9 @@ public class Partido implements Comparator<Participante> {
   }
   
   public boolean inscribir(final Jugador jugador, final TipoDeInscripcion modalidad) {
-    Participante _participante = new Participante(jugador, modalidad);
+    Participante _participante = new Participante(jugador);
     final Participante participante = _participante;
+    participante.setModalidad(modalidad);
     return participante.inscribirse(this);
   }
   

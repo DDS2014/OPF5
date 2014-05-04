@@ -37,16 +37,15 @@ public class Participante {
     this._modalidad = modalidad;
   }
   
-  public Participante(final Jugador jugador, final TipoDeInscripcion modalidad) {
+  public Participante(final Jugador jugador) {
     this.setJugador(jugador);
     Date _date = new Date();
     this.setFechaInscripcion(_date);
-    this.setModalidad(modalidad);
   }
   
   public boolean inscribirse(final Partido partido) {
     TipoDeInscripcion _modalidad = this.getModalidad();
-    boolean _inscribir = _modalidad.inscribir(partido, this);
+    boolean _inscribir = _modalidad.inscribir(partido);
     return _inscribir;
   }
 }

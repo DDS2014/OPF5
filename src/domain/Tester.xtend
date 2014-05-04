@@ -1,8 +1,8 @@
 package domain
 
-import java.util.Date
+//import java.util.Date
 
-class Tester {
+/*class Tester {
 	def static void main(String[] args) {
   		//Partido
   		val partido = new Partido(new Date)
@@ -27,7 +27,7 @@ class Tester {
   		val tCondicional = new InscripcionCondicional(condicion)
   		
   		
-  		
+  		//esto hay que reescribirlo porque  no se pueden usar indistintamente ya, se va a necesitar un objeto tipo de inscripción por participante sí o sí
   		  		
   		partido.inscribir(j1,tEstandar)
   		partido.inscribir(j2,tEstandar)
@@ -60,4 +60,4 @@ class Tester {
 		//println()
 		//println(partido.participantesConfirmados.size)
 	}
-}
+}*/

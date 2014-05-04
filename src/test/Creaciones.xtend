@@ -12,16 +12,26 @@ public class Creaciones
 	{
 		var partidoEstandar = new Partido (new Date);
 		
-		var part1 = new Participante(new Jugador("Pepe",20), new InscripcionEstandar());
-		var	part2 = new Participante(new Jugador("Luis",35), new InscripcionEstandar());
-		var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
-		var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
-		var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
-		var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
-		var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
-		var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
-		var	part9 = new Participante(new Jugador("Carlos",20), new InscripcionEstandar());
-		var	part10 = new Participante(new Jugador("Lucas",20), new InscripcionEstandar());
+		var part1 = new Participante(new Jugador("Pepe",20));
+		part1.setModalidad(new InscripcionEstandar(part1));
+		var	part2 = new Participante(new Jugador("Luis",35));
+		part2.setModalidad(new InscripcionEstandar(part2));
+		var	part3 = new Participante(new Jugador("Juan",27));
+		part3.setModalidad(new InscripcionEstandar(part3));
+		var	part4 = new Participante(new Jugador("Alberto",20));
+		part4.setModalidad(new InscripcionEstandar(part4));
+		var	part5 = new Participante(new Jugador("Fabio",20));
+		part5.setModalidad(new InscripcionEstandar(part5));
+		var	part6 = new Participante(new Jugador("Alejo",26));
+		part6.setModalidad(new InscripcionEstandar(part6));
+		var	part7 = new Participante(new Jugador("Casio",29));
+		part7.setModalidad(new InscripcionEstandar(part7));
+		var	part8 = new Participante(new Jugador("Alan",30));
+		part8.setModalidad(new InscripcionEstandar(part8));
+		var	part9 = new Participante(new Jugador("Carlos",20));
+		part9.setModalidad(new InscripcionEstandar(part9));
+		var	part10 = new Participante(new Jugador("Lucas",20));
+		part10.setModalidad(new InscripcionEstandar(part10));
 		part1.inscribirse(partidoEstandar);
 		part2.inscribirse(partidoEstandar);
 		part3.inscribirse(partidoEstandar);
@@ -39,15 +49,24 @@ public class Creaciones
 	def static crearPartidoCon9Estandar()
 	{
 		var partido = new Partido (new Date)	
-		var part1 = new Participante(new Jugador("Pepe",20), new InscripcionEstandar());
-		var	part2 = new Participante(new Jugador("Luis",35), new InscripcionEstandar());
-		var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
-		var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
-		var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
-		var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
-		var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
-		var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
-		var	part9 = new Participante(new Jugador("Carlos",20), new InscripcionEstandar());
+		var part1 = new Participante(new Jugador("Pepe",20));
+		part1.setModalidad(new InscripcionEstandar(part1));
+		var	part2 = new Participante(new Jugador("Luis",35));
+		part2.setModalidad(new InscripcionEstandar(part2));
+		var	part3 = new Participante(new Jugador("Juan",27));
+		part3.setModalidad(new InscripcionEstandar(part3));
+		var	part4 = new Participante(new Jugador("Alberto",20));
+		part4.setModalidad(new InscripcionEstandar(part4));
+		var	part5 = new Participante(new Jugador("Fabio",20));
+		part5.setModalidad(new InscripcionEstandar(part5));
+		var	part6 = new Participante(new Jugador("Alejo",26));
+		part6.setModalidad(new InscripcionEstandar(part6));
+		var	part7 = new Participante(new Jugador("Casio",29));
+		part7.setModalidad(new InscripcionEstandar(part7));
+		var	part8 = new Participante(new Jugador("Alan",30));
+		part8.setModalidad(new InscripcionEstandar(part8));
+		var	part9 = new Participante(new Jugador("Carlos",20));
+		part9.setModalidad(new InscripcionEstandar(part9));
 		part1.inscribirse(partido);
 		part2.inscribirse(partido);
 		part3.inscribirse(partido);
@@ -64,14 +83,22 @@ public class Creaciones
 	def static crearPartidoCon8Estandar()
 	{
 		var partido = new Partido (new Date)	
-		var part1 = new Participante(new Jugador("Pepe",20), new InscripcionEstandar());
-		var	part2 = new Participante(new Jugador("Luis",35), new InscripcionEstandar());
-		var	part3 = new Participante(new Jugador("Juan",27), new InscripcionEstandar());
-		var	part4 = new Participante(new Jugador("Alberto",20), new InscripcionEstandar());
-		var	part5 = new Participante(new Jugador("Fabio",20), new InscripcionEstandar());
-		var	part6 = new Participante(new Jugador("Alejo",26), new InscripcionEstandar());
-		var	part7 = new Participante(new Jugador("Casio",29), new InscripcionEstandar());
-		var	part8 = new Participante(new Jugador("Alan",30), new InscripcionEstandar());
+		var part1 = new Participante(new Jugador("Pepe",20));
+		part1.setModalidad(new InscripcionEstandar(part1));
+		var	part2 = new Participante(new Jugador("Luis",35));
+		part2.setModalidad(new InscripcionEstandar(part2));
+		var	part3 = new Participante(new Jugador("Juan",27));
+		part3.setModalidad(new InscripcionEstandar(part3));
+		var	part4 = new Participante(new Jugador("Alberto",20));
+		part4.setModalidad(new InscripcionEstandar(part4));
+		var	part5 = new Participante(new Jugador("Fabio",20));
+		part5.setModalidad(new InscripcionEstandar(part5));
+		var	part6 = new Participante(new Jugador("Alejo",26));
+		part6.setModalidad(new InscripcionEstandar(part6));
+		var	part7 = new Participante(new Jugador("Casio",29));
+		part7.setModalidad(new InscripcionEstandar(part7));
+		var	part8 = new Participante(new Jugador("Alan",30));
+		part8.setModalidad(new InscripcionEstandar(part8));
 		part1.inscribirse(partido);
 		part2.inscribirse(partido);
 		part3.inscribirse(partido);

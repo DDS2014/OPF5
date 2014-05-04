@@ -17,13 +17,19 @@ public abstract class TipoDeInscripcion {
     this._prioridad = prioridad;
   }
   
-  public boolean inscribir(final Partido partido, final Participante participante) {
+  private Participante participante;
+  
+  public TipoDeInscripcion(final Participante participante) {
+    this.participante = participante;
+  }
+  
+  public boolean inscribir(final Partido partido) {
     List<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
     List<Participante> jugadores = IterableExtensions.<Participante>toList(_participantesConfirmados);
     boolean seInscribio = false;
     boolean _hayLugaresLibres = partido.hayLugaresLibres();
     if (_hayLugaresLibres) {
-      boolean _confirmarAsistencia = partido.confirmarAsistencia(participante);
+      boolean _confirmarAsistencia = partido.confirmarAsistencia(this.participante);
       seInscribio = _confirmarAsistencia;
     } else {
       int i = 0;
@@ -41,7 +47,7 @@ public abstract class TipoDeInscripcion {
         {
           Participante saliente = jugadores.get(i);
           TipoDeInscripcion _modalidad = saliente.getModalidad();
-          boolean _reemplazar = _modalidad.reemplazar(partido, participante, saliente);
+          boolean _reemplazar = _modalidad.reemplazar(partido, this.participante, saliente);
           seInscribio = _reemplazar;
           int _plus = (i + 1);
           i = _plus;

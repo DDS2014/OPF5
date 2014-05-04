@@ -23,7 +23,8 @@ public class PruebasDeInscripcionDeJugadores
 		var partido = new Partido(new Date);
 		
 		var jugador = new Jugador("Pedrito",23);
-		var participante = new Participante(jugador, new InscripcionEstandar());
+		var participante = new Participante(jugador)
+		participante.setModalidad(new InscripcionEstandar(participante))
 		
 		participante.inscribirse(partido);
 		
@@ -34,8 +35,10 @@ public class PruebasDeInscripcionDeJugadores
 	def public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscriptoYElDesplazadoSale()
 	{
 		var partido = new Partido(new Date);
-		var saliente = new Participante( new Jugador("Juancito",25), new InscripcionEstandar());
-		var entrante = new Participante(new Jugador("Jorgito",20), new InscripcionEstandar());
+		var saliente = new Participante( new Jugador("Juancito",25));
+		saliente.setModalidad(new InscripcionEstandar(saliente))
+		var entrante = new Participante(new Jugador("Jorgito",20))
+		entrante.setModalidad(new InscripcionEstandar(entrante))
 
 		partido.reemplazar(entrante, saliente);
 		
@@ -47,7 +50,8 @@ public class PruebasDeInscripcionDeJugadores
 	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion
 	{
 		var partidoEstandar = Creaciones.crearPartidoLlenoCon10Estandar();
-		var colgado = new Participante(new Jugador("Jorgito",20), new InscripcionEstandar());
+		var colgado = new Participante(new Jugador("Jorgito",20));
+		colgado.setModalidad(new InscripcionEstandar(colgado));
 		Assert.assertFalse(colgado.inscribirse(partidoEstandar));
 		
 		//try
@@ -66,8 +70,10 @@ public class PruebasDeInscripcionDeJugadores
 	def public void enUnaListaCon9EstandarY1SolidarioPuedeEntrarOtroEstandarDesplazandoAlSolidario() 
 	{
 	var partido = Creaciones.crearPartidoCon9Estandar();
-	var jugadorSolidario = new Participante(new Jugador("Marquitos",20), new InscripcionSolidaria);
-	var	jugadorNuevo = new Participante(new Jugador("Miguelito",20),new InscripcionEstandar);
+	var jugadorSolidario = new Participante(new Jugador("Marquitos",20));
+	jugadorSolidario.setModalidad(new InscripcionSolidaria(jugadorSolidario));
+	var	jugadorNuevo = new Participante(new Jugador("Miguelito",20))
+	jugadorNuevo.setModalidad(new InscripcionEstandar(jugadorNuevo));
 		
 	jugadorSolidario.inscribirse(partido);
 	jugadorNuevo.inscribirse(partido);
@@ -81,11 +87,14 @@ public class PruebasDeInscripcionDeJugadores
 	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoEstandarDesplazaAlCondicional() 
 	{
 	var partido = Creaciones.crearPartidoCon8Estandar();
-	var jugadorCondicional = new Participante(new Jugador("Josecito",34), new InscripcionCondicional(new Condicion_LimiteDeEdad(20,2,true,true)));
-	var jugadorSolidario = new Participante(new Jugador("Marquitos",20), new InscripcionSolidaria);
+	var jugadorCondicional = new Participante(new Jugador("Josecito",34));
+	jugadorCondicional.setModalidad(new InscripcionCondicional(jugadorCondicional, new Condicion_LimiteDeEdad(20,2,true,true)));
+	var jugadorSolidario = new Participante(new Jugador("Marquitos",20));
+	jugadorSolidario.setModalidad(new InscripcionSolidaria(jugadorSolidario));
 	jugadorSolidario.inscribirse(partido);
 	jugadorCondicional.inscribirse(partido);	
-	var jugadorNuevo = new Participante( new Jugador("Pablito",20), new InscripcionEstandar);
+	var jugadorNuevo = new Participante(new Jugador("Pablito",20));
+	jugadorNuevo.setModalidad(new InscripcionEstandar(jugadorNuevo));
 		
 	jugadorNuevo.inscribirse(partido);
 
@@ -100,12 +109,14 @@ public class PruebasDeInscripcionDeJugadores
 	def public void enUnaListaCon8Estandar1Solidarioy1CondicionalUnNuevoSolidarioDesplazaAlCondicional() 
 	{
 		var partido = Creaciones.crearPartidoCon8Estandar();
-		var jugadorSolidario = new Participante(new Jugador("Ricardito",25), new InscripcionSolidaria);
-		var jugadorCondicional = new Participante(new Jugador("Josecito",34), new InscripcionCondicional(new Condicion_LimiteDeEdad(20,2,true,true)));
-
+		var jugadorSolidario = new Participante(new Jugador("Ricardito",25));
+		jugadorSolidario.setModalidad(new InscripcionSolidaria(jugadorSolidario));
+		var jugadorCondicional = new Participante(new Jugador("Josecito",34));
+		jugadorCondicional.setModalidad(new InscripcionCondicional(jugadorCondicional, new Condicion_LimiteDeEdad(20,2,true,true)))
 		jugadorSolidario.inscribirse(partido);
 		jugadorCondicional.inscribirse(partido);
-		var jugadorNuevoSolidario = new Participante(new Jugador("Pablito",20), new InscripcionSolidaria);
+		var jugadorNuevoSolidario = new Participante(new Jugador("Pablito",20));
+		jugadorNuevoSolidario.setModalidad(new InscripcionSolidaria(jugadorNuevoSolidario));
 		
 		jugadorNuevoSolidario.inscribirse(partido);
 		
@@ -119,7 +130,8 @@ public class PruebasDeInscripcionDeJugadores
 	def public void noSePuedeAnotarAlMismoJugadorDosVeces()
 	{
 		var jugador = new Jugador("Manuelito",24);
-		var participante = new Participante(jugador, new InscripcionEstandar);
+		var participante = new Participante(jugador);
+		participante.setModalidad(new InscripcionEstandar(participante));
 		var partido = new Partido(new Date);
 		
 		participante.inscribirse(partido);
@@ -133,11 +145,14 @@ public class PruebasDeInscripcionDeJugadores
 	def public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero() 
 	{
 		var partido = Creaciones.crearPartidoCon8Estandar();
-		var primerJugador = new Participante(new Jugador("Danielito",25), new InscripcionSolidaria);
-		var segundoJugador = new Participante(new Jugador("Fernandito",24), new InscripcionSolidaria);		
+		var primerJugador = new Participante(new Jugador("Danielito",25));
+		primerJugador.setModalidad(new InscripcionSolidaria(primerJugador));
+		var segundoJugador = new Participante(new Jugador("Fernandito",24));
+		segundoJugador.setModalidad(new InscripcionSolidaria(segundoJugador));
 		primerJugador.inscribirse(partido);
 		segundoJugador.inscribirse(partido);
-		var nuevoJugador = new Participante(new Jugador("Dieguito",18), new InscripcionEstandar());
+		var nuevoJugador = new Participante(new Jugador("Dieguito",18));
+		nuevoJugador.setModalidad(new InscripcionEstandar(nuevoJugador));
 		
 		nuevoJugador.inscribirse(partido);
 		

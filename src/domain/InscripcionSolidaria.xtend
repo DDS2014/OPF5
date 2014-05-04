@@ -1,7 +1,13 @@
 package domain
 
-public class InscripcionSolidaria extends TipoDeInscripcion{
+public class InscripcionSolidaria extends TipoDeInscripcion
+{
 	@Property int prioridad=2
+
+	new(Participante participante) 
+	{
+		super(participante)
+	}
 	
 	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
 		if(entrante.modalidad instanceof InscripcionEstandar)

@@ -4,18 +4,20 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 	@Property int prioridad=3
 	@Property Condicion condicion
 	
-	new(Condicion condicion){
+	new(Participante participante, Condicion condicion)
+	{
+		super(participante)
 		this.condicion=condicion
 	}
 	
-	override inscribir(Partido partido,Participante participante){
+	override inscribir(Partido partido){
 		if(!condicion.seCumple(partido))
 		{
 			return false;
 			//TODO en realidad, en vez de un return false, acá tiene que ir una excepción del tipo  "NoSeCumpleLaCondicionException"
 		}
 		else{
-			return super.inscribir(partido,participante)
+			return super.inscribir(partido)
 		}
 	}
 	

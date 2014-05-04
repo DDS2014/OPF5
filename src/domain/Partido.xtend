@@ -28,7 +28,8 @@ public class Partido implements Comparator<Participante> {
 	
 	def boolean inscribir(Jugador jugador,TipoDeInscripcion modalidad){
 		//Creo una nueva instancia de participante para el jugador a inscribirse
-		val participante = new Participante(jugador,modalidad)
+		val participante = new Participante(jugador)
+		participante.setModalidad(modalidad);
 		return participante.inscribirse(this)
 	}
 	
