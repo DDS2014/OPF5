@@ -12,6 +12,7 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 		if(!condicion.seCumple(partido))
 		{
 			return false;
+			//TODO en realidad, en vez de un return false, acá tiene que ir una excepción del tipo  "NoSeCumpleLaCondicionException"
 		}
 		else{
 			return super.inscribir(partido,participante)
