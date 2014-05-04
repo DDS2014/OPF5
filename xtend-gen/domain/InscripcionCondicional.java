@@ -34,23 +34,14 @@ public class InscripcionCondicional extends TipoDeInscripcion {
   }
   
   public boolean inscribir(final Partido partido, final Participante participante) {
-    boolean _xifexpression = false;
-    boolean _hayLugaresLibres = partido.hayLugaresLibres();
-    if (_hayLugaresLibres) {
-      boolean _xifexpression_1 = false;
-      Condicion _condicion = this.getCondicion();
-      boolean _seCumple = _condicion.seCumple(partido);
-      if (_seCumple) {
-        boolean _confirmarAsistencia = partido.confirmarAsistencia(participante);
-        _xifexpression_1 = _confirmarAsistencia;
-      } else {
-        return false;
-      }
-      _xifexpression = _xifexpression_1;
+    Condicion _condicion = this.getCondicion();
+    boolean _seCumple = _condicion.seCumple(partido);
+    boolean _not = (!_seCumple);
+    if (_not) {
+      return false;
     } else {
       return super.inscribir(partido, participante);
     }
-    return _xifexpression;
   }
   
   public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {

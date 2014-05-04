@@ -9,10 +9,9 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 	}
 	
 	override inscribir(Partido partido,Participante participante){
-		if(partido.hayLugaresLibres()){
-			if(condicion.seCumple(partido)) partido.confirmarAsistencia(participante) 
-			else
-				return false
+		if(!condicion.seCumple(partido))
+		{
+			return false;
 		}
 		else{
 			return super.inscribir(partido,participante)
