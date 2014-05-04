@@ -5,7 +5,6 @@ import domain.Participante
 import domain.Jugador
 import domain.InscripcionEstandar
 import java.util.Date
-import domain.InscripcionSolidaria
 
 public class Creaciones 
 {
