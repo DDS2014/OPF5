@@ -5,6 +5,8 @@ import domain.InscripcionCondicional;
 import domain.InscripcionEstandar;
 import domain.InscripcionSolidaria;
 import domain.Jugador;
+import domain.JugadorNoFueAnotadoException;
+import domain.NoHayLugarParaAnotarseException;
 import domain.Participante;
 import domain.Partido;
 import java.util.Date;
@@ -55,7 +57,7 @@ public class PruebasDeInscripcionDeJugadores {
     Assert.assertFalse(_estaInscripto_1);
   }
   
-  @Test
+  @Test(expected = NoHayLugarParaAnotarseException.class)
   public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() {
     Partido partidoEstandar = Creaciones.crearPartidoLlenoCon10Estandar();
     Jugador _jugador = new Jugador("Jorgito", 20);
@@ -156,7 +158,7 @@ public class PruebasDeInscripcionDeJugadores {
     Assert.assertFalse(_estaInscripto_2);
   }
   
-  @Test
+  @Test(expected = JugadorNoFueAnotadoException.class)
   public void noSePuedeAnotarAlMismoJugadorDosVeces() {
     Jugador _jugador = new Jugador("Manuelito", 24);
     Jugador jugador = _jugador;

@@ -13,7 +13,8 @@ public class Participante {
 	}
 	
 	
-	def boolean inscribirse(Partido partido){
-		modalidad.inscribir(partido)
+	def inscribirse(Partido partido)
+	{
+		modalidad.inscribir(partido);
 	}
 }

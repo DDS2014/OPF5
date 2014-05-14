@@ -3,6 +3,7 @@ package domain;
 import domain.Condicion;
 import domain.InscripcionEstandar;
 import domain.InscripcionSolidaria;
+import domain.NoSeCumpleLaCondicionParaAnotarseException;
 import domain.Participante;
 import domain.Partido;
 import domain.TipoDeInscripcion;
@@ -35,14 +36,19 @@ public class InscripcionCondicional extends TipoDeInscripcion {
   }
   
   public boolean inscribir(final Partido partido) {
+    boolean _xifexpression = false;
     Condicion _condicion = this.getCondicion();
     boolean _seCumple = _condicion.seCumple(partido);
     boolean _not = (!_seCumple);
     if (_not) {
-      return false;
+      Participante _participante = this.getParticipante();
+      NoSeCumpleLaCondicionParaAnotarseException _noSeCumpleLaCondicionParaAnotarseException = new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, _participante);
+      throw _noSeCumpleLaCondicionParaAnotarseException;
     } else {
-      return super.inscribir(partido);
+      boolean _inscribir = super.inscribir(partido);
+      _xifexpression = _inscribir;
     }
+    return _xifexpression;
   }
   
   public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {

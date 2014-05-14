@@ -4,19 +4,20 @@ import java.util.List
 
 public abstract class TipoDeInscripcion {
 	@Property int prioridad
-	Participante participante;
+	@Property Participante participante;
 	
 	new(Participante participante)
 	{
 		this.participante = participante;
 	}
 	
-	def boolean inscribir(Partido partido){
+	def inscribir(Partido partido){ //OJO: ESTO YA NO RETORNA BOOLEAN
 		var List<Participante> jugadores = partido.participantesConfirmados.toList
 		var seInscribio=false
 		
 		if(partido.hayLugaresLibres){
-			seInscribio= partido.confirmarAsistencia(participante)
+			seInscribio = partido.confirmarAsistencia(participante);
+			if(!seInscribio) throw new JugadorNoFueAnotadoException("Aunque había lugar, el jugador no fue anotado (verificar si ya estaba anotado?)", partido, participante);
 		}
 		else{	
 			var i=0
@@ -27,7 +28,8 @@ public abstract class TipoDeInscripcion {
 			}
 		}
 		
-		return seInscribio
+		if(!seInscribio) throw new NoHayLugarParaAnotarseException("No se encontró ningun lugar para acomodar a este jugador", partido, participante);
+		return false;
 	}
 	
 	def abstract boolean reemplazar(Partido partido, Participante entrante,Participante saliente)

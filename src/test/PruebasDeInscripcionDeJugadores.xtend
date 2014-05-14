@@ -11,9 +11,10 @@ import domain.Jugador
 import domain.Partido
 import domain.InscripcionSolidaria
 import domain.InscripcionCondicional
-//import domain.ImposibleAnotarseException
 import java.util.Date
 import domain.Condicion_LimiteDeEdad
+import domain.NoHayLugarParaAnotarseException
+import domain.JugadorNoFueAnotadoException
 
 public class PruebasDeInscripcionDeJugadores
 {
@@ -46,7 +47,7 @@ public class PruebasDeInscripcionDeJugadores
 		Assert.assertFalse(partido.estaInscripto(saliente.jugador));
 	}
 	
-	@Test 
+	@Test (expected = NoHayLugarParaAnotarseException)
 	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion
 	{
 		var partidoEstandar = Creaciones.crearPartidoLlenoCon10Estandar();
@@ -126,7 +127,7 @@ public class PruebasDeInscripcionDeJugadores
 		
 	}
 	
-	@Test
+	@Test (expected = JugadorNoFueAnotadoException)
 	def public void noSePuedeAnotarAlMismoJugadorDosVeces()
 	{
 		var jugador = new Jugador("Manuelito",24);

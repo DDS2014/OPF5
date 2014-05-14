@@ -1,6 +1,6 @@
 package domain
 
-class ImposibleAnotarseException extends RuntimeException //TODO hacer más interesante a esta excepción
+class NoHayLugarParaAnotarseException extends RuntimeException //TODO hacer más interesante a esta excepción
 {
 	Participante participante;
 	Partido partido;

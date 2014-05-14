@@ -13,15 +13,16 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 	override inscribir(Partido partido){
 		if(!condicion.seCumple(partido))
 		{
-			return false;
-			//TODO en realidad, en vez de un return false, acá tiene que ir una excepción del tipo  "NoSeCumpleLaCondicionException"
+			throw new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, participante);
 		}
-		else{
-			return super.inscribir(partido)
+		else
+		{
+			super.inscribir(partido)
 		}
 	}
 	
-	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
+	override reemplazar(Partido partido, Participante entrante, Participante saliente) 
+	{
 		if(entrante.modalidad instanceof InscripcionEstandar || entrante.modalidad instanceof InscripcionSolidaria)
 			return partido.reemplazar(entrante,saliente)//Estandar y solidaria reemplaza a condicional
 		else return false//Un condicional no puede reemplazar a otro condicional
