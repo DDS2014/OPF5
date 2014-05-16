@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.HashSet;
+
 @SuppressWarnings("all")
 public class Jugador {
   private String _nombre;
@@ -42,8 +44,12 @@ public class Jugador {
     this._documento = documento;
   }
   
+  private HashSet<Jugador> amigos;
+  
   public Jugador(final String nombre, final int edad) {
     this.setNombre(nombre);
     this.setEdad(edad);
+    HashSet<Jugador> _hashSet = new HashSet<Jugador>();
+    this.amigos = _hashSet;
   }
 }
