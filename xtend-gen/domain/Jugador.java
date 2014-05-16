@@ -1,6 +1,9 @@
 package domain;
 
+import com.google.common.base.Objects;
 import java.util.HashSet;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class Jugador {
@@ -51,5 +54,30 @@ public class Jugador {
     this.setEdad(edad);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
     this.amigos = _hashSet;
+  }
+  
+  public boolean hacerseAmigoDe(final Jugador nuevoAmigo) {
+    boolean _xblockexpression = false;
+    {
+      this.confirmarAmistad(nuevoAmigo);
+      boolean _confirmarAmistad = nuevoAmigo.confirmarAmistad(this);
+      _xblockexpression = (_confirmarAmistad);
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean confirmarAmistad(final Jugador nuevoAmigo) {
+    boolean _add = this.amigos.add(nuevoAmigo);
+    return _add;
+  }
+  
+  public boolean tieneAlAmigo(final Jugador amigo) {
+    final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
+      public Boolean apply(final Jugador a) {
+        boolean _equals = Objects.equal(a, amigo);
+        return Boolean.valueOf(_equals);
+      }
+    };
+    return IterableExtensions.<Jugador>exists(this.amigos, _function);
   }
 }
