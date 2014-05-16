@@ -15,7 +15,8 @@ public class InscripcionSolidaria extends TipoDeInscripcion
 			//Estandar reemplaza a solidario
 			return partido.reemplazar(entrante,saliente)
 		}
-		else{
+		else
+		{
 			//No se si un solidario puede reemplazar a otro solidario
 			return false
 		}
