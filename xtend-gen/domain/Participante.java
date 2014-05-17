@@ -48,4 +48,14 @@ public class Participante {
     boolean _inscribir = _modalidad.inscribir(partido);
     return _inscribir;
   }
+  
+  public boolean bajarse(final Partido partido) {
+    boolean _quitarSinReemplazo = partido.quitarSinReemplazo(this);
+    return _quitarSinReemplazo;
+  }
+  
+  public boolean bajarse(final Partido partido, final Participante reemplazante) {
+    boolean _reemplazar = partido.reemplazar(reemplazante, this);
+    return _reemplazar;
+  }
 }

@@ -9,12 +9,14 @@ public class Jugador
 	@Property int edad
 	@Property String documento
 	HashSet<Jugador> amigos;
+	@Property HashSet<Infraccion> infracciones;
 	
 	new(String nombre,int edad)
 	{
 		this.nombre=nombre
 		this.edad=edad
 		this.amigos = new HashSet();
+		this.infracciones = new HashSet();
 	}
 
 	//la amistad se hace en dos pasos para que haya simetría (si yo soy tu amigo, vos sos mi amigo)	
@@ -34,6 +36,11 @@ public class Jugador
 	def boolean tieneAlAmigo(Jugador amigo)
 	{
 		return this.amigos.exists([a | a == amigo]);
+	}
+
+	def aplicarInfraccion(Infraccion infraccion) 
+	{
+		this.infracciones.add(new Infraccion());
 	}
 
 }

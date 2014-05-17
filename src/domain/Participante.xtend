@@ -17,4 +17,15 @@ public class Participante {
 	{
 		modalidad.inscribir(partido);
 	}
+	
+	def bajarse(Partido partido)
+	{
+		partido.quitarSinReemplazo(this);
+	}
+	
+	def bajarse(Partido partido, Participante reemplazante)
+	{
+		partido.reemplazar(reemplazante, this);
+	}
+	
 }

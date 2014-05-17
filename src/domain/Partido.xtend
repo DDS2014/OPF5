@@ -57,6 +57,16 @@ public class Partido implements Comparator<Participante> {
 		}
 	}
 	
+	
+	
+	def quitarSinReemplazo(Participante participante) 
+	{
+		if(!estaInscripto(participante.jugador)) throw new RuntimeException(); //TODO ESTO QUIERE DECIR QUE SE QUISO QUITAR UN JUGADOR QUE NO ESTÁ ANOTADO, PONER UNA EXCEPCION POSTA
+		//OJO QUE ESTO NO ESTÁ DEL TODO BIEN, pero......
+		this.participantesConfirmados.remove(participante);
+		participante.jugador.aplicarInfraccion(new Infraccion());	
+	}
+	
 	override compare(Participante arg0, Participante arg1) {
 		if(arg0.modalidad.prioridad>arg1.modalidad.prioridad){
 			return -1;
@@ -74,5 +84,7 @@ public class Partido implements Comparator<Participante> {
 			else return 0;
 		}
 	}
+
+
 	
 }

@@ -1,5 +1,6 @@
 package domain;
 
+import domain.Infraccion;
 import domain.Jugador;
 import domain.Participante;
 import domain.TipoDeInscripcion;
@@ -107,6 +108,26 @@ public class Partido implements Comparator<Participante> {
       _xifexpression = Boolean.valueOf(_xblockexpression);
     }
     return (_xifexpression).booleanValue();
+  }
+  
+  public boolean quitarSinReemplazo(final Participante participante) {
+    boolean _xblockexpression = false;
+    {
+      Jugador _jugador = participante.getJugador();
+      boolean _estaInscripto = this.estaInscripto(_jugador);
+      boolean _not = (!_estaInscripto);
+      if (_not) {
+        RuntimeException _runtimeException = new RuntimeException();
+        throw _runtimeException;
+      }
+      List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+      _participantesConfirmados.remove(participante);
+      Jugador _jugador_1 = participante.getJugador();
+      Infraccion _infraccion = new Infraccion();
+      boolean _aplicarInfraccion = _jugador_1.aplicarInfraccion(_infraccion);
+      _xblockexpression = (_aplicarInfraccion);
+    }
+    return _xblockexpression;
   }
   
   public int compare(final Participante arg0, final Participante arg1) {

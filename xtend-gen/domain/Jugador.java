@@ -1,6 +1,7 @@
 package domain;
 
 import com.google.common.base.Objects;
+import domain.Infraccion;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -49,11 +50,23 @@ public class Jugador {
   
   private HashSet<Jugador> amigos;
   
+  private HashSet<Infraccion> _infracciones;
+  
+  public HashSet<Infraccion> getInfracciones() {
+    return this._infracciones;
+  }
+  
+  public void setInfracciones(final HashSet<Infraccion> infracciones) {
+    this._infracciones = infracciones;
+  }
+  
   public Jugador(final String nombre, final int edad) {
     this.setNombre(nombre);
     this.setEdad(edad);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
     this.amigos = _hashSet;
+    HashSet<Infraccion> _hashSet_1 = new HashSet<Infraccion>();
+    this.setInfracciones(_hashSet_1);
   }
   
   public boolean hacerseAmigoDe(final Jugador nuevoAmigo) {
@@ -79,5 +92,12 @@ public class Jugador {
       }
     };
     return IterableExtensions.<Jugador>exists(this.amigos, _function);
+  }
+  
+  public boolean aplicarInfraccion(final Infraccion infraccion) {
+    HashSet<Infraccion> _infracciones = this.getInfracciones();
+    Infraccion _infraccion = new Infraccion();
+    boolean _add = _infracciones.add(_infraccion);
+    return _add;
   }
 }
