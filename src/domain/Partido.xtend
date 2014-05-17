@@ -64,7 +64,7 @@ public class Partido implements Comparator<Participante> {
 		if(!estaInscripto(participante.jugador)) throw new RuntimeException(); //TODO ESTO QUIERE DECIR QUE SE QUISO QUITAR UN JUGADOR QUE NO ESTÁ ANOTADO, PONER UNA EXCEPCION POSTA
 		//OJO QUE ESTO NO ESTÁ DEL TODO BIEN, pero......
 		this.participantesConfirmados.remove(participante);
-		participante.jugador.aplicarInfraccion(new Infraccion());	
+		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));	
 	}
 	
 	override compare(Participante arg0, Participante arg1) {

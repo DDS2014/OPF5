@@ -1,8 +1,17 @@
 package domain
 
+import java.util.Date
+
 class Infraccion 
 {
-	//TODO todo
-	//hacerle un campo date y un constructor que lo setee, ya que me interesa saber la fecha de las infracciones
-	//creo que tambien necesita un mensaje descriptivo	
+	@Property Date fecha;
+	@Property String motivo;
+	
+	new(String motivo)
+	{
+		this.fecha = new Date();
+		this.motivo = motivo;
+	}
+	
+
 }

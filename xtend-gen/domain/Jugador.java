@@ -96,8 +96,7 @@ public class Jugador {
   
   public boolean aplicarInfraccion(final Infraccion infraccion) {
     HashSet<Infraccion> _infracciones = this.getInfracciones();
-    Infraccion _infraccion = new Infraccion();
-    boolean _add = _infracciones.add(_infraccion);
+    boolean _add = _infracciones.add(infraccion);
     return _add;
   }
 }

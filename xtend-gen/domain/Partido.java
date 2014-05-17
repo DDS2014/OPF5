@@ -123,7 +123,7 @@ public class Partido implements Comparator<Participante> {
       List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
       _participantesConfirmados.remove(participante);
       Jugador _jugador_1 = participante.getJugador();
-      Infraccion _infraccion = new Infraccion();
+      Infraccion _infraccion = new Infraccion("El jugador se bajó del partido sin designar un reemplazante");
       boolean _aplicarInfraccion = _jugador_1.aplicarInfraccion(_infraccion);
       _xblockexpression = (_aplicarInfraccion);
     }

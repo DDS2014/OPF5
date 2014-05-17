@@ -40,7 +40,7 @@ public class Jugador
 
 	def aplicarInfraccion(Infraccion infraccion) 
 	{
-		this.infracciones.add(new Infraccion());
+		this.infracciones.add(infraccion);
 	}
 
 }
