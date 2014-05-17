@@ -113,18 +113,11 @@ public class Partido implements Comparator<Participante> {
   public boolean quitarSinReemplazo(final Participante participante) {
     boolean _xblockexpression = false;
     {
-      Jugador _jugador = participante.getJugador();
-      boolean _estaInscripto = this.estaInscripto(_jugador);
-      boolean _not = (!_estaInscripto);
-      if (_not) {
-        RuntimeException _runtimeException = new RuntimeException();
-        throw _runtimeException;
-      }
       List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
       _participantesConfirmados.remove(participante);
-      Jugador _jugador_1 = participante.getJugador();
+      Jugador _jugador = participante.getJugador();
       Infraccion _infraccion = new Infraccion("El jugador se bajó del partido sin designar un reemplazante");
-      boolean _aplicarInfraccion = _jugador_1.aplicarInfraccion(_infraccion);
+      boolean _aplicarInfraccion = _jugador.aplicarInfraccion(_infraccion);
       _xblockexpression = (_aplicarInfraccion);
     }
     return _xblockexpression;

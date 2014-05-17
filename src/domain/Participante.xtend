@@ -20,11 +20,13 @@ public class Participante {
 	
 	def bajarse(Partido partido)
 	{
+		if (!partido.estaInscripto(this.jugador)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
 		partido.quitarSinReemplazo(this);
 	}
 	
 	def bajarse(Partido partido, Participante reemplazante)
 	{
+		if (!partido.estaInscripto(this.jugador)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
 		partido.reemplazar(reemplazante, this);
 	}
 	

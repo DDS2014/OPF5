@@ -1,5 +1,6 @@
 package domain;
 
+import domain.ImposibleBajarseException;
 import domain.Jugador;
 import domain.Partido;
 import domain.TipoDeInscripcion;
@@ -50,12 +51,34 @@ public class Participante {
   }
   
   public boolean bajarse(final Partido partido) {
-    boolean _quitarSinReemplazo = partido.quitarSinReemplazo(this);
-    return _quitarSinReemplazo;
+    boolean _xblockexpression = false;
+    {
+      Jugador _jugador = this.getJugador();
+      boolean _estaInscripto = partido.estaInscripto(_jugador);
+      boolean _not = (!_estaInscripto);
+      if (_not) {
+        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        throw _imposibleBajarseException;
+      }
+      boolean _quitarSinReemplazo = partido.quitarSinReemplazo(this);
+      _xblockexpression = (_quitarSinReemplazo);
+    }
+    return _xblockexpression;
   }
   
   public boolean bajarse(final Partido partido, final Participante reemplazante) {
-    boolean _reemplazar = partido.reemplazar(reemplazante, this);
-    return _reemplazar;
+    boolean _xblockexpression = false;
+    {
+      Jugador _jugador = this.getJugador();
+      boolean _estaInscripto = partido.estaInscripto(_jugador);
+      boolean _not = (!_estaInscripto);
+      if (_not) {
+        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        throw _imposibleBajarseException;
+      }
+      boolean _reemplazar = partido.reemplazar(reemplazante, this);
+      _xblockexpression = (_reemplazar);
+    }
+    return _xblockexpression;
   }
 }
