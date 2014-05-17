@@ -3,6 +3,7 @@ package domain;
 import com.google.common.base.Objects;
 import domain.Infraccion;
 import java.util.HashSet;
+import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -48,7 +49,25 @@ public class Jugador {
     this._documento = documento;
   }
   
-  private HashSet<Jugador> amigos;
+  private String _email;
+  
+  public String getEmail() {
+    return this._email;
+  }
+  
+  public void setEmail(final String email) {
+    this._email = email;
+  }
+  
+  private HashSet<Jugador> _amigos;
+  
+  public HashSet<Jugador> getAmigos() {
+    return this._amigos;
+  }
+  
+  public void setAmigos(final HashSet<Jugador> amigos) {
+    this._amigos = amigos;
+  }
   
   private HashSet<Infraccion> _infracciones;
   
@@ -64,7 +83,7 @@ public class Jugador {
     this.setNombre(nombre);
     this.setEdad(edad);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
-    this.amigos = _hashSet;
+    this.setAmigos(_hashSet);
     HashSet<Infraccion> _hashSet_1 = new HashSet<Infraccion>();
     this.setInfracciones(_hashSet_1);
   }
@@ -73,30 +92,43 @@ public class Jugador {
     boolean _xblockexpression = false;
     {
       this.confirmarAmistad(nuevoAmigo);
-      boolean _confirmarAmistad = nuevoAmigo.confirmarAmistad(this);
-      _xblockexpression = (_confirmarAmistad);
+      _xblockexpression = nuevoAmigo.confirmarAmistad(this);
     }
     return _xblockexpression;
   }
   
   public boolean confirmarAmistad(final Jugador nuevoAmigo) {
-    boolean _add = this.amigos.add(nuevoAmigo);
-    return _add;
+    HashSet<Jugador> _amigos = this.getAmigos();
+    return _amigos.add(nuevoAmigo);
   }
   
   public boolean tieneAlAmigo(final Jugador amigo) {
+    HashSet<Jugador> _amigos = this.getAmigos();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador a) {
-        boolean _equals = Objects.equal(a, amigo);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf(Objects.equal(a, amigo));
       }
     };
-    return IterableExtensions.<Jugador>exists(this.amigos, _function);
+    return IterableExtensions.<Jugador>exists(_amigos, _function);
   }
   
   public boolean aplicarInfraccion(final Infraccion infraccion) {
     HashSet<Infraccion> _infracciones = this.getInfracciones();
-    boolean _add = _infracciones.add(infraccion);
-    return _add;
+    return _infracciones.add(infraccion);
+  }
+  
+  public boolean avisarAmigos() {
+    HashSet<Jugador> _amigos = this.getAmigos();
+    final Consumer<Jugador> _function = new Consumer<Jugador>() {
+      public void accept(final Jugador amigo) {
+        amigo.recibirNotificacionDe(Jugador.this);
+      }
+    };
+    _amigos.forEach(_function);
+    return true;
+  }
+  
+  public boolean recibirNotificacionDe(final Jugador jugador) {
+    return true;
   }
 }

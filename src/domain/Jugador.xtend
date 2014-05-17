@@ -9,7 +9,7 @@ public class Jugador
 	@Property int edad
 	@Property String documento
 	@Property String email
-	HashSet<Jugador> amigos;
+	@Property HashSet<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
 	
 	new(String nombre,int edad)
@@ -42,6 +42,16 @@ public class Jugador
 	def aplicarInfraccion(Infraccion infraccion) 
 	{
 		this.infracciones.add(infraccion);
+	}
+
+def avisarAmigos() {
+		this.amigos.forEach[amigo|amigo.recibirNotificacionDe(this)];
+		return true
+	}
+
+def recibirNotificacionDe(Jugador jugador) {
+		//aca iria mandar mail al jugador amigo de parte del jugador qe se pasa por parametro
+		return true //si se pudo mandar devuelve true
 	}
 
 }

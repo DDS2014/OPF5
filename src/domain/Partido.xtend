@@ -6,14 +6,18 @@ import java.util.Comparator
 import java.util.Collections
 import java.util.ArrayList
 
+
 public class Partido implements Comparator<Participante> {
 	@Property Date fecha
 	@Property List<Participante> participantesConfirmados
+	@Property List<PartidoObserver> observers
+
 	
 	//CONSTRUCTOR
 	new(Date fecha){
-		this.fecha=fecha
-		this.participantesConfirmados=new ArrayList()
+		this.fecha=fecha;
+		this.participantesConfirmados=new ArrayList();
+		this.observers =new ArrayList();
 	}
 	
 	//Inscripcion
@@ -27,7 +31,7 @@ public class Partido implements Comparator<Participante> {
 	}
 	
 	def boolean inscribir(Jugador jugador,TipoDeInscripcion modalidad){
-		//Creo una nueva instancia de participante para el jugador a inscribirse
+		//Creo una nueva instancia de participante para el jugador a inscribirse //donde se usa este metodo?
 		val participante = new Participante(jugador)
 		participante.setModalidad(modalidad);
 		return participante.inscribirse(this)
@@ -82,7 +86,20 @@ public class Partido implements Comparator<Participante> {
 			else return 0;
 		}
 	}
-
-
 	
+	def agregarObsever(PartidoObserver observer) {
+		this.observers.add(observer)
+	}
+
+	def removeObserver(PartidoObserver observer){
+		this.observers.remove(observer)
+	}
+	
+	def notificarJugadorConfirmadoAObservers() {
+		this.observers.forEach[observer | observer.notificarConfirmacionJugador(this)]
+	}
+
+	def amigosNotificados(){
+		this.jugadoresConfirmados.forall[jugador | jugador.avisarAmigos()]
+	}
 }

@@ -3,6 +3,11 @@ package test
 import org.junit.Test
 import org.junit.Assert
 import domain.Jugador
+import domain.Partido
+import java.util.Date
+import domain.Participante
+import domain.InscripcionEstandar
+import domain.NotificarAmigosObserver
 
 public class PruebasDeEnvioDeNotificaciones 
 {
@@ -41,7 +46,20 @@ public class PruebasDeEnvioDeNotificaciones
 	@Test
 	def public void CuandoUnJugadorSeInscribeSusAmigosSonNotificados()
 	{
-		Assert.fail();
+		var partido = new Partido (new Date);
+		var partPepe = new Participante(new Jugador("Pepe",20));
+		partPepe.setModalidad(new InscripcionEstandar(partPepe));
+		var	jugadorLuis = new Jugador("Luis", 18);
+		var jugadorPedro = new Jugador("Pedro", 20);
+		partPepe.jugador.hacerseAmigoDe(jugadorLuis);
+		partPepe.jugador.hacerseAmigoDe(jugadorPedro);
+		var notifAmigos = new NotificarAmigosObserver;
+		partido.agregarObsever(notifAmigos);
+		
+		partPepe.inscribirse(partido);
+		partido.notificarJugadorConfirmadoAObservers();
+		
+		Assert.assertTrue(partido.amigosNotificados())
 	}
 	
 }
