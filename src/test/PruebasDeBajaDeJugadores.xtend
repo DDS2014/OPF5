@@ -28,12 +28,6 @@ class PruebasDeBajaDeJugadores
 	@Test
 	def public void cuandoUnJugadorSeBajaDejaDeEstarInscripto()
 	{
-//		var partido = new Partido(new Date());
-//		var jugadorJuan = new Jugador("Juan", 18);
-//		var partJuan = new Participante(jugadorJuan);		
-//		partJuan.setModalidad(new InscripcionEstandar(partJuan));
-//		partJuan.inscribirse(partido);
-		
 		partJuan.bajarse(partido);
 		
 		Assert.assertFalse(partido.estaInscripto(jugadorJuan));	
@@ -42,12 +36,6 @@ class PruebasDeBajaDeJugadores
 	@Test
 	def public void cuandoUnJugadorSeBajaYNoDesignaUnReemplazanteSeLeGeneraUnaInfraccion()
 	{
-//		var partido = new Partido(new Date());
-//		var jugadorJuan = new Jugador("Juan", 18);
-//		var partJuan = new Participante(jugadorJuan);		
-//		partJuan.setModalidad(new InscripcionEstandar(partJuan));
-//		partJuan.inscribirse(partido);
-//		
 		partJuan.bajarse(partido);
 		
 		Assert.assertTrue(jugadorJuan.getInfracciones().length == 1);
