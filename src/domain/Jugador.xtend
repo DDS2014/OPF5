@@ -2,12 +2,13 @@ package domain
 
 import java.util.HashSet
 
-public class Jugador 
+public class Jugador
 {
 	@Property String nombre
 	@Property String apellido
 	@Property int edad
 	@Property String documento
+	@Property String email
 	HashSet<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
 	
