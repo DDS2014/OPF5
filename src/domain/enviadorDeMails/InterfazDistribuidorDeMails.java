@@ -3,7 +3,7 @@ package domain.enviadorDeMails;
 import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;
 import domain.enviadorDeMails.excepciones.DireccionDeEmailInvalida;;
 
-public interface DistribuidorDeMails {
+public interface InterfazDistribuidorDeMails {
 
 	
 	/**

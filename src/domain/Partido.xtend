@@ -9,14 +9,14 @@ import java.util.Comparator
 import java.util.Date
 import java.util.List
 //import domain.enviadorDeMails.distribuidor.DistribuidorStub
-import domain.enviadorDeMails.DistribuidorDeMails
+import domain.enviadorDeMails.InterfazDistribuidorDeMails
 
 public class Partido implements Comparator<Participante> {
 	@Property Date fecha
 	@Property List<Participante> participantesConfirmados
 	@Property List<PartidoObserver> observers
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
-	@Property DistribuidorDeMails distribuidor
+	@Property InterfazDistribuidorDeMails distribuidor
 	
 	//CONSTRUCTOR
 	new(Date fecha){

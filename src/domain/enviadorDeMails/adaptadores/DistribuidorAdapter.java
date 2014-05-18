@@ -1,4 +1,4 @@
-package domain.enviadorDeMails.distribuidor;
+package domain.enviadorDeMails.adaptadores;
 /*
 import domain.enviadorDeMails.DistribuidorDeMails;
 import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;//TODO: usar

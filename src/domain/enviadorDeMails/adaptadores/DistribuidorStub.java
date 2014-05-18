@@ -1,10 +1,10 @@
-package domain.enviadorDeMails.distribuidor;
+package domain.enviadorDeMails.adaptadores;
 
-import domain.enviadorDeMails.DistribuidorDeMails;
+import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;//TODO: usar
 import domain.enviadorDeMails.excepciones.DireccionDeEmailInvalida;
 
-public class DistribuidorStub implements DistribuidorDeMails {
+public class DistribuidorStub implements InterfazDistribuidorDeMails {
 	
 	@Override
 	public void enviarMail(String receptor, String subject, String body){

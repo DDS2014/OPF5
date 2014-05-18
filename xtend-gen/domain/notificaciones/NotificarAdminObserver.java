@@ -3,7 +3,7 @@ package domain.notificaciones;
 import domain.Jugador;
 import domain.Participante;
 import domain.Partido;
-import domain.enviadorDeMails.DistribuidorDeMails;
+import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.notificaciones.PartidoObserver;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
@@ -23,7 +23,7 @@ public class NotificarAdminObserver implements PartidoObserver {
         System.out.println("Se notifico al administrador");
         String subject = "Partido Confirmado";
         String body = "Todas las plazas del partido fueron confirmadas";
-        DistribuidorDeMails _distribuidor = partido.getDistribuidor();
+        InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();
         _distribuidor.enviarMail(Partido.MAIL_ADMINISTRADOR, subject, body);
       }
     } catch (Throwable _e) {
@@ -38,7 +38,7 @@ public class NotificarAdminObserver implements PartidoObserver {
       String _nombre = _jugador.getNombre();
       String _plus = ("El partido dejó de tener todas las plazas confirmadas. El jugador " + _nombre);
       String body = (_plus + " se bajó del partido.");
-      DistribuidorDeMails _distribuidor = partido.getDistribuidor();
+      InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();
       _distribuidor.enviarMail(Partido.MAIL_ADMINISTRADOR, subject, body);
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

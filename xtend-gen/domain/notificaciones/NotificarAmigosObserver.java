@@ -3,7 +3,7 @@ package domain.notificaciones;
 import domain.Jugador;
 import domain.Participante;
 import domain.Partido;
-import domain.enviadorDeMails.DistribuidorDeMails;
+import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.notificaciones.PartidoObserver;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -19,7 +19,7 @@ public class NotificarAmigosObserver implements PartidoObserver {
     final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
       public void apply(final Jugador j) {
         try {
-          DistribuidorDeMails _distribuidor = partido.getDistribuidor();
+          InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();
           String _email = j.getEmail();
           _distribuidor.enviarMail(_email, subject, body);
         } catch (Throwable _e) {
