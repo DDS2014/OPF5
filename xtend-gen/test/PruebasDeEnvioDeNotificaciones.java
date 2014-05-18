@@ -208,19 +208,41 @@ public class PruebasDeEnvioDeNotificaciones {
   
   @Test
   public void CuandoUnJugadorSeInscribeSusAmigosSonNotificados() {
-    Date _date = new Date();
-    Partido _partido = new Partido(_date);
-    Partido partido = _partido;
-    Jugador _jugador = new Jugador("Pepe", 20);
-    Jugador jugadorPepe = _jugador;
-    Jugador _jugador_1 = new Jugador("Luis", 18);
-    Jugador jugadorLuis = _jugador_1;
-    Jugador _jugador_2 = new Jugador("Pedro", 20);
-    Jugador jugadorPedro = _jugador_2;
-    jugadorPepe.hacerseAmigoDe(jugadorLuis);
-    jugadorPepe.hacerseAmigoDe(jugadorPedro);
-    NotificarAmigosObserver _notificarAmigosObserver = new NotificarAmigosObserver();
-    partido.agregarObsever(_notificarAmigosObserver);
-    Assert.fail();
+    try {
+      Date _date = new Date();
+      Partido _partido = new Partido(_date);
+      Partido partido = _partido;
+      Jugador _jugador = new Jugador("Pepe", 20);
+      Jugador jugadorPepe = _jugador;
+      Jugador _jugador_1 = new Jugador("Luis", 18);
+      Jugador jugadorLuis = _jugador_1;
+      Jugador _jugador_2 = new Jugador("Pedro", 20);
+      Jugador jugadorPedro = _jugador_2;
+      jugadorPepe.hacerseAmigoDe(jugadorLuis);
+      jugadorPepe.hacerseAmigoDe(jugadorPedro);
+      jugadorLuis.setEmail("luisito@gmail.com");
+      jugadorPedro.setEmail("pedrito@gmail.com");
+      NotificarAmigosObserver _notificarAmigosObserver = new NotificarAmigosObserver();
+      partido.agregarObsever(_notificarAmigosObserver);
+      final InterfazDistribuidorDeMails mockedDistribuidor = Mockito.<InterfazDistribuidorDeMails>mock(InterfazDistribuidorDeMails.class);
+      partido.setDistribuidor(mockedDistribuidor);
+      Participante _participante = new Participante(jugadorPepe);
+      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(_participante);
+      partido.inscribir(_inscripcionEstandar);
+      VerificationMode _times = Mockito.times(1);
+      InterfazDistribuidorDeMails _verify = Mockito.<InterfazDistribuidorDeMails>verify(mockedDistribuidor, _times);
+      String _eq = Matchers.<String>eq("luisito@gmail.com");
+      String _eq_1 = Matchers.<String>eq("Me anote a un partido!");
+      String _any = Matchers.<String>any(String.class);
+      _verify.enviarMail(_eq, _eq_1, _any);
+      VerificationMode _times_1 = Mockito.times(1);
+      InterfazDistribuidorDeMails _verify_1 = Mockito.<InterfazDistribuidorDeMails>verify(mockedDistribuidor, _times_1);
+      String _eq_2 = Matchers.<String>eq("pedrito@gmail.com");
+      String _eq_3 = Matchers.<String>eq("Me anote a un partido!");
+      String _any_1 = Matchers.<String>any(String.class);
+      _verify_1.enviarMail(_eq_2, _eq_3, _any_1);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
   }
 }

@@ -8,8 +8,8 @@ class NotificarAmigosObserver implements PartidoObserver {
 	
 	def override inscribir(Partido partido, Jugador jugador, boolean habiaLugar){
 	
-		val subject = "Partido Confirmado"
-		val body = "Todas las plazas del partido fueron confirmadas"  
+		val subject = "Me anote a un partido!"
+		val body = jugador.nombre+" se inscribió al partido del "+partido.fecha.toString();
 		
 		jugador.amigos.forEach[j|partido.distribuidor.enviarMail(j.email,subject,body)]
 	}

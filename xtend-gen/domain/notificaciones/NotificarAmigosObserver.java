@@ -5,6 +5,7 @@ import domain.Participante;
 import domain.Partido;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.notificaciones.PartidoObserver;
+import java.util.Date;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -13,8 +14,12 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 @SuppressWarnings("all")
 public class NotificarAmigosObserver implements PartidoObserver {
   public void inscribir(final Partido partido, final Jugador jugador, final boolean habiaLugar) {
-    final String subject = "Partido Confirmado";
-    final String body = "Todas las plazas del partido fueron confirmadas";
+    final String subject = "Me anote a un partido!";
+    String _nombre = jugador.getNombre();
+    String _plus = (_nombre + " se inscribió al partido del ");
+    Date _fecha = partido.getFecha();
+    String _string = _fecha.toString();
+    final String body = (_plus + _string);
     HashSet<Jugador> _amigos = jugador.getAmigos();
     final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
       public void apply(final Jugador j) {

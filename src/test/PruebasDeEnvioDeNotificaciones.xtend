@@ -141,6 +141,7 @@ public class PruebasDeEnvioDeNotificaciones
 	@Test
 	def public void CuandoUnJugadorSeInscribeSusAmigosSonNotificados()
 	{
+		//setup
 		var partido = new Partido (new Date);
 		var jugadorPepe = new Jugador("Pepe",20)
 		//var partPepe = new Participante(new Jugador("Pepe",20));
@@ -150,17 +151,22 @@ public class PruebasDeEnvioDeNotificaciones
 		jugadorPepe.hacerseAmigoDe(jugadorLuis);
 		jugadorPepe.hacerseAmigoDe(jugadorPedro);
 		
+		jugadorLuis.email="luisito@gmail.com";
+		jugadorPedro.email="pedrito@gmail.com";
+		
 		partido.agregarObsever(new NotificarAmigosObserver);
 		
-		//partido.inscribir(new InscripcionEstandar(new Participante(jugadorPepe)))
+		val mockedDistribuidor = mock(typeof(InterfazDistribuidorDeMails));
+		partido.distribuidor = mockedDistribuidor;
 		
-		//SIMULAR CON MOCKITO
 		
-		//partPepe.inscribirse(partido);
-		//partido.notificarJugadorConfirmadoAObservers();
+		//accion
+		partido.inscribir(new InscripcionEstandar(new Participante(jugadorPepe)))
 		
-		//Assert.assertTrue(partido.amigosNotificados())
-		Assert.fail();
+		//verificacion
+		verify(mockedDistribuidor, times(1)).enviarMail(eq("luisito@gmail.com"),eq("Me anote a un partido!"),any(typeof(String)));
+		verify(mockedDistribuidor, times(1)).enviarMail(eq("pedrito@gmail.com"),eq("Me anote a un partido!"),any(typeof(String)));
+		
 	}
 	
 }
