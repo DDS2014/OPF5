@@ -71,9 +71,10 @@ public class Partido implements Comparator<Participante> {
 	
 	def void quitarSinReemplazo(Participante participante) 
 	{
+		val estabaConfirmado = !hayLugaresLibres();
 		this.participantesConfirmados.remove(participante);
 		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
-		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR,participante)]	
+		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR,participante, estabaConfirmado)]	
 	}
 	
 	override compare(Participante arg0, Participante arg1) {

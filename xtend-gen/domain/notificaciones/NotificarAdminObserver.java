@@ -30,15 +30,17 @@ public class NotificarAdminObserver implements PartidoObserver {
     }
   }
   
-  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Participante participante) {
+  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Participante participante, final Boolean estabaConfirmado) {
     try {
-      String subject = "Partido Indefinido";
-      Jugador _jugador = participante.getJugador();
-      String _nombre = _jugador.getNombre();
-      String _plus = ("El partido dejó de tener todas las plazas confirmadas. El jugador " + _nombre);
-      String body = (_plus + " se bajó del partido.");
-      InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();
-      _distribuidor.enviarMail(Partido.MAIL_ADMINISTRADOR, subject, body);
+      if ((estabaConfirmado).booleanValue()) {
+        String subject = "Partido Indefinido";
+        Jugador _jugador = participante.getJugador();
+        String _nombre = _jugador.getNombre();
+        String _plus = ("El partido dejó de tener todas las plazas confirmadas. El jugador " + _nombre);
+        String body = (_plus + " se bajó del partido.");
+        InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();
+        _distribuidor.enviarMail(Partido.MAIL_ADMINISTRADOR, subject, body);
+      }
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

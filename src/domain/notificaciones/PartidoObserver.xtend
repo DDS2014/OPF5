@@ -8,5 +8,5 @@ interface PartidoObserver {
 
 		def void inscribir(Partido partido, Jugador jugador, boolean habiaLugar)
 	
-		def void avisarQuitaSinReemplazo(Partido partido, String mailAdmin, Participante participante)
+		def void avisarQuitaSinReemplazo(Partido partido, String mailAdmin, Participante participante, Boolean estabaConfirmado)
 }

@@ -145,6 +145,8 @@ public class Partido implements Comparator<Participante> {
   }
   
   public void quitarSinReemplazo(final Participante participante) {
+    boolean _hayLugaresLibres = this.hayLugaresLibres();
+    final boolean estabaConfirmado = (!_hayLugaresLibres);
     List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
     _participantesConfirmados.remove(participante);
     Jugador _jugador = participante.getJugador();
@@ -153,7 +155,7 @@ public class Partido implements Comparator<Participante> {
     List<PartidoObserver> _observers = this.getObservers();
     final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
       public void apply(final PartidoObserver observer) {
-        observer.avisarQuitaSinReemplazo(Partido.this, Partido.MAIL_ADMINISTRADOR, participante);
+        observer.avisarQuitaSinReemplazo(Partido.this, Partido.MAIL_ADMINISTRADOR, participante, Boolean.valueOf(estabaConfirmado));
       }
     };
     IterableExtensions.<PartidoObserver>forEach(_observers, _function);
