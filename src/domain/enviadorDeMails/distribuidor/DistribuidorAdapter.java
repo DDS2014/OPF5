@@ -1,8 +1,12 @@
 package domain.enviadorDeMails.distribuidor;
-
+/*
 import domain.enviadorDeMails.DistribuidorDeMails;
 import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;//TODO: usar
 import domain.enviadorDeMails.excepciones.DireccionDeEmailInvalida;;
+*/
+
+//no necesitamos realmente este adapter todavía, porque la clase concreta que envía el mail no existe
+//con mockear la interfaz DistribuidorDeMails alcanza y sobra para esta entrega
 
 /*public class DistribuidorAdapter implements DistribuidorDeMails {
 	

@@ -3,7 +3,6 @@ package domain.notificaciones
 import domain.Participante
 import domain.Jugador
 import domain.Partido
-import domain.enviadorDeMails.distribuidor.DistribuidorStub
 
 class NotificarAdminObserver implements PartidoObserver {
 	
