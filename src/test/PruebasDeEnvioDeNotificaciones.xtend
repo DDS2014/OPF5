@@ -9,9 +9,9 @@ import domain.notificaciones.NotificarAmigosObserver
 import java.util.Date
 import org.junit.Assert
 import org.junit.Test
-import domain.enviadorDeMails.distribuidor.DistribuidorStub
 import static org.mockito.Mockito.*
 import domain.notificaciones.NotificarAdminObserver
+import domain.enviadorDeMails.InterfazDistribuidorDeMails
 
 public class PruebasDeEnvioDeNotificaciones 
 {
@@ -38,7 +38,7 @@ public class PruebasDeEnvioDeNotificaciones
 	def public void CuandoUnPartidoEsConfirmadoElAdministradorEsNotificado()
 	{
 		var partido = new Partido (new Date)
-		val mockedDistribuidor = mock(typeof(DistribuidorStub))
+		val mockedDistribuidor = mock(typeof(InterfazDistribuidorDeMails))
 		partido.distribuidor = mockedDistribuidor
 		
 		//Se agregan los observers
