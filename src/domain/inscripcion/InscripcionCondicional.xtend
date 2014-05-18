@@ -1,4 +1,9 @@
-package domain
+package domain.inscripcion
+
+import domain.Participante
+import domain.Partido
+import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException
+import domain.inscripcion.condiciones.Condicion
 
 public class InscripcionCondicional extends TipoDeInscripcion{
 	@Property int prioridad=3
@@ -10,14 +15,14 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 		this.condicion=condicion
 	}
 	
-	override inscribir(Partido partido){
+	override inscribir(Participante participante, Partido partido){
 		if(!condicion.seCumple(partido))
 		{
 			throw new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, participante);
 		}
 		else
 		{
-			super.inscribir(partido)
+			super.inscribir(participante,partido)
 		}
 	}
 	

@@ -2,19 +2,18 @@ package test
 
 //import static org.junit.Assert.*;
 
-
-import org.junit.Test
-import org.junit.Assert
-import domain.Participante
-import domain.InscripcionEstandar
 import domain.Jugador
+import domain.Participante
 import domain.Partido
-import domain.InscripcionSolidaria
-import domain.InscripcionCondicional
+import domain.excepciones.JugadorNoFueAnotadoException
+import domain.excepciones.NoHayLugarParaAnotarseException
+import domain.inscripcion.InscripcionCondicional
+import domain.inscripcion.InscripcionEstandar
+import domain.inscripcion.InscripcionSolidaria
+import domain.inscripcion.condiciones.Condicion_LimiteDeEdad
 import java.util.Date
-import domain.Condicion_LimiteDeEdad
-import domain.NoHayLugarParaAnotarseException
-import domain.JugadorNoFueAnotadoException
+import org.junit.Assert
+import org.junit.Test
 
 public class PruebasDeInscripcionDeJugadores
 {
@@ -25,9 +24,12 @@ public class PruebasDeInscripcionDeJugadores
 		
 		var jugador = new Jugador("Pedrito",23);
 		var participante = new Participante(jugador)
-		participante.setModalidad(new InscripcionEstandar(participante))
 		
-		participante.inscribirse(partido);
+		//participante.setModalidad(new InscripcionEstandar(participante))
+		
+		//participante.inscribirse(partido);
+		
+		partido.inscribir(new InscripcionEstandar(participante))
 		
 		Assert.assertTrue(partido.estaInscripto(jugador));
 	}
@@ -51,16 +53,18 @@ public class PruebasDeInscripcionDeJugadores
 	def public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() //TODO agregar excepcion
 	{
 		var partidoEstandar = Creaciones.crearPartidoLlenoCon10Estandar();
+		
 		var colgado = new Participante(new Jugador("Jorgito",20));
-		colgado.setModalidad(new InscripcionEstandar(colgado));
-		Assert.assertFalse(colgado.inscribirse(partidoEstandar));
+		
+		//colgado.setModalidad(new InscripcionEstandar(colgado));
+		Assert.assertFalse(partidoEstandar.inscribir(new InscripcionEstandar(colgado)));
 		
 		//try
 		//{		
-		//	colgado.inscribirse(partidoEstandar); 
+		//	partidoEstandar.inscribir(new InscripcionEstandar(colgado))
 		//	Assert.fail("No falló la inscripción aunque el partido estaba lleno, algo anda mal");
 		//}
-		//catch(ImposibleAnotarseException excepcion)
+		//catch(NoHayLugarParaAnotarseException excepcion)
 		//{
 		//	Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
 		//}

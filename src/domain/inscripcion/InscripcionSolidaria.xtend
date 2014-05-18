@@ -1,4 +1,7 @@
-package domain
+package domain.inscripcion
+
+import domain.Participante
+import domain.Partido
 
 public class InscripcionSolidaria extends TipoDeInscripcion
 {
@@ -8,6 +11,7 @@ public class InscripcionSolidaria extends TipoDeInscripcion
 	{
 		super(participante)
 	}
+	
 	
 	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
 		if(entrante.modalidad instanceof InscripcionEstandar)

@@ -1,5 +1,9 @@
-package domain
+package domain.inscripcion
 
+import domain.Participante
+import domain.Partido
+import domain.excepciones.JugadorNoFueAnotadoException
+import domain.excepciones.NoHayLugarParaAnotarseException
 import java.util.List
 
 public abstract class TipoDeInscripcion {
@@ -11,7 +15,7 @@ public abstract class TipoDeInscripcion {
 		this.participante = participante;
 	}
 	
-	def inscribir(Partido partido){ //OJO: ESTO YA NO RETORNA BOOLEAN
+	def inscribir(Participante participante, Partido partido){ //OJO: ESTO YA NO RETORNA BOOLEAN
 		var List<Participante> jugadores = partido.participantesConfirmados.toList
 		var seInscribio=false
 		

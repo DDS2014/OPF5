@@ -19,8 +19,8 @@ public interface DistribuidorDeMails {
 	 * @throws NoSePuedenMandarMailsPocoDescriptivos: En caso de que el subject no cumpla con nuestros parametros de calidad //NO VA
 	 * @throws NoSePudoEnviarElMail: En cualquier otro caso
 	 */
-	public void dispararMensajeALasDirecciones(
-			String emisor, 
+	public void enviarMail(
+			//String emisor, 
 			String receptor,
 			String subject, 
 			String body) throws DireccionDeEmailInvalida, NoSePudoEnviarElMail;

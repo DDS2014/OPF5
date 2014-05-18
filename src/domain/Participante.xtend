@@ -1,5 +1,7 @@
 package domain
 
+import domain.excepciones.ImposibleBajarseException
+import domain.inscripcion.TipoDeInscripcion
 import java.util.Date
 
 public class Participante {
@@ -12,10 +14,9 @@ public class Participante {
 		this.fechaInscripcion=new Date
 	}
 	
-	
 	def inscribirse(Partido partido)
 	{
-		modalidad.inscribir(partido);
+		modalidad.inscribir(this,partido);
 	}
 	
 	def bajarse(Partido partido)
@@ -29,5 +30,4 @@ public class Participante {
 		if (!partido.estaInscripto(this.jugador)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
 		partido.reemplazar(reemplazante, this);
 	}
-	
 }

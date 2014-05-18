@@ -1,17 +1,21 @@
 package domain
 
+import domain.infracciones.Infraccion
+import domain.inscripcion.TipoDeInscripcion
+import domain.notificaciones.PartidoObserver
+import java.util.ArrayList
+import java.util.Collections
+import java.util.Comparator
 import java.util.Date
 import java.util.List
-import java.util.Comparator
-import java.util.Collections
-import java.util.ArrayList
-
+import domain.enviadorDeMails.distribuidor.DistribuidorStub
 
 public class Partido implements Comparator<Participante> {
 	@Property Date fecha
 	@Property List<Participante> participantesConfirmados
 	@Property List<PartidoObserver> observers
-
+	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
+	@Property DistribuidorStub distribuidor
 	
 	//CONSTRUCTOR
 	new(Date fecha){
@@ -30,15 +34,16 @@ public class Partido implements Comparator<Participante> {
 		jugadores.contains(jugador)
 	}
 	
-	def boolean inscribir(Jugador jugador,TipoDeInscripcion modalidad){
-		//Creo una nueva instancia de participante para el jugador a inscribirse //donde se usa este metodo?
-		val participante = new Participante(jugador)
-		participante.setModalidad(modalidad);
-		return participante.inscribirse(this)
+	def boolean inscribir(TipoDeInscripcion modalidad){
+		val habiaLugar = hayLugaresLibres()
+		modalidad.participante.setModalidad(modalidad);
+		modalidad.participante.inscribirse(this)
+	    this.observers.forEach[observer | observer.inscribir(this,modalidad.participante.jugador,habiaLugar)]
+		return true
 	}
 	
 	def boolean hayLugaresLibres(){
-		return this.participantesConfirmados.size<10
+		return this.participantesConfirmados.size<10//Cambiar para que no este harcodeado
 	}
 	
 	//Inscribe al participante
@@ -55,18 +60,19 @@ public class Partido implements Comparator<Participante> {
 	
 	//Reemplaza a un jugador entrante por el saliente
 	def boolean reemplazar(Participante entrante,Participante saliente){
+		var bool = false
 		if(!estaInscripto(entrante.jugador)){//Primero ve si lo puede agregar, y lo agrega al final
 			participantesConfirmados.remove(saliente)//Despues borra al otro
-			confirmarAsistencia(entrante)
+			bool=confirmarAsistencia(entrante)
 		}
+		return bool
 	}
 	
-	
-	
-	def quitarSinReemplazo(Participante participante) 
+	def void quitarSinReemplazo(Participante participante) 
 	{
 		this.participantesConfirmados.remove(participante);
-		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));	
+		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
+		this.observers.forEach[observer | observer.quitarSinReemplazo(this,MAIL_ADMINISTRADOR,participante)]	
 	}
 	
 	override compare(Participante arg0, Participante arg1) {
@@ -95,10 +101,8 @@ public class Partido implements Comparator<Participante> {
 		this.observers.remove(observer)
 	}
 	
-	def notificarJugadorConfirmadoAObservers() {
-		this.observers.forEach[observer | observer.notificarConfirmacionJugador(this)]
-	}
-
+	
+	//Cambiar
 	def amigosNotificados(){
 		this.jugadoresConfirmados.forall[jugador | jugador.avisarAmigos()]
 	}

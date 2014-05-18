@@ -1,13 +1,13 @@
 package test
 
-import org.junit.Test
-import org.junit.Assert
-import domain.Partido
-import java.util.Date
 import domain.Jugador
 import domain.Participante
-import domain.InscripcionEstandar
+import domain.Partido
+import domain.inscripcion.InscripcionEstandar
+import java.util.Date
+import org.junit.Assert
 import org.junit.Before
+import org.junit.Test
 
 class PruebasDeBajaDeJugadores 
 {
@@ -20,9 +20,15 @@ class PruebasDeBajaDeJugadores
 	{
 		partido = new Partido(new Date());
 		jugadorJuan = new Jugador("Juan", 18);
+		partJuan = new Participante(jugadorJuan);	
+		
+		partido.inscribir(new InscripcionEstandar(partJuan))
+		
+		/*
 		partJuan = new Participante(jugadorJuan);		
 		partJuan.setModalidad(new InscripcionEstandar(partJuan));
 		partJuan.inscribirse(partido);
+		*/
 	}
 	
 	@Test

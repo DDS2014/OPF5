@@ -1,5 +1,6 @@
 package domain
 
+import domain.infracciones.Infraccion
 import java.util.HashSet
 
 public class Jugador

@@ -1,6 +1,7 @@
-package domain
+package domain.inscripcion.condiciones
 
-import domain.Condicion
+import domain.Jugador
+import domain.Partido
 import java.util.HashSet
 import java.util.Set
 
