@@ -2,7 +2,7 @@ package domain;
 
 import domain.Jugador;
 import domain.Participante;
-import domain.enviadorDeMails.distribuidor.DistribuidorStub;
+import domain.enviadorDeMails.DistribuidorDeMails;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
 import domain.notificaciones.PartidoObserver;
@@ -50,13 +50,13 @@ public class Partido implements Comparator<Participante> {
   
   public final static String MAIL_ADMINISTRADOR = "admin@admin.com";
   
-  private DistribuidorStub _distribuidor;
+  private DistribuidorDeMails _distribuidor;
   
-  public DistribuidorStub getDistribuidor() {
+  public DistribuidorDeMails getDistribuidor() {
     return this._distribuidor;
   }
   
-  public void setDistribuidor(final DistribuidorStub distribuidor) {
+  public void setDistribuidor(final DistribuidorDeMails distribuidor) {
     this._distribuidor = distribuidor;
   }
   

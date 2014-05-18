@@ -3,9 +3,10 @@ package domain.notificaciones;
 import domain.Jugador;
 import domain.Participante;
 import domain.Partido;
-import domain.enviadorDeMails.distribuidor.DistribuidorStub;
+import domain.enviadorDeMails.DistribuidorDeMails;
 import domain.notificaciones.PartidoObserver;
 import java.util.HashSet;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
@@ -17,9 +18,13 @@ public class NotificarAmigosObserver implements PartidoObserver {
     HashSet<Jugador> _amigos = jugador.getAmigos();
     final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
       public void apply(final Jugador j) {
-        DistribuidorStub _distribuidor = partido.getDistribuidor();
-        String _email = j.getEmail();
-        _distribuidor.enviarMail(_email, subject, body);
+        try {
+          DistribuidorDeMails _distribuidor = partido.getDistribuidor();
+          String _email = j.getEmail();
+          _distribuidor.enviarMail(_email, subject, body);
+        } catch (Throwable _e) {
+          throw Exceptions.sneakyThrow(_e);
+        }
       }
     };
     IterableExtensions.<Jugador>forEach(_amigos, _function);
