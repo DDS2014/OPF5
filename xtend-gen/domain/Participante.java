@@ -1,9 +1,9 @@
 package domain;
 
-import domain.ImposibleBajarseException;
 import domain.Jugador;
 import domain.Partido;
-import domain.TipoDeInscripcion;
+import domain.excepciones.ImposibleBajarseException;
+import domain.inscripcion.TipoDeInscripcion;
 import java.util.Date;
 
 @SuppressWarnings("all")
@@ -46,21 +46,19 @@ public class Participante {
   
   public boolean inscribirse(final Partido partido) {
     TipoDeInscripcion _modalidad = this.getModalidad();
-    return _modalidad.inscribir(partido);
+    boolean _inscribir = _modalidad.inscribir(this, partido);
+    return _inscribir;
   }
   
-  public boolean bajarse(final Partido partido) {
-    boolean _xblockexpression = false;
-    {
-      Jugador _jugador = this.getJugador();
-      boolean _estaInscripto = partido.estaInscripto(_jugador);
-      boolean _not = (!_estaInscripto);
-      if (_not) {
-        throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
-      }
-      _xblockexpression = partido.quitarSinReemplazo(this);
+  public void bajarse(final Partido partido) {
+    Jugador _jugador = this.getJugador();
+    boolean _estaInscripto = partido.estaInscripto(_jugador);
+    boolean _not = (!_estaInscripto);
+    if (_not) {
+      ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+      throw _imposibleBajarseException;
     }
-    return _xblockexpression;
+    partido.quitarSinReemplazo(this);
   }
   
   public boolean bajarse(final Partido partido, final Participante reemplazante) {
@@ -70,9 +68,11 @@ public class Participante {
       boolean _estaInscripto = partido.estaInscripto(_jugador);
       boolean _not = (!_estaInscripto);
       if (_not) {
-        throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        throw _imposibleBajarseException;
       }
-      _xblockexpression = partido.reemplazar(reemplazante, this);
+      boolean _reemplazar = partido.reemplazar(reemplazante, this);
+      _xblockexpression = (_reemplazar);
     }
     return _xblockexpression;
   }

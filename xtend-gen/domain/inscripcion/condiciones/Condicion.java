@@ -1,4 +1,4 @@
-package domain;
+package domain.inscripcion.condiciones;
 
 import domain.Partido;
 

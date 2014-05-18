@@ -1,19 +1,20 @@
 package domain;
 
-import domain.Infraccion;
 import domain.Jugador;
 import domain.Participante;
-import domain.PartidoObserver;
-import domain.TipoDeInscripcion;
+import domain.enviadorDeMails.distribuidor.DistribuidorStub;
+import domain.infracciones.Infraccion;
+import domain.inscripcion.TipoDeInscripcion;
+import domain.notificaciones.PartidoObserver;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.ListExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Partido implements Comparator<Participante> {
@@ -47,6 +48,18 @@ public class Partido implements Comparator<Participante> {
     this._observers = observers;
   }
   
+  public final static String MAIL_ADMINISTRADOR = "admin@admin.com";
+  
+  private DistribuidorStub _distribuidor;
+  
+  public DistribuidorStub getDistribuidor() {
+    return this._distribuidor;
+  }
+  
+  public void setDistribuidor(final DistribuidorStub distribuidor) {
+    this._distribuidor = distribuidor;
+  }
+  
   public Partido(final Date fecha) {
     this.setFecha(fecha);
     ArrayList<Participante> _arrayList = new ArrayList<Participante>();
@@ -59,26 +72,41 @@ public class Partido implements Comparator<Participante> {
     List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
     final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
       public Jugador apply(final Participante p) {
-        return p.getJugador();
+        Jugador _jugador = p.getJugador();
+        return _jugador;
       }
     };
     List<Jugador> _map = ListExtensions.<Participante, Jugador>map(_participantesConfirmados, _function);
-    return IterableExtensions.<Jugador>toList(_map);
+    List<Jugador> _list = IterableExtensions.<Jugador>toList(_map);
+    return _list;
   }
   
   public boolean estaInscripto(final Jugador jugador) {
     boolean _xblockexpression = false;
     {
       List<Jugador> jugadores = this.jugadoresConfirmados();
-      _xblockexpression = jugadores.contains(jugador);
+      boolean _contains = jugadores.contains(jugador);
+      _xblockexpression = (_contains);
     }
     return _xblockexpression;
   }
   
-  public boolean inscribir(final Jugador jugador, final TipoDeInscripcion modalidad) {
-    final Participante participante = new Participante(jugador);
-    participante.setModalidad(modalidad);
-    return participante.inscribirse(this);
+  public boolean inscribir(final TipoDeInscripcion modalidad) {
+    final boolean habiaLugar = this.hayLugaresLibres();
+    Participante _participante = modalidad.getParticipante();
+    _participante.setModalidad(modalidad);
+    Participante _participante_1 = modalidad.getParticipante();
+    _participante_1.inscribirse(this);
+    List<PartidoObserver> _observers = this.getObservers();
+    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
+      public void apply(final PartidoObserver observer) {
+        Participante _participante = modalidad.getParticipante();
+        Jugador _jugador = _participante.getJugador();
+        observer.inscribir(Partido.this, _jugador, habiaLugar);
+      }
+    };
+    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
+    return true;
   }
   
   public boolean hayLugaresLibres() {
@@ -103,32 +131,32 @@ public class Partido implements Comparator<Participante> {
   }
   
   public boolean reemplazar(final Participante entrante, final Participante saliente) {
-    boolean _xifexpression = false;
+    boolean bool = false;
     Jugador _jugador = entrante.getJugador();
     boolean _estaInscripto = this.estaInscripto(_jugador);
     boolean _not = (!_estaInscripto);
     if (_not) {
-      boolean _xblockexpression = false;
-      {
-        List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
-        _participantesConfirmados.remove(saliente);
-        _xblockexpression = this.confirmarAsistencia(entrante);
-      }
-      _xifexpression = _xblockexpression;
+      List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+      _participantesConfirmados.remove(saliente);
+      boolean _confirmarAsistencia = this.confirmarAsistencia(entrante);
+      bool = _confirmarAsistencia;
     }
-    return _xifexpression;
+    return bool;
   }
   
-  public boolean quitarSinReemplazo(final Participante participante) {
-    boolean _xblockexpression = false;
-    {
-      List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
-      _participantesConfirmados.remove(participante);
-      Jugador _jugador = participante.getJugador();
-      Infraccion _infraccion = new Infraccion("El jugador se bajó del partido sin designar un reemplazante");
-      _xblockexpression = _jugador.aplicarInfraccion(_infraccion);
-    }
-    return _xblockexpression;
+  public void quitarSinReemplazo(final Participante participante) {
+    List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+    _participantesConfirmados.remove(participante);
+    Jugador _jugador = participante.getJugador();
+    Infraccion _infraccion = new Infraccion("El jugador se bajó del partido sin designar un reemplazante");
+    _jugador.aplicarInfraccion(_infraccion);
+    List<PartidoObserver> _observers = this.getObservers();
+    final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
+      public void apply(final PartidoObserver observer) {
+        observer.quitarSinReemplazo(Partido.this, Partido.MAIL_ADMINISTRADOR, participante);
+      }
+    };
+    IterableExtensions.<PartidoObserver>forEach(_observers, _function);
   }
   
   public int compare(final Participante arg0, final Participante arg1) {
@@ -169,31 +197,25 @@ public class Partido implements Comparator<Participante> {
   
   public boolean agregarObsever(final PartidoObserver observer) {
     List<PartidoObserver> _observers = this.getObservers();
-    return _observers.add(observer);
+    boolean _add = _observers.add(observer);
+    return _add;
   }
   
   public boolean removeObserver(final PartidoObserver observer) {
     List<PartidoObserver> _observers = this.getObservers();
-    return _observers.remove(observer);
-  }
-  
-  public void notificarJugadorConfirmadoAObservers() {
-    List<PartidoObserver> _observers = this.getObservers();
-    final Consumer<PartidoObserver> _function = new Consumer<PartidoObserver>() {
-      public void accept(final PartidoObserver observer) {
-        observer.notificarConfirmacionJugador(Partido.this);
-      }
-    };
-    _observers.forEach(_function);
+    boolean _remove = _observers.remove(observer);
+    return _remove;
   }
   
   public boolean amigosNotificados() {
     List<Jugador> _jugadoresConfirmados = this.jugadoresConfirmados();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador jugador) {
-        return Boolean.valueOf(jugador.avisarAmigos());
+        boolean _avisarAmigos = jugador.avisarAmigos();
+        return Boolean.valueOf(_avisarAmigos);
       }
     };
-    return IterableExtensions.<Jugador>forall(_jugadoresConfirmados, _function);
+    boolean _forall = IterableExtensions.<Jugador>forall(_jugadoresConfirmados, _function);
+    return _forall;
   }
 }

@@ -4,7 +4,7 @@ import domain.enviadorDeMails.DistribuidorDeMails;
 import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;//TODO: usar
 import domain.enviadorDeMails.excepciones.DireccionDeEmailInvalida;;
 
-public class DistribuidorAdapter implements DistribuidorDeMails {
+/*public class DistribuidorAdapter implements DistribuidorDeMails {
 	
 	@Override
 	public void dispararMensajeALasDirecciones(
@@ -23,3 +23,4 @@ public class DistribuidorAdapter implements DistribuidorDeMails {
 		return direccionDeEmail.contains("@");
 	}
 }
+*/

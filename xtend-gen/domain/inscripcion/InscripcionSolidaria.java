@@ -1,9 +1,9 @@
-package domain;
+package domain.inscripcion;
 
-import domain.InscripcionEstandar;
 import domain.Participante;
 import domain.Partido;
-import domain.TipoDeInscripcion;
+import domain.inscripcion.InscripcionEstandar;
+import domain.inscripcion.TipoDeInscripcion;
 
 @SuppressWarnings("all")
 public class InscripcionSolidaria extends TipoDeInscripcion {

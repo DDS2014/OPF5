@@ -1,12 +1,12 @@
-package domain;
+package domain.inscripcion;
 
-import domain.Condicion;
-import domain.InscripcionEstandar;
-import domain.InscripcionSolidaria;
-import domain.NoSeCumpleLaCondicionParaAnotarseException;
 import domain.Participante;
 import domain.Partido;
-import domain.TipoDeInscripcion;
+import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException;
+import domain.inscripcion.InscripcionEstandar;
+import domain.inscripcion.InscripcionSolidaria;
+import domain.inscripcion.TipoDeInscripcion;
+import domain.inscripcion.condiciones.Condicion;
 
 @SuppressWarnings("all")
 public class InscripcionCondicional extends TipoDeInscripcion {
@@ -35,16 +35,17 @@ public class InscripcionCondicional extends TipoDeInscripcion {
     this.setCondicion(condicion);
   }
   
-  public boolean inscribir(final Partido partido) {
+  public boolean inscribir(final Participante participante, final Partido partido) {
     boolean _xifexpression = false;
     Condicion _condicion = this.getCondicion();
     boolean _seCumple = _condicion.seCumple(partido);
     boolean _not = (!_seCumple);
     if (_not) {
-      Participante _participante = this.getParticipante();
-      throw new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, _participante);
+      NoSeCumpleLaCondicionParaAnotarseException _noSeCumpleLaCondicionParaAnotarseException = new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, participante);
+      throw _noSeCumpleLaCondicionParaAnotarseException;
     } else {
-      _xifexpression = super.inscribir(partido);
+      boolean _inscribir = super.inscribir(participante, partido);
+      _xifexpression = _inscribir;
     }
     return _xifexpression;
   }
@@ -56,7 +57,7 @@ public class InscripcionCondicional extends TipoDeInscripcion {
       _or = true;
     } else {
       TipoDeInscripcion _modalidad_1 = entrante.getModalidad();
-      _or = (_modalidad_1 instanceof InscripcionSolidaria);
+      _or = ((_modalidad instanceof InscripcionEstandar) || (_modalidad_1 instanceof InscripcionSolidaria));
     }
     if (_or) {
       return partido.reemplazar(entrante, saliente);

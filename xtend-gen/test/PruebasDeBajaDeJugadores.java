@@ -1,10 +1,10 @@
 package test;
 
-import domain.Infraccion;
-import domain.InscripcionEstandar;
 import domain.Jugador;
 import domain.Participante;
 import domain.Partido;
+import domain.infracciones.Infraccion;
+import domain.inscripcion.InscripcionEstandar;
 import java.util.Date;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Conversions;
@@ -30,8 +30,7 @@ public class PruebasDeBajaDeJugadores {
     Participante _participante = new Participante(this.jugadorJuan);
     this.partJuan = _participante;
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(this.partJuan);
-    this.partJuan.setModalidad(_inscripcionEstandar);
-    this.partJuan.inscribirse(this.partido);
+    this.partido.inscribir(_inscripcionEstandar);
   }
   
   @Test

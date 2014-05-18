@@ -1,8 +1,8 @@
-package domain;
+package domain.inscripcion;
 
 import domain.Participante;
 import domain.Partido;
-import domain.TipoDeInscripcion;
+import domain.inscripcion.TipoDeInscripcion;
 
 @SuppressWarnings("all")
 public class InscripcionEstandar extends TipoDeInscripcion {

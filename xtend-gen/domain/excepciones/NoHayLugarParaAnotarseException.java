@@ -1,4 +1,4 @@
-package domain;
+package domain.excepciones;
 
 import domain.Participante;
 import domain.Partido;

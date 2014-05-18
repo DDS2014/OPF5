@@ -75,7 +75,7 @@ public class PruebasDeEnvioDeNotificaciones
 	@Test
 	def public void CuandoUnPartidoDejaDeTener10ConfirmadosElAdministradorEsNotificado()
 	{
-		//SIMULAR CON MOCKITO
+		Assert.fail();//SIMULAR CON MOCKITO
 	}
 	
 	@Test
@@ -100,6 +100,7 @@ public class PruebasDeEnvioDeNotificaciones
 		//partido.notificarJugadorConfirmadoAObservers();
 		
 		//Assert.assertTrue(partido.amigosNotificados())
+		Assert.fail();
 	}
 	
 }

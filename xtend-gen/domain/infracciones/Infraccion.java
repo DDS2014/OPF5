@@ -1,4 +1,4 @@
-package domain;
+package domain.infracciones;
 
 import java.util.Date;
 

@@ -1,11 +1,11 @@
 package domain;
 
 import com.google.common.base.Objects;
-import domain.Infraccion;
+import domain.infracciones.Infraccion;
 import java.util.HashSet;
-import java.util.function.Consumer;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Jugador {
@@ -92,21 +92,24 @@ public class Jugador {
     boolean _xblockexpression = false;
     {
       this.confirmarAmistad(nuevoAmigo);
-      _xblockexpression = nuevoAmigo.confirmarAmistad(this);
+      boolean _confirmarAmistad = nuevoAmigo.confirmarAmistad(this);
+      _xblockexpression = (_confirmarAmistad);
     }
     return _xblockexpression;
   }
   
   public boolean confirmarAmistad(final Jugador nuevoAmigo) {
     HashSet<Jugador> _amigos = this.getAmigos();
-    return _amigos.add(nuevoAmigo);
+    boolean _add = _amigos.add(nuevoAmigo);
+    return _add;
   }
   
   public boolean tieneAlAmigo(final Jugador amigo) {
     HashSet<Jugador> _amigos = this.getAmigos();
     final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
       public Boolean apply(final Jugador a) {
-        return Boolean.valueOf(Objects.equal(a, amigo));
+        boolean _equals = Objects.equal(a, amigo);
+        return Boolean.valueOf(_equals);
       }
     };
     return IterableExtensions.<Jugador>exists(_amigos, _function);
@@ -114,17 +117,18 @@ public class Jugador {
   
   public boolean aplicarInfraccion(final Infraccion infraccion) {
     HashSet<Infraccion> _infracciones = this.getInfracciones();
-    return _infracciones.add(infraccion);
+    boolean _add = _infracciones.add(infraccion);
+    return _add;
   }
   
   public boolean avisarAmigos() {
     HashSet<Jugador> _amigos = this.getAmigos();
-    final Consumer<Jugador> _function = new Consumer<Jugador>() {
-      public void accept(final Jugador amigo) {
+    final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
+      public void apply(final Jugador amigo) {
         amigo.recibirNotificacionDe(Jugador.this);
       }
     };
-    _amigos.forEach(_function);
+    IterableExtensions.<Jugador>forEach(_amigos, _function);
     return true;
   }
   
