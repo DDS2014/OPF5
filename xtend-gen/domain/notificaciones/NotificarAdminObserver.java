@@ -20,7 +20,6 @@ public class NotificarAdminObserver implements PartidoObserver {
         _and = (habiaLugar && _not);
       }
       if (_and) {
-        System.out.println("Se notifico al administrador");
         String subject = "Partido Confirmado";
         String body = "Todas las plazas del partido fueron confirmadas";
         InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();

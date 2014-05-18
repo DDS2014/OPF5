@@ -9,7 +9,7 @@ class NotificarAdminObserver implements PartidoObserver {
 	override inscribir(Partido partido, Jugador jugador, boolean habiaLugar) {
 		if(habiaLugar && !partido.hayLugaresLibres()){
 		
-			System.out.println("Se notifico al administrador")
+			//System.out.println("Se notifico al administrador")
 			var subject = "Partido Confirmado"
 			var body = "Todas las plazas del partido fueron confirmadas"
 		
