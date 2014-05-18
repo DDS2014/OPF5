@@ -30,6 +30,6 @@ public class NotificarAmigosObserver implements PartidoObserver {
     IterableExtensions.<Jugador>forEach(_amigos, _function);
   }
   
-  public void quitarSinReemplazo(final Partido partido, final String mailAdmin, final Participante participante) {
+  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Participante participante) {
   }
 }

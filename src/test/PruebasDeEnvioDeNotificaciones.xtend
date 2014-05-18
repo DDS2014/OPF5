@@ -117,6 +117,28 @@ public class PruebasDeEnvioDeNotificaciones
 	}
 	
 	@Test
+	def public void CuandoUnJugadorSeBajaNoSeMandaMailsAMenosQueDejeDeEstarConfirmadoElPartido()
+	{
+		var partido = new Partido (new Date)
+		val mockedDistribuidor = mock(typeof(InterfazDistribuidorDeMails))
+		partido.distribuidor = mockedDistribuidor
+		
+		//Se agregan los observers
+		partido.agregarObsever(new NotificarAdminObserver)
+		partido.agregarObsever(new NotificarAmigosObserver)
+		
+		//JUGADORES
+		var p1 = new Participante(new Jugador("Pepe",20))
+		partido.inscribir( new InscripcionEstandar(p1))
+		
+		p1.bajarse(partido);
+		
+		verify(mockedDistribuidor, times(0)).enviarMail(eq("admin@admin.com"),eq("Partido Indefinido"),any(typeof(String)));
+		
+		
+	}
+	
+	@Test
 	def public void CuandoUnJugadorSeInscribeSusAmigosSonNotificados()
 	{
 		var partido = new Partido (new Date);

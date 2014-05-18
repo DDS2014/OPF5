@@ -178,6 +178,35 @@ public class PruebasDeEnvioDeNotificaciones {
   }
   
   @Test
+  public void CuandoUnJugadorSeBajaNoSeMandaMailsAMenosQueDejeDeEstarConfirmadoElPartido() {
+    try {
+      Date _date = new Date();
+      Partido _partido = new Partido(_date);
+      Partido partido = _partido;
+      final InterfazDistribuidorDeMails mockedDistribuidor = Mockito.<InterfazDistribuidorDeMails>mock(InterfazDistribuidorDeMails.class);
+      partido.setDistribuidor(mockedDistribuidor);
+      NotificarAdminObserver _notificarAdminObserver = new NotificarAdminObserver();
+      partido.agregarObsever(_notificarAdminObserver);
+      NotificarAmigosObserver _notificarAmigosObserver = new NotificarAmigosObserver();
+      partido.agregarObsever(_notificarAmigosObserver);
+      Jugador _jugador = new Jugador("Pepe", 20);
+      Participante _participante = new Participante(_jugador);
+      Participante p1 = _participante;
+      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(p1);
+      partido.inscribir(_inscripcionEstandar);
+      p1.bajarse(partido);
+      VerificationMode _times = Mockito.times(0);
+      InterfazDistribuidorDeMails _verify = Mockito.<InterfazDistribuidorDeMails>verify(mockedDistribuidor, _times);
+      String _eq = Matchers.<String>eq("admin@admin.com");
+      String _eq_1 = Matchers.<String>eq("Partido Indefinido");
+      String _any = Matchers.<String>any(String.class);
+      _verify.enviarMail(_eq, _eq_1, _any);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
   public void CuandoUnJugadorSeInscribeSusAmigosSonNotificados() {
     Date _date = new Date();
     Partido _partido = new Partido(_date);

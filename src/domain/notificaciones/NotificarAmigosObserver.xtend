@@ -14,7 +14,7 @@ class NotificarAmigosObserver implements PartidoObserver {
 		jugador.amigos.forEach[j|partido.distribuidor.enviarMail(j.email,subject,body)]
 	}
 	
-	override quitarSinReemplazo(Partido partido, String mailAdmin, Participante participante) {
+	override avisarQuitaSinReemplazo(Partido partido, String mailAdmin, Participante participante) {
 		
 	}
 }

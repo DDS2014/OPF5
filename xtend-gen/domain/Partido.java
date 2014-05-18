@@ -153,7 +153,7 @@ public class Partido implements Comparator<Participante> {
     List<PartidoObserver> _observers = this.getObservers();
     final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
       public void apply(final PartidoObserver observer) {
-        observer.quitarSinReemplazo(Partido.this, Partido.MAIL_ADMINISTRADOR, participante);
+        observer.avisarQuitaSinReemplazo(Partido.this, Partido.MAIL_ADMINISTRADOR, participante);
       }
     };
     IterableExtensions.<PartidoObserver>forEach(_observers, _function);

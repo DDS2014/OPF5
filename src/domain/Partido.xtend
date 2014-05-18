@@ -73,7 +73,7 @@ public class Partido implements Comparator<Participante> {
 	{
 		this.participantesConfirmados.remove(participante);
 		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
-		this.observers.forEach[observer | observer.quitarSinReemplazo(this,MAIL_ADMINISTRADOR,participante)]	
+		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR,participante)]	
 	}
 	
 	override compare(Participante arg0, Participante arg1) {
