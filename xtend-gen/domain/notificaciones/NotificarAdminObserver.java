@@ -9,7 +9,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
 public class NotificarAdminObserver implements PartidoObserver {
-  public void inscribir(final Partido partido, final Jugador jugador, final boolean habiaLugar) {
+  public void avisarInscripcionDeJugador(final Partido partido, final Jugador jugador, final boolean habiaLugar) {
     try {
       boolean _and = false;
       if (!habiaLugar) {

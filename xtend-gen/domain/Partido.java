@@ -102,7 +102,7 @@ public class Partido implements Comparator<Participante> {
       public void apply(final PartidoObserver observer) {
         Participante _participante = modalidad.getParticipante();
         Jugador _jugador = _participante.getJugador();
-        observer.inscribir(Partido.this, _jugador, habiaLugar);
+        observer.avisarInscripcionDeJugador(Partido.this, _jugador, habiaLugar);
       }
     };
     IterableExtensions.<PartidoObserver>forEach(_observers, _function);

@@ -39,7 +39,7 @@ public class Partido implements Comparator<Participante> {
 		val habiaLugar = hayLugaresLibres()
 		modalidad.participante.setModalidad(modalidad);
 		modalidad.participante.inscribirse(this)
-	    this.observers.forEach[observer | observer.inscribir(this,modalidad.participante.jugador,habiaLugar)]
+	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante.jugador,habiaLugar)]
 		return true
 	}
 	

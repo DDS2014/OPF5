@@ -13,7 +13,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class NotificarAmigosObserver implements PartidoObserver {
-  public void inscribir(final Partido partido, final Jugador jugador, final boolean habiaLugar) {
+  public void avisarInscripcionDeJugador(final Partido partido, final Jugador jugador, final boolean habiaLugar) {
     final String subject = "Me anote a un partido!";
     String _nombre = jugador.getNombre();
     String _plus = (_nombre + " se inscribió al partido del ");

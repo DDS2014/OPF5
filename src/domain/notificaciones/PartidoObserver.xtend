@@ -6,7 +6,7 @@ import domain.Partido
 
 interface PartidoObserver {
 
-		def void inscribir(Partido partido, Jugador jugador, boolean habiaLugar)
+		def void avisarInscripcionDeJugador(Partido partido, Jugador jugador, boolean habiaLugar)
 	
 		def void avisarQuitaSinReemplazo(Partido partido, String mailAdmin, Participante participante, Boolean estabaConfirmado)
 }

@@ -6,7 +6,7 @@ import domain.Partido
 
 class NotificarAmigosObserver implements PartidoObserver {
 	
-	def override inscribir(Partido partido, Jugador jugador, boolean habiaLugar){
+	def override avisarInscripcionDeJugador(Partido partido, Jugador jugador, boolean habiaLugar){
 	
 		val subject = "Me anote a un partido!"
 		val body = jugador.nombre+" se inscribió al partido del "+partido.fecha.toString();

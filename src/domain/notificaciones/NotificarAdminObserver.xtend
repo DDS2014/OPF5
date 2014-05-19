@@ -6,7 +6,7 @@ import domain.Partido
 
 class NotificarAdminObserver implements PartidoObserver {
 	
-	override inscribir(Partido partido, Jugador jugador, boolean habiaLugar) {
+	override avisarInscripcionDeJugador(Partido partido, Jugador jugador, boolean habiaLugar) {
 		if(habiaLugar && !partido.hayLugaresLibres()){
 		
 			//System.out.println("Se notifico al administrador")
