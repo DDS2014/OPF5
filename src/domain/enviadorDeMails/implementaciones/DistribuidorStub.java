@@ -1,7 +1,7 @@
-package domain.enviadorDeMails.adaptadores;
+package domain.enviadorDeMails.implementaciones;
 
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
-import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;//TODO: usar
+//import domain.enviadorDeMails.excepciones.NoSePudoEnviarElMail;//TODO: usar
 import domain.enviadorDeMails.excepciones.DireccionDeEmailInvalida;
 
 public class DistribuidorStub implements InterfazDistribuidorDeMails {
