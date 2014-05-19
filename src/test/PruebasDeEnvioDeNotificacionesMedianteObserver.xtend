@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*
 import domain.notificaciones.NotificarAdminObserver
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 
-public class PruebasDeEnvioDeNotificaciones 
+public class PruebasDeEnvioDeNotificacionesMedianteObserver 
 {
 	@Test
 	def public void CuandoHagoAmigosADosJugadoresAmbosSeTienenDeAmigos()

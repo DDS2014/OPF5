@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.verification.VerificationMode;
 
 @SuppressWarnings("all")
-public class PruebasDeEnvioDeNotificaciones {
+public class PruebasDeEnvioDeNotificacionesMedianteObserver {
   @Test
   public void CuandoHagoAmigosADosJugadoresAmbosSeTienenDeAmigos() {
     Jugador _jugador = new Jugador("Juan", 18);
