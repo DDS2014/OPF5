@@ -52,8 +52,8 @@ public class Participante {
   
   public void bajarse(final Partido partido) {
     Jugador _jugador = this.getJugador();
-    boolean _estaInscripto = partido.estaInscripto(_jugador);
-    boolean _not = (!_estaInscripto);
+    Boolean _estaInscripto = partido.estaInscripto(_jugador);
+    boolean _not = (!(_estaInscripto).booleanValue());
     if (_not) {
       ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
       throw _imposibleBajarseException;
@@ -65,8 +65,8 @@ public class Participante {
     boolean _xblockexpression = false;
     {
       Jugador _jugador = this.getJugador();
-      boolean _estaInscripto = partido.estaInscripto(_jugador);
-      boolean _not = (!_estaInscripto);
+      Boolean _estaInscripto = partido.estaInscripto(_jugador);
+      boolean _not = (!(_estaInscripto).booleanValue());
       if (_not) {
         ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
         throw _imposibleBajarseException;

@@ -8,13 +8,12 @@ import java.util.Collections
 import java.util.Comparator
 import java.util.Date
 import java.util.List
-//import domain.enviadorDeMails.distribuidor.DistribuidorStub
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 
-public class Partido implements Comparator<Participante> {
+public class Partido implements Comparator<Participante>, EventoDeportivo { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
 	@Property List<Participante> participantesConfirmados
-	@Property List<PartidoObserver> observers
+	@Property List<PartidoObserver> observers //para descartar la solución observer, borrar este campo y todo lo que rompa como consecuencia
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
 	@Property InterfazDistribuidorDeMails distribuidor
 	
@@ -26,16 +25,16 @@ public class Partido implements Comparator<Participante> {
 	}
 	
 	//Inscripcion
-	def jugadoresConfirmados(){
+	override jugadoresConfirmados(){
 		participantesConfirmados.map[p|p.jugador].toList
 	}
 	
-	def estaInscripto(Jugador jugador){
+	override estaInscripto(Jugador jugador){
 		var List<Jugador> jugadores = jugadoresConfirmados()
 		jugadores.contains(jugador)
 	}
 	
-	def boolean inscribir(TipoDeInscripcion modalidad){
+	override boolean inscribir(TipoDeInscripcion modalidad){
 		val habiaLugar = hayLugaresLibres()
 		modalidad.participante.setModalidad(modalidad);
 		modalidad.participante.inscribirse(this)
@@ -43,12 +42,12 @@ public class Partido implements Comparator<Participante> {
 		return true
 	}
 	
-	def boolean hayLugaresLibres(){
+	override boolean hayLugaresLibres(){
 		return this.participantesConfirmados.size<10//Cambiar para que no este harcodeado
 	}
 	
 	//Inscribe al participante
-	def boolean confirmarAsistencia(Participante participante){
+	override boolean confirmarAsistencia(Participante participante){
 		if(!estaInscripto(participante.jugador)){
 			this.participantesConfirmados.add(participante)
 			Collections.sort(this.participantesConfirmados,this)
@@ -60,7 +59,7 @@ public class Partido implements Comparator<Participante> {
 	}
 	
 	//Reemplaza a un jugador entrante por el saliente
-	def boolean reemplazar(Participante entrante,Participante saliente){
+	override boolean reemplazar(Participante entrante,Participante saliente){
 		var bool = false
 		if(!estaInscripto(entrante.jugador)){//Primero ve si lo puede agregar, y lo agrega al final
 			participantesConfirmados.remove(saliente)//Despues borra al otro
@@ -69,7 +68,7 @@ public class Partido implements Comparator<Participante> {
 		return bool
 	}
 	
-	def void quitarSinReemplazo(Participante participante) 
+	override void quitarSinReemplazo(Participante participante) 
 	{
 		val estabaConfirmado = !hayLugaresLibres();
 		this.participantesConfirmados.remove(participante);
@@ -104,8 +103,4 @@ public class Partido implements Comparator<Participante> {
 	}
 	
 	
-	//Cambiar
-	def amigosNotificados(){
-		this.jugadoresConfirmados.forall[jugador | jugador.avisarAmigos()]
-	}
 }

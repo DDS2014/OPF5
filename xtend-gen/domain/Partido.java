@@ -1,5 +1,6 @@
 package domain;
 
+import domain.EventoDeportivo;
 import domain.Jugador;
 import domain.Participante;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
@@ -17,7 +18,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
-public class Partido implements Comparator<Participante> {
+public class Partido implements Comparator<Participante>, EventoDeportivo {
   private Date _fecha;
   
   public Date getFecha() {
@@ -81,14 +82,14 @@ public class Partido implements Comparator<Participante> {
     return _list;
   }
   
-  public boolean estaInscripto(final Jugador jugador) {
+  public Boolean estaInscripto(final Jugador jugador) {
     boolean _xblockexpression = false;
     {
       List<Jugador> jugadores = this.jugadoresConfirmados();
       boolean _contains = jugadores.contains(jugador);
       _xblockexpression = (_contains);
     }
-    return _xblockexpression;
+    return Boolean.valueOf(_xblockexpression);
   }
   
   public boolean inscribir(final TipoDeInscripcion modalidad) {
@@ -117,8 +118,8 @@ public class Partido implements Comparator<Participante> {
   
   public boolean confirmarAsistencia(final Participante participante) {
     Jugador _jugador = participante.getJugador();
-    boolean _estaInscripto = this.estaInscripto(_jugador);
-    boolean _not = (!_estaInscripto);
+    Boolean _estaInscripto = this.estaInscripto(_jugador);
+    boolean _not = (!(_estaInscripto).booleanValue());
     if (_not) {
       List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
       _participantesConfirmados.add(participante);
@@ -133,8 +134,8 @@ public class Partido implements Comparator<Participante> {
   public boolean reemplazar(final Participante entrante, final Participante saliente) {
     boolean bool = false;
     Jugador _jugador = entrante.getJugador();
-    boolean _estaInscripto = this.estaInscripto(_jugador);
-    boolean _not = (!_estaInscripto);
+    Boolean _estaInscripto = this.estaInscripto(_jugador);
+    boolean _not = (!(_estaInscripto).booleanValue());
     if (_not) {
       List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
       _participantesConfirmados.remove(saliente);
@@ -207,17 +208,5 @@ public class Partido implements Comparator<Participante> {
     List<PartidoObserver> _observers = this.getObservers();
     boolean _remove = _observers.remove(observer);
     return _remove;
-  }
-  
-  public boolean amigosNotificados() {
-    List<Jugador> _jugadoresConfirmados = this.jugadoresConfirmados();
-    final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
-      public Boolean apply(final Jugador jugador) {
-        boolean _avisarAmigos = jugador.avisarAmigos();
-        return Boolean.valueOf(_avisarAmigos);
-      }
-    };
-    boolean _forall = IterableExtensions.<Jugador>forall(_jugadoresConfirmados, _function);
-    return _forall;
   }
 }

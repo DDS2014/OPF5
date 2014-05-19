@@ -5,7 +5,6 @@ import domain.infracciones.Infraccion;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class Jugador {
@@ -119,20 +118,5 @@ public class Jugador {
     HashSet<Infraccion> _infracciones = this.getInfracciones();
     boolean _add = _infracciones.add(infraccion);
     return _add;
-  }
-  
-  public boolean avisarAmigos() {
-    HashSet<Jugador> _amigos = this.getAmigos();
-    final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
-      public void apply(final Jugador amigo) {
-        amigo.recibirNotificacionDe(Jugador.this);
-      }
-    };
-    IterableExtensions.<Jugador>forEach(_amigos, _function);
-    return true;
-  }
-  
-  public boolean recibirNotificacionDe(final Jugador jugador) {
-    return true;
   }
 }

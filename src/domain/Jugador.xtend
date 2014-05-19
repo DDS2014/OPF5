@@ -45,14 +45,6 @@ public class Jugador
 		this.infracciones.add(infraccion);
 	}
 
-def avisarAmigos() {
-		this.amigos.forEach[amigo|amigo.recibirNotificacionDe(this)];
-		return true
-	}
 
-def recibirNotificacionDe(Jugador jugador) {
-		//aca iria mandar mail al jugador amigo de parte del jugador qe se pasa por parametro
-		return true //si se pudo mandar devuelve true
-	}
 
 }
