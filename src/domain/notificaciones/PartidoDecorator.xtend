@@ -7,12 +7,17 @@ import domain.Participante
 
 class PartidoDecorator implements EventoDeportivo
 {
-	EventoDeportivo decorado;
+	@Property EventoDeportivo decorado;
 	
 	new(EventoDeportivo decorado)
 	{
 		super(); // esto es necesario?
 		this.decorado = decorado;
+	}
+	
+	override getDistribuidor()
+	{
+		return decorado.getDistribuidor();
 	}
 	
 	override jugadoresConfirmados() 

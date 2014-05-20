@@ -2,6 +2,7 @@ package domain
 
 import java.util.List
 import domain.inscripcion.TipoDeInscripcion
+import domain.enviadorDeMails.InterfazDistribuidorDeMails
 
 interface EventoDeportivo 
 {
@@ -12,4 +13,5 @@ interface EventoDeportivo
 	def boolean confirmarAsistencia(Participante participante);
 	def boolean reemplazar(Participante entrante,Participante saliente);
 	def void quitarSinReemplazo(Participante participante);
+	def InterfazDistribuidorDeMails getDistribuidor();
 }

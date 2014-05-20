@@ -2,6 +2,7 @@ package domain;
 
 import domain.Jugador;
 import domain.Participante;
+import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.inscripcion.TipoDeInscripcion;
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface EventoDeportivo {
   public abstract boolean reemplazar(final Participante entrante, final Participante saliente);
   
   public abstract void quitarSinReemplazo(final Participante participante);
+  
+  public abstract InterfazDistribuidorDeMails getDistribuidor();
 }
