@@ -4,6 +4,7 @@ import domain.EventoDeportivo
 import domain.Jugador
 import domain.inscripcion.TipoDeInscripcion
 import domain.Participante
+import domain.enviadorDeMails.InterfazDistribuidorDeMails
 
 class PartidoDecorator implements EventoDeportivo
 {
@@ -58,6 +59,11 @@ class PartidoDecorator implements EventoDeportivo
 	override getFecha() 
 	{
 		return decorado.getFecha();
+	}
+	
+	override setDistribuidor(InterfazDistribuidorDeMails mails) 
+	{
+		decorado.setDistribuidor(mails);
 	}
 	
 }

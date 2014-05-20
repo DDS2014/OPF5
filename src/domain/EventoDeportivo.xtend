@@ -15,6 +15,7 @@ interface EventoDeportivo
 	def boolean reemplazar(Participante entrante,Participante saliente);
 	def void quitarSinReemplazo(Participante participante);
 	def InterfazDistribuidorDeMails getDistribuidor();
-	def Date getFecha()
+	def Date getFecha()	
+	def void setDistribuidor(InterfazDistribuidorDeMails mails);
 	
 }

@@ -13,8 +13,8 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
-public class notificarAmigosDecorator extends PartidoDecorator {
-  public notificarAmigosDecorator(final EventoDeportivo decorado) {
+public class NotificarAmigosDecorator extends PartidoDecorator {
+  public NotificarAmigosDecorator(final EventoDeportivo decorado) {
     super(decorado);
   }
   
@@ -37,7 +37,7 @@ public class notificarAmigosDecorator extends PartidoDecorator {
       final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
         public void apply(final Jugador j) {
           try {
-            EventoDeportivo _decorado = notificarAmigosDecorator.this.getDecorado();
+            EventoDeportivo _decorado = NotificarAmigosDecorator.this.getDecorado();
             InterfazDistribuidorDeMails _distribuidor = _decorado.getDistribuidor();
             String _email = j.getEmail();
             _distribuidor.enviarMail(_email, subject, body);

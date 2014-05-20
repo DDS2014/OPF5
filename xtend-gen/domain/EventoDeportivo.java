@@ -26,4 +26,6 @@ public interface EventoDeportivo {
   public abstract InterfazDistribuidorDeMails getDistribuidor();
   
   public abstract Date getFecha();
+  
+  public abstract void setDistribuidor(final InterfazDistribuidorDeMails mails);
 }

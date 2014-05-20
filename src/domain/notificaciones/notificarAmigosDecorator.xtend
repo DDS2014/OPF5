@@ -4,7 +4,7 @@ import domain.EventoDeportivo
 import domain.inscripcion.TipoDeInscripcion
 
 
-class notificarAmigosDecorator extends PartidoDecorator 
+class NotificarAmigosDecorator extends PartidoDecorator 
 {
 	
 	new(EventoDeportivo decorado) // no entiendo por qué Eclipse me dice que esto es necesario pero bueno

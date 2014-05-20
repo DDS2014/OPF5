@@ -69,4 +69,9 @@ public class PartidoDecorator implements EventoDeportivo {
     EventoDeportivo _decorado = this.getDecorado();
     return _decorado.getFecha();
   }
+  
+  public void setDistribuidor(final InterfazDistribuidorDeMails mails) {
+    EventoDeportivo _decorado = this.getDecorado();
+    _decorado.setDistribuidor(mails);
+  }
 }

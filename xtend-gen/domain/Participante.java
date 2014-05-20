@@ -1,5 +1,6 @@
 package domain;
 
+import domain.EventoDeportivo;
 import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.ImposibleBajarseException;
@@ -50,7 +51,7 @@ public class Participante {
     return _inscribir;
   }
   
-  public void bajarse(final Partido partido) {
+  public void bajarse(final EventoDeportivo partido) {
     Jugador _jugador = this.getJugador();
     Boolean _estaInscripto = partido.estaInscripto(_jugador);
     boolean _not = (!(_estaInscripto).booleanValue());
