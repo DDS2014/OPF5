@@ -55,4 +55,9 @@ class PartidoDecorator implements EventoDeportivo
 		decorado.quitarSinReemplazo(participante);
 	}
 	
+	override getFecha() 
+	{
+		return decorado.getFecha();
+	}
+	
 }

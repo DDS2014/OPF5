@@ -5,6 +5,7 @@ import domain.Jugador;
 import domain.Participante;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.inscripcion.TipoDeInscripcion;
+import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("all")
@@ -62,5 +63,10 @@ public class PartidoDecorator implements EventoDeportivo {
   public void quitarSinReemplazo(final Participante participante) {
     EventoDeportivo _decorado = this.getDecorado();
     _decorado.quitarSinReemplazo(participante);
+  }
+  
+  public Date getFecha() {
+    EventoDeportivo _decorado = this.getDecorado();
+    return _decorado.getFecha();
   }
 }
