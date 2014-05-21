@@ -1,5 +1,0 @@
--Cuando un partido es confirmado, el administrador de sistema es notificado.
--Cuando un jugador se da de baja, deja de estar inscripto.
--Cuando un jugador se da de baja sin indicar un reemplazante, se le genera una infracción.
--Cuando, producto de una baja, el partido deja de tener 10 jugadores confirmados, el administrador de sistema es notificado.
--Cuando un jugador se inscribe a un partido, sus amigos son notificados.
