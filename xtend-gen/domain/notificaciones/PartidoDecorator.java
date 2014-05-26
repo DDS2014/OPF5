@@ -50,14 +50,14 @@ public class PartidoDecorator implements EventoDeportivo {
     return _decorado.hayLugaresLibres();
   }
   
-  public boolean confirmarAsistencia(final Participante participante) {
+  public void confirmarAsistencia(final Participante participante) {
     EventoDeportivo _decorado = this.getDecorado();
-    return _decorado.confirmarAsistencia(participante);
+    _decorado.confirmarAsistencia(participante);
   }
   
-  public boolean reemplazar(final Participante entrante, final Participante saliente) {
+  public void reemplazar(final Participante entrante, final Participante saliente) {
     EventoDeportivo _decorado = this.getDecorado();
-    return _decorado.reemplazar(entrante, saliente);
+    _decorado.reemplazar(entrante, saliente);
   }
   
   public void quitarSinReemplazo(final Participante participante) {

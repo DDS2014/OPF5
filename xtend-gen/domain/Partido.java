@@ -4,6 +4,7 @@ import domain.EventoDeportivo;
 import domain.Jugador;
 import domain.Participante;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
+import domain.excepciones.JugadorNoFueAnotadoException;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
 import domain.notificaciones.PartidoObserver;
@@ -116,7 +117,7 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
     return (_size < 10);
   }
   
-  public boolean confirmarAsistencia(final Participante participante) {
+  public void confirmarAsistencia(final Participante participante) {
     Jugador _jugador = participante.getJugador();
     Boolean _estaInscripto = this.estaInscripto(_jugador);
     boolean _not = (!(_estaInscripto).booleanValue());
@@ -125,24 +126,16 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
       _participantesConfirmados.add(participante);
       List<Participante> _participantesConfirmados_1 = this.getParticipantesConfirmados();
       Collections.<Participante>sort(_participantesConfirmados_1, this);
-      return true;
     } else {
-      return false;
+      JugadorNoFueAnotadoException _jugadorNoFueAnotadoException = new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, participante);
+      throw _jugadorNoFueAnotadoException;
     }
   }
   
-  public boolean reemplazar(final Participante entrante, final Participante saliente) {
-    boolean bool = false;
-    Jugador _jugador = entrante.getJugador();
-    Boolean _estaInscripto = this.estaInscripto(_jugador);
-    boolean _not = (!(_estaInscripto).booleanValue());
-    if (_not) {
-      List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
-      _participantesConfirmados.remove(saliente);
-      boolean _confirmarAsistencia = this.confirmarAsistencia(entrante);
-      bool = _confirmarAsistencia;
-    }
-    return bool;
+  public void reemplazar(final Participante entrante, final Participante saliente) {
+    this.confirmarAsistencia(entrante);
+    List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+    _participantesConfirmados.remove(saliente);
   }
   
   public void quitarSinReemplazo(final Participante participante) {

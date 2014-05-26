@@ -43,12 +43,12 @@ class PartidoDecorator implements EventoDeportivo
 	
 	override confirmarAsistencia(Participante participante) 
 	{
-		return decorado.confirmarAsistencia(participante);
+		decorado.confirmarAsistencia(participante);
 	}
 	
 	override reemplazar(Participante entrante, Participante saliente) 
 	{
-		return decorado.reemplazar(entrante, saliente);
+		decorado.reemplazar(entrante, saliente);
 	}
 	
 	override quitarSinReemplazo(Participante participante) 

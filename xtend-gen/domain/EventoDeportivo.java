@@ -17,9 +17,9 @@ public interface EventoDeportivo {
   
   public abstract boolean hayLugaresLibres();
   
-  public abstract boolean confirmarAsistencia(final Participante participante);
+  public abstract void confirmarAsistencia(final Participante participante);
   
-  public abstract boolean reemplazar(final Participante entrante, final Participante saliente);
+  public abstract void reemplazar(final Participante entrante, final Participante saliente);
   
   public abstract void quitarSinReemplazo(final Participante participante);
   

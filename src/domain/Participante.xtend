@@ -14,7 +14,7 @@ public class Participante {
 		this.fechaInscripcion=new Date
 	}
 	
-	def inscribirse(Partido partido)
+	def void inscribirse(Partido partido)
 	{
 		modalidad.inscribir(this,partido);
 	}

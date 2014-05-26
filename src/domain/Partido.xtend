@@ -9,6 +9,7 @@ import java.util.Comparator
 import java.util.Date
 import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
+import domain.excepciones.JugadorNoFueAnotadoException
 
 public class Partido implements Comparator<Participante>, EventoDeportivo { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
@@ -47,25 +48,22 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 	}
 	
 	//Inscribe al participante
-	override boolean confirmarAsistencia(Participante participante){
-		if(!estaInscripto(participante.jugador)){
+	override confirmarAsistencia(Participante participante){
+		if(!estaInscripto(participante.jugador))
+		{
 			this.participantesConfirmados.add(participante)
 			Collections.sort(this.participantesConfirmados,this)
-			return true
 		}
-		else{
-			return false
-		}
+		else throw new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, participante);
 	}
 	
 	//Reemplaza a un jugador entrante por el saliente
-	override boolean reemplazar(Participante entrante,Participante saliente){
-		var bool = false
-		if(!estaInscripto(entrante.jugador)){//Primero ve si lo puede agregar, y lo agrega al final
-			participantesConfirmados.remove(saliente)//Despues borra al otro
-			bool=confirmarAsistencia(entrante)
-		}
-		return bool
+	override reemplazar(Participante entrante,Participante saliente)
+	{
+		//Primero ve si lo puede agregar, y lo agrega al final
+		confirmarAsistencia(entrante) //cambio el orden de estos mensajes. así, si esto tiene que reventar, rompe dentro de confirmarAsistencia directamente y me ahorro preguntar dos veces lo mismo
+		participantesConfirmados.remove(saliente)//Despues borra al otro
+		
 	}
 	
 	override void quitarSinReemplazo(Participante participante) 

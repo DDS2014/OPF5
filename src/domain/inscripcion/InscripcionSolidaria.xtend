@@ -16,13 +16,9 @@ public class InscripcionSolidaria extends TipoDeInscripcion
 	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
 		if(entrante.modalidad instanceof InscripcionEstandar)
 		{
-			//Estandar reemplaza a solidario
-			return partido.reemplazar(entrante,saliente)
+			partido.reemplazar(entrante,saliente) //recordar que si el reemplazar falla, rompe, no tira código de error
+			return true;
 		}
-		else
-		{
-			//No se si un solidario puede reemplazar a otro solidario
-			return false
-		}
+		else return false; //ponele que un solidario no puede reemplazar a otro
 	}
 }

@@ -2,7 +2,6 @@ package domain.inscripcion;
 
 import domain.Participante;
 import domain.Partido;
-import domain.excepciones.JugadorNoFueAnotadoException;
 import domain.excepciones.NoHayLugarParaAnotarseException;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -33,29 +32,24 @@ public abstract class TipoDeInscripcion {
     this.setParticipante(participante);
   }
   
-  public boolean inscribir(final Participante participante, final Partido partido) {
+  public void inscribir(final Participante participante, final Partido partido) {
     List<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
     List<Participante> jugadores = IterableExtensions.<Participante>toList(_participantesConfirmados);
     boolean seInscribio = false;
     boolean _hayLugaresLibres = partido.hayLugaresLibres();
     if (_hayLugaresLibres) {
-      boolean _confirmarAsistencia = partido.confirmarAsistencia(participante);
-      seInscribio = _confirmarAsistencia;
-      boolean _not = (!seInscribio);
-      if (_not) {
-        JugadorNoFueAnotadoException _jugadorNoFueAnotadoException = new JugadorNoFueAnotadoException("Aunque había lugar, el jugador no fue anotado (verificar si ya estaba anotado?)", partido, participante);
-        throw _jugadorNoFueAnotadoException;
-      }
+      partido.confirmarAsistencia(participante);
+      seInscribio = true;
     } else {
       int i = 0;
       boolean _and = false;
-      boolean _not_1 = (!seInscribio);
-      if (!_not_1) {
+      boolean _not = (!seInscribio);
+      if (!_not) {
         _and = false;
       } else {
         int _size = jugadores.size();
         boolean _lessThan = (i < _size);
-        _and = (_not_1 && _lessThan);
+        _and = (_not && _lessThan);
       }
       boolean _while = _and;
       while (_while) {
@@ -68,23 +62,22 @@ public abstract class TipoDeInscripcion {
           i = _plus;
         }
         boolean _and_1 = false;
-        boolean _not_2 = (!seInscribio);
-        if (!_not_2) {
+        boolean _not_1 = (!seInscribio);
+        if (!_not_1) {
           _and_1 = false;
         } else {
           int _size_1 = jugadores.size();
           boolean _lessThan_1 = (i < _size_1);
-          _and_1 = (_not_2 && _lessThan_1);
+          _and_1 = (_not_1 && _lessThan_1);
         }
         _while = _and_1;
       }
     }
-    boolean _not_2 = (!seInscribio);
-    if (_not_2) {
+    boolean _not_1 = (!seInscribio);
+    if (_not_1) {
       NoHayLugarParaAnotarseException _noHayLugarParaAnotarseException = new NoHayLugarParaAnotarseException("No se encontró ningun lugar para acomodar a este jugador", partido, participante);
       throw _noHayLugarParaAnotarseException;
     }
-    return false;
   }
   
   public abstract boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente);

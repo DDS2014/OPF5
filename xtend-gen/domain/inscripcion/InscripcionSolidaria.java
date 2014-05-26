@@ -24,7 +24,8 @@ public class InscripcionSolidaria extends TipoDeInscripcion {
   public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {
     TipoDeInscripcion _modalidad = entrante.getModalidad();
     if ((_modalidad instanceof InscripcionEstandar)) {
-      return partido.reemplazar(entrante, saliente);
+      partido.reemplazar(entrante, saliente);
+      return true;
     } else {
       return false;
     }

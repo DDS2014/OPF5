@@ -11,8 +11,8 @@ interface EventoDeportivo
 	def Boolean estaInscripto(Jugador jugador);
 	def boolean inscribir(TipoDeInscripcion modalidad);
 	def boolean hayLugaresLibres();
-	def boolean confirmarAsistencia(Participante participante);
-	def boolean reemplazar(Participante entrante,Participante saliente);
+	def void confirmarAsistencia(Participante participante);
+	def void reemplazar(Participante entrante,Participante saliente);
 	def void quitarSinReemplazo(Participante participante);
 	def InterfazDistribuidorDeMails getDistribuidor();
 	def Date getFecha()	
