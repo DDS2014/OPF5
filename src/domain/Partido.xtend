@@ -10,6 +10,7 @@ import java.util.Date
 import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
+import domain.excepciones.ImposibleBajarseException
 
 public class Partido implements Comparator<Participante>, EventoDeportivo { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
@@ -36,9 +37,17 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 	}
 	
 	override inscribir(TipoDeInscripcion modalidad){
+		//TODO: SACAR PARA DEJAR SOLO DECORATORS
 		val habiaLugar = hayLugaresLibres()
-		modalidad.participante.setModalidad(modalidad);
-		modalidad.participante.inscribirse(this)
+		
+		if(this.hayLugaresLibres()){
+			this.confirmarAsistencia(modalidad.participante);
+		}
+		else{
+			modalidad.inscribir(this);
+		}
+		
+		//TODO: SACAR PARA DEJAR SOLO DECORATORS
 	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante.jugador,habiaLugar)]
 	}
 	
@@ -65,11 +74,22 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 		
 	}
 	
+	override bajar(Participante participante)
+	{
+		
+		if (!this.estaInscripto(participante.jugador)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", this, participante);
+		participantesConfirmados.remove(participante)//Despues borra al otro
+	}
+	
 	override void quitarSinReemplazo(Participante participante) 
 	{
+		//TODO: SACAR PARA DEJAR SOLO DECORATORS
 		val estabaConfirmado = !hayLugaresLibres();
-		this.participantesConfirmados.remove(participante);
+		
+		this.bajar(participante);
 		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
+		
+		//TODO: SACAR PARA DEJAR SOLO DECORATORS
 		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR,participante, estabaConfirmado)]	
 	}
 	
@@ -91,13 +111,13 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 		}
 	}
 	
+	//TODO: SACAR PARA DEJAR SOLO DECORATORS
 	def agregarObsever(PartidoObserver observer) {
 		this.observers.add(observer)
 	}
 
+	//TODO: SACAR PARA DEJAR SOLO DECORATORS
 	def removeObserver(PartidoObserver observer){
 		this.observers.remove(observer)
 	}
-	
-	
 }

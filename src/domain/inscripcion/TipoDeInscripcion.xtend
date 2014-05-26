@@ -12,29 +12,20 @@ public abstract class TipoDeInscripcion {
 	new(Participante participante)
 	{
 		this.participante = participante;
+		this.participante.setModalidad(this);
 	}
 	
-	def void inscribir(Participante participante, Partido partido){ //OJO: ESTO YA NO RETORNA BOOLEAN
+	def void inscribir(Partido partido){ //OJO: ESTO YA NO RETORNA BOOLEAN
 		var List<Participante> jugadores = partido.participantesConfirmados.toList
 		var seInscribio=false
 		
-		if(partido.hayLugaresLibres)
-		{
-		 	partido.confirmarAsistencia(participante);
-		 	seInscribio =true;
-			
-		}
-		else
-		{
-			var i=0
+		var i=0
 		
-			while(!seInscribio && i<jugadores.size)
-			{
-				var saliente = jugadores.get(i) 
-				seInscribio = saliente.modalidad.reemplazar(partido, participante, saliente)
-				i=i+1
-			}
-		
+		while(!seInscribio && i<jugadores.size)
+		{
+			var saliente = jugadores.get(i) 
+			seInscribio = saliente.modalidad.reemplazar(partido, this.participante, saliente)
+			i=i+1
 		}
 		
 		if(!seInscribio) throw new NoHayLugarParaAnotarseException("No se encontró ningun lugar para acomodar a este jugador", partido, participante);

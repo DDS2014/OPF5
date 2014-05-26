@@ -110,7 +110,7 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 		partido.inscribir( new InscripcionEstandar(p9))
 		partido.inscribir( new InscripcionEstandar(p10))
 		
-		p10.bajarse(partido);
+		partido.quitarSinReemplazo(p10)
 		
 		verify(mockedDistribuidor, times(1)).enviarMail(eq("admin@admin.com"),eq("Partido Indefinido"),any(typeof(String)));
 		
@@ -131,7 +131,7 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 		var p1 = new Participante(new Jugador("Pepe",20))
 		partido.inscribir( new InscripcionEstandar(p1))
 		
-		p1.bajarse(partido);
+		partido.quitarSinReemplazo(p1)
 		
 		verify(mockedDistribuidor, times(0)).enviarMail(eq("admin@admin.com"),eq("Partido Indefinido"),any(typeof(String)));
 		

@@ -34,7 +34,7 @@ class PruebasDeBajaDeJugadores
 	@Test
 	def public void cuandoUnJugadorSeBajaDejaDeEstarInscripto()
 	{
-		partJuan.bajarse(partido);
+		partido.quitarSinReemplazo(partJuan);
 		
 		Assert.assertFalse(partido.estaInscripto(jugadorJuan));	
 	}
@@ -42,9 +42,8 @@ class PruebasDeBajaDeJugadores
 	@Test
 	def public void cuandoUnJugadorSeBajaYNoDesignaUnReemplazanteSeLeGeneraUnaInfraccion()
 	{
-		partJuan.bajarse(partido);
+		partido.quitarSinReemplazo(partJuan);
 		
 		Assert.assertTrue(jugadorJuan.getInfracciones().length == 1);
 	}
-	
 }
