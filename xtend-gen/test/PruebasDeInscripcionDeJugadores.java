@@ -63,8 +63,10 @@ public class PruebasDeInscripcionDeJugadores {
     Participante _participante = new Participante(_jugador);
     Participante colgado = _participante;
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(colgado);
-    boolean _inscribir = partidoEstandar.inscribir(_inscripcionEstandar);
-    Assert.assertFalse(_inscribir);
+    partidoEstandar.inscribir(_inscripcionEstandar);
+    Jugador _jugador_1 = colgado.getJugador();
+    Boolean _estaInscripto = partidoEstandar.estaInscripto(_jugador_1);
+    Assert.assertFalse((_estaInscripto).booleanValue());
   }
   
   @Test

@@ -33,7 +33,7 @@ class PartidoDecorator implements EventoDeportivo
 	
 	override inscribir(TipoDeInscripcion modalidad) 
 	{
-		return decorado.inscribir(modalidad);
+		decorado.inscribir(modalidad);
 	}
 	
 	override hayLugaresLibres() 

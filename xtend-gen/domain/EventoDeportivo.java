@@ -13,7 +13,7 @@ public interface EventoDeportivo {
   
   public abstract Boolean estaInscripto(final Jugador jugador);
   
-  public abstract boolean inscribir(final TipoDeInscripcion modalidad);
+  public abstract void inscribir(final TipoDeInscripcion modalidad);
   
   public abstract boolean hayLugaresLibres();
   

@@ -35,12 +35,11 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 		jugadores.contains(jugador)
 	}
 	
-	override boolean inscribir(TipoDeInscripcion modalidad){
+	override inscribir(TipoDeInscripcion modalidad){
 		val habiaLugar = hayLugaresLibres()
 		modalidad.participante.setModalidad(modalidad);
 		modalidad.participante.inscribirse(this)
 	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante.jugador,habiaLugar)]
-		return true
 	}
 	
 	override boolean hayLugaresLibres(){

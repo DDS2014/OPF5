@@ -40,9 +40,9 @@ public class PartidoDecorator implements EventoDeportivo {
     return _decorado.estaInscripto(jugador);
   }
   
-  public boolean inscribir(final TipoDeInscripcion modalidad) {
+  public void inscribir(final TipoDeInscripcion modalidad) {
     EventoDeportivo _decorado = this.getDecorado();
-    return _decorado.inscribir(modalidad);
+    _decorado.inscribir(modalidad);
   }
   
   public boolean hayLugaresLibres() {

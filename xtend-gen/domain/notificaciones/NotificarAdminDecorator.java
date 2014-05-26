@@ -15,12 +15,12 @@ public class NotificarAdminDecorator extends PartidoDecorator {
     super(decorado);
   }
   
-  public boolean inscribir(final TipoDeInscripcion modalidad) {
+  public void inscribir(final TipoDeInscripcion modalidad) {
     try {
       EventoDeportivo _decorado = this.getDecorado();
       boolean habiaLugar = _decorado.hayLugaresLibres();
       EventoDeportivo _decorado_1 = this.getDecorado();
-      boolean valorRetorno = _decorado_1.inscribir(modalidad);
+      _decorado_1.inscribir(modalidad);
       EventoDeportivo _decorado_2 = this.getDecorado();
       boolean hayLugarAhora = _decorado_2.hayLugaresLibres();
       boolean _and = false;
@@ -37,7 +37,6 @@ public class NotificarAdminDecorator extends PartidoDecorator {
         InterfazDistribuidorDeMails _distribuidor = _decorado_3.getDistribuidor();
         _distribuidor.enviarMail(Partido.MAIL_ADMINISTRADOR, subject, body);
       }
-      return valorRetorno;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

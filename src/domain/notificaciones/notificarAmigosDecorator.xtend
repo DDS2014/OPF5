@@ -16,20 +16,13 @@ class NotificarAmigosDecorator extends PartidoDecorator
 	{
 		// no quiero hacer nada antes
 		
-		
-		var fueInscripto = decorado.inscribir(modalidad); //esto es porque tengo que retornar lo que retorne el decorado, pero no quiero que el método termine acá
-		
+		decorado.inscribir(modalidad); //notar que si hay algún problema va a haber una excepción por acá, no voy a verificar que se haya inscripto o no con un if
 		
 		//hago algo despues
-		if(fueInscripto)
-		{
-			val subject = "Me anote a un partido!"
-			val body = modalidad.participante.jugador.nombre+" se inscribió al partido del "+decorado.fecha.toString();
+		val subject = "Me anote a un partido!"
+		val body = modalidad.participante.jugador.nombre+" se inscribió al partido del "+decorado.fecha.toString();
+		modalidad.participante.jugador.amigos.forEach[j|decorado.distribuidor.enviarMail(j.email,subject,body)]
 		
-			modalidad.participante.jugador.amigos.forEach[j|decorado.distribuidor.enviarMail(j.email,subject,body)]
-		}
-		
-		return fueInscripto;
 		
 	}
 	

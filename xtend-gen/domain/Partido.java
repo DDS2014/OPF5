@@ -93,7 +93,7 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
     return Boolean.valueOf(_xblockexpression);
   }
   
-  public boolean inscribir(final TipoDeInscripcion modalidad) {
+  public void inscribir(final TipoDeInscripcion modalidad) {
     final boolean habiaLugar = this.hayLugaresLibres();
     Participante _participante = modalidad.getParticipante();
     _participante.setModalidad(modalidad);
@@ -108,7 +108,6 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
       }
     };
     IterableExtensions.<PartidoObserver>forEach(_observers, _function);
-    return true;
   }
   
   public boolean hayLugaresLibres() {

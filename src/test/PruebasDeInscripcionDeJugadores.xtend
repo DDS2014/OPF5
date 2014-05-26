@@ -57,8 +57,9 @@ public class PruebasDeInscripcionDeJugadores
 		var colgado = new Participante(new Jugador("Jorgito",20));
 		
 		//colgado.setModalidad(new InscripcionEstandar(colgado));
-		Assert.assertFalse(partidoEstandar.inscribir(new InscripcionEstandar(colgado)));
+		partidoEstandar.inscribir(new InscripcionEstandar(colgado));
 		
+		Assert.assertFalse(partidoEstandar.estaInscripto(colgado.jugador));
 		//try
 		//{		
 		//	partidoEstandar.inscribir(new InscripcionEstandar(colgado))

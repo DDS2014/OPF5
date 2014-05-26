@@ -18,36 +18,33 @@ public class NotificarAmigosDecorator extends PartidoDecorator {
     super(decorado);
   }
   
-  public boolean inscribir(final TipoDeInscripcion modalidad) {
+  public void inscribir(final TipoDeInscripcion modalidad) {
     EventoDeportivo _decorado = this.getDecorado();
-    boolean fueInscripto = _decorado.inscribir(modalidad);
-    if (fueInscripto) {
-      final String subject = "Me anote a un partido!";
-      Participante _participante = modalidad.getParticipante();
-      Jugador _jugador = _participante.getJugador();
-      String _nombre = _jugador.getNombre();
-      String _plus = (_nombre + " se inscribió al partido del ");
-      EventoDeportivo _decorado_1 = this.getDecorado();
-      Date _fecha = _decorado_1.getFecha();
-      String _string = _fecha.toString();
-      final String body = (_plus + _string);
-      Participante _participante_1 = modalidad.getParticipante();
-      Jugador _jugador_1 = _participante_1.getJugador();
-      HashSet<Jugador> _amigos = _jugador_1.getAmigos();
-      final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
-        public void apply(final Jugador j) {
-          try {
-            EventoDeportivo _decorado = NotificarAmigosDecorator.this.getDecorado();
-            InterfazDistribuidorDeMails _distribuidor = _decorado.getDistribuidor();
-            String _email = j.getEmail();
-            _distribuidor.enviarMail(_email, subject, body);
-          } catch (Throwable _e) {
-            throw Exceptions.sneakyThrow(_e);
-          }
+    _decorado.inscribir(modalidad);
+    final String subject = "Me anote a un partido!";
+    Participante _participante = modalidad.getParticipante();
+    Jugador _jugador = _participante.getJugador();
+    String _nombre = _jugador.getNombre();
+    String _plus = (_nombre + " se inscribió al partido del ");
+    EventoDeportivo _decorado_1 = this.getDecorado();
+    Date _fecha = _decorado_1.getFecha();
+    String _string = _fecha.toString();
+    final String body = (_plus + _string);
+    Participante _participante_1 = modalidad.getParticipante();
+    Jugador _jugador_1 = _participante_1.getJugador();
+    HashSet<Jugador> _amigos = _jugador_1.getAmigos();
+    final Procedure1<Jugador> _function = new Procedure1<Jugador>() {
+      public void apply(final Jugador j) {
+        try {
+          EventoDeportivo _decorado = NotificarAmigosDecorator.this.getDecorado();
+          InterfazDistribuidorDeMails _distribuidor = _decorado.getDistribuidor();
+          String _email = j.getEmail();
+          _distribuidor.enviarMail(_email, subject, body);
+        } catch (Throwable _e) {
+          throw Exceptions.sneakyThrow(_e);
         }
-      };
-      IterableExtensions.<Jugador>forEach(_amigos, _function);
-    }
-    return fueInscripto;
+      }
+    };
+    IterableExtensions.<Jugador>forEach(_amigos, _function);
   }
 }

@@ -17,9 +17,8 @@ class NotificarAdminDecorator extends PartidoDecorator
 		//hacer algo antes
 		var habiaLugar = decorado.hayLugaresLibres();
 		
-		//llamar al decorado
-		var valorRetorno = decorado.inscribir(modalidad); //pongo valorRetorno porque quiero retornar esto pero obviamente no puedo retornar acá
-		
+		decorado.inscribir(modalidad); 
+
 		//hacer algo después
 		var hayLugarAhora = decorado.hayLugaresLibres();
 		
@@ -30,7 +29,6 @@ class NotificarAdminDecorator extends PartidoDecorator
 			decorado.distribuidor.enviarMail(Partido.MAIL_ADMINISTRADOR,subject,body)
 		}
 		
-		return valorRetorno;
 	}
 	
 	override quitarSinReemplazo(Participante participante)

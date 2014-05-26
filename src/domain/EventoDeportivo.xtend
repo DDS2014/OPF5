@@ -9,7 +9,7 @@ interface EventoDeportivo
 {
 	def List<Jugador> jugadoresConfirmados();
 	def Boolean estaInscripto(Jugador jugador);
-	def boolean inscribir(TipoDeInscripcion modalidad);
+	def void inscribir(TipoDeInscripcion modalidad);
 	def boolean hayLugaresLibres();
 	def void confirmarAsistencia(Participante participante);
 	def void reemplazar(Participante entrante,Participante saliente);
