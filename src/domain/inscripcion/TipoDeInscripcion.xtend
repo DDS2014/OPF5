@@ -1,21 +1,23 @@
 package domain.inscripcion
 
-import domain.Participante
+
 import domain.Partido
 import domain.excepciones.NoHayLugarParaAnotarseException
 import java.util.List
+import domain.Jugador
 
 public abstract class TipoDeInscripcion {
 	@Property int prioridad
-	@Property Participante participante;
+	@Property Jugador participante;
 	
-	new(Participante participante)
+	def void setCliente(Jugador jugador)
 	{
-		this.participante = participante;
+		this.participante = jugador;
 	}
 	
-	def void inscribir(Participante participante, Partido partido){ //OJO: ESTO YA NO RETORNA BOOLEAN
-		var List<Participante> jugadores = partido.participantesConfirmados.toList
+	def void inscribir(Jugador participante, Partido partido)
+	{ //OJO: ESTO YA NO RETORNA BOOLEAN
+		var List<Jugador> jugadores = partido.jugadoresConfirmados.toList
 		var seInscribio=false
 		
 		if(partido.hayLugaresLibres)
@@ -41,5 +43,8 @@ public abstract class TipoDeInscripcion {
 		
 	}
 	
-	def abstract boolean reemplazar(Partido partido, Participante entrante,Participante saliente)
+	def abstract boolean reemplazar(Partido partido, Jugador entrante,Jugador saliente)
+
+
+
 }

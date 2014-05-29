@@ -1,7 +1,6 @@
 package domain.notificaciones;
 
 import domain.Jugador;
-import domain.Participante;
 import domain.Partido;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.notificaciones.PartidoObserver;
@@ -35,6 +34,6 @@ public class NotificarAmigosObserver implements PartidoObserver {
     IterableExtensions.<Jugador>forEach(_amigos, _function);
   }
   
-  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Participante participante, final Boolean estabaConfirmado) {
+  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Jugador participante, final Boolean estabaConfirmado) {
   }
 }

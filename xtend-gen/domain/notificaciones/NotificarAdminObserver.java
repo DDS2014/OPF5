@@ -1,7 +1,6 @@
 package domain.notificaciones;
 
 import domain.Jugador;
-import domain.Participante;
 import domain.Partido;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.notificaciones.PartidoObserver;
@@ -30,12 +29,11 @@ public class NotificarAdminObserver implements PartidoObserver {
     }
   }
   
-  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Participante participante, final Boolean estabaConfirmado) {
+  public void avisarQuitaSinReemplazo(final Partido partido, final String mailAdmin, final Jugador participante, final Boolean estabaConfirmado) {
     try {
       if ((estabaConfirmado).booleanValue()) {
         String subject = "Partido Indefinido";
-        Jugador _jugador = participante.getJugador();
-        String _nombre = _jugador.getNombre();
+        String _nombre = participante.getNombre();
         String _plus = ("El partido dejó de tener todas las plazas confirmadas. El jugador " + _nombre);
         String body = (_plus + " se bajó del partido.");
         InterfazDistribuidorDeMails _distribuidor = partido.getDistribuidor();

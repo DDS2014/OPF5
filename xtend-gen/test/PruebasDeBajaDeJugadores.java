@@ -1,7 +1,6 @@
 package test;
 
 import domain.Jugador;
-import domain.Participante;
 import domain.Partido;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.InscripcionEstandar;
@@ -18,31 +17,27 @@ public class PruebasDeBajaDeJugadores {
   
   private Jugador jugadorJuan;
   
-  private Participante partJuan;
-  
   @Before
   public void setup() {
     Date _date = new Date();
     Partido _partido = new Partido(_date);
     this.partido = _partido;
-    Jugador _jugador = new Jugador("Juan", 18);
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Jugador _jugador = new Jugador("Juan", 18, _inscripcionEstandar);
     this.jugadorJuan = _jugador;
-    Participante _participante = new Participante(this.jugadorJuan);
-    this.partJuan = _participante;
-    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(this.partJuan);
-    this.partido.inscribir(_inscripcionEstandar);
+    this.jugadorJuan.inscribirse(this.partido);
   }
   
   @Test
   public void cuandoUnJugadorSeBajaDejaDeEstarInscripto() {
-    this.partJuan.bajarse(this.partido);
+    this.jugadorJuan.bajarse(this.partido);
     boolean _estaInscripto = this.partido.estaInscripto(this.jugadorJuan);
     Assert.assertFalse(_estaInscripto);
   }
   
   @Test
   public void cuandoUnJugadorSeBajaYNoDesignaUnReemplazanteSeLeGeneraUnaInfraccion() {
-    this.partJuan.bajarse(this.partido);
+    this.jugadorJuan.bajarse(this.partido);
     HashSet<Infraccion> _infracciones = this.jugadorJuan.getInfracciones();
     int _length = ((Object[])Conversions.unwrapArray(_infracciones, Object.class)).length;
     boolean _equals = (_length == 1);

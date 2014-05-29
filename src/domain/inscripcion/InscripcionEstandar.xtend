@@ -1,16 +1,15 @@
 package domain.inscripcion
 
-import domain.Participante
+
 import domain.Partido
+import domain.Jugador
 
 public class InscripcionEstandar extends TipoDeInscripcion{
 	@Property int prioridad=1
 
-	new(Participante participante) {
-			super(participante)
-		}
+
 	 
-	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
+	override reemplazar(Partido partido, Jugador entrante, Jugador saliente) {
 		//Nadie reemplaza a estandar
 		return false
 	}

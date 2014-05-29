@@ -4,7 +4,7 @@ import domain.Jugador
 import domain.Partido
 import domain.inscripcion.InscripcionEstandar
 import java.util.Date
-import domain.Participante
+
 
 public class Creaciones 
 {
@@ -13,24 +13,24 @@ public class Creaciones
 		var partido = new Partido (new Date)
 		
 		//JUGADORES
-		var p1 = new Participante(new Jugador("Pepe",20))
-		var p2 = new Participante(new Jugador("Luis",35))
-		var p3 = new Participante(new Jugador("Juan",27))
-		var p4 = new Participante(new Jugador("Alberto",20))
-		var p5 = new Participante(new Jugador("Fabio",20))
-		var p6 = new Participante(new Jugador("Alejo",26))
-		var p7 = new Participante(new Jugador("Casio",29))
-		var p8 = new Participante(new Jugador("Alan",30))
+		var p1 = new Jugador("Pepe",20, new InscripcionEstandar());
+		var p2 = new Jugador("Luis",35, new InscripcionEstandar());
+		var p3 = new Jugador("Juan",27, new InscripcionEstandar());
+		var p4 = new Jugador("Alberto",20, new InscripcionEstandar());
+		var p5 = new Jugador("Fabio",20, new InscripcionEstandar());
+		var p6 = new Jugador("Alejo",26, new InscripcionEstandar());
+		var p7 = new Jugador("Casio",29, new InscripcionEstandar());
+		var p8 = new Jugador("Alan",30, new InscripcionEstandar());
 		
 		//Inscripciones
-		partido.inscribir( new InscripcionEstandar(p1))
-		partido.inscribir( new InscripcionEstandar(p2))
-		partido.inscribir( new InscripcionEstandar(p3))
-		partido.inscribir( new InscripcionEstandar(p4))
-		partido.inscribir( new InscripcionEstandar(p5))
-		partido.inscribir( new InscripcionEstandar(p6))
-		partido.inscribir( new InscripcionEstandar(p7))
-		partido.inscribir( new InscripcionEstandar(p8))
+		p1.inscribirse(partido);
+		p2.inscribirse(partido);
+		p3.inscribirse(partido);
+		p4.inscribirse(partido);
+		p5.inscribirse(partido);
+		p6.inscribirse(partido);
+		p7.inscribirse(partido);
+		p8.inscribirse(partido);
 		
 		return partido;		
 		/*
@@ -67,10 +67,10 @@ public class Creaciones
 		var partido = crearPartidoCon8Estandar()
 		
 		//JUGADORES
-		var p9 = new Participante(new Jugador("Carlos",20))
+		var p9 = new Jugador("Carlos",20, new InscripcionEstandar());
 		
 		//Inscripciones
-		partido.inscribir( new InscripcionEstandar(p9))
+		p9.inscribirse(partido);
 		
 		return partido;	
 		
@@ -86,10 +86,10 @@ public class Creaciones
 		var partido = crearPartidoCon9Estandar()
 		
 		//JUGADORES
-		var p10 = new Participante(new Jugador("Lucas",20))
+		var p10 = new Jugador("Lucas",20, new InscripcionEstandar());
 		
 		//Inscripciones
-		partido.inscribir( new InscripcionEstandar(p10))
+		p10.inscribirse(partido);
 		
 		return partido;	
 		

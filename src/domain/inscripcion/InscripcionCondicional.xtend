@@ -1,6 +1,6 @@
 package domain.inscripcion
 
-import domain.Participante
+import domain.Jugador
 import domain.Partido
 import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException
 import domain.inscripcion.condiciones.Condicion
@@ -9,16 +9,15 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 	@Property int prioridad=3
 	@Property Condicion condicion
 	
-	new(Participante participante, Condicion condicion)
+	new(Condicion condicion)
 	{
-		super(participante)
 		this.condicion=condicion
 	}
 	
-	override inscribir(Participante participante, Partido partido){
+	override inscribir(Jugador participante, Partido partido){
 		if(!condicion.seCumple(partido))
 		{
-			throw new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, participante);
+			throw new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este jugador para anotarse", partido, participante);
 		}
 		else
 		{
@@ -26,7 +25,7 @@ public class InscripcionCondicional extends TipoDeInscripcion{
 		}
 	}
 	
-	override reemplazar(Partido partido, Participante entrante, Participante saliente) 
+	override reemplazar(Partido partido, Jugador entrante, Jugador saliente) 
 	{
 		if(entrante.modalidad instanceof InscripcionEstandar || entrante.modalidad instanceof InscripcionSolidaria)
 			{

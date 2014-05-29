@@ -1,7 +1,11 @@
 package domain;
 
 import com.google.common.base.Objects;
+import domain.Partido;
+import domain.excepciones.ImposibleBajarseException;
 import domain.infracciones.Infraccion;
+import domain.inscripcion.TipoDeInscripcion;
+import java.util.Date;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -58,6 +62,26 @@ public class Jugador {
     this._email = email;
   }
   
+  private TipoDeInscripcion _modalidad;
+  
+  public TipoDeInscripcion getModalidad() {
+    return this._modalidad;
+  }
+  
+  public void setModalidad(final TipoDeInscripcion modalidad) {
+    this._modalidad = modalidad;
+  }
+  
+  private Date _fechaInscripcion;
+  
+  public Date getFechaInscripcion() {
+    return this._fechaInscripcion;
+  }
+  
+  public void setFechaInscripcion(final Date fechaInscripcion) {
+    this._fechaInscripcion = fechaInscripcion;
+  }
+  
   private HashSet<Jugador> _amigos;
   
   public HashSet<Jugador> getAmigos() {
@@ -78,13 +102,15 @@ public class Jugador {
     this._infracciones = infracciones;
   }
   
-  public Jugador(final String nombre, final int edad) {
+  public Jugador(final String nombre, final int edad, final TipoDeInscripcion modalidad) {
     this.setNombre(nombre);
     this.setEdad(edad);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
     this.setAmigos(_hashSet);
     HashSet<Infraccion> _hashSet_1 = new HashSet<Infraccion>();
     this.setInfracciones(_hashSet_1);
+    this.setModalidad(modalidad);
+    modalidad.setCliente(this);
   }
   
   public boolean hacerseAmigoDe(final Jugador nuevoAmigo) {
@@ -112,6 +138,36 @@ public class Jugador {
       }
     };
     return IterableExtensions.<Jugador>exists(_amigos, _function);
+  }
+  
+  public void inscribirse(final Partido partido) {
+    TipoDeInscripcion _modalidad = this.getModalidad();
+    _modalidad.inscribir(this, partido);
+  }
+  
+  public void bajarse(final Partido partido) {
+    boolean _estaInscripto = partido.estaInscripto(this);
+    boolean _not = (!_estaInscripto);
+    if (_not) {
+      ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+      throw _imposibleBajarseException;
+    }
+    partido.quitarSinReemplazo(this);
+  }
+  
+  public boolean bajarse(final Partido partido, final Jugador reemplazante) {
+    boolean _xblockexpression = false;
+    {
+      boolean _estaInscripto = partido.estaInscripto(this);
+      boolean _not = (!_estaInscripto);
+      if (_not) {
+        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        throw _imposibleBajarseException;
+      }
+      boolean _reemplazar = partido.reemplazar(reemplazante, this);
+      _xblockexpression = (_reemplazar);
+    }
+    return _xblockexpression;
   }
   
   public boolean aplicarInfraccion(final Infraccion infraccion) {

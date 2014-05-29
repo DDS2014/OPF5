@@ -1,7 +1,6 @@
 package domain
 
 import domain.infracciones.Infraccion
-import domain.inscripcion.TipoDeInscripcion
 import domain.notificaciones.PartidoObserver
 import java.util.ArrayList
 import java.util.Collections
@@ -11,9 +10,9 @@ import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
 
-public class Partido implements Comparator<Participante> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
+public class Partido implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
-	@Property List<Participante> participantesConfirmados
+	@Property List<Jugador> jugadoresConfirmados
 	@Property List<PartidoObserver> observers //para descartar la solución observer, borrar este campo y todo lo que rompa como consecuencia
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
 	@Property InterfazDistribuidorDeMails distribuidor
@@ -21,59 +20,57 @@ public class Partido implements Comparator<Participante> { //para descartar la s
 	//CONSTRUCTOR
 	new(Date fecha){
 		this.fecha=fecha;
-		this.participantesConfirmados=new ArrayList();
+		this.jugadoresConfirmados=new ArrayList();
 		this.observers =new ArrayList();
 	}
 	
-	//Inscripcion
-	def jugadoresConfirmados(){
-		participantesConfirmados.map[p|p.jugador].toList
+	def estaInscripto(Jugador jugador)
+	{
+		jugadoresConfirmados.contains(jugador)
 	}
 	
-	def estaInscripto(Jugador jugador){
-		var List<Jugador> jugadores = jugadoresConfirmados()
-		jugadores.contains(jugador)
-	}
+//	def inscribir(TipoDeInscripcion modalidad){
+//		val habiaLugar = hayLugaresLibres()
+//		modalidad.participante.setModalidad(modalidad);
+//		modalidad.participante.inscribirse(this)
+//	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante,habiaLugar)]
+//	}
 	
-	def inscribir(TipoDeInscripcion modalidad){
-		val habiaLugar = hayLugaresLibres()
-		modalidad.participante.setModalidad(modalidad);
-		modalidad.participante.inscribirse(this)
-	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante.jugador,habiaLugar)]
-	}
-	
-	def boolean hayLugaresLibres(){
-		return this.participantesConfirmados.size<10//Cambiar para que no este harcodeado
+	def boolean hayLugaresLibres()
+	{
+		return this.jugadoresConfirmados.size<10//Cambiar para que no este harcodeado
 	}
 	
 	//Inscribe al participante
-	def confirmarAsistencia(Participante participante){
-		if(!estaInscripto(participante.jugador))
+	def confirmarAsistencia(Jugador jugador){
+		if(!estaInscripto(jugador))
 		{
-			this.participantesConfirmados.add(participante)
-			Collections.sort(this.participantesConfirmados,this)
+			jugador.fechaInscripcion = new Date(); //registro cuándo lo agregué
+			this.jugadoresConfirmados.add(jugador)
+			Collections.sort(this.jugadoresConfirmados,this)
+			this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,jugador,true)] //FIXME esto es un hardcore hardcodeo, please futuro yo arregla esta interfaz
 		}
-		else throw new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, participante);
+		else throw new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, jugador);
 	}
 	
 	//Reemplaza a un jugador entrante por el saliente
-	def reemplazar(Participante entrante,Participante saliente)
+	def reemplazar(Jugador entrante,Jugador saliente)
 	{
 		//Primero ve si lo puede agregar, y lo agrega al final
 		confirmarAsistencia(entrante) //cambio el orden de estos mensajes. así, si esto tiene que reventar, rompe dentro de confirmarAsistencia directamente y me ahorro preguntar dos veces lo mismo
-		participantesConfirmados.remove(saliente)//Despues borra al otro
+		jugadoresConfirmados.remove(saliente)//Despues borra al otro
 		
 	}
 	
-	def void quitarSinReemplazo(Participante participante) 
+	def void quitarSinReemplazo(Jugador participante) 
 	{
 		val estabaConfirmado = !hayLugaresLibres();
-		this.participantesConfirmados.remove(participante);
-		participante.jugador.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
-		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR,participante, estabaConfirmado)]	
+		this.jugadoresConfirmados.remove(participante);
+		participante.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
+		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR, participante, estabaConfirmado)]	
 	}
 	
-	override compare(Participante arg0, Participante arg1) {
+	override compare(Jugador arg0, Jugador arg1) {
 		if(arg0.modalidad.prioridad>arg1.modalidad.prioridad){
 			return -1;
 		}

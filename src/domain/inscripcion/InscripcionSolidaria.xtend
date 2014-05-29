@@ -1,19 +1,16 @@
 package domain.inscripcion
 
-import domain.Participante
+
 import domain.Partido
+import domain.Jugador
 
 public class InscripcionSolidaria extends TipoDeInscripcion
 {
 	@Property int prioridad=2
 
-	new(Participante participante) 
-	{
-		super(participante)
-	}
+
 	
-	
-	override reemplazar(Partido partido, Participante entrante, Participante saliente) {
+	override reemplazar(Partido partido, Jugador entrante, Jugador saliente) {
 		if(entrante.modalidad instanceof InscripcionEstandar)
 		{
 			partido.reemplazar(entrante,saliente) //recordar que si el reemplazar falla, rompe, no tira código de error

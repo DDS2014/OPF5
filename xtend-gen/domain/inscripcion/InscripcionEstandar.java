@@ -1,6 +1,6 @@
 package domain.inscripcion;
 
-import domain.Participante;
+import domain.Jugador;
 import domain.Partido;
 import domain.inscripcion.TipoDeInscripcion;
 
@@ -16,11 +16,7 @@ public class InscripcionEstandar extends TipoDeInscripcion {
     this._prioridad = prioridad;
   }
   
-  public InscripcionEstandar(final Participante participante) {
-    super(participante);
-  }
-  
-  public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {
+  public boolean reemplazar(final Partido partido, final Jugador entrante, final Jugador saliente) {
     return false;
   }
 }

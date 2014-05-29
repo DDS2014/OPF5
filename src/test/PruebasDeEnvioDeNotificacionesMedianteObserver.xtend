@@ -1,17 +1,18 @@
 package test
 
 import domain.Jugador
-
-import domain.Participante
 import domain.Partido
+import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.inscripcion.InscripcionEstandar
+import domain.notificaciones.NotificarAdminObserver
 import domain.notificaciones.NotificarAmigosObserver
 import java.util.Date
 import org.junit.Assert
 import org.junit.Test
+
+import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import domain.notificaciones.NotificarAdminObserver
-import domain.enviadorDeMails.InterfazDistribuidorDeMails
+import static test.Creaciones.*
 
 public class PruebasDeEnvioDeNotificacionesMedianteObserver 
 {
@@ -21,8 +22,8 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 	//siendo estrictos debería ir en otra clase PruebasDeAmistad o algo así, pero como no hay caso de uso de eso... no sé, lo dejo acá?
 	{
 		//setup
-		var	jugadorJuan = new Jugador("Juan", 18);	
-		var jugadorPedro = new Jugador("Pedro", 20);
+		var	jugadorJuan = new Jugador("Juan", 18, new InscripcionEstandar());	//ahora recordemos que no existen los jugadores sin un tipo de inscripción asignada
+		var jugadorPedro = new Jugador("Pedro", 20, new InscripcionEstandar());
 		
 		//accion
 		jugadorJuan.hacerseAmigoDe(jugadorPedro);
@@ -37,37 +38,24 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 	@Test
 	def public void CuandoUnPartidoEsConfirmadoElAdministradorEsNotificado()
 	{
-		var partido = new Partido (new Date)
+		var partido = crearPartidoCon9Estandar();
 		val mockedDistribuidor = mock(typeof(InterfazDistribuidorDeMails))
 		partido.distribuidor = mockedDistribuidor
+		
+		//esto es medio trucho porque primero aprovecho el método que tengo para armar un partido con 9 estándar,  después le meto los observadores y el distribuidor, y finalmente agrego al último a ver si se manda el mail
+		//la posta sería tener un método "poblarPartidoCon9Estandar()" que puede tranquilamente ser llamado por crearPartidoCon9Estandar()
+		//será cuestión de refinarlo cuando haya tiempo
+		
 		
 		//Se agregan los observers
 		partido.agregarObsever(new NotificarAdminObserver)
 		partido.agregarObsever(new NotificarAmigosObserver)
 		
 		//JUGADORES
-		var p1 = new Participante(new Jugador("Pepe",20))
-		var p2 = new Participante(new Jugador("Luis",35))
-		var p3 = new Participante(new Jugador("Juan",27))
-		var p4 = new Participante(new Jugador("Alberto",20))
-		var p5 = new Participante(new Jugador("Fabio",20))
-		var p6 = new Participante(new Jugador("Alejo",26))
-		var p7 = new Participante(new Jugador("Casio",29))
-		var p8 = new Participante(new Jugador("Alan",30))
-		var p9 = new Participante(new Jugador("Carlos",20))
-		var p10 = new Participante(new Jugador("Lucas",20))
+		var p10 = new Jugador("Lucas",20, new InscripcionEstandar());
 		
 		//Inscripciones
-		partido.inscribir( new InscripcionEstandar(p1))
-		partido.inscribir( new InscripcionEstandar(p2))
-		partido.inscribir( new InscripcionEstandar(p3))
-		partido.inscribir( new InscripcionEstandar(p4))
-		partido.inscribir( new InscripcionEstandar(p5))
-		partido.inscribir( new InscripcionEstandar(p6))
-		partido.inscribir( new InscripcionEstandar(p7))
-		partido.inscribir( new InscripcionEstandar(p8))
-		partido.inscribir( new InscripcionEstandar(p9))
-		partido.inscribir( new InscripcionEstandar(p10))
+		p10.inscribirse(partido);
 		
 		verify(mockedDistribuidor, times(1)).enviarMail(eq("admin@admin.com"),eq("Partido Confirmado"),any(typeof(String)))
 		//cambié esto para que verifique que el avisado es el admin
@@ -78,7 +66,7 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 	def public void CuandoUnPartidoDejaDeTener10ConfirmadosElAdministradorEsNotificado()
 	{
 		//FIXME copypasta
-		var partido = new Partido (new Date)
+		var partido = crearPartidoCon9Estandar();
 		val mockedDistribuidor = mock(typeof(InterfazDistribuidorDeMails))
 		partido.distribuidor = mockedDistribuidor
 		
@@ -87,31 +75,16 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 		partido.agregarObsever(new NotificarAmigosObserver)
 		
 		//JUGADORES
-		var p1 = new Participante(new Jugador("Pepe",20))
-		var p2 = new Participante(new Jugador("Luis",35))
-		var p3 = new Participante(new Jugador("Juan",27))
-		var p4 = new Participante(new Jugador("Alberto",20))
-		var p5 = new Participante(new Jugador("Fabio",20))
-		var p6 = new Participante(new Jugador("Alejo",26))
-		var p7 = new Participante(new Jugador("Casio",29))
-		var p8 = new Participante(new Jugador("Alan",30))
-		var p9 = new Participante(new Jugador("Carlos",20))
-		var p10 = new Participante(new Jugador("Lucas",20))
+		var p10 = new Jugador("Lucas",20, new InscripcionEstandar());
 		
 		//Inscripciones
-		partido.inscribir( new InscripcionEstandar(p1))
-		partido.inscribir( new InscripcionEstandar(p2))
-		partido.inscribir( new InscripcionEstandar(p3))
-		partido.inscribir( new InscripcionEstandar(p4))
-		partido.inscribir( new InscripcionEstandar(p5))
-		partido.inscribir( new InscripcionEstandar(p6))
-		partido.inscribir( new InscripcionEstandar(p7))
-		partido.inscribir( new InscripcionEstandar(p8))
-		partido.inscribir( new InscripcionEstandar(p9))
-		partido.inscribir( new InscripcionEstandar(p10))
+		p10.inscribirse(partido);
 		
-		p10.bajarse(partido);
+		//Hasta acá llega el setup
 		
+		p10.bajarse(partido); //esta es la acción
+		
+		//y acá viene el assert		
 		verify(mockedDistribuidor, times(1)).enviarMail(eq("admin@admin.com"),eq("Partido Indefinido"),any(typeof(String)));
 		
 	}
@@ -128,8 +101,8 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 		partido.agregarObsever(new NotificarAmigosObserver)
 		
 		//JUGADORES
-		var p1 = new Participante(new Jugador("Pepe",20))
-		partido.inscribir( new InscripcionEstandar(p1))
+		var p1 = new Jugador("Pepe",20, new InscripcionEstandar());
+		p1.inscribirse(partido);
 		
 		p1.bajarse(partido);
 		
@@ -143,11 +116,11 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 	{
 		//setup
 		var partido = new Partido (new Date);
-		var jugadorPepe = new Jugador("Pepe",20)
+		var jugadorPepe = new Jugador("Pepe",20, new InscripcionEstandar());
 		//var partPepe = new Participante(new Jugador("Pepe",20));
 		//partPepe.setModalidad(new InscripcionEstandar(partPepe));
-		var	jugadorLuis = new Jugador("Luis", 18);
-		var jugadorPedro = new Jugador("Pedro", 20);
+		var	jugadorLuis = new Jugador("Luis", 18, new InscripcionEstandar());
+		var jugadorPedro = new Jugador("Pedro", 20, new InscripcionEstandar());
 		jugadorPepe.hacerseAmigoDe(jugadorLuis);
 		jugadorPepe.hacerseAmigoDe(jugadorPedro);
 		
@@ -161,7 +134,7 @@ public class PruebasDeEnvioDeNotificacionesMedianteObserver
 		
 		
 		//accion
-		partido.inscribir(new InscripcionEstandar(new Participante(jugadorPepe)))
+		jugadorPepe.inscribirse(partido);
 		
 		//verificacion
 		verify(mockedDistribuidor, times(1)).enviarMail(eq("luisito@gmail.com"),eq("Me anote a un partido!"),any(typeof(String)));

@@ -1,7 +1,6 @@
 package domain.inscripcion.condiciones;
 
 import domain.Jugador;
-import domain.Participante;
 import domain.Partido;
 import domain.inscripcion.condiciones.Condicion;
 import java.util.HashSet;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.ListExtensions;
 
 @SuppressWarnings("all")
 public class Condicion_LimiteDeEdad implements Condicion {
@@ -61,20 +59,13 @@ public class Condicion_LimiteDeEdad implements Condicion {
   }
   
   public boolean seCumple(final Partido partido) {
-    List<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
-    final Function1<Participante,Jugador> _function = new Function1<Participante,Jugador>() {
-      public Jugador apply(final Participante p) {
-        Jugador _jugador = p.getJugador();
-        return _jugador;
-      }
-    };
-    List<Jugador> _map = ListExtensions.<Participante, Jugador>map(_participantesConfirmados, _function);
-    Set<Jugador> jugadores = IterableExtensions.<Jugador>toSet(_map);
+    List<Jugador> _jugadoresConfirmados = partido.getJugadoresConfirmados();
+    Set<Jugador> jugadores = IterableExtensions.<Jugador>toSet(_jugadoresConfirmados);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
     Set<Jugador> jugadoresQueCumplen = _hashSet;
     boolean _isMinimoDeEdad = this.isMinimoDeEdad();
     if (_isMinimoDeEdad) {
-      final Function1<Jugador,Boolean> _function_1 = new Function1<Jugador,Boolean>() {
+      final Function1<Jugador,Boolean> _function = new Function1<Jugador,Boolean>() {
         public Boolean apply(final Jugador j) {
           int _edad = j.getEdad();
           int _edad_1 = Condicion_LimiteDeEdad.this.getEdad();
@@ -82,11 +73,11 @@ public class Condicion_LimiteDeEdad implements Condicion {
           return Boolean.valueOf(_greaterEqualsThan);
         }
       };
-      Iterable<Jugador> _filter = IterableExtensions.<Jugador>filter(jugadores, _function_1);
+      Iterable<Jugador> _filter = IterableExtensions.<Jugador>filter(jugadores, _function);
       Set<Jugador> _set = IterableExtensions.<Jugador>toSet(_filter);
       jugadoresQueCumplen = _set;
     } else {
-      final Function1<Jugador,Boolean> _function_2 = new Function1<Jugador,Boolean>() {
+      final Function1<Jugador,Boolean> _function_1 = new Function1<Jugador,Boolean>() {
         public Boolean apply(final Jugador j) {
           int _edad = j.getEdad();
           int _edad_1 = Condicion_LimiteDeEdad.this.getEdad();
@@ -94,7 +85,7 @@ public class Condicion_LimiteDeEdad implements Condicion {
           return Boolean.valueOf(_lessEqualsThan);
         }
       };
-      Iterable<Jugador> _filter_1 = IterableExtensions.<Jugador>filter(jugadores, _function_2);
+      Iterable<Jugador> _filter_1 = IterableExtensions.<Jugador>filter(jugadores, _function_1);
       Set<Jugador> _set_1 = IterableExtensions.<Jugador>toSet(_filter_1);
       jugadoresQueCumplen = _set_1;
     }

@@ -1,6 +1,6 @@
 package domain.inscripcion;
 
-import domain.Participante;
+import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException;
 import domain.inscripcion.InscripcionEstandar;
@@ -30,24 +30,23 @@ public class InscripcionCondicional extends TipoDeInscripcion {
     this._condicion = condicion;
   }
   
-  public InscripcionCondicional(final Participante participante, final Condicion condicion) {
-    super(participante);
+  public InscripcionCondicional(final Condicion condicion) {
     this.setCondicion(condicion);
   }
   
-  public void inscribir(final Participante participante, final Partido partido) {
+  public void inscribir(final Jugador participante, final Partido partido) {
     Condicion _condicion = this.getCondicion();
     boolean _seCumple = _condicion.seCumple(partido);
     boolean _not = (!_seCumple);
     if (_not) {
-      NoSeCumpleLaCondicionParaAnotarseException _noSeCumpleLaCondicionParaAnotarseException = new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este participante para anotarse", partido, participante);
+      NoSeCumpleLaCondicionParaAnotarseException _noSeCumpleLaCondicionParaAnotarseException = new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este jugador para anotarse", partido, participante);
       throw _noSeCumpleLaCondicionParaAnotarseException;
     } else {
       super.inscribir(participante, partido);
     }
   }
   
-  public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {
+  public boolean reemplazar(final Partido partido, final Jugador entrante, final Jugador saliente) {
     boolean _or = false;
     TipoDeInscripcion _modalidad = entrante.getModalidad();
     if ((_modalidad instanceof InscripcionEstandar)) {

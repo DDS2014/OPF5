@@ -19,7 +19,7 @@ public class Condicion_LimiteDeEdad implements Condicion {
 	}
 	
 	override seCumple(Partido partido) {
-		var Set<Jugador> jugadores = partido.participantesConfirmados.map[p|p.jugador].toSet
+		var Set<Jugador> jugadores = partido.jugadoresConfirmados.toSet
 		var Set<Jugador> jugadoresQueCumplen=new HashSet
 		
 		if(minimoDeEdad){

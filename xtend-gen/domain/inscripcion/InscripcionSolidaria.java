@@ -1,6 +1,6 @@
 package domain.inscripcion;
 
-import domain.Participante;
+import domain.Jugador;
 import domain.Partido;
 import domain.inscripcion.InscripcionEstandar;
 import domain.inscripcion.TipoDeInscripcion;
@@ -17,11 +17,7 @@ public class InscripcionSolidaria extends TipoDeInscripcion {
     this._prioridad = prioridad;
   }
   
-  public InscripcionSolidaria(final Participante participante) {
-    super(participante);
-  }
-  
-  public boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente) {
+  public boolean reemplazar(final Partido partido, final Jugador entrante, final Jugador saliente) {
     TipoDeInscripcion _modalidad = entrante.getModalidad();
     if ((_modalidad instanceof InscripcionEstandar)) {
       partido.reemplazar(entrante, saliente);

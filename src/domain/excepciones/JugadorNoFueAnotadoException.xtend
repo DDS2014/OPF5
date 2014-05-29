@@ -1,15 +1,15 @@
 package domain.excepciones
 
-import domain.Participante
+import domain.Jugador
 import domain.Partido
 
 //esto es demasiado genérico, me dice que por X razón un jugador no fue anotado...
 class JugadorNoFueAnotadoException extends RuntimeException 
 {
-	Participante participante;
+	Jugador participante;
 	Partido partido;
 	
-	new(String message, Partido partido, Participante participante)
+	new(String message, Partido partido, Jugador participante)
 	{
 		this.participante = participante;
 		this.partido = partido;

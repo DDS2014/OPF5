@@ -1,6 +1,6 @@
 package domain.inscripcion;
 
-import domain.Participante;
+import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.NoHayLugarParaAnotarseException;
 import java.util.List;
@@ -18,23 +18,23 @@ public abstract class TipoDeInscripcion {
     this._prioridad = prioridad;
   }
   
-  private Participante _participante;
+  private Jugador _participante;
   
-  public Participante getParticipante() {
+  public Jugador getParticipante() {
     return this._participante;
   }
   
-  public void setParticipante(final Participante participante) {
+  public void setParticipante(final Jugador participante) {
     this._participante = participante;
   }
   
-  public TipoDeInscripcion(final Participante participante) {
-    this.setParticipante(participante);
+  public void setCliente(final Jugador jugador) {
+    this.setParticipante(jugador);
   }
   
-  public void inscribir(final Participante participante, final Partido partido) {
-    List<Participante> _participantesConfirmados = partido.getParticipantesConfirmados();
-    List<Participante> jugadores = IterableExtensions.<Participante>toList(_participantesConfirmados);
+  public void inscribir(final Jugador participante, final Partido partido) {
+    List<Jugador> _jugadoresConfirmados = partido.getJugadoresConfirmados();
+    List<Jugador> jugadores = IterableExtensions.<Jugador>toList(_jugadoresConfirmados);
     boolean seInscribio = false;
     boolean _hayLugaresLibres = partido.hayLugaresLibres();
     if (_hayLugaresLibres) {
@@ -54,7 +54,7 @@ public abstract class TipoDeInscripcion {
       boolean _while = _and;
       while (_while) {
         {
-          Participante saliente = jugadores.get(i);
+          Jugador saliente = jugadores.get(i);
           TipoDeInscripcion _modalidad = saliente.getModalidad();
           boolean _reemplazar = _modalidad.reemplazar(partido, participante, saliente);
           seInscribio = _reemplazar;
@@ -80,5 +80,5 @@ public abstract class TipoDeInscripcion {
     }
   }
   
-  public abstract boolean reemplazar(final Partido partido, final Participante entrante, final Participante saliente);
+  public abstract boolean reemplazar(final Partido partido, final Jugador entrante, final Jugador saliente);
 }
