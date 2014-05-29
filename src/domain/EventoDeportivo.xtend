@@ -14,8 +14,8 @@ interface EventoDeportivo
 	def void confirmarAsistencia(Participante participante);
 	def void reemplazar(Participante entrante,Participante saliente);
 	def void quitarSinReemplazo(Participante participante);
-	def void bajar(Participante participante);
 	def InterfazDistribuidorDeMails getDistribuidor();
 	def Date getFecha()	
 	def void setDistribuidor(InterfazDistribuidorDeMails mails);
+	
 }
