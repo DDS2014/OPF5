@@ -16,7 +16,7 @@ import org.mockito.verification.VerificationMode;
 import test.Creaciones;
 
 @SuppressWarnings("all")
-public class PruebasDeEnvioDeNotificacionesMedianteObserver {
+public class PruebasDeEnvioDeNotificaciones {
   @Test
   public void CuandoHagoAmigosADosJugadoresAmbosSeTienenDeAmigos() {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();

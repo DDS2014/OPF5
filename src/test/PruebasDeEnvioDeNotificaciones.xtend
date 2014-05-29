@@ -14,7 +14,7 @@ import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 import static test.Creaciones.*
 
-public class PruebasDeEnvioDeNotificacionesMedianteObserver 
+public class PruebasDeEnvioDeNotificaciones 
 {
 	@Test
 	def public void CuandoHagoAmigosADosJugadoresAmbosSeTienenDeAmigos()
