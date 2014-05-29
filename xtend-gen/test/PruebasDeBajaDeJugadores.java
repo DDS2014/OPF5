@@ -36,8 +36,8 @@ public class PruebasDeBajaDeJugadores {
   @Test
   public void cuandoUnJugadorSeBajaDejaDeEstarInscripto() {
     this.partJuan.bajarse(this.partido);
-    Boolean _estaInscripto = this.partido.estaInscripto(this.jugadorJuan);
-    Assert.assertFalse((_estaInscripto).booleanValue());
+    boolean _estaInscripto = this.partido.estaInscripto(this.jugadorJuan);
+    Assert.assertFalse(_estaInscripto);
   }
   
   @Test

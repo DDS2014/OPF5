@@ -1,6 +1,5 @@
 package domain;
 
-import domain.EventoDeportivo;
 import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.ImposibleBajarseException;
@@ -50,10 +49,10 @@ public class Participante {
     _modalidad.inscribir(this, partido);
   }
   
-  public void bajarse(final EventoDeportivo partido) {
+  public void bajarse(final Partido partido) {
     Jugador _jugador = this.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador);
-    boolean _not = (!(_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(_jugador);
+    boolean _not = (!_estaInscripto);
     if (_not) {
       ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
       throw _imposibleBajarseException;
@@ -61,14 +60,19 @@ public class Participante {
     partido.quitarSinReemplazo(this);
   }
   
-  public void bajarse(final Partido partido, final Participante reemplazante) {
-    Jugador _jugador = this.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador);
-    boolean _not = (!(_estaInscripto).booleanValue());
-    if (_not) {
-      ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
-      throw _imposibleBajarseException;
+  public boolean bajarse(final Partido partido, final Participante reemplazante) {
+    boolean _xblockexpression = false;
+    {
+      Jugador _jugador = this.getJugador();
+      boolean _estaInscripto = partido.estaInscripto(_jugador);
+      boolean _not = (!_estaInscripto);
+      if (_not) {
+        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        throw _imposibleBajarseException;
+      }
+      boolean _reemplazar = partido.reemplazar(reemplazante, this);
+      _xblockexpression = (_reemplazar);
     }
-    partido.reemplazar(reemplazante, this);
+    return _xblockexpression;
   }
 }

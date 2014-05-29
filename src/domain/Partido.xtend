@@ -11,7 +11,7 @@ import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
 
-public class Partido implements Comparator<Participante>, EventoDeportivo { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
+public class Partido implements Comparator<Participante> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
 	@Property List<Participante> participantesConfirmados
 	@Property List<PartidoObserver> observers //para descartar la solución observer, borrar este campo y todo lo que rompa como consecuencia
@@ -26,28 +26,28 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 	}
 	
 	//Inscripcion
-	override jugadoresConfirmados(){
+	def jugadoresConfirmados(){
 		participantesConfirmados.map[p|p.jugador].toList
 	}
 	
-	override estaInscripto(Jugador jugador){
+	def estaInscripto(Jugador jugador){
 		var List<Jugador> jugadores = jugadoresConfirmados()
 		jugadores.contains(jugador)
 	}
 	
-	override inscribir(TipoDeInscripcion modalidad){
+	def inscribir(TipoDeInscripcion modalidad){
 		val habiaLugar = hayLugaresLibres()
 		modalidad.participante.setModalidad(modalidad);
 		modalidad.participante.inscribirse(this)
 	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante.jugador,habiaLugar)]
 	}
 	
-	override boolean hayLugaresLibres(){
+	def boolean hayLugaresLibres(){
 		return this.participantesConfirmados.size<10//Cambiar para que no este harcodeado
 	}
 	
 	//Inscribe al participante
-	override confirmarAsistencia(Participante participante){
+	def confirmarAsistencia(Participante participante){
 		if(!estaInscripto(participante.jugador))
 		{
 			this.participantesConfirmados.add(participante)
@@ -57,7 +57,7 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 	}
 	
 	//Reemplaza a un jugador entrante por el saliente
-	override reemplazar(Participante entrante,Participante saliente)
+	def reemplazar(Participante entrante,Participante saliente)
 	{
 		//Primero ve si lo puede agregar, y lo agrega al final
 		confirmarAsistencia(entrante) //cambio el orden de estos mensajes. así, si esto tiene que reventar, rompe dentro de confirmarAsistencia directamente y me ahorro preguntar dos veces lo mismo
@@ -65,7 +65,7 @@ public class Partido implements Comparator<Participante>, EventoDeportivo { //pa
 		
 	}
 	
-	override void quitarSinReemplazo(Participante participante) 
+	def void quitarSinReemplazo(Participante participante) 
 	{
 		val estabaConfirmado = !hayLugaresLibres();
 		this.participantesConfirmados.remove(participante);

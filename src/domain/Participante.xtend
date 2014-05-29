@@ -19,7 +19,7 @@ public class Participante {
 		modalidad.inscribir(this,partido);
 	}
 	
-	def bajarse(EventoDeportivo partido)
+	def bajarse(Partido partido)
 	{
 		if (!partido.estaInscripto(this.jugador)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
 		partido.quitarSinReemplazo(this);

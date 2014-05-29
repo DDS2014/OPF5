@@ -1,6 +1,5 @@
 package domain;
 
-import domain.EventoDeportivo;
 import domain.Jugador;
 import domain.Participante;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
@@ -19,7 +18,7 @@ import org.eclipse.xtext.xbase.lib.ListExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
-public class Partido implements Comparator<Participante>, EventoDeportivo {
+public class Partido implements Comparator<Participante> {
   private Date _fecha;
   
   public Date getFecha() {
@@ -83,14 +82,14 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
     return _list;
   }
   
-  public Boolean estaInscripto(final Jugador jugador) {
+  public boolean estaInscripto(final Jugador jugador) {
     boolean _xblockexpression = false;
     {
       List<Jugador> jugadores = this.jugadoresConfirmados();
       boolean _contains = jugadores.contains(jugador);
       _xblockexpression = (_contains);
     }
-    return Boolean.valueOf(_xblockexpression);
+    return _xblockexpression;
   }
   
   public void inscribir(final TipoDeInscripcion modalidad) {
@@ -118,8 +117,8 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
   
   public void confirmarAsistencia(final Participante participante) {
     Jugador _jugador = participante.getJugador();
-    Boolean _estaInscripto = this.estaInscripto(_jugador);
-    boolean _not = (!(_estaInscripto).booleanValue());
+    boolean _estaInscripto = this.estaInscripto(_jugador);
+    boolean _not = (!_estaInscripto);
     if (_not) {
       List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
       _participantesConfirmados.add(participante);
@@ -131,10 +130,15 @@ public class Partido implements Comparator<Participante>, EventoDeportivo {
     }
   }
   
-  public void reemplazar(final Participante entrante, final Participante saliente) {
-    this.confirmarAsistencia(entrante);
-    List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
-    _participantesConfirmados.remove(saliente);
+  public boolean reemplazar(final Participante entrante, final Participante saliente) {
+    boolean _xblockexpression = false;
+    {
+      this.confirmarAsistencia(entrante);
+      List<Participante> _participantesConfirmados = this.getParticipantesConfirmados();
+      boolean _remove = _participantesConfirmados.remove(saliente);
+      _xblockexpression = (_remove);
+    }
+    return _xblockexpression;
   }
   
   public void quitarSinReemplazo(final Participante participante) {

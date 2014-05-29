@@ -1,15 +1,15 @@
 package domain.excepciones;
 
-import domain.EventoDeportivo;
 import domain.Participante;
+import domain.Partido;
 
 @SuppressWarnings("all")
 public class ImposibleBajarseException extends RuntimeException {
   private Participante participante;
   
-  private EventoDeportivo partido;
+  private Partido partido;
   
-  public ImposibleBajarseException(final String message, final EventoDeportivo partido, final Participante participante) {
+  public ImposibleBajarseException(final String message, final Partido partido, final Participante participante) {
     this.participante = participante;
     this.partido = partido;
   }

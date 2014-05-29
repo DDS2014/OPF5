@@ -28,8 +28,8 @@ public class PruebasDeInscripcionDeJugadores {
     Participante participante = _participante;
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(participante);
     partido.inscribir(_inscripcionEstandar);
-    Boolean _estaInscripto = partido.estaInscripto(jugador);
-    Assert.assertTrue((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(jugador);
+    Assert.assertTrue(_estaInscripto);
   }
   
   @Test
@@ -49,11 +49,11 @@ public class PruebasDeInscripcionDeJugadores {
     entrante.setModalidad(_inscripcionEstandar_1);
     partido.reemplazar(entrante, saliente);
     Jugador _jugador_2 = entrante.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador_2);
-    Assert.assertTrue((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(_jugador_2);
+    Assert.assertTrue(_estaInscripto);
     Jugador _jugador_3 = saliente.getJugador();
-    Boolean _estaInscripto_1 = partido.estaInscripto(_jugador_3);
-    Assert.assertFalse((_estaInscripto_1).booleanValue());
+    boolean _estaInscripto_1 = partido.estaInscripto(_jugador_3);
+    Assert.assertFalse(_estaInscripto_1);
   }
   
   @Test(expected = NoHayLugarParaAnotarseException.class)
@@ -65,8 +65,8 @@ public class PruebasDeInscripcionDeJugadores {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar(colgado);
     partidoEstandar.inscribir(_inscripcionEstandar);
     Jugador _jugador_1 = colgado.getJugador();
-    Boolean _estaInscripto = partidoEstandar.estaInscripto(_jugador_1);
-    Assert.assertFalse((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partidoEstandar.estaInscripto(_jugador_1);
+    Assert.assertFalse(_estaInscripto);
   }
   
   @Test
@@ -85,11 +85,11 @@ public class PruebasDeInscripcionDeJugadores {
     jugadorSolidario.inscribirse(partido);
     jugadorNuevo.inscribirse(partido);
     Jugador _jugador_2 = jugadorNuevo.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador_2);
-    Assert.assertTrue((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(_jugador_2);
+    Assert.assertTrue(_estaInscripto);
     Jugador _jugador_3 = jugadorSolidario.getJugador();
-    Boolean _estaInscripto_1 = partido.estaInscripto(_jugador_3);
-    Assert.assertFalse((_estaInscripto_1).booleanValue());
+    boolean _estaInscripto_1 = partido.estaInscripto(_jugador_3);
+    Assert.assertFalse(_estaInscripto_1);
   }
   
   @Test
@@ -115,14 +115,14 @@ public class PruebasDeInscripcionDeJugadores {
     jugadorNuevo.setModalidad(_inscripcionEstandar);
     jugadorNuevo.inscribirse(partido);
     Jugador _jugador_3 = jugadorNuevo.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador_3);
-    Assert.assertTrue((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(_jugador_3);
+    Assert.assertTrue(_estaInscripto);
     Jugador _jugador_4 = jugadorSolidario.getJugador();
-    Boolean _estaInscripto_1 = partido.estaInscripto(_jugador_4);
-    Assert.assertTrue((_estaInscripto_1).booleanValue());
+    boolean _estaInscripto_1 = partido.estaInscripto(_jugador_4);
+    Assert.assertTrue(_estaInscripto_1);
     Jugador _jugador_5 = jugadorCondicional.getJugador();
-    Boolean _estaInscripto_2 = partido.estaInscripto(_jugador_5);
-    Assert.assertFalse((_estaInscripto_2).booleanValue());
+    boolean _estaInscripto_2 = partido.estaInscripto(_jugador_5);
+    Assert.assertFalse(_estaInscripto_2);
   }
   
   @Test
@@ -148,14 +148,14 @@ public class PruebasDeInscripcionDeJugadores {
     jugadorNuevoSolidario.setModalidad(_inscripcionSolidaria_1);
     jugadorNuevoSolidario.inscribirse(partido);
     Jugador _jugador_3 = jugadorNuevoSolidario.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador_3);
-    Assert.assertTrue((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(_jugador_3);
+    Assert.assertTrue(_estaInscripto);
     Jugador _jugador_4 = jugadorSolidario.getJugador();
-    Boolean _estaInscripto_1 = partido.estaInscripto(_jugador_4);
-    Assert.assertTrue((_estaInscripto_1).booleanValue());
+    boolean _estaInscripto_1 = partido.estaInscripto(_jugador_4);
+    Assert.assertTrue(_estaInscripto_1);
     Jugador _jugador_5 = jugadorCondicional.getJugador();
-    Boolean _estaInscripto_2 = partido.estaInscripto(_jugador_5);
-    Assert.assertFalse((_estaInscripto_2).booleanValue());
+    boolean _estaInscripto_2 = partido.estaInscripto(_jugador_5);
+    Assert.assertFalse(_estaInscripto_2);
   }
   
   @Test(expected = JugadorNoFueAnotadoException.class)
@@ -198,13 +198,13 @@ public class PruebasDeInscripcionDeJugadores {
     nuevoJugador.setModalidad(_inscripcionEstandar);
     nuevoJugador.inscribirse(partido);
     Jugador _jugador_3 = nuevoJugador.getJugador();
-    Boolean _estaInscripto = partido.estaInscripto(_jugador_3);
-    Assert.assertTrue((_estaInscripto).booleanValue());
+    boolean _estaInscripto = partido.estaInscripto(_jugador_3);
+    Assert.assertTrue(_estaInscripto);
     Jugador _jugador_4 = segundoJugador.getJugador();
-    Boolean _estaInscripto_1 = partido.estaInscripto(_jugador_4);
-    Assert.assertTrue((_estaInscripto_1).booleanValue());
+    boolean _estaInscripto_1 = partido.estaInscripto(_jugador_4);
+    Assert.assertTrue(_estaInscripto_1);
     Jugador _jugador_5 = primerJugador.getJugador();
-    Boolean _estaInscripto_2 = partido.estaInscripto(_jugador_5);
-    Assert.assertFalse((_estaInscripto_2).booleanValue());
+    boolean _estaInscripto_2 = partido.estaInscripto(_jugador_5);
+    Assert.assertFalse(_estaInscripto_2);
   }
 }

@@ -1,14 +1,14 @@
 package domain.excepciones
 
 import domain.Participante
-import domain.EventoDeportivo
+import domain.Partido
 
 class ImposibleBajarseException extends RuntimeException 
 {
 	Participante participante;
-	EventoDeportivo partido;
+	Partido partido;
 	
-	new(String message, EventoDeportivo partido, Participante participante)
+	new(String message, Partido partido, Participante participante)
 	{
 		this.participante = participante;
 		this.partido = partido;
