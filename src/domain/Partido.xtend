@@ -29,12 +29,6 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		jugadoresConfirmados.contains(jugador)
 	}
 	
-//	def inscribir(TipoDeInscripcion modalidad){
-//		val habiaLugar = hayLugaresLibres()
-//		modalidad.participante.setModalidad(modalidad);
-//		modalidad.participante.inscribirse(this)
-//	    this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,modalidad.participante,habiaLugar)]
-//	}
 	
 	def boolean hayLugaresLibres()
 	{
@@ -45,10 +39,11 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	def confirmarAsistencia(Jugador jugador){
 		if(!estaInscripto(jugador))
 		{
+			val habiaLugar = this.hayLugaresLibres(); //recordar que al haber un reemplazo, primero entra el nuevo y después sale el viejo, por lo tanto esto es accurate
 			jugador.fechaInscripcion = new Date(); //registro cuándo lo agregué
 			this.jugadoresConfirmados.add(jugador)
 			Collections.sort(this.jugadoresConfirmados,this)
-			this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,jugador,true)] //FIXME esto es un hardcore hardcodeo, please futuro yo arregla esta interfaz
+			this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,jugador,habiaLugar)] //FIXME esto es un hardcore hardcodeo, please futuro yo arregla esta interfaz
 		}
 		else throw new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, jugador);
 	}
@@ -56,7 +51,6 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	//Reemplaza a un jugador entrante por el saliente
 	def reemplazar(Jugador entrante,Jugador saliente)
 	{
-		//Primero ve si lo puede agregar, y lo agrega al final
 		confirmarAsistencia(entrante) //cambio el orden de estos mensajes. así, si esto tiene que reventar, rompe dentro de confirmarAsistencia directamente y me ahorro preguntar dos veces lo mismo
 		jugadoresConfirmados.remove(saliente)//Despues borra al otro
 		

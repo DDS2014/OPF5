@@ -86,8 +86,9 @@ public class PruebasDeInscripcionDeJugadores
 		var jugadorCondicional = new Jugador("Josecito",34, new InscripcionCondicional(new Condicion_LimiteDeEdad(20,2,true,true))); //(sí, se lee un poco feo)
 		var jugadorSolidario = new Jugador("Marquitos",20, new InscripcionSolidaria());
 	
-		jugadorSolidario.inscribirse(partido);
-		jugadorCondicional.inscribirse(partido);	
+		
+		jugadorSolidario.inscribirse(partido);		
+		jugadorCondicional.inscribirse(partido);
 		
 		var jugadorNuevo = new Jugador("Pablito",20, new InscripcionEstandar());
 			

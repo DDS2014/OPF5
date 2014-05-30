@@ -82,6 +82,7 @@ public class Partido implements Comparator<Jugador> {
     boolean _estaInscripto = this.estaInscripto(jugador);
     boolean _not = (!_estaInscripto);
     if (_not) {
+      final boolean habiaLugar = this.hayLugaresLibres();
       Date _date = new Date();
       jugador.setFechaInscripcion(_date);
       List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
@@ -91,7 +92,7 @@ public class Partido implements Comparator<Jugador> {
       List<PartidoObserver> _observers = this.getObservers();
       final Procedure1<PartidoObserver> _function = new Procedure1<PartidoObserver>() {
         public void apply(final PartidoObserver observer) {
-          observer.avisarInscripcionDeJugador(Partido.this, jugador, true);
+          observer.avisarInscripcionDeJugador(Partido.this, jugador, habiaLugar);
         }
       };
       IterableExtensions.<PartidoObserver>forEach(_observers, _function);
