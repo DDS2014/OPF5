@@ -8,7 +8,6 @@ import domain.inscripcion.InscripcionEstandar;
 import domain.inscripcion.InscripcionSolidaria;
 import java.util.Date;
 import java.util.HashSet;
-import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,34 +44,14 @@ public class PruebasDeCalificaciones {
     this.jugador2.calificar(3, "Pesimo", this.partido2, this.jugador1);
   }
   
-  @Test
+  @Test(expected = ImposibleCalificarException.class)
   public void NoSePuedeCalificarAUnJugadorNoInscripto() {
-    try {
-      this.jugador2.calificar(10, "Excelente", this.partido1, this.jugador1);
-      Assert.assertTrue(false);
-    } catch (final Throwable _t) {
-      if (_t instanceof ImposibleCalificarException) {
-        final ImposibleCalificarException ex = (ImposibleCalificarException)_t;
-        Assert.assertTrue(true);
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
+    this.jugador2.calificar(10, "Excelente", this.partido1, this.jugador1);
   }
   
-  @Test
+  @Test(expected = ImposibleCalificarException.class)
   public void NoSePuedeCalificarAUnJugadorMasDeUnaVezEnElMismoPartido() {
-    try {
-      this.jugador1.calificar(10, "Excelente", this.partido1, this.jugador2);
-      Assert.assertTrue(false);
-    } catch (final Throwable _t) {
-      if (_t instanceof ImposibleCalificarException) {
-        final ImposibleCalificarException ex = (ImposibleCalificarException)_t;
-        Assert.assertTrue(true);
-      } else {
-        throw Exceptions.sneakyThrow(_t);
-      }
-    }
+    this.jugador1.calificar(10, "Excelente", this.partido1, this.jugador2);
   }
   
   @Test

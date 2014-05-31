@@ -42,26 +42,16 @@ public class PruebasDeCalificaciones {
 		jugador2.calificar(3,"Pesimo",partido2,jugador1)
 	}
 	
-	@Test
-	def public void NoSePuedeCalificarAUnJugadorNoInscripto(){
-		try{
-			jugador2.calificar(10,"Excelente",partido1,jugador1)
-			Assert.assertTrue(false)
-		}
-		catch(ImposibleCalificarException ex){
-			Assert.assertTrue(true)
-		}
+	@Test (expected = ImposibleCalificarException)
+	def public void NoSePuedeCalificarAUnJugadorNoInscripto()
+	{
+		jugador2.calificar(10,"Excelente",partido1,jugador1)
 	}
 	
-	@Test
-	def public void NoSePuedeCalificarAUnJugadorMasDeUnaVezEnElMismoPartido(){
-		try{
-			jugador1.calificar(10,"Excelente",partido1,jugador2)
-			Assert.assertTrue(false)
-		}
-		catch(ImposibleCalificarException ex){
-			Assert.assertTrue(true)
-		}
+	@Test (expected = ImposibleCalificarException)
+	def public void NoSePuedeCalificarAUnJugadorMasDeUnaVezEnElMismoPartido()
+	{
+		jugador1.calificar(10,"Excelente",partido1,jugador2)
 	}
 	
 
