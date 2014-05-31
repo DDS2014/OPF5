@@ -9,6 +9,7 @@ import java.util.Date
 import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
+import java.util.Hashtable
 
 public class Partido implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
@@ -16,12 +17,14 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	@Property List<PartidoObserver> observers //para descartar la solución observer, borrar este campo y todo lo que rompa como consecuencia
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
 	@Property InterfazDistribuidorDeMails distribuidor
+	Hashtable<Jugador, Date> fechasDeInscripcion;
 	
 	//CONSTRUCTOR
 	new(Date fecha){
 		this.fecha=fecha;
 		this.jugadoresConfirmados=new ArrayList();
 		this.observers =new ArrayList();
+		this.fechasDeInscripcion = new Hashtable();
 	}
 	
 	def estaInscripto(Jugador jugador)
@@ -36,14 +39,14 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	}
 	
 	//Inscribe al participante
-	def confirmarAsistencia(Jugador jugador){
+	def void confirmarAsistencia(Jugador jugador){
 		if(!estaInscripto(jugador))
 		{
 			val habiaLugar = this.hayLugaresLibres(); //recordar que al haber un reemplazo, primero entra el nuevo y después sale el viejo, por lo tanto esto es accurate
-			jugador.fechaInscripcion = new Date(); //registro cuándo lo agregué
+			fechasDeInscripcion.put(jugador, new Date());
 			this.jugadoresConfirmados.add(jugador)
 			Collections.sort(this.jugadoresConfirmados,this)
-			this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,jugador,habiaLugar)] //FIXME esto es un hardcore hardcodeo, please futuro yo arregla esta interfaz
+			this.observers.forEach[observer | observer.avisarInscripcionDeJugador(this,jugador,habiaLugar)]
 		}
 		else throw new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, jugador);
 	}
@@ -72,10 +75,10 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 			return 1;
 		}
 		else{
-			if(arg0.fechaInscripcion<arg1.fechaInscripcion){
+			if(fechasDeInscripcion.get(arg0)<fechasDeInscripcion.get(arg1)){
 				return -1;
 			}
-			else if(arg0.fechaInscripcion>arg1.fechaInscripcion){
+			else if(fechasDeInscripcion.get(arg0)>fechasDeInscripcion.get(arg1)){
 				return 1;
 			}
 			else return 0;

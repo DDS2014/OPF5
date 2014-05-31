@@ -7,7 +7,6 @@ import domain.excepciones.ImposibleBajarseException;
 import domain.excepciones.ImposibleCalificarException;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
-import java.util.Date;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -72,16 +71,6 @@ public class Jugador {
   
   public void setModalidad(final TipoDeInscripcion modalidad) {
     this._modalidad = modalidad;
-  }
-  
-  private Date _fechaInscripcion;
-  
-  public Date getFechaInscripcion() {
-    return this._fechaInscripcion;
-  }
-  
-  public void setFechaInscripcion(final Date fechaInscripcion) {
-    this._fechaInscripcion = fechaInscripcion;
   }
   
   private HashSet<Jugador> _amigos;

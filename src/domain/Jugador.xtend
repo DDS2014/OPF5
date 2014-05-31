@@ -3,7 +3,6 @@ package domain
 import domain.infracciones.Infraccion
 import java.util.HashSet
 import domain.inscripcion.TipoDeInscripcion
-import java.util.Date
 import domain.calificaciones.Calificacion
 import domain.excepciones.ImposibleCalificarException
 import domain.excepciones.ImposibleBajarseException
@@ -16,7 +15,6 @@ public class Jugador
 	@Property String documento
 	@Property String email
 	@Property TipoDeInscripcion modalidad
-	@Property Date fechaInscripcion	//en realidad esto me está representando la fecha de inscripción a un partido, y por lo tanto no está bueno que esté acá
 	@Property HashSet<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
 	@Property HashSet<Calificacion> calificaciones;
@@ -57,6 +55,7 @@ public class Jugador
 		modalidad.inscribir(this,partido);
 	}
 	
+	
 	def bajarse(Partido partido)
 	{
 		if (!partido.estaInscripto(this)) throw new ImposibleBajarseException("No puede darse de baja al jugador.", partido, this);
@@ -87,6 +86,9 @@ public class Jugador
 	def boolean estaCalificado(Partido partido, Jugador calificador){
 		this.calificaciones.exists[c|c.partido==partido && c.calificador==calificador]
 	}
+	
+	
+	
 	
 	
 }

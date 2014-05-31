@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -58,12 +59,16 @@ public class Partido implements Comparator<Jugador> {
     this._distribuidor = distribuidor;
   }
   
+  private Hashtable<Jugador,Date> fechasDeInscripcion;
+  
   public Partido(final Date fecha) {
     this.setFecha(fecha);
     ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
     this.setJugadoresConfirmados(_arrayList);
     ArrayList<PartidoObserver> _arrayList_1 = new ArrayList<PartidoObserver>();
     this.setObservers(_arrayList_1);
+    Hashtable<Jugador,Date> _hashtable = new Hashtable<Jugador, Date>();
+    this.fechasDeInscripcion = _hashtable;
   }
   
   public boolean estaInscripto(final Jugador jugador) {
@@ -84,7 +89,7 @@ public class Partido implements Comparator<Jugador> {
     if (_not) {
       final boolean habiaLugar = this.hayLugaresLibres();
       Date _date = new Date();
-      jugador.setFechaInscripcion(_date);
+      this.fechasDeInscripcion.put(jugador, _date);
       List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
       _jugadoresConfirmados.add(jugador);
       List<Jugador> _jugadoresConfirmados_1 = this.getJugadoresConfirmados();
@@ -146,15 +151,15 @@ public class Partido implements Comparator<Jugador> {
       if (_lessThan) {
         return 1;
       } else {
-        Date _fechaInscripcion = arg0.getFechaInscripcion();
-        Date _fechaInscripcion_1 = arg1.getFechaInscripcion();
-        boolean _lessThan_1 = (_fechaInscripcion.compareTo(_fechaInscripcion_1) < 0);
+        Date _get = this.fechasDeInscripcion.get(arg0);
+        Date _get_1 = this.fechasDeInscripcion.get(arg1);
+        boolean _lessThan_1 = (_get.compareTo(_get_1) < 0);
         if (_lessThan_1) {
           return (-1);
         } else {
-          Date _fechaInscripcion_2 = arg0.getFechaInscripcion();
-          Date _fechaInscripcion_3 = arg1.getFechaInscripcion();
-          boolean _greaterThan_1 = (_fechaInscripcion_2.compareTo(_fechaInscripcion_3) > 0);
+          Date _get_2 = this.fechasDeInscripcion.get(arg0);
+          Date _get_3 = this.fechasDeInscripcion.get(arg1);
+          boolean _greaterThan_1 = (_get_2.compareTo(_get_3) > 0);
           if (_greaterThan_1) {
             return 1;
           } else {
