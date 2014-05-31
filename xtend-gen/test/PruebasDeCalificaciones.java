@@ -74,4 +74,9 @@ public class PruebasDeCalificaciones {
     int _size = _calificaciones.size();
     Assert.assertEquals(_size, 2);
   }
+  
+  @Test(expected = ImposibleCalificarException.class)
+  public void unJugadorNoPuedeCalificarseASiMismo() {
+    this.jugador1.calificar(10, "Majestuoso, increible, telefono para Sabella", this.partido1, this.jugador1);
+  }
 }

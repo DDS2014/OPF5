@@ -9,13 +9,15 @@ import java.util.Date
 import domain.inscripcion.InscripcionEstandar
 import domain.inscripcion.InscripcionSolidaria
 import domain.excepciones.ImposibleCalificarException
-import java.util.Calendar
+
+
 
 public class PruebasDeCalificaciones {
 	Partido partido1;
 	Partido partido2;
 	Jugador jugador1;
 	Jugador jugador2;
+
 	
 	@Before
 	def public void setup()
@@ -74,4 +76,11 @@ public class PruebasDeCalificaciones {
 		
 		Assert.assertEquals(jugador2.calificaciones.size,2)
 	}
+	
+	@Test (expected = ImposibleCalificarException)
+	def public void unJugadorNoPuedeCalificarseASiMismo()
+	{
+		jugador1.calificar(10,"Majestuoso, increible, telefono para Sabella", partido1, jugador1);
+	}
+	
 }
