@@ -176,4 +176,11 @@ public class Partido implements Comparator<Jugador> {
     boolean _remove = _observers.remove(observer);
     return _remove;
   }
+  
+  public boolean seJugo() {
+    Date _fecha = this.getFecha();
+    Date _date = new Date();
+    boolean _before = _fecha.before(_date);
+    return _before;
+  }
 }

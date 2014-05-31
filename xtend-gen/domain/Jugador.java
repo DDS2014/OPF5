@@ -2,7 +2,9 @@ package domain;
 
 import com.google.common.base.Objects;
 import domain.Partido;
+import domain.calificaciones.Calificacion;
 import domain.excepciones.ImposibleBajarseException;
+import domain.excepciones.ImposibleCalificarException;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
 import java.util.Date;
@@ -102,6 +104,16 @@ public class Jugador {
     this._infracciones = infracciones;
   }
   
+  private HashSet<Calificacion> _calificaciones;
+  
+  public HashSet<Calificacion> getCalificaciones() {
+    return this._calificaciones;
+  }
+  
+  public void setCalificaciones(final HashSet<Calificacion> calificaciones) {
+    this._calificaciones = calificaciones;
+  }
+  
   public Jugador(final String nombre, final int edad, final TipoDeInscripcion modalidad) {
     this.setNombre(nombre);
     this.setEdad(edad);
@@ -111,6 +123,8 @@ public class Jugador {
     this.setInfracciones(_hashSet_1);
     this.setModalidad(modalidad);
     modalidad.setCliente(this);
+    HashSet<Calificacion> _hashSet_2 = new HashSet<Calificacion>();
+    this.setCalificaciones(_hashSet_2);
   }
   
   public boolean hacerseAmigoDe(final Jugador nuevoAmigo) {
@@ -149,7 +163,7 @@ public class Jugador {
     boolean _estaInscripto = partido.estaInscripto(this);
     boolean _not = (!_estaInscripto);
     if (_not) {
-      ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+      ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("No puede darse de baja al jugador.", partido, this);
       throw _imposibleBajarseException;
     }
     partido.quitarSinReemplazo(this);
@@ -161,7 +175,7 @@ public class Jugador {
       boolean _estaInscripto = partido.estaInscripto(this);
       boolean _not = (!_estaInscripto);
       if (_not) {
-        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+        ImposibleBajarseException _imposibleBajarseException = new ImposibleBajarseException("El jugador no puede ser reemplazado.", partido, this);
         throw _imposibleBajarseException;
       }
       boolean _reemplazar = partido.reemplazar(reemplazante, this);
@@ -174,5 +188,54 @@ public class Jugador {
     HashSet<Infraccion> _infracciones = this.getInfracciones();
     boolean _add = _infracciones.add(infraccion);
     return _add;
+  }
+  
+  public boolean calificar(final int puntaje, final String critica, final Partido partido, final Jugador calificador) {
+    boolean _xblockexpression = false;
+    {
+      boolean _estaInscripto = partido.estaInscripto(this);
+      boolean _not = (!_estaInscripto);
+      if (_not) {
+        ImposibleCalificarException _imposibleCalificarException = new ImposibleCalificarException("El jugador no se encuentra inscripto.", partido, this);
+        throw _imposibleCalificarException;
+      }
+      boolean _estaCalificado = this.estaCalificado(partido, calificador);
+      if (_estaCalificado) {
+        ImposibleCalificarException _imposibleCalificarException_1 = new ImposibleCalificarException("El jugador ya fue calificado.", partido, this);
+        throw _imposibleCalificarException_1;
+      }
+      boolean _equals = Objects.equal(this, calificador);
+      if (_equals) {
+        ImposibleCalificarException _imposibleCalificarException_2 = new ImposibleCalificarException("El jugador no puede calificarse a si mismo.", partido, this);
+        throw _imposibleCalificarException_2;
+      }
+      Calificacion _calificacion = new Calificacion(puntaje, critica, partido, calificador);
+      Calificacion calificacion = _calificacion;
+      HashSet<Calificacion> _calificaciones = this.getCalificaciones();
+      boolean _add = _calificaciones.add(calificacion);
+      _xblockexpression = (_add);
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean estaCalificado(final Partido partido, final Jugador calificador) {
+    HashSet<Calificacion> _calificaciones = this.getCalificaciones();
+    final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
+      public Boolean apply(final Calificacion c) {
+        boolean _and = false;
+        Partido _partido = c.getPartido();
+        boolean _equals = Objects.equal(_partido, partido);
+        if (!_equals) {
+          _and = false;
+        } else {
+          Jugador _calificador = c.getCalificador();
+          boolean _equals_1 = Objects.equal(_calificador, calificador);
+          _and = (_equals && _equals_1);
+        }
+        return Boolean.valueOf(_and);
+      }
+    };
+    boolean _exists = IterableExtensions.<Calificacion>exists(_calificaciones, _function);
+    return _exists;
   }
 }

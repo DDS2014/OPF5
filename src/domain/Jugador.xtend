@@ -4,7 +4,7 @@ import domain.infracciones.Infraccion
 import java.util.HashSet
 import domain.inscripcion.TipoDeInscripcion
 import java.util.Date
-import domain.calfificaciones.Calificacion
+import domain.calificaciones.Calificacion
 import domain.excepciones.ImposibleCalificarException
 import domain.excepciones.ImposibleBajarseException
 

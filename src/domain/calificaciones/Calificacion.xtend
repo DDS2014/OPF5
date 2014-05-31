@@ -1,4 +1,4 @@
-package domain.calfificaciones
+package domain.calificaciones
 
 import domain.Partido
 import domain.Jugador
