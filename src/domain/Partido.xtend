@@ -90,5 +90,7 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		this.observers.remove(observer)
 	}
 	
-	
+	def seJugo(){
+		this.fecha.before(new Date)
+	}
 }

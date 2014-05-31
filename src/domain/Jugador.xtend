@@ -4,6 +4,8 @@ import domain.infracciones.Infraccion
 import java.util.HashSet
 import domain.inscripcion.TipoDeInscripcion
 import java.util.Date
+import domain.calfificaciones.Calificacion
+import domain.excepciones.ImposibleCalificarException
 import domain.excepciones.ImposibleBajarseException
 
 public class Jugador
@@ -17,6 +19,7 @@ public class Jugador
 	@Property Date fechaInscripcion	//en realidad esto me está representando la fecha de inscripción a un partido, y por lo tanto no está bueno que esté acá
 	@Property HashSet<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
+	@Property HashSet<Calificacion> calificaciones;
 	
 	new(String nombre,int edad, TipoDeInscripcion modalidad)
 	{
@@ -26,6 +29,7 @@ public class Jugador
 		this.infracciones = new HashSet();
 		this.modalidad = modalidad;
 		modalidad.setCliente(this);
+		this.calificaciones=new HashSet();
 	}
 
 	//la amistad se hace en dos pasos para que haya simetría (si yo soy tu amigo, vos sos mi amigo)	
@@ -55,23 +59,34 @@ public class Jugador
 	
 	def bajarse(Partido partido)
 	{
-		if (!partido.estaInscripto(this)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+		if (!partido.estaInscripto(this)) throw new ImposibleBajarseException("No puede darse de baja al jugador.", partido, this);
 		partido.quitarSinReemplazo(this);
 	}
 	
 	def bajarse(Partido partido, Jugador reemplazante)
 	{
-		if (!partido.estaInscripto(this)) throw new ImposibleBajarseException("El jugador no está inscripto a ese partido", partido, this);
+		if (!partido.estaInscripto(this)) throw new ImposibleBajarseException("El jugador no puede ser reemplazado.", partido, this);
 		partido.reemplazar(reemplazante, this);
 	}
 	
-	
-
 	def aplicarInfraccion(Infraccion infraccion) 
 	{
 		this.infracciones.add(infraccion);
 	}
+	
+	//CALIFICACIONES
+	def calificar(int puntaje, String critica, Partido partido, Jugador calificador){
+		
+		if (!partido.estaInscripto(this)) throw new ImposibleCalificarException("El jugador no se encuentra inscripto.", partido, this);
+		if (this.estaCalificado(partido,calificador)) throw new ImposibleCalificarException("El jugador ya fue calificado.", partido, this);
+		if(this==calificador) throw new ImposibleCalificarException("El jugador no puede calificarse a si mismo.", partido, this);		
+		var calificacion = new Calificacion(puntaje,critica,partido,calificador)
+		this.calificaciones.add(calificacion)
+	}
 
-
-
+	def boolean estaCalificado(Partido partido, Jugador calificador){
+		this.calificaciones.exists[c|c.partido==partido && c.calificador==calificador]
+	}
+	
+	
 }
