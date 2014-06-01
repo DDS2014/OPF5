@@ -22,6 +22,7 @@ class PruebasDeSugerencias
 	 */
 	
 	Comunidad losMuchachos = new Comunidad();
+	var partidoDelDomingo = new Partido(new Date()); //no se preocupen, esto lo codeé un domingo
 //	Jugador martin
 //	Jugador roman
 //	Partido partidoDelDomingo
@@ -33,7 +34,6 @@ class PruebasDeSugerencias
 		var roman = new Jugador("Roman", 35, new InscripcionEstandar());
 		losMuchachos.agregar(martin);
 		losMuchachos.agregar(roman);
-		var partidoDelDomingo = new Partido(new Date()); //no se preocupen, esto lo codeé un domingo
 		losMuchachos.organizarPartido(partidoDelDomingo);
 		
 	}
@@ -70,8 +70,18 @@ class PruebasDeSugerencias
 	{
 		var hernan = new Sugerencia("Hernan", 38);
 		losMuchachos.sugerir(hernan);
-		losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos"); //FIXME por qué estoy poniendo la modalidad dos veces?
+		losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos");
 		Assert.assertTrue(losMuchachos.rechazados.length == 1)
+	}
+	
+	@Test
+	def void cuandoAprueboUnJugadorEntoncesSePuedeAnotarAlPartido()
+	{
+		var amigoDeMartin = new Sugerencia("Guillermo", 41);
+		losMuchachos.sugerir(amigoDeMartin);
+		var guillermo = losMuchachos.aprobar(amigoDeMartin, new InscripcionEstandar());
+		guillermo.inscribirse(partidoDelDomingo);
+		Assert.assertTrue(partidoDelDomingo.estaInscripto(guillermo));
 	}
 	
 }

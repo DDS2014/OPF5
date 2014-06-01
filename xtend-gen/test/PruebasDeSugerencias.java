@@ -32,6 +32,14 @@ public class PruebasDeSugerencias {
     }
   }.apply();
   
+  private Partido partidoDelDomingo = new Function0<Partido>() {
+    public Partido apply() {
+      Date _date = new Date();
+      Partido _partido = new Partido(_date);
+      return _partido;
+    }
+  }.apply();
+  
   @Before
   public void setup() {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
@@ -42,10 +50,7 @@ public class PruebasDeSugerencias {
     Jugador roman = _jugador_1;
     this.losMuchachos.agregar(martin);
     this.losMuchachos.agregar(roman);
-    Date _date = new Date();
-    Partido _partido = new Partido(_date);
-    Partido partidoDelDomingo = _partido;
-    this.losMuchachos.organizarPartido(partidoDelDomingo);
+    this.losMuchachos.organizarPartido(this.partidoDelDomingo);
   }
   
   @Test
@@ -94,5 +99,17 @@ public class PruebasDeSugerencias {
     int _length = ((Object[])Conversions.unwrapArray(_rechazados, Object.class)).length;
     boolean _equals = (_length == 1);
     Assert.assertTrue(_equals);
+  }
+  
+  @Test
+  public void cuandoAprueboUnJugadorEntoncesSePuedeAnotarAlPartido() {
+    Sugerencia _sugerencia = new Sugerencia("Guillermo", 41);
+    Sugerencia amigoDeMartin = _sugerencia;
+    this.losMuchachos.sugerir(amigoDeMartin);
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Jugador guillermo = this.losMuchachos.aprobar(amigoDeMartin, _inscripcionEstandar);
+    guillermo.inscribirse(this.partidoDelDomingo);
+    boolean _estaInscripto = this.partidoDelDomingo.estaInscripto(guillermo);
+    Assert.assertTrue(_estaInscripto);
   }
 }
