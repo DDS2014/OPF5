@@ -14,6 +14,7 @@ import java.util.Date
 import org.junit.Assert
 import org.junit.Test
 import static test.Creaciones.*
+import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException
 
 public class PruebasDeInscripcionDeJugadores
 {
@@ -150,6 +151,50 @@ public class PruebasDeInscripcionDeJugadores
 		Assert.assertTrue(partido.estaInscripto(segundoJugador))
 		Assert.assertFalse(partido.estaInscripto(primerJugador))
 		
+	}
+	
+	def Partido crearPartidoParaPruebasDeCondicional()
+	{
+		/*
+		 * Este método no es un test, crea un partido con jugadores de las siguientes edades: 18, 24, 29, 42
+		 */
+		var partido = new Partido(new Date());
+		var primerJugador = new Jugador("Danielito",29, new InscripcionSolidaria());
+		var segundoJugador =new Jugador("Fernandito",24, new InscripcionSolidaria());
+		var tercerJugador = new Jugador("Dieguito",18, new InscripcionEstandar());
+		var cuartoJugador = new Jugador("Omarcito", 42, new InscripcionEstandar());
+		
+		primerJugador.inscribirse(partido);
+		segundoJugador.inscribirse(partido);
+		tercerJugador.inscribirse(partido);
+		cuartoJugador.inscribirse(partido);
+		
+		return partido;
+	}
+	
+	@Test
+	def public void alCumplirseLaCondicionElCondicionalSeAnota()
+	{
+		var partido = this.crearPartidoParaPruebasDeCondicional();
+		
+		var jugadorCondicional = new Jugador("Josue", 25, new InscripcionCondicional(new Condicion_LimiteDeEdad(20, 3, true, true)));
+		//esta condicion pide que haya al menos tres jugadores mayores de 20 (en este caso se cumple)
+		
+		jugadorCondicional.inscribirse(partido);
+		
+		Assert.assertTrue(partido.estaInscripto(jugadorCondicional));		
+	}
+	
+	
+	@Test (expected = NoSeCumpleLaCondicionParaAnotarseException)
+	def public void alNoCumplirseLaCondicionElCondicionalNoSeAnota()
+	{
+		var partido = this.crearPartidoParaPruebasDeCondicional();
+		
+		var jugadorCondicional = new Jugador("Josue", 25, new InscripcionCondicional(new Condicion_LimiteDeEdad(25, 2, false, false)));
+		//esta condicion pide que haya menos de dos jugadores menores de 25 (en este caso no se cumple)
+		
+		jugadorCondicional.inscribirse(partido);	
 	}
 }
 

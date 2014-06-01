@@ -11,12 +11,24 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class Condicion_LimiteDeEdad implements Condicion {
+  /**
+   * mínimo de edad: true si pido que haya jugadores que sean MAYORES O IGUALES, false para MENORES
+   * mínimo de jugadores: true si pido que haya MÁS O IGUAL CANTIDAD de jugadores, false para MENOS
+   */
   private int _edad;
   
+  /**
+   * mínimo de edad: true si pido que haya jugadores que sean MAYORES O IGUALES, false para MENORES
+   * mínimo de jugadores: true si pido que haya MÁS O IGUAL CANTIDAD de jugadores, false para MENOS
+   */
   public int getEdad() {
     return this._edad;
   }
   
+  /**
+   * mínimo de edad: true si pido que haya jugadores que sean MAYORES O IGUALES, false para MENORES
+   * mínimo de jugadores: true si pido que haya MÁS O IGUAL CANTIDAD de jugadores, false para MENOS
+   */
   public void setEdad(final int edad) {
     this._edad = edad;
   }
@@ -81,8 +93,8 @@ public class Condicion_LimiteDeEdad implements Condicion {
         public Boolean apply(final Jugador j) {
           int _edad = j.getEdad();
           int _edad_1 = Condicion_LimiteDeEdad.this.getEdad();
-          boolean _lessEqualsThan = (_edad <= _edad_1);
-          return Boolean.valueOf(_lessEqualsThan);
+          boolean _lessThan = (_edad < _edad_1);
+          return Boolean.valueOf(_lessThan);
         }
       };
       Iterable<Jugador> _filter_1 = IterableExtensions.<Jugador>filter(jugadores, _function_1);
@@ -97,7 +109,7 @@ public class Condicion_LimiteDeEdad implements Condicion {
     } else {
       int _size_1 = jugadoresQueCumplen.size();
       int _cantidadJugadores_1 = this.getCantidadJugadores();
-      return (_size_1 <= _cantidadJugadores_1);
+      return (_size_1 < _cantidadJugadores_1);
     }
   }
 }

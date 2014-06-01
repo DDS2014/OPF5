@@ -4,6 +4,7 @@ import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.JugadorNoFueAnotadoException;
 import domain.excepciones.NoHayLugarParaAnotarseException;
+import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException;
 import domain.inscripcion.InscripcionCondicional;
 import domain.inscripcion.InscripcionEstandar;
 import domain.inscripcion.InscripcionSolidaria;
@@ -159,5 +160,50 @@ public class PruebasDeInscripcionDeJugadores {
     Assert.assertTrue(_estaInscripto_1);
     boolean _estaInscripto_2 = partido.estaInscripto(primerJugador);
     Assert.assertFalse(_estaInscripto_2);
+  }
+  
+  public Partido crearPartidoParaPruebasDeCondicional() {
+    Date _date = new Date();
+    Partido _partido = new Partido(_date);
+    Partido partido = _partido;
+    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
+    Jugador _jugador = new Jugador("Danielito", 29, _inscripcionSolidaria);
+    Jugador primerJugador = _jugador;
+    InscripcionSolidaria _inscripcionSolidaria_1 = new InscripcionSolidaria();
+    Jugador _jugador_1 = new Jugador("Fernandito", 24, _inscripcionSolidaria_1);
+    Jugador segundoJugador = _jugador_1;
+    InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
+    Jugador _jugador_2 = new Jugador("Dieguito", 18, _inscripcionEstandar);
+    Jugador tercerJugador = _jugador_2;
+    InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
+    Jugador _jugador_3 = new Jugador("Omarcito", 42, _inscripcionEstandar_1);
+    Jugador cuartoJugador = _jugador_3;
+    primerJugador.inscribirse(partido);
+    segundoJugador.inscribirse(partido);
+    tercerJugador.inscribirse(partido);
+    cuartoJugador.inscribirse(partido);
+    return partido;
+  }
+  
+  @Test
+  public void alCumplirseLaCondicionElCondicionalSeAnota() {
+    Partido partido = this.crearPartidoParaPruebasDeCondicional();
+    Condicion_LimiteDeEdad _condicion_LimiteDeEdad = new Condicion_LimiteDeEdad(20, 3, true, true);
+    InscripcionCondicional _inscripcionCondicional = new InscripcionCondicional(_condicion_LimiteDeEdad);
+    Jugador _jugador = new Jugador("Josue", 25, _inscripcionCondicional);
+    Jugador jugadorCondicional = _jugador;
+    jugadorCondicional.inscribirse(partido);
+    boolean _estaInscripto = partido.estaInscripto(jugadorCondicional);
+    Assert.assertTrue(_estaInscripto);
+  }
+  
+  @Test(expected = NoSeCumpleLaCondicionParaAnotarseException.class)
+  public void alNoCumplirseLaCondicionElCondicionalNoSeAnota() {
+    Partido partido = this.crearPartidoParaPruebasDeCondicional();
+    Condicion_LimiteDeEdad _condicion_LimiteDeEdad = new Condicion_LimiteDeEdad(25, 2, false, false);
+    InscripcionCondicional _inscripcionCondicional = new InscripcionCondicional(_condicion_LimiteDeEdad);
+    Jugador _jugador = new Jugador("Josue", 25, _inscripcionCondicional);
+    Jugador jugadorCondicional = _jugador;
+    jugadorCondicional.inscribirse(partido);
   }
 }

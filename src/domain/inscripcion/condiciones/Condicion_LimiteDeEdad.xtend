@@ -6,6 +6,10 @@ import java.util.HashSet
 import java.util.Set
 
 public class Condicion_LimiteDeEdad implements Condicion {
+	/*
+	 * mínimo de edad: true si pido que haya jugadores que sean MAYORES O IGUALES, false para MENORES
+	 * mínimo de jugadores: true si pido que haya MÁS O IGUAL CANTIDAD de jugadores, false para MENOS
+	 */
 	@Property int edad
 	@Property int cantidadJugadores
 	@Property boolean minimoDeEdad
@@ -26,14 +30,14 @@ public class Condicion_LimiteDeEdad implements Condicion {
 			jugadoresQueCumplen=jugadores.filter[j|j.edad>=this.edad].toSet
 		}
 		else{
-			jugadoresQueCumplen=jugadores.filter[j|j.edad<=this.edad].toSet
+			jugadoresQueCumplen=jugadores.filter[j|j.edad<this.edad].toSet
 		}
 		
 		if(minimoDeJugadores){
 			return jugadoresQueCumplen.size>=this.cantidadJugadores
 		}
 		else{		
-			return jugadoresQueCumplen.size<=this.cantidadJugadores
+			return jugadoresQueCumplen.size<this.cantidadJugadores
 		}
 	}
 }
