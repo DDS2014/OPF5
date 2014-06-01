@@ -41,7 +41,7 @@ class PruebasDeSugerencias
 	@Test
 	def void cuandoAprueboUnJugadorQuedaEnLaComunidad()
 	{
-		var rodrigo = new Sugerencia("Rodrigo", 32, new InscripcionSolidaria());
+		var rodrigo = new Sugerencia("Rodrigo", 32);
 		losMuchachos.sugerir(rodrigo);
 		losMuchachos.aprobar(rodrigo, new InscripcionSolidaria()); //FIXME por qué estoy poniendo la modalidad dos veces?
 		Assert.assertTrue(losMuchachos.aprobados.length == 3) //3 porque recordar que ya estaban martín y román		
@@ -50,7 +50,7 @@ class PruebasDeSugerencias
 	@Test
 	def void cuandoRechazoUnJugadorNoQuedaEnLaComunidad()
 	{
-		var hernan = new Sugerencia("Hernan", 38, new InscripcionSolidaria());
+		var hernan = new Sugerencia("Hernan", 38);
 		losMuchachos.sugerir(hernan);
 		losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos"); //FIXME por qué estoy poniendo la modalidad dos veces?
 		Assert.assertTrue(losMuchachos.aprobados.length == 2) //martín y román	
@@ -59,7 +59,7 @@ class PruebasDeSugerencias
 	@Test
 	def void cuandoSugieroUnJugadorQuedaPendiente()
 	{
-		var hernan = new Sugerencia("Hernan", 38, new InscripcionSolidaria());
+		var hernan = new Sugerencia("Hernan", 38);
 		losMuchachos.sugerir(hernan);
 		
 		Assert.assertTrue(losMuchachos.pendientes.length == 1)
@@ -68,7 +68,7 @@ class PruebasDeSugerencias
 	@Test
 	def void cuandoRechazoUnJugadorSeRegistraLaDenegacion()
 	{
-		var hernan = new Sugerencia("Hernan", 38, new InscripcionSolidaria());
+		var hernan = new Sugerencia("Hernan", 38);
 		losMuchachos.sugerir(hernan);
 		losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos"); //FIXME por qué estoy poniendo la modalidad dos veces?
 		Assert.assertTrue(losMuchachos.rechazados.length == 1)

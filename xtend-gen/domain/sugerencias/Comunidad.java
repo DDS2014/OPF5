@@ -78,17 +78,13 @@ public class Comunidad {
     return _add;
   }
   
-  public boolean aprobar(final Sugerencia sugerencia, final TipoDeInscripcion modalidad) {
-    boolean _xblockexpression = false;
-    {
-      HashSet<Sugerencia> _pendientes = this.getPendientes();
-      _pendientes.remove(sugerencia);
-      final Jugador jugador = sugerencia.aprobar(modalidad);
-      HashSet<Jugador> _aprobados = this.getAprobados();
-      boolean _add = _aprobados.add(jugador);
-      _xblockexpression = (_add);
-    }
-    return _xblockexpression;
+  public Jugador aprobar(final Sugerencia sugerencia, final TipoDeInscripcion modalidad) {
+    HashSet<Sugerencia> _pendientes = this.getPendientes();
+    _pendientes.remove(sugerencia);
+    final Jugador jugador = sugerencia.aprobar(modalidad);
+    HashSet<Jugador> _aprobados = this.getAprobados();
+    _aprobados.add(jugador);
+    return jugador;
   }
   
   public boolean rechazar(final Sugerencia sugerencia, final String motivo) {

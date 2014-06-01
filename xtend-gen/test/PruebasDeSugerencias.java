@@ -50,12 +50,11 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoAprueboUnJugadorQuedaEnLaComunidad() {
-    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Sugerencia _sugerencia = new Sugerencia("Rodrigo", 32, _inscripcionSolidaria);
+    Sugerencia _sugerencia = new Sugerencia("Rodrigo", 32);
     Sugerencia rodrigo = _sugerencia;
     this.losMuchachos.sugerir(rodrigo);
-    InscripcionSolidaria _inscripcionSolidaria_1 = new InscripcionSolidaria();
-    this.losMuchachos.aprobar(rodrigo, _inscripcionSolidaria_1);
+    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
+    this.losMuchachos.aprobar(rodrigo, _inscripcionSolidaria);
     HashSet<Jugador> _aprobados = this.losMuchachos.getAprobados();
     int _length = ((Object[])Conversions.unwrapArray(_aprobados, Object.class)).length;
     boolean _equals = (_length == 3);
@@ -64,8 +63,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoRechazoUnJugadorNoQuedaEnLaComunidad() {
-    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Sugerencia _sugerencia = new Sugerencia("Hernan", 38, _inscripcionSolidaria);
+    Sugerencia _sugerencia = new Sugerencia("Hernan", 38);
     Sugerencia hernan = _sugerencia;
     this.losMuchachos.sugerir(hernan);
     this.losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos");
@@ -77,8 +75,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoSugieroUnJugadorQuedaPendiente() {
-    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Sugerencia _sugerencia = new Sugerencia("Hernan", 38, _inscripcionSolidaria);
+    Sugerencia _sugerencia = new Sugerencia("Hernan", 38);
     Sugerencia hernan = _sugerencia;
     this.losMuchachos.sugerir(hernan);
     HashSet<Sugerencia> _pendientes = this.losMuchachos.getPendientes();
@@ -89,8 +86,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoRechazoUnJugadorSeRegistraLaDenegacion() {
-    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Sugerencia _sugerencia = new Sugerencia("Hernan", 38, _inscripcionSolidaria);
+    Sugerencia _sugerencia = new Sugerencia("Hernan", 38);
     Sugerencia hernan = _sugerencia;
     this.losMuchachos.sugerir(hernan);
     this.losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos");

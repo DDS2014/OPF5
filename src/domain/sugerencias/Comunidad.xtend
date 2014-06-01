@@ -36,6 +36,7 @@ public class Comunidad {
 		this.pendientes.remove(sugerencia)//Debe volver uno solo porque es un hashSet
 		val jugador = sugerencia.aprobar(modalidad)
 		this.aprobados.add(jugador)
+		return jugador
 	}
 	
 	def rechazar(Sugerencia sugerencia, String motivo){

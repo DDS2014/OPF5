@@ -2,7 +2,6 @@ package domain.sugerencias;
 
 import domain.Jugador;
 import domain.inscripcion.TipoDeInscripcion;
-import java.util.Date;
 import java.util.HashSet;
 
 @SuppressWarnings("all")
@@ -57,16 +56,6 @@ public class Sugerencia {
     this._email = email;
   }
   
-  private Date _fechaInscripcion;
-  
-  public Date getFechaInscripcion() {
-    return this._fechaInscripcion;
-  }
-  
-  public void setFechaInscripcion(final Date fechaInscripcion) {
-    this._fechaInscripcion = fechaInscripcion;
-  }
-  
   private HashSet<Jugador> _amigos;
   
   public HashSet<Jugador> getAmigos() {
@@ -77,7 +66,7 @@ public class Sugerencia {
     this._amigos = amigos;
   }
   
-  public Sugerencia(final String nombre, final int edad, final TipoDeInscripcion modalidad) {
+  public Sugerencia(final String nombre, final int edad) {
     this.setNombre(nombre);
     this.setEdad(edad);
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
