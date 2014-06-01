@@ -55,6 +55,23 @@ class PruebasDeSugerencias
 		losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos"); //FIXME por qué estoy poniendo la modalidad dos veces?
 		Assert.assertTrue(losMuchachos.aprobados.length == 2) //martín y román	
 	}
+
+	@Test
+	def void cuandoSugieroUnJugadorQuedaPendiente()
+	{
+		var hernan = new Sugerencia("Hernan", 38, new InscripcionSolidaria());
+		losMuchachos.sugerir(hernan);
+		
+		Assert.assertTrue(losMuchachos.pendientes.length == 1)
+	}
 	
+	@Test
+	def void cuandoRechazoUnJugadorSeRegistraLaDenegacion()
+	{
+		var hernan = new Sugerencia("Hernan", 38, new InscripcionSolidaria());
+		losMuchachos.sugerir(hernan);
+		losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos"); //FIXME por qué estoy poniendo la modalidad dos veces?
+		Assert.assertTrue(losMuchachos.rechazados.length == 1)
+	}
 	
 }

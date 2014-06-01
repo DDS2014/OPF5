@@ -5,6 +5,7 @@ import domain.Partido;
 import domain.inscripcion.InscripcionEstandar;
 import domain.inscripcion.InscripcionSolidaria;
 import domain.sugerencias.Comunidad;
+import domain.sugerencias.Denegacion;
 import domain.sugerencias.Sugerencia;
 import java.util.Date;
 import java.util.HashSet;
@@ -71,6 +72,31 @@ public class PruebasDeSugerencias {
     HashSet<Jugador> _aprobados = this.losMuchachos.getAprobados();
     int _length = ((Object[])Conversions.unwrapArray(_aprobados, Object.class)).length;
     boolean _equals = (_length == 2);
+    Assert.assertTrue(_equals);
+  }
+  
+  @Test
+  public void cuandoSugieroUnJugadorQuedaPendiente() {
+    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
+    Sugerencia _sugerencia = new Sugerencia("Hernan", 38, _inscripcionSolidaria);
+    Sugerencia hernan = _sugerencia;
+    this.losMuchachos.sugerir(hernan);
+    HashSet<Sugerencia> _pendientes = this.losMuchachos.getPendientes();
+    int _length = ((Object[])Conversions.unwrapArray(_pendientes, Object.class)).length;
+    boolean _equals = (_length == 1);
+    Assert.assertTrue(_equals);
+  }
+  
+  @Test
+  public void cuandoRechazoUnJugadorSeRegistraLaDenegacion() {
+    InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
+    Sugerencia _sugerencia = new Sugerencia("Hernan", 38, _inscripcionSolidaria);
+    Sugerencia hernan = _sugerencia;
+    this.losMuchachos.sugerir(hernan);
+    this.losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos");
+    HashSet<Denegacion> _rechazados = this.losMuchachos.getRechazados();
+    int _length = ((Object[])Conversions.unwrapArray(_rechazados, Object.class)).length;
+    boolean _equals = (_length == 1);
     Assert.assertTrue(_equals);
   }
 }
