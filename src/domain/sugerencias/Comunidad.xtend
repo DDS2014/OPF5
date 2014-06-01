@@ -3,16 +3,29 @@ package domain.sugerencias
 import domain.Jugador
 import java.util.HashSet
 import domain.inscripcion.TipoDeInscripcion
+import domain.Partido
 
 public class Comunidad {
 	@Property HashSet<Jugador> aprobados
 	@Property HashSet<Sugerencia> pendientes
 	@Property HashSet<Denegacion> rechazados
+	@Property HashSet<Partido> partidos
 	
 	new(){
 		this.aprobados=new HashSet();
 		this.pendientes=new HashSet();
 		this.rechazados=new HashSet();
+		this.partidos = new HashSet();
+	}
+	
+	def agregar(Jugador jugador) //para agregar jugadores "por decreto", sin pasar por el sistema de sugerencias
+	{
+		this.aprobados.add(jugador); 
+	}
+	
+	def organizarPartido(Partido partido)
+	{
+		this.partidos.add(partido);
 	}
 	
 	def sugerir(Sugerencia sugerencia){

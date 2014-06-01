@@ -1,6 +1,7 @@
 package domain.sugerencias;
 
 import domain.Jugador;
+import domain.Partido;
 import domain.inscripcion.TipoDeInscripcion;
 import domain.sugerencias.Denegacion;
 import domain.sugerencias.Sugerencia;
@@ -38,6 +39,16 @@ public class Comunidad {
     this._rechazados = rechazados;
   }
   
+  private HashSet<Partido> _partidos;
+  
+  public HashSet<Partido> getPartidos() {
+    return this._partidos;
+  }
+  
+  public void setPartidos(final HashSet<Partido> partidos) {
+    this._partidos = partidos;
+  }
+  
   public Comunidad() {
     HashSet<Jugador> _hashSet = new HashSet<Jugador>();
     this.setAprobados(_hashSet);
@@ -45,6 +56,20 @@ public class Comunidad {
     this.setPendientes(_hashSet_1);
     HashSet<Denegacion> _hashSet_2 = new HashSet<Denegacion>();
     this.setRechazados(_hashSet_2);
+    HashSet<Partido> _hashSet_3 = new HashSet<Partido>();
+    this.setPartidos(_hashSet_3);
+  }
+  
+  public boolean agregar(final Jugador jugador) {
+    HashSet<Jugador> _aprobados = this.getAprobados();
+    boolean _add = _aprobados.add(jugador);
+    return _add;
+  }
+  
+  public boolean organizarPartido(final Partido partido) {
+    HashSet<Partido> _partidos = this.getPartidos();
+    boolean _add = _partidos.add(partido);
+    return _add;
   }
   
   public boolean sugerir(final Sugerencia sugerencia) {
