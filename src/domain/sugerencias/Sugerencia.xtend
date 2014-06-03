@@ -22,6 +22,12 @@ public class Sugerencia {
 	
 	def Jugador aprobar(TipoDeInscripcion modalidad){
 		val jugador = new Jugador(this.nombre,this.edad,modalidad)
-		return jugador
+		return jugador;
+	}
+	
+	def Denegacion denegar(String motivo)
+	{
+		val denegacion = new Denegacion(this.nombre, motivo);
+		return denegacion;
 	}
 }

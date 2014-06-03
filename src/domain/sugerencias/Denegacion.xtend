@@ -3,13 +3,14 @@ package domain.sugerencias
 import java.util.Date
 
 public class Denegacion {
-	@Property Date fecha
-	@Property String motivo
-	@Property Sugerencia sugerencia
+	@Property String nombre;
+	@Property Date fecha;
+	@Property String motivo;
+
 	
-	new(Sugerencia sugerencia,String motivo){
+	new(String nombre, String motivo){
 		this.fecha = new Date;
 		this.motivo=motivo;
-		this.sugerencia=sugerencia;
+		this.nombre = nombre;
 	}
 }

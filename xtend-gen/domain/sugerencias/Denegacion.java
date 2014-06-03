@@ -1,10 +1,19 @@
 package domain.sugerencias;
 
-import domain.sugerencias.Sugerencia;
 import java.util.Date;
 
 @SuppressWarnings("all")
 public class Denegacion {
+  private String _nombre;
+  
+  public String getNombre() {
+    return this._nombre;
+  }
+  
+  public void setNombre(final String nombre) {
+    this._nombre = nombre;
+  }
+  
   private Date _fecha;
   
   public Date getFecha() {
@@ -25,20 +34,10 @@ public class Denegacion {
     this._motivo = motivo;
   }
   
-  private Sugerencia _sugerencia;
-  
-  public Sugerencia getSugerencia() {
-    return this._sugerencia;
-  }
-  
-  public void setSugerencia(final Sugerencia sugerencia) {
-    this._sugerencia = sugerencia;
-  }
-  
-  public Denegacion(final Sugerencia sugerencia, final String motivo) {
+  public Denegacion(final String nombre, final String motivo) {
     Date _date = new Date();
     this.setFecha(_date);
     this.setMotivo(motivo);
-    this.setSugerencia(sugerencia);
+    this.setNombre(nombre);
   }
 }

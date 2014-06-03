@@ -92,8 +92,7 @@ public class Comunidad {
     {
       HashSet<Sugerencia> _pendientes = this.getPendientes();
       _pendientes.remove(sugerencia);
-      Denegacion _denegacion = new Denegacion(sugerencia, motivo);
-      final Denegacion denegacion = _denegacion;
+      final Denegacion denegacion = sugerencia.denegar(motivo);
       HashSet<Denegacion> _rechazados = this.getRechazados();
       boolean _add = _rechazados.add(denegacion);
       _xblockexpression = (_add);

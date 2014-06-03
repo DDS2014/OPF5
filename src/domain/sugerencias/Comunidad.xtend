@@ -41,7 +41,7 @@ public class Comunidad {
 	
 	def rechazar(Sugerencia sugerencia, String motivo){
 		this.pendientes.remove(sugerencia)
-		val denegacion = new Denegacion(sugerencia,motivo)
+		val denegacion = sugerencia.denegar(motivo);
 		this.rechazados.add(denegacion)
 	}
 }

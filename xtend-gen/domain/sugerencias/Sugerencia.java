@@ -2,6 +2,7 @@ package domain.sugerencias;
 
 import domain.Jugador;
 import domain.inscripcion.TipoDeInscripcion;
+import domain.sugerencias.Denegacion;
 import java.util.HashSet;
 
 @SuppressWarnings("all")
@@ -79,5 +80,12 @@ public class Sugerencia {
     Jugador _jugador = new Jugador(_nombre, _edad, modalidad);
     final Jugador jugador = _jugador;
     return jugador;
+  }
+  
+  public Denegacion denegar(final String motivo) {
+    String _nombre = this.getNombre();
+    Denegacion _denegacion = new Denegacion(_nombre, motivo);
+    final Denegacion denegacion = _denegacion;
+    return denegacion;
   }
 }
