@@ -54,17 +54,62 @@ class PruebasDeGenerarEquipos
 		federico.calificar(9, "Dejó todo, sólo faltó el gol", segundoPartido, francisco);
 		federico.calificar(8, "Gran actuación, es fundamental para el equipo", segundoPartido, martin);
 		federico.calificar(6, "Buenos arranques pero no terminó bien las jugadas", primerPartido, martin);
+		//tests para federico:
 		//un promedio de las últimas dos calificaciones debería dar 7
 		//un promedio de la última una calificación debería dar 6
 		//un promedio de las últimas tres calificaciones debería dar aprox 7.67 (recordar el AssertEquals tiene un margen)
+		//un promedio de las últimas cuatro calificaciones debería tirar una excepción apropiada
 		//un promedio de las calificaciones del último partido debería dar 8.50
 		//una evaluación por handicap debería dar 9
 		//un mix de los criterios: [handicap, últimas dos calificaciones] debería dar 8
 	}
 	
-	@Test
-	def dummy() //para evitar los warnings por ahora 8D
-	{
-		Assert.assertTrue(true);
-	}
+
+	
+//	@Test
+//	def evaluarPorHandicapDevuelveResultadoCorrecto()
+//	{
+//		var criterio = new CriterioDelHandicap()
+//		Assert.assertEquals("", criterio.evaluarJugador(federico), 9.0, 0.05);
+//	}
+//	
+//	@Test
+//	def evaluarPorNUltimasCalificacionesDevuelveResultadoCorrecto()
+//	{
+//		var criterio1UltimaCalificacion = new CriterioDeLasUltimasCalificaciones(1);
+//		var criterio2UltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(2);
+//		var criterio3UltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(3); 
+//		
+//		Assert.assertEquals("", criterio1UltimaCalificacion.evaluarJugador(federico), 6.0, 0.05);
+//		Assert.assertEquals("", criterio2UltimasCalificaciones.evaluarJugador(federico), 7.0, 0.05);
+//		Assert.assertEquals("", criterio3UltimasCalificaciones.evaluarJugador(federico), 7.67, 0.05);
+//	}
+//	
+//	@Test (expected = ImposibleEvaluarException)
+//	def evaluarPorMasCalificacionesDeLasQueHayRompe()
+//	{
+//		var criterio = new CriterioDeLasUltimasCalificaciones(4);
+//		criterio.evaluarJugador(federico); //esto debería romper porque federico no tiene cargadas cuatro excepciones
+//	}
+//	
+//	@Test
+//	def evaluarPorPromedioDelUltimoPartidoDevuelveResultadoCorrecto()
+//	{
+//		var criterio = new CriterioDelUltimoPartido();
+//		Assert.assertEquals("", criterio.evaluarJugador(federico), 8.50, 0.05); //recordar que en segundoPartido se le dio un 9 y un 8
+//	}
+//	
+//	@Test
+//	def evaluarPorCriterioCompuestoDevuelveResultadoCorrecto() //criterio COMPUESTO guiño guiño
+//	{
+//		var criterio = new CriterioCompuesto();
+//		var subCriterioHandicap = new CriterioDelHandicap();
+//		var subCriterioUltimasDosCriticas = new CriterioDeLasUltimasCalificaciones(2);
+//		
+//		criterio.agregarSubcriterio(subCriterioHandicap);
+//		criterio.agregarSubcriterio(subCriterioUltimasDosCriticas);
+//		
+//		Assert.assertEquals("", criterio.evaluarJugador(federico), 8, 0,05);
+//	}
+	
 }
