@@ -12,6 +12,7 @@ public class Jugador
 	@Property String nombre
 	@Property String apellido
 	@Property int edad
+	@Property int handicap
 	@Property String documento
 	@Property String email
 	@Property TipoDeInscripcion modalidad
@@ -29,6 +30,7 @@ public class Jugador
 		modalidad.setCliente(this);
 		this.calificaciones=new HashSet();
 	}
+
 
 	//la amistad se hace en dos pasos para que haya simetría (si yo soy tu amigo, vos sos mi amigo)	
 	def hacerseAmigoDe(Jugador nuevoAmigo)

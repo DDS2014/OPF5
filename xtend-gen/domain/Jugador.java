@@ -43,6 +43,16 @@ public class Jugador {
     this._edad = edad;
   }
   
+  private int _handicap;
+  
+  public int getHandicap() {
+    return this._handicap;
+  }
+  
+  public void setHandicap(final int handicap) {
+    this._handicap = handicap;
+  }
+  
   private String _documento;
   
   public String getDocumento() {
