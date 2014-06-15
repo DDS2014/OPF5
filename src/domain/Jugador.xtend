@@ -6,19 +6,20 @@ import domain.inscripcion.TipoDeInscripcion
 import domain.calificaciones.Calificacion
 import domain.excepciones.ImposibleCalificarException
 import domain.excepciones.ImposibleBajarseException
+import java.util.ArrayList
 
 public class Jugador
 {
 	@Property String nombre
 	@Property String apellido
 	@Property int edad
-	@Property int handicap
+	@Property double handicap
 	@Property String documento
 	@Property String email
 	@Property TipoDeInscripcion modalidad
 	@Property HashSet<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
-	@Property HashSet<Calificacion> calificaciones;
+	@Property ArrayList<Calificacion> calificaciones;
 	
 	new(String nombre,int edad, TipoDeInscripcion modalidad)
 	{
@@ -28,7 +29,7 @@ public class Jugador
 		this.infracciones = new HashSet();
 		this.modalidad = modalidad;
 		modalidad.setCliente(this);
-		this.calificaciones=new HashSet();
+		this.calificaciones=new ArrayList();
 	}
 
 

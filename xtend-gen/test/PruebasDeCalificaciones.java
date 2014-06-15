@@ -6,8 +6,8 @@ import domain.calificaciones.Calificacion;
 import domain.excepciones.ImposibleCalificarException;
 import domain.inscripcion.InscripcionEstandar;
 import domain.inscripcion.InscripcionSolidaria;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +70,7 @@ public class PruebasDeCalificaciones {
   public void SeCalificaAUnJugadorEnVariosPartidos() {
     this.jugador2.inscribirse(this.partido1);
     this.jugador2.calificar(10, "Excelente", this.partido1, this.jugador1);
-    HashSet<Calificacion> _calificaciones = this.jugador2.getCalificaciones();
+    ArrayList<Calificacion> _calificaciones = this.jugador2.getCalificaciones();
     int _size = _calificaciones.size();
     Assert.assertEquals(_size, 2);
   }

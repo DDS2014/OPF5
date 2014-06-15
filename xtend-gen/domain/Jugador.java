@@ -7,6 +7,7 @@ import domain.excepciones.ImposibleBajarseException;
 import domain.excepciones.ImposibleCalificarException;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
+import java.util.ArrayList;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -43,13 +44,13 @@ public class Jugador {
     this._edad = edad;
   }
   
-  private int _handicap;
+  private double _handicap;
   
-  public int getHandicap() {
+  public double getHandicap() {
     return this._handicap;
   }
   
-  public void setHandicap(final int handicap) {
+  public void setHandicap(final double handicap) {
     this._handicap = handicap;
   }
   
@@ -103,13 +104,13 @@ public class Jugador {
     this._infracciones = infracciones;
   }
   
-  private HashSet<Calificacion> _calificaciones;
+  private ArrayList<Calificacion> _calificaciones;
   
-  public HashSet<Calificacion> getCalificaciones() {
+  public ArrayList<Calificacion> getCalificaciones() {
     return this._calificaciones;
   }
   
-  public void setCalificaciones(final HashSet<Calificacion> calificaciones) {
+  public void setCalificaciones(final ArrayList<Calificacion> calificaciones) {
     this._calificaciones = calificaciones;
   }
   
@@ -122,8 +123,8 @@ public class Jugador {
     this.setInfracciones(_hashSet_1);
     this.setModalidad(modalidad);
     modalidad.setCliente(this);
-    HashSet<Calificacion> _hashSet_2 = new HashSet<Calificacion>();
-    this.setCalificaciones(_hashSet_2);
+    ArrayList<Calificacion> _arrayList = new ArrayList<Calificacion>();
+    this.setCalificaciones(_arrayList);
   }
   
   public boolean hacerseAmigoDe(final Jugador nuevoAmigo) {
@@ -210,7 +211,7 @@ public class Jugador {
       }
       Calificacion _calificacion = new Calificacion(puntaje, critica, partido, calificador);
       Calificacion calificacion = _calificacion;
-      HashSet<Calificacion> _calificaciones = this.getCalificaciones();
+      ArrayList<Calificacion> _calificaciones = this.getCalificaciones();
       boolean _add = _calificaciones.add(calificacion);
       _xblockexpression = (_add);
     }
@@ -218,7 +219,7 @@ public class Jugador {
   }
   
   public boolean estaCalificado(final Partido partido, final Jugador calificador) {
-    HashSet<Calificacion> _calificaciones = this.getCalificaciones();
+    ArrayList<Calificacion> _calificaciones = this.getCalificaciones();
     final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
       public Boolean apply(final Calificacion c) {
         boolean _and = false;

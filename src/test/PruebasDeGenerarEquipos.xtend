@@ -10,6 +10,7 @@ import domain.inscripcion.InscripcionEstandar
 import java.util.Calendar
 import domain.Partido
 import java.util.Date
+import domain.generacionDeEquipos.CriterioDelHandicap
 
 class PruebasDeGenerarEquipos 
 {
@@ -66,13 +67,13 @@ class PruebasDeGenerarEquipos
 	
 
 	
-//	@Test
-//	def evaluarPorHandicapDevuelveResultadoCorrecto()
-//	{
-//		var criterio = new CriterioDelHandicap()
-//		Assert.assertEquals("", criterio.evaluarJugador(federico), 9.0, 0.05);
-//	}
-//	
+	@Test
+	def evaluarPorHandicapDevuelveResultadoCorrecto()
+	{
+		var criterio = new CriterioDelHandicap()
+		Assert.assertEquals("", criterio.evaluarJugador(federico), 9.0, 0.05);
+	}
+	
 //	@Test
 //	def evaluarPorNUltimasCalificacionesDevuelveResultadoCorrecto()
 //	{
