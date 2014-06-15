@@ -8,12 +8,15 @@ import domain.excepciones.ImposibleCalificarException;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
-public class Jugador {
+public class Jugador implements Comparator<Calificacion> {
   private String _nombre;
   
   public String getNombre() {
@@ -190,32 +193,29 @@ public class Jugador {
     return _add;
   }
   
-  public boolean calificar(final int puntaje, final String critica, final Partido partido, final Jugador calificador) {
-    boolean _xblockexpression = false;
-    {
-      boolean _estaInscripto = partido.estaInscripto(this);
-      boolean _not = (!_estaInscripto);
-      if (_not) {
-        ImposibleCalificarException _imposibleCalificarException = new ImposibleCalificarException("El jugador no se encuentra inscripto.", partido, this);
-        throw _imposibleCalificarException;
-      }
-      boolean _estaCalificado = this.estaCalificado(partido, calificador);
-      if (_estaCalificado) {
-        ImposibleCalificarException _imposibleCalificarException_1 = new ImposibleCalificarException("El jugador ya fue calificado.", partido, this);
-        throw _imposibleCalificarException_1;
-      }
-      boolean _equals = Objects.equal(this, calificador);
-      if (_equals) {
-        ImposibleCalificarException _imposibleCalificarException_2 = new ImposibleCalificarException("El jugador no puede calificarse a si mismo.", partido, this);
-        throw _imposibleCalificarException_2;
-      }
-      Calificacion _calificacion = new Calificacion(puntaje, critica, partido, calificador);
-      Calificacion calificacion = _calificacion;
-      ArrayList<Calificacion> _calificaciones = this.getCalificaciones();
-      boolean _add = _calificaciones.add(calificacion);
-      _xblockexpression = (_add);
+  public void calificar(final int puntaje, final String critica, final Partido partido, final Jugador calificador) {
+    boolean _estaInscripto = partido.estaInscripto(this);
+    boolean _not = (!_estaInscripto);
+    if (_not) {
+      ImposibleCalificarException _imposibleCalificarException = new ImposibleCalificarException("El jugador no se encuentra inscripto.", partido, this);
+      throw _imposibleCalificarException;
     }
-    return _xblockexpression;
+    boolean _estaCalificado = this.estaCalificado(partido, calificador);
+    if (_estaCalificado) {
+      ImposibleCalificarException _imposibleCalificarException_1 = new ImposibleCalificarException("El jugador ya fue calificado.", partido, this);
+      throw _imposibleCalificarException_1;
+    }
+    boolean _equals = Objects.equal(this, calificador);
+    if (_equals) {
+      ImposibleCalificarException _imposibleCalificarException_2 = new ImposibleCalificarException("El jugador no puede calificarse a si mismo.", partido, this);
+      throw _imposibleCalificarException_2;
+    }
+    Calificacion _calificacion = new Calificacion(puntaje, critica, partido, calificador);
+    Calificacion calificacion = _calificacion;
+    ArrayList<Calificacion> _calificaciones = this.getCalificaciones();
+    _calificaciones.add(calificacion);
+    ArrayList<Calificacion> _calificaciones_1 = this.getCalificaciones();
+    Collections.<Calificacion>sort(_calificaciones_1, this);
   }
   
   public boolean estaCalificado(final Partido partido, final Jugador calificador) {
@@ -237,5 +237,16 @@ public class Jugador {
     };
     boolean _exists = IterableExtensions.<Calificacion>exists(_calificaciones, _function);
     return _exists;
+  }
+  
+  public int compare(final Calificacion arg0, final Calificacion arg1) {
+    Date _fecha = arg0.getFecha();
+    Date _fecha_1 = arg1.getFecha();
+    boolean _greaterThan = (_fecha.compareTo(_fecha_1) > 0);
+    if (_greaterThan) {
+      return (-1);
+    } else {
+      return 1;
+    }
   }
 }

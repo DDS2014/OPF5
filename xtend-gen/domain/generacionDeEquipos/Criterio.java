@@ -2,7 +2,8 @@ package domain.generacionDeEquipos;
 
 import domain.Jugador;
 import domain.calificaciones.Calificacion;
-import java.util.HashSet;
+import java.util.Collection;
+import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
@@ -10,8 +11,9 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 public abstract class Criterio {
   public abstract double evaluarJugador(final Jugador jugador);
   
-  public double promediarCalificaciones(final HashSet<Calificacion> calificacionesAPromediar) {
-    int suma = 0;
+  public double promediarCalificaciones(final Collection<Calificacion> calificacionesAPromediar) {
+    double suma = ((double) 0);
+    int cantidadAPromediar = ((Object[])Conversions.unwrapArray(calificacionesAPromediar, Object.class)).length;
     final Function1<Calificacion,Integer> _function = new Function1<Calificacion,Integer>() {
       public Integer apply(final Calificacion calif) {
         int _puntaje = calif.getPuntaje();
@@ -20,9 +22,9 @@ public abstract class Criterio {
     };
     Iterable<Integer> puntajesAPromediar = IterableExtensions.<Calificacion, Integer>map(calificacionesAPromediar, _function);
     for (final Integer puntaje : puntajesAPromediar) {
-      int _plus = (suma + (puntaje).intValue());
+      double _plus = (suma + (puntaje).intValue());
       suma = _plus;
     }
-    return suma;
+    return (suma / cantidadAPromediar);
   }
 }

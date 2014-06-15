@@ -5,10 +5,14 @@ import domain.Partido;
 import domain.inscripcion.TipoDeInscripcion;
 import domain.sugerencias.Denegacion;
 import domain.sugerencias.Sugerencia;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 
 @SuppressWarnings("all")
-public class Comunidad {
+public class Comunidad implements Comparator<Partido> {
   private HashSet<Jugador> _aprobados;
   
   public HashSet<Jugador> getAprobados() {
@@ -39,13 +43,13 @@ public class Comunidad {
     this._rechazados = rechazados;
   }
   
-  private HashSet<Partido> _partidos;
+  private ArrayList<Partido> _partidos;
   
-  public HashSet<Partido> getPartidos() {
+  public ArrayList<Partido> getPartidos() {
     return this._partidos;
   }
   
-  public void setPartidos(final HashSet<Partido> partidos) {
+  public void setPartidos(final ArrayList<Partido> partidos) {
     this._partidos = partidos;
   }
   
@@ -56,8 +60,8 @@ public class Comunidad {
     this.setPendientes(_hashSet_1);
     HashSet<Denegacion> _hashSet_2 = new HashSet<Denegacion>();
     this.setRechazados(_hashSet_2);
-    HashSet<Partido> _hashSet_3 = new HashSet<Partido>();
-    this.setPartidos(_hashSet_3);
+    ArrayList<Partido> _arrayList = new ArrayList<Partido>();
+    this.setPartidos(_arrayList);
   }
   
   public boolean agregar(final Jugador jugador) {
@@ -67,7 +71,7 @@ public class Comunidad {
   }
   
   public boolean organizarPartido(final Partido partido) {
-    HashSet<Partido> _partidos = this.getPartidos();
+    ArrayList<Partido> _partidos = this.getPartidos();
     boolean _add = _partidos.add(partido);
     return _add;
   }
@@ -98,5 +102,23 @@ public class Comunidad {
       _xblockexpression = (_add);
     }
     return _xblockexpression;
+  }
+  
+  public Partido ultimoPartido() {
+    ArrayList<Partido> _partidos = this.getPartidos();
+    Collections.<Partido>sort(_partidos, this);
+    ArrayList<Partido> _partidos_1 = this.getPartidos();
+    return _partidos_1.get(0);
+  }
+  
+  public int compare(final Partido arg0, final Partido arg1) {
+    Date _fecha = arg0.getFecha();
+    Date _fecha_1 = arg1.getFecha();
+    boolean _lessThan = (_fecha.compareTo(_fecha_1) < 0);
+    if (_lessThan) {
+      return 1;
+    } else {
+      return (-1);
+    }
   }
 }

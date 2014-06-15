@@ -4,18 +4,21 @@ import domain.Jugador
 import java.util.HashSet
 import domain.inscripcion.TipoDeInscripcion
 import domain.Partido
+import java.util.ArrayList
+import java.util.Comparator
+import java.util.Collections
 
-public class Comunidad {
+public class Comunidad implements Comparator<Partido>{
 	@Property HashSet<Jugador> aprobados
 	@Property HashSet<Sugerencia> pendientes
 	@Property HashSet<Denegacion> rechazados
-	@Property HashSet<Partido> partidos
+	@Property ArrayList<Partido> partidos
 	
 	new(){
 		this.aprobados=new HashSet();
 		this.pendientes=new HashSet();
 		this.rechazados=new HashSet();
-		this.partidos = new HashSet();
+		this.partidos = new ArrayList();
 	}
 	
 	def agregar(Jugador jugador) //para agregar jugadores "por decreto", sin pasar por el sistema de sugerencias
@@ -44,4 +47,24 @@ public class Comunidad {
 		val denegacion = sugerencia.denegar(motivo);
 		this.rechazados.add(denegacion)
 	}
+
+	def ultimoPartido() 
+	{
+		Collections.sort(this.partidos, this);
+		return partidos.get(0);
+
+	}
+
+	override compare(Partido arg0, Partido arg1) //ordena los partidos del más reciente al más viejo
+	{
+		if(arg0.fecha < arg1.fecha)
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+	}
+
 }

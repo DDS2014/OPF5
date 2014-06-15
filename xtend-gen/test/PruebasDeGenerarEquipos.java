@@ -2,11 +2,15 @@ package test;
 
 import domain.Jugador;
 import domain.Partido;
+import domain.excepciones.ImposibleEvaluarException;
+import domain.generacionDeEquipos.CriterioDeLasUltimasCalificaciones;
 import domain.generacionDeEquipos.CriterioDelHandicap;
+import domain.generacionDeEquipos.CriterioDelUltimoPartido;
 import domain.inscripcion.InscripcionEstandar;
 import domain.sugerencias.Comunidad;
 import java.util.Calendar;
 import java.util.Date;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.junit.Assert;
 import org.junit.Before;
@@ -82,7 +86,29 @@ public class PruebasDeGenerarEquipos {
     this.francisco.inscribirse(this.segundoPartido);
     this.federico.inscribirse(this.segundoPartido);
     this.federico.calificar(9, "Dejó todo, sólo faltó el gol", this.segundoPartido, this.francisco);
+    try {
+      Thread.sleep(200);
+    } catch (final Throwable _t) {
+      if (_t instanceof InterruptedException) {
+        final InterruptedException ex = (InterruptedException)_t;
+        Thread _currentThread = Thread.currentThread();
+        _currentThread.interrupt();
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
     this.federico.calificar(8, "Gran actuación, es fundamental para el equipo", this.segundoPartido, this.martin);
+    try {
+      Thread.sleep(200);
+    } catch (final Throwable _t_1) {
+      if (_t_1 instanceof InterruptedException) {
+        final InterruptedException ex_1 = (InterruptedException)_t_1;
+        Thread _currentThread_1 = Thread.currentThread();
+        _currentThread_1.interrupt();
+      } else {
+        throw Exceptions.sneakyThrow(_t_1);
+      }
+    }
     this.federico.calificar(6, "Buenos arranques pero no terminó bien las jugadas", this.primerPartido, this.martin);
   }
   
@@ -91,6 +117,37 @@ public class PruebasDeGenerarEquipos {
     CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
     CriterioDelHandicap criterio = _criterioDelHandicap;
     double _evaluarJugador = criterio.evaluarJugador(this.federico);
-    Assert.assertEquals("", _evaluarJugador, 9.0, 0.05);
+    Assert.assertEquals("", 9.0, _evaluarJugador, 0.05);
+  }
+  
+  @Test
+  public void evaluarPorNUltimasCalificacionesDevuelveResultadoCorrecto() {
+    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(1);
+    CriterioDeLasUltimasCalificaciones criterio1UltimaCalificacion = _criterioDeLasUltimasCalificaciones;
+    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones_1 = new CriterioDeLasUltimasCalificaciones(2);
+    CriterioDeLasUltimasCalificaciones criterio2UltimasCalificaciones = _criterioDeLasUltimasCalificaciones_1;
+    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones_2 = new CriterioDeLasUltimasCalificaciones(3);
+    CriterioDeLasUltimasCalificaciones criterio3UltimasCalificaciones = _criterioDeLasUltimasCalificaciones_2;
+    double _evaluarJugador = criterio1UltimaCalificacion.evaluarJugador(this.federico);
+    Assert.assertEquals("", 6.0, _evaluarJugador, 0.05);
+    double _evaluarJugador_1 = criterio2UltimasCalificaciones.evaluarJugador(this.federico);
+    Assert.assertEquals("", 7.0, _evaluarJugador_1, 0.05);
+    double _evaluarJugador_2 = criterio3UltimasCalificaciones.evaluarJugador(this.federico);
+    Assert.assertEquals("", 7.67, _evaluarJugador_2, 0.05);
+  }
+  
+  @Test(expected = ImposibleEvaluarException.class)
+  public void evaluarPorMasCalificacionesDeLasQueHayRompe() {
+    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(4);
+    CriterioDeLasUltimasCalificaciones criterio = _criterioDeLasUltimasCalificaciones;
+    criterio.evaluarJugador(this.federico);
+  }
+  
+  @Test
+  public void evaluarPorPromedioDelUltimoPartidoDevuelveResultadoCorrecto() {
+    CriterioDelUltimoPartido _criterioDelUltimoPartido = new CriterioDelUltimoPartido(this.losMuchachos);
+    CriterioDelUltimoPartido criterio = _criterioDelUltimoPartido;
+    double _evaluarJugador = criterio.evaluarJugador(this.federico);
+    Assert.assertEquals("", 8.50, _evaluarJugador, 0.05);
   }
 }

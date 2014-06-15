@@ -1,6 +1,7 @@
 package domain.generacionDeEquipos
 
 import domain.Jugador
+import domain.excepciones.ImposibleEvaluarException
 
 class CriterioDeLasUltimasCalificaciones extends Criterio
 {
@@ -14,9 +15,9 @@ class CriterioDeLasUltimasCalificaciones extends Criterio
 	
 	override evaluarJugador(Jugador jugador) 
 	{
-
-		
-		return 2.0;
+		if (jugador.calificaciones.length() < cantidadDeCalificaciones) throw new ImposibleEvaluarException("El jugador tiene menos calificaciones de las que se pidieron tener en cuenta");
+		var calificacionesAConsiderar = jugador.calificaciones.subList(0, cantidadDeCalificaciones);
+		return this.promediarCalificaciones(calificacionesAConsiderar);
 	}
 
 	

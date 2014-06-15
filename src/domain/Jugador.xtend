@@ -7,8 +7,10 @@ import domain.calificaciones.Calificacion
 import domain.excepciones.ImposibleCalificarException
 import domain.excepciones.ImposibleBajarseException
 import java.util.ArrayList
+import java.util.Comparator
+import java.util.Collections
 
-public class Jugador
+public class Jugador implements Comparator<Calificacion>
 {
 	@Property String nombre
 	@Property String apellido
@@ -84,6 +86,7 @@ public class Jugador
 		if(this==calificador) throw new ImposibleCalificarException("El jugador no puede calificarse a si mismo.", partido, this);		
 		var calificacion = new Calificacion(puntaje,critica,partido,calificador)
 		this.calificaciones.add(calificacion)
+		Collections.sort(this.calificaciones, this);
 	}
 
 	def boolean estaCalificado(Partido partido, Jugador calificador){
@@ -91,7 +94,18 @@ public class Jugador
 	}
 	
 	
-	
+	override compare(Calificacion arg0, Calificacion arg1) //ordena las calificaciones de la más reciente a la más vieja
+	{
+		if(arg0.getFecha() > arg1.getFecha())
+		{
+			return -1;
+		}
+		else
+		{
+			return 1;
+		}
+		
+	}
 	
 	
 }
