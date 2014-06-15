@@ -3,6 +3,7 @@ package test;
 import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.ImposibleEvaluarException;
+import domain.generacionDeEquipos.CriterioCompuesto;
 import domain.generacionDeEquipos.CriterioDeLasUltimasCalificaciones;
 import domain.generacionDeEquipos.CriterioDelHandicap;
 import domain.generacionDeEquipos.CriterioDelUltimoPartido;
@@ -149,5 +150,19 @@ public class PruebasDeGenerarEquipos {
     CriterioDelUltimoPartido criterio = _criterioDelUltimoPartido;
     double _evaluarJugador = criterio.evaluarJugador(this.federico);
     Assert.assertEquals("", 8.50, _evaluarJugador, 0.05);
+  }
+  
+  @Test
+  public void evaluarPorCriterioCompuestoDevuelveResultadoCorrecto() {
+    CriterioCompuesto _criterioCompuesto = new CriterioCompuesto();
+    CriterioCompuesto criterio = _criterioCompuesto;
+    CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
+    CriterioDelHandicap subCriterioHandicap = _criterioDelHandicap;
+    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(2);
+    CriterioDeLasUltimasCalificaciones subCriterioUltimasDosCriticas = _criterioDeLasUltimasCalificaciones;
+    criterio.agregarSubcriterio(subCriterioHandicap);
+    criterio.agregarSubcriterio(subCriterioUltimasDosCriticas);
+    double _evaluarJugador = criterio.evaluarJugador(this.federico);
+    Assert.assertEquals("", 8, _evaluarJugador, 0.05);
   }
 }

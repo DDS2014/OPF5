@@ -14,6 +14,7 @@ import domain.generacionDeEquipos.CriterioDelHandicap
 import domain.generacionDeEquipos.CriterioDeLasUltimasCalificaciones
 import domain.excepciones.ImposibleEvaluarException
 import domain.generacionDeEquipos.CriterioDelUltimoPartido
+import domain.generacionDeEquipos.CriterioCompuesto
 
 class PruebasDeGenerarEquipos 
 {
@@ -128,17 +129,17 @@ class PruebasDeGenerarEquipos
 		Assert.assertEquals("",  8.50, criterio.evaluarJugador(federico), 0.05); //recordar que en segundoPartido se le dio un 9 y un 8
 	}
 	
-//	@Test
-//	def evaluarPorCriterioCompuestoDevuelveResultadoCorrecto() //criterio COMPUESTO guiño guiño
-//	{
-//		var criterio = new CriterioCompuesto();
-//		var subCriterioHandicap = new CriterioDelHandicap();
-//		var subCriterioUltimasDosCriticas = new CriterioDeLasUltimasCalificaciones(2);
-//		
-//		criterio.agregarSubcriterio(subCriterioHandicap);
-//		criterio.agregarSubcriterio(subCriterioUltimasDosCriticas);
-//		
-//		Assert.assertEquals("", 8, criterio.evaluarJugador(federico), 0,05);
-//	}
+	@Test
+	def evaluarPorCriterioCompuestoDevuelveResultadoCorrecto() //criterio COMPUESTO guiño guiño
+	{
+		var criterio = new CriterioCompuesto();
+		var subCriterioHandicap = new CriterioDelHandicap();
+		var subCriterioUltimasDosCriticas = new CriterioDeLasUltimasCalificaciones(2);
+		
+		criterio.agregarSubcriterio(subCriterioHandicap);
+		criterio.agregarSubcriterio(subCriterioUltimasDosCriticas);
+		
+		Assert.assertEquals("", 8, criterio.evaluarJugador(federico), 0.05);
+	}
 	
 }
