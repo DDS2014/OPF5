@@ -10,6 +10,7 @@ import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
 import java.util.Hashtable
+import domain.generacionDeEquipos.Criterio
 
 public class Partido implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
@@ -18,6 +19,10 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
 	@Property InterfazDistribuidorDeMails distribuidor
 	Hashtable<Jugador, Date> fechasDeInscripcion;
+	@Property Criterio criterioDeOrdenamiento;
+	@Property List<Jugador> primerEquipo
+	@Property List<Jugador> segundoEquipo
+	@Property Boolean equiposEstanConfirmados;
 	
 	//CONSTRUCTOR
 	new(Date fecha){
@@ -66,6 +71,8 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		participante.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
 		this.observers.forEach[observer | observer.avisarQuitaSinReemplazo(this,MAIL_ADMINISTRADOR, participante, estabaConfirmado)]	
 	}
+	
+
 	
 	override compare(Jugador arg0, Jugador arg1) {
 		if(arg0.modalidad.prioridad>arg1.modalidad.prioridad){

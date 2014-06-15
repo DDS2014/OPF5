@@ -3,6 +3,7 @@ package domain;
 import domain.Jugador;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.excepciones.JugadorNoFueAnotadoException;
+import domain.generacionDeEquipos.Criterio;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
 import domain.notificaciones.PartidoObserver;
@@ -60,6 +61,46 @@ public class Partido implements Comparator<Jugador> {
   }
   
   private Hashtable<Jugador,Date> fechasDeInscripcion;
+  
+  private Criterio _criterioDeOrdenamiento;
+  
+  public Criterio getCriterioDeOrdenamiento() {
+    return this._criterioDeOrdenamiento;
+  }
+  
+  public void setCriterioDeOrdenamiento(final Criterio criterioDeOrdenamiento) {
+    this._criterioDeOrdenamiento = criterioDeOrdenamiento;
+  }
+  
+  private List<Jugador> _primerEquipo;
+  
+  public List<Jugador> getPrimerEquipo() {
+    return this._primerEquipo;
+  }
+  
+  public void setPrimerEquipo(final List<Jugador> primerEquipo) {
+    this._primerEquipo = primerEquipo;
+  }
+  
+  private List<Jugador> _segundoEquipo;
+  
+  public List<Jugador> getSegundoEquipo() {
+    return this._segundoEquipo;
+  }
+  
+  public void setSegundoEquipo(final List<Jugador> segundoEquipo) {
+    this._segundoEquipo = segundoEquipo;
+  }
+  
+  private Boolean _equiposEstanConfirmados;
+  
+  public Boolean getEquiposEstanConfirmados() {
+    return this._equiposEstanConfirmados;
+  }
+  
+  public void setEquiposEstanConfirmados(final Boolean equiposEstanConfirmados) {
+    this._equiposEstanConfirmados = equiposEstanConfirmados;
+  }
   
   public Partido(final Date fecha) {
     this.setFecha(fecha);
