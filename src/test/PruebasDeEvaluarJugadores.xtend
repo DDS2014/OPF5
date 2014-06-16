@@ -10,11 +10,11 @@ import domain.inscripcion.InscripcionEstandar
 import java.util.Calendar
 import domain.Partido
 import java.util.Date
-import domain.generacionDeEquipos.CriterioDelHandicap
-import domain.generacionDeEquipos.CriterioDeLasUltimasCalificaciones
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 import domain.excepciones.ImposibleEvaluarException
-import domain.generacionDeEquipos.CriterioDelUltimoPartido
-import domain.generacionDeEquipos.CriterioCompuesto
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioCompuesto
 
 class PruebasDeEvaluarJugadores
 {
@@ -30,7 +30,7 @@ class PruebasDeEvaluarJugadores
 	
 	
 	@Before
-	def void setup()
+	def public void setup()
 	{
 		losMuchachos.agregar(martin);
 		losMuchachos.agregar(francisco);

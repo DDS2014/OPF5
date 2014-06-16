@@ -10,7 +10,9 @@ import java.util.List
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
 import java.util.Hashtable
-import domain.generacionDeEquipos.Criterio
+import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
+import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
+import domain.excepciones.ImposibleGenerarEquiposException
 
 public class Partido implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
@@ -23,6 +25,7 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	@Property List<Jugador> primerEquipo
 	@Property List<Jugador> segundoEquipo
 	@Property Boolean equiposEstanConfirmados;
+	@Property Generacion algoritmo;
 	
 	//CONSTRUCTOR
 	new(Date fecha){
@@ -102,5 +105,30 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	
 	def seJugo(){
 		this.fecha.before(new Date)
+	}
+	
+	//Generacion de equipos tentativos
+	def agregarAlgoritmo(Generacion algoritmo){
+		this.algoritmo=algoritmo
+		this.algoritmo.partido=this
+	}
+	
+	def ordenarJugadores(){
+		this.criterioDeOrdenamiento.ordenarJugadores(this);
+	}
+	
+	def agregarJugadorAEquipo(int equipo, int posicion){
+		var jugador = jugadoresConfirmados.get(posicion)
+		
+		if(primerEquipo.contains(jugador))
+			throw new ImposibleGenerarEquiposException("El jugador " + jugador.nombre + " ya se encuentra inscripto al primer equipo.")
+		
+		if(segundoEquipo.contains(jugador))
+			throw new ImposibleGenerarEquiposException("El jugador " + jugador.nombre + " ya se encuentra inscripto al segundo equipo.")
+		
+		if(equipo == 1)	
+			primerEquipo.add(jugador)
+		else
+			segundoEquipo.add(jugador)
 	}
 }
