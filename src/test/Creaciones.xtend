@@ -22,6 +22,15 @@ public class Creaciones
 		var p7 = new Jugador("Casio",29, new InscripcionEstandar());
 		var p8 = new Jugador("Alan",30, new InscripcionEstandar());
 		
+		p1.setHandicap(3);
+		p2.setHandicap(5);
+		p3.setHandicap(6);
+		p4.setHandicap(1);
+		p5.setHandicap(8);
+		p6.setHandicap(9);
+		p7.setHandicap(7);
+		p8.setHandicap(4);
+		
 		//Inscripciones
 		p1.inscribirse(partido);
 		p2.inscribirse(partido);
@@ -42,6 +51,8 @@ public class Creaciones
 		//JUGADORES
 		var p9 = new Jugador("Carlos",20, new InscripcionEstandar());
 		
+		p9.setHandicap(2);
+		
 		//Inscripciones
 		p9.inscribirse(partido);
 		
@@ -60,4 +71,7 @@ public class Creaciones
 		
 		return partido;	
 	}
+	
+	
+	
 }

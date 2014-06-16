@@ -8,8 +8,8 @@ abstract class Generacion {
 	
 	def void generarEquipos(){
 		if(partido.hayLugaresLibres())
-			throw new ImposibleGenerarEquiposException("Todavía no se completaron los diez jugadores.")
-		partido.ordenarJugadores()
+			throw new ImposibleGenerarEquiposException("Todavía no se completaron los diez jugadores.");
+		partido.ordenarJugadores();
 		this.designarJugadores()
 	}
 	

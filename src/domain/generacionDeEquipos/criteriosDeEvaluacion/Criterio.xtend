@@ -9,7 +9,7 @@ import java.util.Collections
 
 abstract class Criterio implements Comparator<Jugador>
 {
-	def double evaluarJugador(Jugador jugador);	
+	def double evaluarJugador(Jugador jugador)
 	
 	def double promediarCalificaciones(Collection<Calificacion> calificacionesAPromediar)
 	{
@@ -27,7 +27,7 @@ abstract class Criterio implements Comparator<Jugador>
 	
 	override compare(Jugador arg0, Jugador arg1)  //permito ordenar los jugadores de mayor a menor puntaje de evaluacion
 	{
-		if (this.evaluarJugador(arg0) > evaluarJugador(arg1))
+		if (this.evaluarJugador(arg0) > this.evaluarJugador(arg1))
 		{
 			return -1;
 		}
@@ -38,6 +38,6 @@ abstract class Criterio implements Comparator<Jugador>
 	}
 	
 	def ordenarJugadores(Partido partido){
-		Collections.sort(partido.getJugadoresConfirmados,this)
+		Collections.sort(partido.jugadoresConfirmados,this)
 	}
 }

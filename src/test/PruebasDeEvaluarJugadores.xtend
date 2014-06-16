@@ -119,7 +119,7 @@ class PruebasDeEvaluarJugadores
 	def void evaluarPorMasCalificacionesDeLasQueHayRompe()
 	{
 		var criterio = new CriterioDeLasUltimasCalificaciones(4);
-		criterio.evaluarJugador(federico); //esto debería romper porque federico no tiene cargadas cuatro excepciones
+		criterio.evaluarJugador(federico); //esto debería romper porque federico no tiene cargadas cuatro calificaciones
 	}
 	
 	@Test
