@@ -33,6 +33,8 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		this.jugadoresConfirmados=new ArrayList();
 		this.observers =new ArrayList();
 		this.fechasDeInscripcion = new Hashtable();
+		this.primerEquipo = new ArrayList();
+		this.segundoEquipo = new ArrayList();
 	}
 	
 	def estaInscripto(Jugador jugador)
@@ -121,10 +123,10 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		var jugador = jugadoresConfirmados.get(posicion)
 		
 		if(primerEquipo.contains(jugador))
-			throw new ImposibleGenerarEquiposException("El jugador " + jugador.nombre + " ya se encuentra inscripto al primer equipo.")
+			throw new ImposibleGenerarEquiposException("El jugador "+jugador.nombre+" ya se encuentra inscripto al primer equipo.");
 		
 		if(segundoEquipo.contains(jugador))
-			throw new ImposibleGenerarEquiposException("El jugador " + jugador.nombre + " ya se encuentra inscripto al segundo equipo.")
+			throw new ImposibleGenerarEquiposException("El jugador "+jugador.nombre+" ya se encuentra inscripto al segundo equipo.");
 		
 		if(equipo == 1)	
 			primerEquipo.add(jugador)
