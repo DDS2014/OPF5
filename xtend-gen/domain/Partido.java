@@ -1,6 +1,9 @@
 package domain;
 
 import domain.Jugador;
+import domain.PartidoAbierto_State;
+import domain.PartidoConEquiposConfirmados_State;
+import domain.PartidoState;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.excepciones.JugadorNoFueAnotadoException;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion;
@@ -93,16 +96,6 @@ public class Partido implements Comparator<Jugador> {
     this._segundoEquipo = segundoEquipo;
   }
   
-  private Boolean _equiposEstanConfirmados;
-  
-  public Boolean getEquiposEstanConfirmados() {
-    return this._equiposEstanConfirmados;
-  }
-  
-  public void setEquiposEstanConfirmados(final Boolean equiposEstanConfirmados) {
-    this._equiposEstanConfirmados = equiposEstanConfirmados;
-  }
-  
   private Generacion _algoritmo;
   
   public Generacion getAlgoritmo() {
@@ -112,6 +105,8 @@ public class Partido implements Comparator<Jugador> {
   public void setAlgoritmo(final Generacion algoritmo) {
     this._algoritmo = algoritmo;
   }
+  
+  private PartidoState estado;
   
   public Partido(final Date fecha) {
     this.setFecha(fecha);
@@ -125,6 +120,8 @@ public class Partido implements Comparator<Jugador> {
     this.setPrimerEquipo(_arrayList_2);
     ArrayList<Jugador> _arrayList_3 = new ArrayList<Jugador>();
     this.setSegundoEquipo(_arrayList_3);
+    PartidoAbierto_State _partidoAbierto_State = new PartidoAbierto_State();
+    this.estado = _partidoAbierto_State;
   }
   
   public boolean estaInscripto(final Jugador jugador) {
@@ -140,6 +137,7 @@ public class Partido implements Comparator<Jugador> {
   }
   
   public void confirmarAsistencia(final Jugador jugador) {
+    this.estado.validarCambios();
     boolean _estaInscripto = this.estaInscripto(jugador);
     boolean _not = (!_estaInscripto);
     if (_not) {
@@ -175,6 +173,7 @@ public class Partido implements Comparator<Jugador> {
   }
   
   public void quitarSinReemplazo(final Jugador participante) {
+    this.estado.validarCambios();
     boolean _hayLugaresLibres = this.hayLugaresLibres();
     final boolean estabaConfirmado = (!_hayLugaresLibres);
     List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
@@ -245,15 +244,29 @@ public class Partido implements Comparator<Jugador> {
     return _before;
   }
   
-  public void agregarAlgoritmo(final Generacion algoritmo) {
+  public void definirAlgoritmoGeneracion(final Generacion algoritmo) {
     this.setAlgoritmo(algoritmo);
     Generacion _algoritmo = this.getAlgoritmo();
     _algoritmo.setPartido(this);
   }
   
   public void ordenarJugadores() {
+    List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
     Criterio _criterioDeOrdenamiento = this.getCriterioDeOrdenamiento();
-    _criterioDeOrdenamiento.ordenarJugadores(this);
+    Collections.<Jugador>sort(_jugadoresConfirmados, _criterioDeOrdenamiento);
+  }
+  
+  public void generarEquipos() {
+    Generacion _algoritmo = this.getAlgoritmo();
+    _algoritmo.generarEquipos();
+  }
+  
+  public void resetearEquipos() {
+    this.estado.validarCambios();
+    ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
+    this.setPrimerEquipo(_arrayList);
+    ArrayList<Jugador> _arrayList_1 = new ArrayList<Jugador>();
+    this.setSegundoEquipo(_arrayList_1);
   }
   
   public boolean agregarAlPrimerEquipo(final Jugador jugador) {
@@ -266,5 +279,37 @@ public class Partido implements Comparator<Jugador> {
     List<Jugador> _segundoEquipo = this.getSegundoEquipo();
     boolean _add = _segundoEquipo.add(jugador);
     return _add;
+  }
+  
+  public PartidoState confirmarEquipos() {
+    PartidoState _xblockexpression = null;
+    {
+      boolean _hayEquipo = this.hayEquipo();
+      boolean _not = (!_hayEquipo);
+      if (_not) {
+        RuntimeException _runtimeException = new RuntimeException("No se puede confirmar los equipos ya que no se generaron correctamente");
+        throw _runtimeException;
+      }
+      PartidoConEquiposConfirmados_State _partidoConEquiposConfirmados_State = new PartidoConEquiposConfirmados_State();
+      PartidoState _estado = this.estado = _partidoConEquiposConfirmados_State;
+      _xblockexpression = (_estado);
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean hayEquipo() {
+    boolean _and = false;
+    List<Jugador> _segundoEquipo = this.getSegundoEquipo();
+    int _size = _segundoEquipo.size();
+    boolean _equals = (_size == 5);
+    if (!_equals) {
+      _and = false;
+    } else {
+      List<Jugador> _primerEquipo = this.getPrimerEquipo();
+      int _size_1 = _primerEquipo.size();
+      boolean _equals_1 = (_size_1 == 5);
+      _and = (_equals && _equals_1);
+    }
+    return _and;
   }
 }

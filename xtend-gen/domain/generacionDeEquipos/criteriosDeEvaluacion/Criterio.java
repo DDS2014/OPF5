@@ -1,12 +1,9 @@
 package domain.generacionDeEquipos.criteriosDeEvaluacion;
 
 import domain.Jugador;
-import domain.Partido;
 import domain.calificaciones.Calificacion;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import org.eclipse.xtext.xbase.lib.Conversions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
@@ -41,10 +38,5 @@ public abstract class Criterio implements Comparator<Jugador> {
     } else {
       return 1;
     }
-  }
-  
-  public void ordenarJugadores(final Partido partido) {
-    List<Jugador> _jugadoresConfirmados = partido.getJugadoresConfirmados();
-    Collections.<Jugador>sort(_jugadoresConfirmados, this);
   }
 }

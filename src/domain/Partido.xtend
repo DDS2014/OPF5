@@ -24,8 +24,8 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	@Property Criterio criterioDeOrdenamiento;
 	@Property List<Jugador> primerEquipo
 	@Property List<Jugador> segundoEquipo
-	@Property Boolean equiposEstanConfirmados;
 	@Property Generacion algoritmo;
+	PartidoState estado;
 	
 	//CONSTRUCTOR
 	new(Date fecha){
@@ -35,6 +35,7 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		this.fechasDeInscripcion = new Hashtable();
 		this.primerEquipo = new ArrayList();
 		this.segundoEquipo = new ArrayList();
+		this.estado = new PartidoAbierto_State();
 	}
 	
 	def estaInscripto(Jugador jugador)
@@ -49,7 +50,9 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	}
 	
 	//Inscribe al participante
-	def void confirmarAsistencia(Jugador jugador){
+	def void confirmarAsistencia(Jugador jugador)
+	{
+		estado.validarCambios();
 		if(!estaInscripto(jugador))
 		{
 			val habiaLugar = this.hayLugaresLibres(); //recordar que al haber un reemplazo, primero entra el nuevo y después sale el viejo, por lo tanto esto es accurate
@@ -71,6 +74,7 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	
 	def void quitarSinReemplazo(Jugador participante) 
 	{
+		estado.validarCambios();
 		val estabaConfirmado = !hayLugaresLibres();
 		this.jugadoresConfirmados.remove(participante);
 		participante.aplicarInfraccion(new Infraccion("El jugador se bajó del partido sin designar un reemplazante"));
@@ -110,14 +114,27 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 	}
 	
 	//Generacion de equipos tentativos
-	def agregarAlgoritmo(Generacion algoritmo){
+	def definirAlgoritmoGeneracion(Generacion algoritmo){
 		this.algoritmo=algoritmo
 		this.algoritmo.partido=this
 	}
 	
 	def ordenarJugadores()
 	{
-		this.criterioDeOrdenamiento.ordenarJugadores(this);
+		Collections.sort(jugadoresConfirmados, criterioDeOrdenamiento);
+	}
+	
+	def generarEquipos()
+	{
+		this.algoritmo.generarEquipos();
+	}
+	
+	def resetearEquipos()
+	{
+		estado.validarCambios();
+		primerEquipo = new ArrayList();
+		segundoEquipo = new ArrayList();
+		//y que el garbage collector haga el resto
 	}
 	
 
@@ -132,7 +149,18 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		{
 			segundoEquipo.add(jugador)
 		}
+	}
+	
+	def confirmarEquipos()
+	{
+		if (!hayEquipo) throw new RuntimeException("No se puede confirmar los equipos ya que no se generaron correctamente"); //todo agregar una excepción propia para esto
+		this.estado = new PartidoConEquiposConfirmados_State();	
+	}
+
+	def hayEquipo() 
+	{
+		return ((segundoEquipo.size == 5) && (primerEquipo.size == 5));
+	}
 
 }
 
-}

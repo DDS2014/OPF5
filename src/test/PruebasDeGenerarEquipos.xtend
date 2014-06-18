@@ -68,10 +68,10 @@ class PruebasDeGenerarEquipos
 		criterio = new CriterioDelHandicap();
 		
 		//Agregar un algoritmo de generacion
-		partido.agregarAlgoritmo(new GeneracionParImpar());
+		partido.definirAlgoritmoGeneracion(new GeneracionParImpar());
 		partido.criterioDeOrdenamiento=criterio;
 		
-		partido2.agregarAlgoritmo(new GeneracionParImpar());
+		partido2.definirAlgoritmoGeneracion(new GeneracionParImpar());
 		partido2.criterioDeOrdenamiento=criterio;
 
 		//Pedir que genere los equipos al partido
@@ -80,20 +80,20 @@ class PruebasDeGenerarEquipos
 	
 	@Test (expected = ImposibleGenerarEquiposException)
 	def public void LosEquiposNoSePuedenGenerarPorqueTienenSolo9Jugadores(){
-		partido.algoritmo.generarEquipos();
+		partido.generarEquipos();
 	}
 	
 	@Test
 	def public void LosEquiposGeneradosTienen5JugadoresCadaUno(){
 		diego.inscribirse(partido);
-		partido.algoritmo.generarEquipos();
+		partido.generarEquipos();
 		Assert.assertEquals(5,partido.primerEquipo.size);
 		Assert.assertEquals(5,partido.segundoEquipo.size)
 	} 
 	
 	@Test
 	def public void LosJugadoresDeCadaEquipoEstanBienUbicadosConAlgortimoParImpar(){
-		partido2.algoritmo.generarEquipos();
+		partido2.generarEquipos();
 		//en el SegundoEquipo estan los pares.
 		Assert.assertTrue(partido2.segundoEquipo.contains(diego)); //handicap 10
 		Assert.assertTrue(partido2.segundoEquipo.contains(martin)); //handicap 2
@@ -111,8 +111,8 @@ class PruebasDeGenerarEquipos
 	
 	@Test
 	def public void LosJugadoresDeCadaEquipoEstanBienUbicadosConAlgortimoDeGeneracionConcreto(){
-		partido2.agregarAlgoritmo(new GeneracionConcreta);
-		partido2.algoritmo.generarEquipos();
+		partido2.definirAlgoritmoGeneracion(new GeneracionConcreta);
+		partido2.generarEquipos();
 		//diego,luis,pepe,martin y facundo en el primer equipo
 		Assert.assertTrue(partido2.primerEquipo.contains(diego));
 		Assert.assertTrue(partido2.primerEquipo.contains(luis));
@@ -126,4 +126,15 @@ class PruebasDeGenerarEquipos
 		Assert.assertTrue(partido2.segundoEquipo.contains(alejandro));
 		Assert.assertTrue(partido2.segundoEquipo.contains(leo));
 	}
+	
+	@Test (expected = RuntimeException)
+	def public void noMePuedoBajarDePartidoConEquiposConfirmados()
+	{
+		partido2.definirAlgoritmoGeneracion(new GeneracionConcreta);
+		partido2.generarEquipos();
+		partido2.confirmarEquipos();
+		diego.bajarse(partido2);
+		
+	}
+	
 }

@@ -3,7 +3,6 @@ package test;
 import domain.Jugador;
 import domain.Partido;
 import domain.excepciones.ImposibleGenerarEquiposException;
-import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar;
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio;
@@ -135,24 +134,22 @@ public class PruebasDeGenerarEquipos {
     CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
     this.criterio = _criterioDelHandicap;
     GeneracionParImpar _generacionParImpar = new GeneracionParImpar();
-    this.partido.agregarAlgoritmo(_generacionParImpar);
+    this.partido.definirAlgoritmoGeneracion(_generacionParImpar);
     this.partido.setCriterioDeOrdenamiento(this.criterio);
     GeneracionParImpar _generacionParImpar_1 = new GeneracionParImpar();
-    this.partido2.agregarAlgoritmo(_generacionParImpar_1);
+    this.partido2.definirAlgoritmoGeneracion(_generacionParImpar_1);
     this.partido2.setCriterioDeOrdenamiento(this.criterio);
   }
   
   @Test(expected = ImposibleGenerarEquiposException.class)
   public void LosEquiposNoSePuedenGenerarPorqueTienenSolo9Jugadores() {
-    Generacion _algoritmo = this.partido.getAlgoritmo();
-    _algoritmo.generarEquipos();
+    this.partido.generarEquipos();
   }
   
   @Test
   public void LosEquiposGeneradosTienen5JugadoresCadaUno() {
     this.diego.inscribirse(this.partido);
-    Generacion _algoritmo = this.partido.getAlgoritmo();
-    _algoritmo.generarEquipos();
+    this.partido.generarEquipos();
     List<Jugador> _primerEquipo = this.partido.getPrimerEquipo();
     int _size = _primerEquipo.size();
     Assert.assertEquals(5, _size);
@@ -163,8 +160,7 @@ public class PruebasDeGenerarEquipos {
   
   @Test
   public void LosJugadoresDeCadaEquipoEstanBienUbicadosConAlgortimoParImpar() {
-    Generacion _algoritmo = this.partido2.getAlgoritmo();
-    _algoritmo.generarEquipos();
+    this.partido2.generarEquipos();
     List<Jugador> _segundoEquipo = this.partido2.getSegundoEquipo();
     boolean _contains = _segundoEquipo.contains(this.diego);
     Assert.assertTrue(_contains);
@@ -200,9 +196,8 @@ public class PruebasDeGenerarEquipos {
   @Test
   public void LosJugadoresDeCadaEquipoEstanBienUbicadosConAlgortimoDeGeneracionConcreto() {
     GeneracionConcreta _generacionConcreta = new GeneracionConcreta();
-    this.partido2.agregarAlgoritmo(_generacionConcreta);
-    Generacion _algoritmo = this.partido2.getAlgoritmo();
-    _algoritmo.generarEquipos();
+    this.partido2.definirAlgoritmoGeneracion(_generacionConcreta);
+    this.partido2.generarEquipos();
     List<Jugador> _primerEquipo = this.partido2.getPrimerEquipo();
     boolean _contains = _primerEquipo.contains(this.diego);
     Assert.assertTrue(_contains);
@@ -233,5 +228,14 @@ public class PruebasDeGenerarEquipos {
     List<Jugador> _segundoEquipo_4 = this.partido2.getSegundoEquipo();
     boolean _contains_9 = _segundoEquipo_4.contains(this.leo);
     Assert.assertTrue(_contains_9);
+  }
+  
+  @Test(expected = RuntimeException.class)
+  public void noMePuedoBajarDePartidoConEquiposConfirmados() {
+    GeneracionConcreta _generacionConcreta = new GeneracionConcreta();
+    this.partido2.definirAlgoritmoGeneracion(_generacionConcreta);
+    this.partido2.generarEquipos();
+    this.partido2.confirmarEquipos();
+    this.diego.bajarse(this.partido2);
   }
 }

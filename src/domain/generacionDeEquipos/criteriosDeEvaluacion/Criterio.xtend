@@ -37,7 +37,5 @@ abstract class Criterio implements Comparator<Jugador>
 		}
 	}
 	
-	def ordenarJugadores(Partido partido){
-		Collections.sort(partido.jugadoresConfirmados,this)
-	}
+
 }
