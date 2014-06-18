@@ -1,14 +1,18 @@
 package domain.generacionDeEquipos.algoritmosDeGeneracion
 
+
+import domain.Jugador
+import java.util.List
+
 class GeneracionParImpar extends Generacion{
 	
-	def override designarJugadores(){
-		for(i:0 .. this.partido.jugadoresConfirmados.size-1){
+	def override designarJugadores(List<Jugador> jugadoresARepartir){
+		for(i:0 .. jugadoresARepartir.size-1){
 			if((i % 2) != 0){
-				this.partido.agregarJugadorAEquipo(1,i)
+				this.enviarAlEquipoUno(jugadoresARepartir.get(i))
 			}
 			else{
-				this.partido.agregarJugadorAEquipo(2,i)
+				this.enviarAlEquipoDos(jugadoresARepartir.get(i))
 			}
 		}
 	}

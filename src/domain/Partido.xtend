@@ -12,7 +12,7 @@ import domain.excepciones.JugadorNoFueAnotadoException
 import java.util.Hashtable
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
-import domain.excepciones.ImposibleGenerarEquiposException
+
 
 public class Partido implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
@@ -115,22 +115,24 @@ public class Partido implements Comparator<Jugador> { //para descartar la soluci
 		this.algoritmo.partido=this
 	}
 	
-	def ordenarJugadores(){
+	def ordenarJugadores()
+	{
 		this.criterioDeOrdenamiento.ordenarJugadores(this);
 	}
 	
-	def agregarJugadorAEquipo(int equipo, int posicion){
-		var jugador = jugadoresConfirmados.get(posicion)
-		
-		if(primerEquipo.contains(jugador))
-			throw new ImposibleGenerarEquiposException("El jugador "+jugador.nombre+" ya se encuentra inscripto al primer equipo.");
-		
-		if(segundoEquipo.contains(jugador))
-			throw new ImposibleGenerarEquiposException("El jugador "+jugador.nombre+" ya se encuentra inscripto al segundo equipo.");
-		
-		if(equipo == 1)	
+
+	def agregarAlPrimerEquipo(Jugador jugador) 
+		{
 			primerEquipo.add(jugador)
-		else
+				
+		}
+		
+	def agregarAlSegundoEquipo(Jugador jugador) 
+	{
+		{
 			segundoEquipo.add(jugador)
-	}
+		}
+
+}
+
 }

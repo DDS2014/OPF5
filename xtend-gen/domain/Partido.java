@@ -3,7 +3,8 @@ package domain;
 import domain.Jugador;
 import domain.enviadorDeMails.InterfazDistribuidorDeMails;
 import domain.excepciones.JugadorNoFueAnotadoException;
-import domain.generacionDeEquipos.Criterio;
+import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion;
+import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio;
 import domain.infracciones.Infraccion;
 import domain.inscripcion.TipoDeInscripcion;
 import domain.notificaciones.PartidoObserver;
@@ -102,6 +103,16 @@ public class Partido implements Comparator<Jugador> {
     this._equiposEstanConfirmados = equiposEstanConfirmados;
   }
   
+  private Generacion _algoritmo;
+  
+  public Generacion getAlgoritmo() {
+    return this._algoritmo;
+  }
+  
+  public void setAlgoritmo(final Generacion algoritmo) {
+    this._algoritmo = algoritmo;
+  }
+  
   public Partido(final Date fecha) {
     this.setFecha(fecha);
     ArrayList<Jugador> _arrayList = new ArrayList<Jugador>();
@@ -110,6 +121,10 @@ public class Partido implements Comparator<Jugador> {
     this.setObservers(_arrayList_1);
     Hashtable<Jugador,Date> _hashtable = new Hashtable<Jugador, Date>();
     this.fechasDeInscripcion = _hashtable;
+    ArrayList<Jugador> _arrayList_2 = new ArrayList<Jugador>();
+    this.setPrimerEquipo(_arrayList_2);
+    ArrayList<Jugador> _arrayList_3 = new ArrayList<Jugador>();
+    this.setSegundoEquipo(_arrayList_3);
   }
   
   public boolean estaInscripto(final Jugador jugador) {
@@ -228,5 +243,28 @@ public class Partido implements Comparator<Jugador> {
     Date _date = new Date();
     boolean _before = _fecha.before(_date);
     return _before;
+  }
+  
+  public void agregarAlgoritmo(final Generacion algoritmo) {
+    this.setAlgoritmo(algoritmo);
+    Generacion _algoritmo = this.getAlgoritmo();
+    _algoritmo.setPartido(this);
+  }
+  
+  public void ordenarJugadores() {
+    Criterio _criterioDeOrdenamiento = this.getCriterioDeOrdenamiento();
+    _criterioDeOrdenamiento.ordenarJugadores(this);
+  }
+  
+  public boolean agregarAlPrimerEquipo(final Jugador jugador) {
+    List<Jugador> _primerEquipo = this.getPrimerEquipo();
+    boolean _add = _primerEquipo.add(jugador);
+    return _add;
+  }
+  
+  public boolean agregarAlSegundoEquipo(final Jugador jugador) {
+    List<Jugador> _segundoEquipo = this.getSegundoEquipo();
+    boolean _add = _segundoEquipo.add(jugador);
+    return _add;
   }
 }

@@ -49,7 +49,9 @@ class PruebasDeGenerarEquipos
 		alejandro.setHandicap(4);
 		martin.setHandicap(2);
 		
-		partido2 = new Partido (new Date);
+		partido2 = new Partido (new Date); 
+		//el partido 2 lo creamos y lo configuramos a manopla porque necesitamos referencias a los jugadores que vamos inscribiendo
+		
 		
 		diego.inscribirse(partido2);
 		facundo.inscribirse(partido2);

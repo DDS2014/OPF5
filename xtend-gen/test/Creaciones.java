@@ -35,6 +35,14 @@ public class Creaciones {
     InscripcionEstandar _inscripcionEstandar_7 = new InscripcionEstandar();
     Jugador _jugador_7 = new Jugador("Alan", 30, _inscripcionEstandar_7);
     Jugador p8 = _jugador_7;
+    p1.setHandicap(3);
+    p2.setHandicap(5);
+    p3.setHandicap(6);
+    p4.setHandicap(1);
+    p5.setHandicap(8);
+    p6.setHandicap(9);
+    p7.setHandicap(7);
+    p8.setHandicap(4);
     p1.inscribirse(partido);
     p2.inscribirse(partido);
     p3.inscribirse(partido);
@@ -51,6 +59,7 @@ public class Creaciones {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
     Jugador _jugador = new Jugador("Carlos", 20, _inscripcionEstandar);
     Jugador p9 = _jugador;
+    p9.setHandicap(2);
     p9.inscribirse(partido);
     return partido;
   }
