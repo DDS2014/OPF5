@@ -13,7 +13,6 @@ import domain.inscripcion.condiciones.Condicion_LimiteDeEdad
 import java.util.Date
 import org.junit.Assert
 import org.junit.Test
-import static test.Creaciones.*
 import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException
 
 public class PruebasDeInscripcionDeJugadores

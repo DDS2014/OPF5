@@ -4,8 +4,7 @@ import domain.Jugador
 import domain.calificaciones.Calificacion
 import java.util.Collection
 import java.util.Comparator
-import domain.Partido
-import java.util.Collections
+
 
 abstract class Criterio implements Comparator<Jugador>
 {
