@@ -64,7 +64,7 @@ public class Partido implements Comparator<Jugador> {
     this._distribuidor = distribuidor;
   }
   
-  private Hashtable<Jugador,Date> fechasDeInscripcion;
+  private Hashtable<Jugador, Date> fechasDeInscripcion;
   
   private Criterio _criterioDeOrdenamiento;
   
@@ -114,7 +114,7 @@ public class Partido implements Comparator<Jugador> {
     this.setJugadoresConfirmados(_arrayList);
     ArrayList<PartidoObserver> _arrayList_1 = new ArrayList<PartidoObserver>();
     this.setObservers(_arrayList_1);
-    Hashtable<Jugador,Date> _hashtable = new Hashtable<Jugador, Date>();
+    Hashtable<Jugador, Date> _hashtable = new Hashtable<Jugador, Date>();
     this.fechasDeInscripcion = _hashtable;
     ArrayList<Jugador> _arrayList_2 = new ArrayList<Jugador>();
     this.setPrimerEquipo(_arrayList_2);
@@ -126,8 +126,7 @@ public class Partido implements Comparator<Jugador> {
   
   public boolean estaInscripto(final Jugador jugador) {
     List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
-    boolean _contains = _jugadoresConfirmados.contains(jugador);
-    return _contains;
+    return _jugadoresConfirmados.contains(jugador);
   }
   
   public boolean hayLugaresLibres() {
@@ -156,8 +155,7 @@ public class Partido implements Comparator<Jugador> {
       };
       IterableExtensions.<PartidoObserver>forEach(_observers, _function);
     } else {
-      JugadorNoFueAnotadoException _jugadorNoFueAnotadoException = new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, jugador);
-      throw _jugadorNoFueAnotadoException;
+      throw new JugadorNoFueAnotadoException("El jugador que se intentó agregar ya estaba isncripto", this, jugador);
     }
   }
   
@@ -166,8 +164,7 @@ public class Partido implements Comparator<Jugador> {
     {
       this.confirmarAsistencia(entrante);
       List<Jugador> _jugadoresConfirmados = this.getJugadoresConfirmados();
-      boolean _remove = _jugadoresConfirmados.remove(saliente);
-      _xblockexpression = (_remove);
+      _xblockexpression = _jugadoresConfirmados.remove(saliente);
     }
     return _xblockexpression;
   }
@@ -227,21 +224,18 @@ public class Partido implements Comparator<Jugador> {
   
   public boolean agregarObsever(final PartidoObserver observer) {
     List<PartidoObserver> _observers = this.getObservers();
-    boolean _add = _observers.add(observer);
-    return _add;
+    return _observers.add(observer);
   }
   
   public boolean removeObserver(final PartidoObserver observer) {
     List<PartidoObserver> _observers = this.getObservers();
-    boolean _remove = _observers.remove(observer);
-    return _remove;
+    return _observers.remove(observer);
   }
   
   public boolean seJugo() {
     Date _fecha = this.getFecha();
     Date _date = new Date();
-    boolean _before = _fecha.before(_date);
-    return _before;
+    return _fecha.before(_date);
   }
   
   public void definirAlgoritmoGeneracion(final Generacion algoritmo) {
@@ -271,14 +265,12 @@ public class Partido implements Comparator<Jugador> {
   
   public boolean agregarAlPrimerEquipo(final Jugador jugador) {
     List<Jugador> _primerEquipo = this.getPrimerEquipo();
-    boolean _add = _primerEquipo.add(jugador);
-    return _add;
+    return _primerEquipo.add(jugador);
   }
   
   public boolean agregarAlSegundoEquipo(final Jugador jugador) {
     List<Jugador> _segundoEquipo = this.getSegundoEquipo();
-    boolean _add = _segundoEquipo.add(jugador);
-    return _add;
+    return _segundoEquipo.add(jugador);
   }
   
   public PartidoState confirmarEquipos() {
@@ -287,12 +279,10 @@ public class Partido implements Comparator<Jugador> {
       boolean _hayEquipo = this.hayEquipo();
       boolean _not = (!_hayEquipo);
       if (_not) {
-        RuntimeException _runtimeException = new RuntimeException("No se puede confirmar los equipos ya que no se generaron correctamente");
-        throw _runtimeException;
+        throw new RuntimeException("No se puede confirmar los equipos ya que no se generaron correctamente");
       }
       PartidoConEquiposConfirmados_State _partidoConEquiposConfirmados_State = new PartidoConEquiposConfirmados_State();
-      PartidoState _estado = this.estado = _partidoConEquiposConfirmados_State;
-      _xblockexpression = (_estado);
+      _xblockexpression = this.estado = _partidoConEquiposConfirmados_State;
     }
     return _xblockexpression;
   }
@@ -308,7 +298,7 @@ public class Partido implements Comparator<Jugador> {
       List<Jugador> _primerEquipo = this.getPrimerEquipo();
       int _size_1 = _primerEquipo.size();
       boolean _equals_1 = (_size_1 == 5);
-      _and = (_equals && _equals_1);
+      _and = _equals_1;
     }
     return _and;
   }

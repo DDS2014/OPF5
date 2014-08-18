@@ -15,8 +15,7 @@ public class CriterioCompuesto extends Criterio {
   }
   
   public boolean agregarSubcriterio(final Criterio subcriterio) {
-    boolean _add = this.subCriterios.add(subcriterio);
-    return _add;
+    return this.subCriterios.add(subcriterio);
   }
   
   public double evaluarJugador(final Jugador jugador) {

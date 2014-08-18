@@ -16,7 +16,7 @@ public class NotificarAdminObserver implements PartidoObserver {
       } else {
         boolean _hayLugaresLibres = partido.hayLugaresLibres();
         boolean _not = (!_hayLugaresLibres);
-        _and = (habiaLugar && _not);
+        _and = _not;
       }
       if (_and) {
         String subject = "Partido Confirmado";

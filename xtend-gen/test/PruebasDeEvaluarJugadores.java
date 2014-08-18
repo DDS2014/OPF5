@@ -12,54 +12,25 @@ import domain.sugerencias.Comunidad;
 import java.util.Calendar;
 import java.util.Date;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("all")
 public class PruebasDeEvaluarJugadores {
-  private Jugador martin = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Martin", 31, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador martin = new Jugador("Martin", 31, new InscripcionEstandar());
   
-  private Jugador francisco = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Francisco", 22, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador francisco = new Jugador("Francisco", 22, new InscripcionEstandar());
   
-  private Jugador federico = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Federico", 25, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador federico = new Jugador("Federico", 25, new InscripcionEstandar());
   
-  private Comunidad losMuchachos = new Function0<Comunidad>() {
-    public Comunidad apply() {
-      Comunidad _comunidad = new Comunidad();
-      return _comunidad;
-    }
-  }.apply();
+  private Comunidad losMuchachos = new Comunidad();
   
   private Partido primerPartido;
   
   private Partido segundoPartido;
   
-  private Calendar cal = new Function0<Calendar>() {
-    public Calendar apply() {
-      Calendar _instance = Calendar.getInstance();
-      return _instance;
-    }
-  }.apply();
+  private Calendar cal = Calendar.getInstance();
   
   @Before
   public void setup() {
@@ -115,20 +86,16 @@ public class PruebasDeEvaluarJugadores {
   
   @Test
   public void evaluarPorHandicapDevuelveResultadoCorrecto() {
-    CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
-    CriterioDelHandicap criterio = _criterioDelHandicap;
+    CriterioDelHandicap criterio = new CriterioDelHandicap();
     double _evaluarJugador = criterio.evaluarJugador(this.federico);
     Assert.assertEquals("", 9.0, _evaluarJugador, 0.05);
   }
   
   @Test
   public void evaluarPorNUltimasCalificacionesDevuelveResultadoCorrecto() {
-    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(1);
-    CriterioDeLasUltimasCalificaciones criterio1UltimaCalificacion = _criterioDeLasUltimasCalificaciones;
-    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones_1 = new CriterioDeLasUltimasCalificaciones(2);
-    CriterioDeLasUltimasCalificaciones criterio2UltimasCalificaciones = _criterioDeLasUltimasCalificaciones_1;
-    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones_2 = new CriterioDeLasUltimasCalificaciones(3);
-    CriterioDeLasUltimasCalificaciones criterio3UltimasCalificaciones = _criterioDeLasUltimasCalificaciones_2;
+    CriterioDeLasUltimasCalificaciones criterio1UltimaCalificacion = new CriterioDeLasUltimasCalificaciones(1);
+    CriterioDeLasUltimasCalificaciones criterio2UltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(2);
+    CriterioDeLasUltimasCalificaciones criterio3UltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(3);
     double _evaluarJugador = criterio1UltimaCalificacion.evaluarJugador(this.federico);
     Assert.assertEquals("", 6.0, _evaluarJugador, 0.05);
     double _evaluarJugador_1 = criterio2UltimasCalificaciones.evaluarJugador(this.federico);
@@ -139,27 +106,22 @@ public class PruebasDeEvaluarJugadores {
   
   @Test(expected = ImposibleEvaluarException.class)
   public void evaluarPorMasCalificacionesDeLasQueHayRompe() {
-    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(4);
-    CriterioDeLasUltimasCalificaciones criterio = _criterioDeLasUltimasCalificaciones;
+    CriterioDeLasUltimasCalificaciones criterio = new CriterioDeLasUltimasCalificaciones(4);
     criterio.evaluarJugador(this.federico);
   }
   
   @Test
   public void evaluarPorPromedioDelUltimoPartidoDevuelveResultadoCorrecto() {
-    CriterioDelUltimoPartido _criterioDelUltimoPartido = new CriterioDelUltimoPartido(this.losMuchachos);
-    CriterioDelUltimoPartido criterio = _criterioDelUltimoPartido;
+    CriterioDelUltimoPartido criterio = new CriterioDelUltimoPartido(this.losMuchachos);
     double _evaluarJugador = criterio.evaluarJugador(this.federico);
     Assert.assertEquals("", 8.50, _evaluarJugador, 0.05);
   }
   
   @Test
   public void evaluarPorCriterioCompuestoDevuelveResultadoCorrecto() {
-    CriterioCompuesto _criterioCompuesto = new CriterioCompuesto();
-    CriterioCompuesto criterio = _criterioCompuesto;
-    CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
-    CriterioDelHandicap subCriterioHandicap = _criterioDelHandicap;
-    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(2);
-    CriterioDeLasUltimasCalificaciones subCriterioUltimasDosCriticas = _criterioDeLasUltimasCalificaciones;
+    CriterioCompuesto criterio = new CriterioCompuesto();
+    CriterioDelHandicap subCriterioHandicap = new CriterioDelHandicap();
+    CriterioDeLasUltimasCalificaciones subCriterioUltimasDosCriticas = new CriterioDeLasUltimasCalificaciones(2);
     criterio.agregarSubcriterio(subCriterioHandicap);
     criterio.agregarSubcriterio(subCriterioUltimasDosCriticas);
     double _evaluarJugador = criterio.evaluarJugador(this.federico);

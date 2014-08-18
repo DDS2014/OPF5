@@ -19,15 +19,13 @@ public class CriterioDelUltimoPartido extends Criterio {
   }
   
   public double evaluarJugador(final Jugador jugador) {
-    ArrayList<Calificacion> _arrayList = new ArrayList<Calificacion>();
-    ArrayList<Calificacion> calificacionesAConsiderar = _arrayList;
+    ArrayList<Calificacion> calificacionesAConsiderar = new ArrayList<Calificacion>();
     ArrayList<Calificacion> _calificaciones = jugador.getCalificaciones();
-    final Function1<Calificacion,Boolean> _function = new Function1<Calificacion,Boolean>() {
+    final Function1<Calificacion, Boolean> _function = new Function1<Calificacion, Boolean>() {
       public Boolean apply(final Calificacion calif) {
         Partido _partido = calif.getPartido();
         Partido _ultimoPartido = CriterioDelUltimoPartido.this.comunidad.ultimoPartido();
-        boolean _equals = Objects.equal(_partido, _ultimoPartido);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf(Objects.equal(_partido, _ultimoPartido));
       }
     };
     Iterable<Calificacion> iterableCalificaciones = IterableExtensions.<Calificacion>filter(_calificaciones, _function);

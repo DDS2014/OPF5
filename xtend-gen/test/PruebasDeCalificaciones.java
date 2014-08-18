@@ -56,12 +56,10 @@ public class PruebasDeCalificaciones {
   
   @Test
   public void NoSePuedeCalificarAUnJugadorSiElPartidoNoSeJugo() {
-    Date _date = new Date();
-    final Date fecha = _date;
+    final Date fecha = new Date();
     final int proximoMes = fecha.getMonth();
     fecha.setMonth(proximoMes);
-    Partido _partido = new Partido(fecha);
-    Partido partido = _partido;
+    Partido partido = new Partido(fecha);
     this.jugador2.inscribirse(partido);
     this.jugador2.calificar(10, "Excelente", partido, this.jugador1);
   }

@@ -10,7 +10,6 @@ import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap;
 import domain.inscripcion.InscripcionEstandar;
 import java.util.Date;
 import java.util.List;
-import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,85 +23,25 @@ public class PruebasDeGenerarEquipos {
   
   private Criterio criterio;
   
-  private Jugador diego = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Diego", 22, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador diego = new Jugador("Diego", 22, new InscripcionEstandar());
   
-  private Jugador facundo = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Facundo", 26, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador facundo = new Jugador("Facundo", 26, new InscripcionEstandar());
   
-  private Jugador marcos = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Marcos", 28, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador marcos = new Jugador("Marcos", 28, new InscripcionEstandar());
   
-  private Jugador pepe = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Pepe", 42, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador pepe = new Jugador("Pepe", 42, new InscripcionEstandar());
   
-  private Jugador leo = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Leo", 32, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador leo = new Jugador("Leo", 32, new InscripcionEstandar());
   
-  private Jugador homero = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Homero", 29, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador homero = new Jugador("Homero", 29, new InscripcionEstandar());
   
-  private Jugador esteban = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Esteban", 20, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador esteban = new Jugador("Esteban", 20, new InscripcionEstandar());
   
-  private Jugador luis = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Luis", 17, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador luis = new Jugador("Luis", 17, new InscripcionEstandar());
   
-  private Jugador alejandro = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Alejandro", 34, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador alejandro = new Jugador("Alejandro", 34, new InscripcionEstandar());
   
-  private Jugador martin = new Function0<Jugador>() {
-    public Jugador apply() {
-      InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Martin", 29, _inscripcionEstandar);
-      return _jugador;
-    }
-  }.apply();
+  private Jugador martin = new Jugador("Martin", 29, new InscripcionEstandar());
   
   @Before
   public void setup() {

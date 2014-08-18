@@ -20,11 +20,9 @@ public class PruebasDeInscripcionDeJugadores {
   @Test
   public void inscriboUnJugadorAUnPartidoYQuedaInscripto() {
     Date _date = new Date();
-    Partido _partido = new Partido(_date);
-    Partido partido = _partido;
+    Partido partido = new Partido(_date);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador = new Jugador("Pedrito", 23, _inscripcionEstandar);
-    Jugador jugador = _jugador;
+    Jugador jugador = new Jugador("Pedrito", 23, _inscripcionEstandar);
     jugador.inscribirse(partido);
     boolean _estaInscripto = partido.estaInscripto(jugador);
     Assert.assertTrue(_estaInscripto);
@@ -33,14 +31,11 @@ public class PruebasDeInscripcionDeJugadores {
   @Test
   public void cuandoUnJugadorDesplazaAOtroElDesplazadorQuedaInscriptoYElDesplazadoSale() {
     Date _date = new Date();
-    Partido _partido = new Partido(_date);
-    Partido partido = _partido;
+    Partido partido = new Partido(_date);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador = new Jugador("Juancito", 25, _inscripcionEstandar);
-    Jugador saliente = _jugador;
+    Jugador saliente = new Jugador("Juancito", 25, _inscripcionEstandar);
     InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
-    Jugador _jugador_1 = new Jugador("Jorgito", 20, _inscripcionEstandar_1);
-    Jugador entrante = _jugador_1;
+    Jugador entrante = new Jugador("Jorgito", 20, _inscripcionEstandar_1);
     partido.reemplazar(entrante, saliente);
     boolean _estaInscripto = partido.estaInscripto(entrante);
     Assert.assertTrue(_estaInscripto);
@@ -52,8 +47,7 @@ public class PruebasDeInscripcionDeJugadores {
   public void noSePuedeAnotarNadieAUnPartidoCon10Estandar() {
     Partido partidoEstandar = Creaciones.crearPartidoLlenoCon10Estandar();
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador = new Jugador("Jorgito", 20, _inscripcionEstandar);
-    Jugador colgado = _jugador;
+    Jugador colgado = new Jugador("Jorgito", 20, _inscripcionEstandar);
     colgado.inscribirse(partidoEstandar);
     boolean _estaInscripto = partidoEstandar.estaInscripto(colgado);
     Assert.assertFalse(_estaInscripto);
@@ -63,11 +57,9 @@ public class PruebasDeInscripcionDeJugadores {
   public void enUnaListaCon9EstandarY1SolidarioPuedeEntrarOtroEstandarDesplazandoAlSolidario() {
     Partido partido = Creaciones.crearPartidoCon9Estandar();
     InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Jugador _jugador = new Jugador("Marquitos", 20, _inscripcionSolidaria);
-    Jugador jugadorSolidario = _jugador;
+    Jugador jugadorSolidario = new Jugador("Marquitos", 20, _inscripcionSolidaria);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador_1 = new Jugador("Miguelito", 20, _inscripcionEstandar);
-    Jugador jugadorNuevo = _jugador_1;
+    Jugador jugadorNuevo = new Jugador("Miguelito", 20, _inscripcionEstandar);
     jugadorSolidario.inscribirse(partido);
     jugadorNuevo.inscribirse(partido);
     boolean _estaInscripto = partido.estaInscripto(jugadorNuevo);
@@ -81,16 +73,13 @@ public class PruebasDeInscripcionDeJugadores {
     Partido partido = Creaciones.crearPartidoCon8Estandar();
     Condicion_LimiteDeEdad _condicion_LimiteDeEdad = new Condicion_LimiteDeEdad(20, 2, true, true);
     InscripcionCondicional _inscripcionCondicional = new InscripcionCondicional(_condicion_LimiteDeEdad);
-    Jugador _jugador = new Jugador("Josecito", 34, _inscripcionCondicional);
-    Jugador jugadorCondicional = _jugador;
+    Jugador jugadorCondicional = new Jugador("Josecito", 34, _inscripcionCondicional);
     InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Jugador _jugador_1 = new Jugador("Marquitos", 20, _inscripcionSolidaria);
-    Jugador jugadorSolidario = _jugador_1;
+    Jugador jugadorSolidario = new Jugador("Marquitos", 20, _inscripcionSolidaria);
     jugadorSolidario.inscribirse(partido);
     jugadorCondicional.inscribirse(partido);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador_2 = new Jugador("Pablito", 20, _inscripcionEstandar);
-    Jugador jugadorNuevo = _jugador_2;
+    Jugador jugadorNuevo = new Jugador("Pablito", 20, _inscripcionEstandar);
     jugadorNuevo.inscribirse(partido);
     boolean _estaInscripto = partido.estaInscripto(jugadorNuevo);
     Assert.assertTrue(_estaInscripto);
@@ -105,16 +94,13 @@ public class PruebasDeInscripcionDeJugadores {
     Partido partido = Creaciones.crearPartidoCon8Estandar();
     Condicion_LimiteDeEdad _condicion_LimiteDeEdad = new Condicion_LimiteDeEdad(20, 2, true, true);
     InscripcionCondicional _inscripcionCondicional = new InscripcionCondicional(_condicion_LimiteDeEdad);
-    Jugador _jugador = new Jugador("Josecito", 34, _inscripcionCondicional);
-    Jugador jugadorCondicional = _jugador;
+    Jugador jugadorCondicional = new Jugador("Josecito", 34, _inscripcionCondicional);
     InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Jugador _jugador_1 = new Jugador("Marquitos", 20, _inscripcionSolidaria);
-    Jugador jugadorSolidario = _jugador_1;
+    Jugador jugadorSolidario = new Jugador("Marquitos", 20, _inscripcionSolidaria);
     jugadorSolidario.inscribirse(partido);
     jugadorCondicional.inscribirse(partido);
     InscripcionSolidaria _inscripcionSolidaria_1 = new InscripcionSolidaria();
-    Jugador _jugador_2 = new Jugador("Pablito", 20, _inscripcionSolidaria_1);
-    Jugador jugadorNuevo = _jugador_2;
+    Jugador jugadorNuevo = new Jugador("Pablito", 20, _inscripcionSolidaria_1);
     jugadorNuevo.inscribirse(partido);
     boolean _estaInscripto = partido.estaInscripto(jugadorNuevo);
     Assert.assertTrue(_estaInscripto);
@@ -127,11 +113,9 @@ public class PruebasDeInscripcionDeJugadores {
   @Test(expected = JugadorNoFueAnotadoException.class)
   public void noSePuedeAnotarAlMismoJugadorDosVeces() {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador = new Jugador("Manuelito", 24, _inscripcionEstandar);
-    Jugador jugador = _jugador;
+    Jugador jugador = new Jugador("Manuelito", 24, _inscripcionEstandar);
     Date _date = new Date();
-    Partido _partido = new Partido(_date);
-    Partido partido = _partido;
+    Partido partido = new Partido(_date);
     jugador.inscribirse(partido);
     jugador.inscribirse(partido);
     List<Jugador> _jugadoresConfirmados = partido.getJugadoresConfirmados();
@@ -143,16 +127,13 @@ public class PruebasDeInscripcionDeJugadores {
   public void alHaberDosSolidariosParaDesplazarSeDesplazaAlQueSeAnotoPrimero() {
     Partido partido = Creaciones.crearPartidoCon8Estandar();
     InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Jugador _jugador = new Jugador("Danielito", 25, _inscripcionSolidaria);
-    Jugador primerJugador = _jugador;
+    Jugador primerJugador = new Jugador("Danielito", 25, _inscripcionSolidaria);
     InscripcionSolidaria _inscripcionSolidaria_1 = new InscripcionSolidaria();
-    Jugador _jugador_1 = new Jugador("Fernandito", 24, _inscripcionSolidaria_1);
-    Jugador segundoJugador = _jugador_1;
+    Jugador segundoJugador = new Jugador("Fernandito", 24, _inscripcionSolidaria_1);
     primerJugador.inscribirse(partido);
     segundoJugador.inscribirse(partido);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador_2 = new Jugador("Dieguito", 18, _inscripcionEstandar);
-    Jugador nuevoJugador = _jugador_2;
+    Jugador nuevoJugador = new Jugador("Dieguito", 18, _inscripcionEstandar);
     nuevoJugador.inscribirse(partido);
     boolean _estaInscripto = partido.estaInscripto(nuevoJugador);
     Assert.assertTrue(_estaInscripto);
@@ -164,20 +145,15 @@ public class PruebasDeInscripcionDeJugadores {
   
   public Partido crearPartidoParaPruebasDeCondicional() {
     Date _date = new Date();
-    Partido _partido = new Partido(_date);
-    Partido partido = _partido;
+    Partido partido = new Partido(_date);
     InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
-    Jugador _jugador = new Jugador("Danielito", 29, _inscripcionSolidaria);
-    Jugador primerJugador = _jugador;
+    Jugador primerJugador = new Jugador("Danielito", 29, _inscripcionSolidaria);
     InscripcionSolidaria _inscripcionSolidaria_1 = new InscripcionSolidaria();
-    Jugador _jugador_1 = new Jugador("Fernandito", 24, _inscripcionSolidaria_1);
-    Jugador segundoJugador = _jugador_1;
+    Jugador segundoJugador = new Jugador("Fernandito", 24, _inscripcionSolidaria_1);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador_2 = new Jugador("Dieguito", 18, _inscripcionEstandar);
-    Jugador tercerJugador = _jugador_2;
+    Jugador tercerJugador = new Jugador("Dieguito", 18, _inscripcionEstandar);
     InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
-    Jugador _jugador_3 = new Jugador("Omarcito", 42, _inscripcionEstandar_1);
-    Jugador cuartoJugador = _jugador_3;
+    Jugador cuartoJugador = new Jugador("Omarcito", 42, _inscripcionEstandar_1);
     primerJugador.inscribirse(partido);
     segundoJugador.inscribirse(partido);
     tercerJugador.inscribirse(partido);
@@ -190,8 +166,7 @@ public class PruebasDeInscripcionDeJugadores {
     Partido partido = this.crearPartidoParaPruebasDeCondicional();
     Condicion_LimiteDeEdad _condicion_LimiteDeEdad = new Condicion_LimiteDeEdad(20, 3, true, true);
     InscripcionCondicional _inscripcionCondicional = new InscripcionCondicional(_condicion_LimiteDeEdad);
-    Jugador _jugador = new Jugador("Josue", 25, _inscripcionCondicional);
-    Jugador jugadorCondicional = _jugador;
+    Jugador jugadorCondicional = new Jugador("Josue", 25, _inscripcionCondicional);
     jugadorCondicional.inscribirse(partido);
     boolean _estaInscripto = partido.estaInscripto(jugadorCondicional);
     Assert.assertTrue(_estaInscripto);
@@ -202,8 +177,7 @@ public class PruebasDeInscripcionDeJugadores {
     Partido partido = this.crearPartidoParaPruebasDeCondicional();
     Condicion_LimiteDeEdad _condicion_LimiteDeEdad = new Condicion_LimiteDeEdad(25, 2, false, false);
     InscripcionCondicional _inscripcionCondicional = new InscripcionCondicional(_condicion_LimiteDeEdad);
-    Jugador _jugador = new Jugador("Josue", 25, _inscripcionCondicional);
-    Jugador jugadorCondicional = _jugador;
+    Jugador jugadorCondicional = new Jugador("Josue", 25, _inscripcionCondicional);
     jugadorCondicional.inscribirse(partido);
   }
 }

@@ -39,8 +39,7 @@ public class InscripcionCondicional extends TipoDeInscripcion {
     boolean _seCumple = _condicion.seCumple(partido);
     boolean _not = (!_seCumple);
     if (_not) {
-      NoSeCumpleLaCondicionParaAnotarseException _noSeCumpleLaCondicionParaAnotarseException = new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este jugador para anotarse", partido, participante);
-      throw _noSeCumpleLaCondicionParaAnotarseException;
+      throw new NoSeCumpleLaCondicionParaAnotarseException("No se cumplió la condición que exigía este jugador para anotarse", partido, participante);
     } else {
       super.inscribir(participante, partido);
     }
@@ -53,7 +52,7 @@ public class InscripcionCondicional extends TipoDeInscripcion {
       _or = true;
     } else {
       TipoDeInscripcion _modalidad_1 = entrante.getModalidad();
-      _or = ((_modalidad instanceof InscripcionEstandar) || (_modalidad_1 instanceof InscripcionSolidaria));
+      _or = (_modalidad_1 instanceof InscripcionSolidaria);
     }
     if (_or) {
       partido.reemplazar(entrante, saliente);

@@ -77,15 +77,13 @@ public class Sugerencia {
   public Jugador aprobar(final TipoDeInscripcion modalidad) {
     String _nombre = this.getNombre();
     int _edad = this.getEdad();
-    Jugador _jugador = new Jugador(_nombre, _edad, modalidad);
-    final Jugador jugador = _jugador;
+    final Jugador jugador = new Jugador(_nombre, _edad, modalidad);
     return jugador;
   }
   
   public Denegacion denegar(final String motivo) {
     String _nombre = this.getNombre();
-    Denegacion _denegacion = new Denegacion(_nombre, motivo);
-    final Denegacion denegacion = _denegacion;
+    final Denegacion denegacion = new Denegacion(_nombre, motivo);
     return denegacion;
   }
 }

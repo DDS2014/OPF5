@@ -13,10 +13,8 @@ public class CriterioDeLasUltimasCalificaciones extends Criterio {
   private int cantidadDeCalificaciones;
   
   public CriterioDeLasUltimasCalificaciones(final int cantidadDeCalificaciones) {
-    boolean _lessThan = (cantidadDeCalificaciones < 0);
-    if (_lessThan) {
-      RuntimeException _runtimeException = new RuntimeException("Debe especificar un número positivo de calificaciones a tener en cuenta");
-      throw _runtimeException;
+    if ((cantidadDeCalificaciones < 0)) {
+      throw new RuntimeException("Debe especificar un número positivo de calificaciones a tener en cuenta");
     }
     this.cantidadDeCalificaciones = cantidadDeCalificaciones;
   }
@@ -26,8 +24,7 @@ public class CriterioDeLasUltimasCalificaciones extends Criterio {
     int _length = ((Object[])Conversions.unwrapArray(_calificaciones, Object.class)).length;
     boolean _lessThan = (_length < this.cantidadDeCalificaciones);
     if (_lessThan) {
-      ImposibleEvaluarException _imposibleEvaluarException = new ImposibleEvaluarException("El jugador tiene menos calificaciones de las que se pidieron tener en cuenta");
-      throw _imposibleEvaluarException;
+      throw new ImposibleEvaluarException("El jugador tiene menos calificaciones de las que se pidieron tener en cuenta");
     }
     ArrayList<Calificacion> _calificaciones_1 = jugador.getCalificaciones();
     List<Calificacion> calificacionesAConsiderar = _calificaciones_1.subList(0, this.cantidadDeCalificaciones);

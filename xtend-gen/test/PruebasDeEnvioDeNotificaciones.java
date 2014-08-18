@@ -20,11 +20,9 @@ public class PruebasDeEnvioDeNotificaciones {
   @Test
   public void CuandoHagoAmigosADosJugadoresAmbosSeTienenDeAmigos() {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador = new Jugador("Juan", 18, _inscripcionEstandar);
-    Jugador jugadorJuan = _jugador;
+    Jugador jugadorJuan = new Jugador("Juan", 18, _inscripcionEstandar);
     InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
-    Jugador _jugador_1 = new Jugador("Pedro", 20, _inscripcionEstandar_1);
-    Jugador jugadorPedro = _jugador_1;
+    Jugador jugadorPedro = new Jugador("Pedro", 20, _inscripcionEstandar_1);
     jugadorJuan.hacerseAmigoDe(jugadorPedro);
     boolean _tieneAlAmigo = jugadorJuan.tieneAlAmigo(jugadorPedro);
     Assert.assertTrue(_tieneAlAmigo);
@@ -43,8 +41,7 @@ public class PruebasDeEnvioDeNotificaciones {
       NotificarAmigosObserver _notificarAmigosObserver = new NotificarAmigosObserver();
       partido.agregarObsever(_notificarAmigosObserver);
       InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Lucas", 20, _inscripcionEstandar);
-      Jugador p10 = _jugador;
+      Jugador p10 = new Jugador("Lucas", 20, _inscripcionEstandar);
       p10.inscribirse(partido);
       VerificationMode _times = Mockito.times(1);
       InterfazDistribuidorDeMails _verify = Mockito.<InterfazDistribuidorDeMails>verify(mockedDistribuidor, _times);
@@ -68,8 +65,7 @@ public class PruebasDeEnvioDeNotificaciones {
       NotificarAmigosObserver _notificarAmigosObserver = new NotificarAmigosObserver();
       partido.agregarObsever(_notificarAmigosObserver);
       InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Lucas", 20, _inscripcionEstandar);
-      Jugador p10 = _jugador;
+      Jugador p10 = new Jugador("Lucas", 20, _inscripcionEstandar);
       p10.inscribirse(partido);
       p10.bajarse(partido);
       VerificationMode _times = Mockito.times(1);
@@ -87,8 +83,7 @@ public class PruebasDeEnvioDeNotificaciones {
   public void CuandoUnJugadorSeBajaNoSeMandaMailsAMenosQueDejeDeEstarConfirmadoElPartido() {
     try {
       Date _date = new Date();
-      Partido _partido = new Partido(_date);
-      Partido partido = _partido;
+      Partido partido = new Partido(_date);
       final InterfazDistribuidorDeMails mockedDistribuidor = Mockito.<InterfazDistribuidorDeMails>mock(InterfazDistribuidorDeMails.class);
       partido.setDistribuidor(mockedDistribuidor);
       NotificarAdminObserver _notificarAdminObserver = new NotificarAdminObserver();
@@ -96,8 +91,7 @@ public class PruebasDeEnvioDeNotificaciones {
       NotificarAmigosObserver _notificarAmigosObserver = new NotificarAmigosObserver();
       partido.agregarObsever(_notificarAmigosObserver);
       InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Pepe", 20, _inscripcionEstandar);
-      Jugador p1 = _jugador;
+      Jugador p1 = new Jugador("Pepe", 20, _inscripcionEstandar);
       p1.inscribirse(partido);
       p1.bajarse(partido);
       VerificationMode _times = Mockito.times(0);
@@ -115,17 +109,13 @@ public class PruebasDeEnvioDeNotificaciones {
   public void CuandoUnJugadorSeInscribeSusAmigosSonNotificados() {
     try {
       Date _date = new Date();
-      Partido _partido = new Partido(_date);
-      Partido partido = _partido;
+      Partido partido = new Partido(_date);
       InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-      Jugador _jugador = new Jugador("Pepe", 20, _inscripcionEstandar);
-      Jugador jugadorPepe = _jugador;
+      Jugador jugadorPepe = new Jugador("Pepe", 20, _inscripcionEstandar);
       InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
-      Jugador _jugador_1 = new Jugador("Luis", 18, _inscripcionEstandar_1);
-      Jugador jugadorLuis = _jugador_1;
+      Jugador jugadorLuis = new Jugador("Luis", 18, _inscripcionEstandar_1);
       InscripcionEstandar _inscripcionEstandar_2 = new InscripcionEstandar();
-      Jugador _jugador_2 = new Jugador("Pedro", 20, _inscripcionEstandar_2);
-      Jugador jugadorPedro = _jugador_2;
+      Jugador jugadorPedro = new Jugador("Pedro", 20, _inscripcionEstandar_2);
       jugadorPepe.hacerseAmigoDe(jugadorLuis);
       jugadorPepe.hacerseAmigoDe(jugadorPedro);
       jugadorLuis.setEmail("luisito@gmail.com");

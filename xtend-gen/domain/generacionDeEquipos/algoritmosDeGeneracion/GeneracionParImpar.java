@@ -12,9 +12,7 @@ public class GeneracionParImpar extends Generacion {
     int _minus = (_size - 1);
     IntegerRange _upTo = new IntegerRange(0, _minus);
     for (final Integer i : _upTo) {
-      int _modulo = ((i).intValue() % 2);
-      boolean _notEquals = (_modulo != 0);
-      if (_notEquals) {
+      if ((((i).intValue() % 2) != 0)) {
         Jugador _get = jugadoresARepartir.get((i).intValue());
         this.enviarAlEquipoUno(_get);
       } else {

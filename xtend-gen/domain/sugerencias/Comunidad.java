@@ -66,20 +66,17 @@ public class Comunidad implements Comparator<Partido> {
   
   public boolean agregar(final Jugador jugador) {
     HashSet<Jugador> _aprobados = this.getAprobados();
-    boolean _add = _aprobados.add(jugador);
-    return _add;
+    return _aprobados.add(jugador);
   }
   
   public boolean organizarPartido(final Partido partido) {
     ArrayList<Partido> _partidos = this.getPartidos();
-    boolean _add = _partidos.add(partido);
-    return _add;
+    return _partidos.add(partido);
   }
   
   public boolean sugerir(final Sugerencia sugerencia) {
     HashSet<Sugerencia> _pendientes = this.getPendientes();
-    boolean _add = _pendientes.add(sugerencia);
-    return _add;
+    return _pendientes.add(sugerencia);
   }
   
   public Jugador aprobar(final Sugerencia sugerencia, final TipoDeInscripcion modalidad) {
@@ -98,8 +95,7 @@ public class Comunidad implements Comparator<Partido> {
       _pendientes.remove(sugerencia);
       final Denegacion denegacion = sugerencia.denegar(motivo);
       HashSet<Denegacion> _rechazados = this.getRechazados();
-      boolean _add = _rechazados.add(denegacion);
-      _xblockexpression = (_add);
+      _xblockexpression = _rechazados.add(denegacion);
     }
     return _xblockexpression;
   }

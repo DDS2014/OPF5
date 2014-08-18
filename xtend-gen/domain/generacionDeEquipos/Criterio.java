@@ -15,16 +15,14 @@ public abstract class Criterio implements Comparator<Jugador> {
   public double promediarCalificaciones(final Collection<Calificacion> calificacionesAPromediar) {
     double suma = ((double) 0);
     int cantidadAPromediar = ((Object[])Conversions.unwrapArray(calificacionesAPromediar, Object.class)).length;
-    final Function1<Calificacion,Integer> _function = new Function1<Calificacion,Integer>() {
+    final Function1<Calificacion, Integer> _function = new Function1<Calificacion, Integer>() {
       public Integer apply(final Calificacion calif) {
-        int _puntaje = calif.getPuntaje();
-        return Integer.valueOf(_puntaje);
+        return Integer.valueOf(calif.getPuntaje());
       }
     };
     Iterable<Integer> puntajesAPromediar = IterableExtensions.<Calificacion, Integer>map(calificacionesAPromediar, _function);
     for (final Integer puntaje : puntajesAPromediar) {
-      double _plus = (suma + (puntaje).intValue());
-      suma = _plus;
+      suma = (suma + (puntaje).intValue());
     }
     return (suma / cantidadAPromediar);
   }

@@ -21,8 +21,7 @@ public abstract class Generacion {
     Partido _partido = this.getPartido();
     boolean _hayLugaresLibres = _partido.hayLugaresLibres();
     if (_hayLugaresLibres) {
-      ImposibleGenerarEquiposException _imposibleGenerarEquiposException = new ImposibleGenerarEquiposException("Todavía no se completaron los diez jugadores.");
-      throw _imposibleGenerarEquiposException;
+      throw new ImposibleGenerarEquiposException("Todavía no se completaron los diez jugadores.");
     }
     Partido _partido_1 = this.getPartido();
     _partido_1.ordenarJugadores();

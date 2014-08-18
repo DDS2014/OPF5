@@ -10,7 +10,6 @@ import domain.sugerencias.Sugerencia;
 import java.util.Date;
 import java.util.HashSet;
 import org.eclipse.xtext.xbase.lib.Conversions;
-import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,29 +24,16 @@ public class PruebasDeSugerencias {
    * Si sugiero un jugador y se rechaza, queda registrada la denegación
    * Si sugiero un jugador, y se aprueba, este jugador después puede anotarse a los partidos lo más bien
    */
-  private Comunidad losMuchachos = new Function0<Comunidad>() {
-    public Comunidad apply() {
-      Comunidad _comunidad = new Comunidad();
-      return _comunidad;
-    }
-  }.apply();
+  private Comunidad losMuchachos = new Comunidad();
   
-  private Partido partidoDelDomingo = new Function0<Partido>() {
-    public Partido apply() {
-      Date _date = new Date();
-      Partido _partido = new Partido(_date);
-      return _partido;
-    }
-  }.apply();
+  private Partido partidoDelDomingo = new Partido(new Date());
   
   @Before
   public void setup() {
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
-    Jugador _jugador = new Jugador("Martin", 40, _inscripcionEstandar);
-    Jugador martin = _jugador;
+    Jugador martin = new Jugador("Martin", 40, _inscripcionEstandar);
     InscripcionEstandar _inscripcionEstandar_1 = new InscripcionEstandar();
-    Jugador _jugador_1 = new Jugador("Roman", 35, _inscripcionEstandar_1);
-    Jugador roman = _jugador_1;
+    Jugador roman = new Jugador("Roman", 35, _inscripcionEstandar_1);
     this.losMuchachos.agregar(martin);
     this.losMuchachos.agregar(roman);
     this.losMuchachos.organizarPartido(this.partidoDelDomingo);
@@ -55,8 +41,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoAprueboUnJugadorQuedaEnLaComunidad() {
-    Sugerencia _sugerencia = new Sugerencia("Rodrigo", 32);
-    Sugerencia rodrigo = _sugerencia;
+    Sugerencia rodrigo = new Sugerencia("Rodrigo", 32);
     this.losMuchachos.sugerir(rodrigo);
     InscripcionSolidaria _inscripcionSolidaria = new InscripcionSolidaria();
     this.losMuchachos.aprobar(rodrigo, _inscripcionSolidaria);
@@ -68,8 +53,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoRechazoUnJugadorNoQuedaEnLaComunidad() {
-    Sugerencia _sugerencia = new Sugerencia("Hernan", 38);
-    Sugerencia hernan = _sugerencia;
+    Sugerencia hernan = new Sugerencia("Hernan", 38);
     this.losMuchachos.sugerir(hernan);
     this.losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos");
     HashSet<Jugador> _aprobados = this.losMuchachos.getAprobados();
@@ -80,8 +64,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoSugieroUnJugadorQuedaPendiente() {
-    Sugerencia _sugerencia = new Sugerencia("Hernan", 38);
-    Sugerencia hernan = _sugerencia;
+    Sugerencia hernan = new Sugerencia("Hernan", 38);
     this.losMuchachos.sugerir(hernan);
     HashSet<Sugerencia> _pendientes = this.losMuchachos.getPendientes();
     int _length = ((Object[])Conversions.unwrapArray(_pendientes, Object.class)).length;
@@ -91,8 +74,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoRechazoUnJugadorSeRegistraLaDenegacion() {
-    Sugerencia _sugerencia = new Sugerencia("Hernan", 38);
-    Sugerencia hernan = _sugerencia;
+    Sugerencia hernan = new Sugerencia("Hernan", 38);
     this.losMuchachos.sugerir(hernan);
     this.losMuchachos.rechazar(hernan, "No se lleva bien con el resto de los muchachos");
     HashSet<Denegacion> _rechazados = this.losMuchachos.getRechazados();
@@ -103,8 +85,7 @@ public class PruebasDeSugerencias {
   
   @Test
   public void cuandoAprueboUnJugadorEntoncesSePuedeAnotarAlPartido() {
-    Sugerencia _sugerencia = new Sugerencia("Guillermo", 41);
-    Sugerencia amigoDeMartin = _sugerencia;
+    Sugerencia amigoDeMartin = new Sugerencia("Guillermo", 41);
     this.losMuchachos.sugerir(amigoDeMartin);
     InscripcionEstandar _inscripcionEstandar = new InscripcionEstandar();
     Jugador guillermo = this.losMuchachos.aprobar(amigoDeMartin, _inscripcionEstandar);
