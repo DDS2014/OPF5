@@ -20,7 +20,7 @@ class PruebasDeBajaDeJugadores
 		jugadorJuan = new Jugador("Juan", 18, new InscripcionEstandar());	
 		
 		jugadorJuan.inscribirse(partido);
-		
+	
 		/*
 		partJuan = new Participante(jugadorJuan);		
 		partJuan.setModalidad(new InscripcionEstandar(partJuan));

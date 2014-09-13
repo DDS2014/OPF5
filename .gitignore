@@ -1,6 +1,6 @@
+/*/xtend-gen
+/*/bin
+/*/target
 /xtend-gen
-/bin
-/target
-/xtend-gen
-.classpath
-.project
+/*/.classpath
+/*/.project
