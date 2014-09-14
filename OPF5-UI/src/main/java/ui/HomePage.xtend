@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 
+
 /**
  * 
  * @author ?
