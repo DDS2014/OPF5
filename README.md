@@ -1,1 +1,1 @@
-Integrantes: Darío Cappellini, Germán Carella, Damián Centurión, Víctor Fage, Santiago González
+Integrantes: Darío Cappellini, Germán Carella, Damián Centurión, Santiago González
