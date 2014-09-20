@@ -6,7 +6,11 @@ import domain.Jugador
 import domain.Partido
 import java.util.List
 
-class GeneradorDeEquipos 
+import java.io.Serializable
+import java.util.ArrayList
+
+@org.uqbar.commons.utils.Observable
+class GeneradorDeEquipos implements Serializable
 //IMPORTANTE: feature envy en todas partes??? convendrá ir desde la UI directamente a pegarle al partido?
 {
 	Partido partido;
@@ -19,21 +23,23 @@ class GeneradorDeEquipos
 	new(Partido partido)
 	{
 		this.partido = partido
+		this.primerEquipo = new ArrayList<Jugador>
+		this.segundoEquipo = new ArrayList<Jugador>
 	}
 	
 	
 	def generar()
 	{
-		partido.setCriterioDeOrdenamiento(this.criterioDeOrdenamiento)
-		partido.definirAlgoritmoGeneracion(this.criterioDeSeleccion)
-		partido.generarEquipos();
+		this.partido.setCriterioDeOrdenamiento(this.criterioDeOrdenamiento)
+		this.partido.definirAlgoritmoGeneracion(this.criterioDeSeleccion)
+		this.partido.generarEquipos();
 		this.refresh()
 	}
 	
 	def refresh()
 	{
-		this.primerEquipo = partido.primerEquipo;
-		this.segundoEquipo = partido.segundoEquipo;
+		this.primerEquipo = this.partido.primerEquipo;
+		this.segundoEquipo = this.partido.segundoEquipo;
 	}
 	
 }

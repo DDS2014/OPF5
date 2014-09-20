@@ -14,6 +14,7 @@ public class Jugador implements Comparator<Calificacion>
 {
 	@Property String nombre
 	@Property String apellido
+	@Property String apodo
 	@Property int edad
 	@Property double handicap
 	@Property String documento
@@ -31,6 +32,12 @@ public class Jugador implements Comparator<Calificacion>
 		this.infracciones = new HashSet();
 		this.modalidad = modalidad;
 		modalidad.setCliente(this);
+		this.calificaciones=new ArrayList();
+	}
+	
+	new() {
+		this.amigos = new HashSet();
+		this.infracciones = new HashSet();
 		this.calificaciones=new ArrayList();
 	}
 
