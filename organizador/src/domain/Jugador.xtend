@@ -9,8 +9,11 @@ import domain.excepciones.ImposibleBajarseException
 import java.util.ArrayList
 import java.util.Comparator
 import java.util.Collections
+import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.Entity
 
-public class Jugador implements Comparator<Calificacion>
+@Observable
+public class Jugador extends Entity implements Comparator<Calificacion> 
 {
 	@Property String nombre
 	@Property String apellido
