@@ -7,19 +7,21 @@ import java.util.Collections
 import java.util.Comparator
 import java.util.Date
 import java.util.List
-import domain.enviadorDeMails.InterfazDistribuidorDeMails
+//import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import domain.excepciones.JugadorNoFueAnotadoException
 import java.util.Hashtable
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
+import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.Entity
 
-
-public class Partido implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
+@Observable
+public class Partido extends Entity implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
 	@Property Date fecha
 	@Property List<Jugador> jugadoresConfirmados
 	@Property List<PartidoObserver> observers //para descartar la solución observer, borrar este campo y todo lo que rompa como consecuencia
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
-	@Property InterfazDistribuidorDeMails distribuidor
+	//@Property InterfazDistribuidorDeMails distribuidor
 	Hashtable<Jugador, Date> fechasDeInscripcion;
 	@Property Criterio criterioDeOrdenamiento;
 	@Property List<Jugador> primerEquipo

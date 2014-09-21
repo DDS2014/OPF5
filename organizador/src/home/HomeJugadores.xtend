@@ -6,7 +6,6 @@ import domain.Jugador
 import domain.busqueda.CriterioBusqueda
 import domain.inscripcion.TipoDeInscripcion
 import domain.inscripcion.InscripcionEstandar
-import domain.inscripcion.InscripcionSolidaria
 
 @Observable
 class HomeJugadores extends CollectionBasedHome<Jugador> {
@@ -15,19 +14,28 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 	
 	def void init() {
-		this.create("Juan","Juancito",new InscripcionEstandar)
-		this.create("Jose","Pepe",new InscripcionEstandar)
-		this.create("Nicolás","Nico",new InscripcionSolidaria)
+		this.create("Juan","Juancito",new InscripcionEstandar,6)
+		this.create("Jose","Pepe",new InscripcionEstandar,6)
+		this.create("Nicolás","Nico",new InscripcionEstandar,6)
+		this.create("Diego","Diego",new InscripcionEstandar,6)
+		this.create("Roberto","Tito",new InscripcionEstandar,6)
+		this.create("Jorge","Jorge",new InscripcionEstandar,6)
+		this.create("Pablo","Pablo",new InscripcionEstandar,6)
+		this.create("Hernán","Hernán",new InscripcionEstandar,6)
+		this.create("Esteban","Esteban",new InscripcionEstandar,6)
+		this.create("Alberto","Beto",new InscripcionEstandar,6)
 	}
 	
 	// ********************************************************
 	// ** Altas y bajas
 	// ********************************************************
-	def void create(String nombre, String apodo, TipoDeInscripcion modalidad) {
+	def void create(String nombre, String apodo, TipoDeInscripcion modalidad, double handicap) {
 		var jugador = new Jugador()
 		jugador.nombre = nombre
 		jugador.apodo = apodo
+		jugador.modalidad = modalidad
 		modalidad.setCliente(jugador);
+		jugador.handicap = handicap
 		this.create(jugador)
 	}
 	
@@ -35,7 +43,11 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	// ** Búsquedas
 	// ********************************************************
 	def search(CriterioBusqueda criterio) {
-		criterio.buscar(allInstances)
+		criterio.buscar(getJugadores())
+	}
+	
+	def getJugadores(){
+		allInstances
 	}
 	
 	override protected getCriterio(Jugador example) {

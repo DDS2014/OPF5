@@ -8,6 +8,11 @@ import java.util.List
 
 import java.io.Serializable
 import java.util.ArrayList
+import home.HomeJugadores
+import home.HomePartido
+import org.uqbar.commons.utils.ApplicationContext
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
+import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
 
 @org.uqbar.commons.utils.Observable
 class GeneradorDeEquipos implements Serializable
@@ -20,9 +25,11 @@ class GeneradorDeEquipos implements Serializable
 	List<Jugador> segundoEquipo;
 	
 
-	new(Partido partido)
+	new()
 	{
-		this.partido = partido
+		this.partido = homePartido.allInstances.get(0)
+		if(this.partido.hayLugaresLibres)
+			this.inscribirJugadores()
 		this.primerEquipo = new ArrayList<Jugador>
 		this.segundoEquipo = new ArrayList<Jugador>
 	}
@@ -36,10 +43,22 @@ class GeneradorDeEquipos implements Serializable
 		this.refresh()
 	}
 	
+	def inscribirJugadores(){
+		var jugadores = homeJugadores.jugadores
+		jugadores.forEach[j|j.inscribirse(this.partido)]
+	}
+	
 	def refresh()
 	{
 		this.primerEquipo = this.partido.primerEquipo;
 		this.segundoEquipo = this.partido.segundoEquipo;
 	}
 	
+	def HomeJugadores getHomeJugadores() {
+		ApplicationContext::instance.getSingleton(typeof(Jugador))
+	}
+	
+	def HomePartido getHomePartido() {
+		ApplicationContext::instance.getSingleton(typeof(Partido))
+	}
 }

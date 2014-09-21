@@ -22,14 +22,14 @@ class BuscadorDeJugadores implements Serializable
 		resultados = new ArrayList<Jugador>
 
 		// FIN WORKAROUND
-		resultados = getHomeCelulares().search(criterio)
+		resultados = getHomeJugadores().search(criterio)
 		// también se puede llamar homeCelulares.search(numero, nombre) 
 	}
 	
 	def void clear() {
 	}
 	
-	def HomeJugadores getHomeCelulares() {
+	def HomeJugadores getHomeJugadores() {
 		ApplicationContext::instance.getSingleton(typeof(Jugador))
 	}
 }

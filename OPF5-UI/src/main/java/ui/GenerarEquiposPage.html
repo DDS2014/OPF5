@@ -19,39 +19,37 @@
 	            </tr>
 	        </table>
 	        
-	        <form  class="form-horizontal">
+	        <form wicket:id="generarEquiposForm" class="form-horizontal">
 		    <table> 
-		    <tr> <td> <label>Criterio de seleccion: </label>
-		    <select>
-		    	<option>Par-impar</option>
-			    <option>1,4,5,8,9</option>
-			</select> </td>
-			</tr>  
-			
-			<tr> <td> <label>Criterio de ordenamiento: </label>
-		    <select>
-		    	<option>Por handicap</option>
-				<option>Por promedio de notas del ultimo partido</option>
-				<option>Por promedio de notas de los ultimos n partidos</option>
-				<option>Mixto</option>
-			</select> </td>
-	       </table>
-	       <div align=center><button class="btn btn-primary">Generar!</button></div>
-	      
-			    
-			    
-			    
-			    
-			    
-			    
+			    <tr>
+			    	<td> 
+			    		<label>Criterio de seleccion: </label>
+			    		<select>
+			    			<option>Par-impar</option>
+				    		<option>1,4,5,8,9</option>
+						</select> 
+					</td>
+				</tr>  
+				<tr>
+					<td> 
+						<label>Criterio de ordenamiento: </label>
+			    		<select>
+			    			<option>Por handicap</option>
+							<option>Por promedio de notas del ultimo partido</option>
+							<option>Por promedio de notas de los ultimos n partidos</option>
+							<option>Mixto</option>
+						</select> 
+					</td>
+				</tr>
+	       	</table>
+	       
+	       <div align=center>
+	       		<button wicket:id="btnGenerar" class="btn btn-primary">Generar!</button>
+       		</div>
+	      			    
 <!-- 			<h3 wicket:id="feedbackPanel"   style="background-color: red" ></h3> -->
 		    </form>
-		    
-		    
-		    
 		</div>
-		
-		
 	</body>
 </html>
 	
