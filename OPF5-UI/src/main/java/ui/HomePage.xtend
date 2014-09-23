@@ -1,6 +1,5 @@
 package ui
 
-import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.uqbar.wicket.xtend.XButton
@@ -24,19 +23,15 @@ class HomePage extends WebPage {
 		generarBtn.onClick = [| this.generar ]
 		mainForm.addChild(generarBtn)
 
-		
-//		
-
-//		val buscarBtn = new XButton("btnBuscarPage")
-//		buscarBtn.onClick = [| this.buscar ]
-//		this.addChild(buscarBtn)
-
-
+		val buscarBtn = new XButton("btnBuscarPage")
+		buscarBtn.onClick = [| this.buscar ]
+		mainForm.addChild(buscarBtn)
 
 		this.addChild(mainForm)
 	}
 	
 	def buscar() {
+		responsePage = new BuscadorJugadoresPage
 	}
 	
 	def generar() {
