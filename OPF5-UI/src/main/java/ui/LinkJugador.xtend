@@ -19,7 +19,7 @@ class LinkJugador extends XLink<Jugador> //????????????
 		}
 
 		
-		//this.onClick = [| responsePage = new DatosJugadorPage(jugador, parentPage)]
+		this.onClick = [| responsePage = new InfoJugadorPage(jugador, parentPage)]
 	}
 	
 }

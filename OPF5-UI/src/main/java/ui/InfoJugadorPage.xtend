@@ -26,12 +26,12 @@ class InfoJugadorPage extends WebPage {
 	}
 	
 	def agregarGrillaDatos(Form<Jugador> form) {
-		form.addChild(new Label("jugador.nombre"))
-		form.addChild(new Label("jugador.apodo"))
-		form.addChild(new Label("jugador.handicap"))
-		//form.addChild(new Label("jugador.nombre"))
-		//form.addChild(new Label("jugador.nombre"))
-		form.addChild(new Label("jugador.edad"))
+		form.addChild(new Label("nombre"))
+		form.addChild(new Label("apodo"))
+		form.addChild(new Label("handicap"))
+		//form.addChild(new Label("jugador.promedioUltimo"))
+		//form.addChild(new Label("jugador.promedioGlobal"))
+		form.addChild(new Label("edad"))
 		
 	
 	}
@@ -44,7 +44,7 @@ class InfoJugadorPage extends WebPage {
 	
 	def agregarGrillaAmigos(Form<Jugador> form) 
 	{
-		var listAmigos = new XListView("jugador.amigos")
+		var listAmigos = new XListView("amigos")
 		
 		listAmigos.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel

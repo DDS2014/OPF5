@@ -23,7 +23,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	@Property String documento
 	@Property String email
 	@Property TipoDeInscripcion modalidad
-	@Property HashSet<Jugador> amigos;
+	@Property ArrayList<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
 	@Property ArrayList<Calificacion> calificaciones;
 	
@@ -31,7 +31,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	{
 		this.nombre=nombre
 		this.edad=edad
-		this.amigos = new HashSet();
+		this.amigos = new ArrayList();
 		this.infracciones = new HashSet();
 		this.modalidad = modalidad;
 		modalidad.setCliente(this);
@@ -39,7 +39,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	}
 	
 	new() {
-		this.amigos = new HashSet();
+		this.amigos = new ArrayList();
 		this.infracciones = new HashSet();
 		this.calificaciones=new ArrayList();
 	}
