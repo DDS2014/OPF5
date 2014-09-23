@@ -5,6 +5,7 @@ import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar;
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio;
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones;
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap;
 import java.util.ArrayList;
 import org.apache.wicket.MarkupContainer;
@@ -124,6 +125,8 @@ public class GenerarEquiposPage extends WebPage {
     ArrayList<Criterio> criterios = new ArrayList<Criterio>();
     CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
     criterios.add(_criterioDelHandicap);
+    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(3);
+    criterios.add(_criterioDeLasUltimasCalificaciones);
     return criterios;
   }
   

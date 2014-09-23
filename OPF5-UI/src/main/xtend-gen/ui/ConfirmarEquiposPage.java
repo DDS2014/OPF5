@@ -2,6 +2,7 @@ package ui;
 
 import applicationModel.GeneradorDeEquipos;
 import domain.Jugador;
+import java.util.ArrayList;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
@@ -35,37 +36,28 @@ public class ConfirmarEquiposPage extends WebPage {
     this._wicketExtensionFactoryMethods.addChild(this, confirmarForm);
   }
   
-  public MarkupContainer agregarGrilla(final Form<GeneradorDeEquipos> form) {
-    MarkupContainer _xblockexpression = null;
-    {
-      XListView<Object> listaEquipo1 = new XListView<Object>("primerEquipo");
-      XListView<Object> listaEquipo2 = new XListView<Object>("segundoEquipo");
-      final Procedure1<ListItem<Object>> _function = new Procedure1<ListItem<Object>>() {
-        public void apply(final ListItem<Object> item) {
-          Object _modelObject = item.getModelObject();
-          CompoundPropertyModel<Object> _asCompoundModel = ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.<Object>asCompoundModel(_modelObject);
-          item.setModel(_asCompoundModel);
-          Object _modelObject_1 = item.getModelObject();
-          LinkJugador _linkJugador = new LinkJugador("link1", ((Jugador) _modelObject_1), ConfirmarEquiposPage.this);
-          ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.addChild(item, _linkJugador);
-        }
-      };
-      listaEquipo1.setPopulateItem(_function);
-      final Procedure1<ListItem<Object>> _function_1 = new Procedure1<ListItem<Object>>() {
-        public void apply(final ListItem<Object> item) {
-          Object _modelObject = item.getModelObject();
-          CompoundPropertyModel<Object> _asCompoundModel = ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.<Object>asCompoundModel(_modelObject);
-          item.setModel(_asCompoundModel);
-          Object _modelObject_1 = item.getModelObject();
-          LinkJugador _linkJugador = new LinkJugador("link2", ((Jugador) _modelObject_1), ConfirmarEquiposPage.this);
-          ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.addChild(item, _linkJugador);
-        }
-      };
-      listaEquipo2.setPopulateItem(_function_1);
-      this._wicketExtensionFactoryMethods.addChild(form, listaEquipo1);
-      _xblockexpression = this._wicketExtensionFactoryMethods.addChild(form, listaEquipo2);
+  public void agregarGrilla(final Form<GeneradorDeEquipos> form) {
+    ArrayList<XListView<Jugador>> equipos = new ArrayList<XListView<Jugador>>();
+    XListView<Jugador> _xListView = new XListView<Jugador>("primerEquipo");
+    equipos.add(_xListView);
+    XListView<Jugador> _xListView_1 = new XListView<Jugador>("segundoEquipo");
+    equipos.add(_xListView_1);
+    for (final XListView<Jugador> grilla : equipos) {
+      {
+        final Procedure1<ListItem<Jugador>> _function = new Procedure1<ListItem<Jugador>>() {
+          public void apply(final ListItem<Jugador> item) {
+            Jugador _modelObject = item.getModelObject();
+            CompoundPropertyModel<Jugador> _asCompoundModel = ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.<Jugador>asCompoundModel(_modelObject);
+            item.setModel(_asCompoundModel);
+            Jugador _modelObject_1 = item.getModelObject();
+            LinkJugador _linkJugador = new LinkJugador("link", ((Jugador) _modelObject_1), ConfirmarEquiposPage.this);
+            ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.addChild(item, _linkJugador);
+          }
+        };
+        grilla.setPopulateItem(_function);
+        this._wicketExtensionFactoryMethods.addChild(form, grilla);
+      }
     }
-    return _xblockexpression;
   }
   
   public MarkupContainer agregarAcciones(final Form<GeneradorDeEquipos> form) {

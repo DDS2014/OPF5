@@ -13,6 +13,7 @@ import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -80,7 +81,7 @@ class GenerarEquiposPage extends WebPage {
 	{
 		var criterios = new ArrayList<Criterio>
 		criterios.add(new CriterioDelHandicap)
-		//criterios.add(new CriterioDeLasUltimasCalificaciones) este no sirve, necesito la cantidad de notas 
+		criterios.add(new CriterioDeLasUltimasCalificaciones(3)) //ese 3 hardcodeado so strong. FIXME ver cómo podemos hacer para pedirle ese número al usuario
 		// criterios.add(new CriterioDelUltimoPartido) este no sirve, necesito la comunidad
 		//y el criterio compuesto?
 		//obviamente necesitamos una interfaz para definir el criterio compuesto y la cantidad de calificaciones
