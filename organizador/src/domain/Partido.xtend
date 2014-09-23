@@ -129,6 +129,7 @@ public class Partido extends Entity implements Comparator<Jugador> { //para desc
 	
 	def generarEquipos()
 	{
+		this.resetEquipos();
 		this.algoritmo.generarEquipos();
 	}
 	
@@ -163,6 +164,12 @@ public class Partido extends Entity implements Comparator<Jugador> { //para desc
 	def hayEquipo() 
 	{
 		return ((segundoEquipo.size == 5) && (primerEquipo.size == 5));
+	}
+	
+	def resetEquipos() 
+	{
+		this.primerEquipo = new ArrayList();
+		this.segundoEquipo = new ArrayList();
 	}
 
 }
