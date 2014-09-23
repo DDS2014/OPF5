@@ -25,10 +25,6 @@ public class ConfirmarEquiposPage extends WebPage {
   
   private GenerarEquiposPage parentPage;
   
-  private XListView<Jugador> listaEquipo1;
-  
-  private XListView<Jugador> listaEquipo2;
-  
   public ConfirmarEquiposPage(final GeneradorDeEquipos generador, final GenerarEquiposPage parentPage) {
     this.generador = generador;
     this.parentPage = parentPage;

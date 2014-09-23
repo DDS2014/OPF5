@@ -8,15 +8,7 @@ import org.apache.wicket.model.CompoundPropertyModel
 import org.uqbar.wicket.xtend.XButton
 import org.uqbar.wicket.xtend.XListView
 import domain.Jugador
-import org.apache.wicket.markup.html.form.DropDownChoice
-import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
-import java.util.ArrayList
-import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
-import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
-import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
-import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
-import org.uqbar.wicket.xtend.XLink
-import org.apache.wicket.markup.html.basic.Label
+
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -26,8 +18,7 @@ class ConfirmarEquiposPage extends WebPage {
 	
 	var GeneradorDeEquipos generador
 	var GenerarEquiposPage parentPage;
-	var XListView<Jugador> listaEquipo1;
-	var XListView<Jugador> listaEquipo2;
+
 	
 	
 	new(GeneradorDeEquipos generador, GenerarEquiposPage parentPage){
@@ -42,7 +33,7 @@ class ConfirmarEquiposPage extends WebPage {
 	}
 	
 	
-	def agregarGrilla(Form<GeneradorDeEquipos> form) 
+	def agregarGrilla(Form<GeneradorDeEquipos> form) //FIXME la misma consigna dice que no hay que repetir código acá
 	{
 		var listaEquipo1 = new XListView("primerEquipo")
 		var listaEquipo2 = new XListView("segundoEquipo")
