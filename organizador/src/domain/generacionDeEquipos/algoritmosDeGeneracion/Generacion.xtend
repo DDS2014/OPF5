@@ -7,6 +7,7 @@ import java.util.List
 
 abstract class Generacion {
 	@Property Partido partido;
+	@Property String nombreDelAlgoritmo
 	
 	def void generarEquipos()
 	{

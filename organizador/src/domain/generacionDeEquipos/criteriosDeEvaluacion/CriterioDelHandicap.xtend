@@ -4,6 +4,10 @@ import domain.Jugador
 
 class CriterioDelHandicap extends Criterio
 {
+	new()
+	{
+		nombreDelCriterio = "Handicap"
+	}
 	
 	override evaluarJugador(Jugador jugador)
 	{

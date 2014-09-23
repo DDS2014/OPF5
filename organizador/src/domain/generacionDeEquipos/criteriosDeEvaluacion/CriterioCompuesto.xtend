@@ -9,6 +9,7 @@ class CriterioCompuesto extends Criterio
 	
 	new()
 	{
+		nombreDelCriterio = "Mixto"
 		this.subCriterios = new ArrayList();
 	}
 	

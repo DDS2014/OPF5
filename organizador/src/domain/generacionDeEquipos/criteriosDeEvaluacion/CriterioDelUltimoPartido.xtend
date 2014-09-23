@@ -10,6 +10,7 @@ class CriterioDelUltimoPartido extends Criterio
 	
 	new(Comunidad comunidad)
 	{
+		nombreDelCriterio = "Promedio del ultimo partido"
 		this.comunidad = comunidad;
 	}	
 	override evaluarJugador(Jugador jugador) 

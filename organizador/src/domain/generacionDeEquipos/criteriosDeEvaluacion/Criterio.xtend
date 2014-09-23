@@ -9,6 +9,7 @@ import java.util.Comparator
 abstract class Criterio implements Comparator<Jugador>
 {
 	def double evaluarJugador(Jugador jugador)
+	@Property String nombreDelCriterio
 	
 	def double promediarCalificaciones(Collection<Calificacion> calificacionesAPromediar)
 	{

@@ -9,10 +9,12 @@ import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap;
 import java.util.ArrayList;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.eclipse.xtext.xbase.lib.Extension;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -50,6 +52,13 @@ public class GenerarEquiposPage extends WebPage {
         public void apply(final DropDownChoice<Criterio> it) {
           ArrayList<Criterio> _criteriosOrdenamiento = GenerarEquiposPage.this.getCriteriosOrdenamiento();
           it.setChoices(_criteriosOrdenamiento);
+          final Function1<Criterio, String> _function = new Function1<Criterio, String>() {
+            public String apply(final Criterio cr) {
+              return cr.getNombreDelCriterio();
+            }
+          };
+          ChoiceRenderer<Criterio> _choiceRenderer = GenerarEquiposPage.this._wicketExtensionFactoryMethods.<Criterio>choiceRenderer(_function);
+          it.setChoiceRenderer(_choiceRenderer);
         }
       };
       DropDownChoice<Criterio> _doubleArrow = ObjectExtensions.<DropDownChoice<Criterio>>operator_doubleArrow(_dropDownChoice, _function);
@@ -59,6 +68,13 @@ public class GenerarEquiposPage extends WebPage {
         public void apply(final DropDownChoice<Generacion> it) {
           ArrayList<Generacion> _criteriosSeleccion = GenerarEquiposPage.this.getCriteriosSeleccion();
           it.setChoices(_criteriosSeleccion);
+          final Function1<Generacion, String> _function = new Function1<Generacion, String>() {
+            public String apply(final Generacion gen) {
+              return gen.getNombreDelAlgoritmo();
+            }
+          };
+          ChoiceRenderer<Generacion> _choiceRenderer = GenerarEquiposPage.this._wicketExtensionFactoryMethods.<Generacion>choiceRenderer(_function);
+          it.setChoiceRenderer(_choiceRenderer);
         }
       };
       DropDownChoice<Generacion> _doubleArrow_1 = ObjectExtensions.<DropDownChoice<Generacion>>operator_doubleArrow(_dropDownChoice_1, _function_1);

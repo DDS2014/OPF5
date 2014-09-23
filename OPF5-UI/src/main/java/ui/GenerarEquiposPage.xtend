@@ -39,10 +39,12 @@ class GenerarEquiposPage extends WebPage {
 	def agregarOpciones(Form<GeneradorDeEquipos> form) 
 	{
 		form.addChild( new DropDownChoice<Criterio>("criterioDeOrdenamiento") => 
-		[choices = this.getCriteriosOrdenamiento()]) //alguien dijo refactor?
+		[choices = this.getCriteriosOrdenamiento()
+		 choiceRenderer = choiceRenderer([Criterio cr | cr.nombreDelCriterio])]) //alguien dijo refactor?
 		
 		form.addChild( new DropDownChoice<Generacion>("criterioDeSeleccion") => 
-		[choices = this.getCriteriosSeleccion()]) //alguien dijo refactor?
+		[choices = this.getCriteriosSeleccion()
+		 choiceRenderer = choiceRenderer([Generacion gen | gen.nombreDelAlgoritmo])]) //alguien dijo refactor?
 	}
 	
 	def agregarGrilla(Form<GeneradorDeEquipos> form) 
