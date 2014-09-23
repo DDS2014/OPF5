@@ -43,7 +43,10 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	// ** Búsquedas
 	// ********************************************************
 	def search(CriterioBusqueda criterio) {
-		criterio.buscar(getJugadores())
+		if(criterio != null)
+			criterio.buscar(allInstances)
+		else
+			return allInstances 
 	}
 	
 	def getJugadores(){

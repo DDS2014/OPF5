@@ -11,6 +11,7 @@ import java.util.Comparator
 import java.util.Collections
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.Entity
+import java.util.Date
 
 @Observable
 public class Jugador extends Entity implements Comparator<Calificacion> 
@@ -26,6 +27,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	@Property ArrayList<Jugador> amigos;
 	@Property HashSet<Infraccion> infracciones;
 	@Property ArrayList<Calificacion> calificaciones;
+	@Property Date fechaNacimiento;
 	
 	new(String nombre,int edad, TipoDeInscripcion modalidad)
 	{
@@ -117,5 +119,14 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 		
 	}
 	
+	def double promedioUltimoPartido(){
+		if(this.calificaciones.length > 0)
+			return this.calificaciones.last.puntaje
+		else
+			return 0
+	}
 	
+	def Boolean tieneInfracciones(){
+		return this.infracciones.length>0
+	}
 }
