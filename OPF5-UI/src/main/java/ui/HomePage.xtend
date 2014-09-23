@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.uqbar.wicket.xtend.XButton
+import org.apache.wicket.markup.html.form.Form
 
 /**
  * 
@@ -17,20 +18,29 @@ class HomePage extends WebPage {
     }
 	
 	def agregarAcciones() {
+		var mainForm = new Form("mainForm")
+		
 		val generarBtn = new XButton("btnGenerarPage")
 		generarBtn.onClick = [| this.generar ]
-		this.addChild(generarBtn)
+		mainForm.addChild(generarBtn)
+
+		
 //		
+
 //		val buscarBtn = new XButton("btnBuscarPage")
 //		buscarBtn.onClick = [| this.buscar ]
 //		this.addChild(buscarBtn)
+
+
+
+		this.addChild(mainForm)
 	}
 	
 	def buscar() {
 	}
 	
 	def generar() {
-		responsePage = new GenerarEquiposPage()
+		responsePage = new GenerarEquiposPage(this)
 	}
 	
 }

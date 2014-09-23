@@ -14,14 +14,14 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 	
 	def void init() {
-		this.create("Juan","Juancito",new InscripcionEstandar,6)
+		this.create("Juan","Juancito",new InscripcionEstandar,9)
 		this.create("Jose","Pepe",new InscripcionEstandar,6)
-		this.create("Nicolás","Nico",new InscripcionEstandar,6)
+		this.create("Nicolás","Nico",new InscripcionEstandar,10)
 		this.create("Diego","Diego",new InscripcionEstandar,6)
-		this.create("Roberto","Tito",new InscripcionEstandar,6)
+		this.create("Roberto","Tito",new InscripcionEstandar,7)
 		this.create("Jorge","Jorge",new InscripcionEstandar,6)
 		this.create("Pablo","Pablo",new InscripcionEstandar,6)
-		this.create("Hernán","Hernán",new InscripcionEstandar,6)
+		this.create("Hernán","Hernán",new InscripcionEstandar,9)
 		this.create("Esteban","Esteban",new InscripcionEstandar,6)
 		this.create("Alberto","Beto",new InscripcionEstandar,6)
 	}

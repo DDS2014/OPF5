@@ -27,7 +27,7 @@ class GeneradorDeEquipos implements Serializable
 
 	new()
 	{
-		this.partido = homePartido.allInstances.get(0)
+		this.partido = homePartido.allInstances.get(0) //me gusta el workaround "provisorio"
 		if(this.partido.hayLugaresLibres)
 			this.inscribirJugadores()
 		this.primerEquipo = new ArrayList<Jugador>
@@ -46,6 +46,11 @@ class GeneradorDeEquipos implements Serializable
 	def inscribirJugadores(){
 		var jugadores = homeJugadores.jugadores
 		jugadores.forEach[j|j.inscribirse(this.partido)]
+	}
+	
+	def confirmar()
+	{
+		this.partido.confirmarEquipos()
 	}
 	
 	def refresh()

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<title>Generar Equipos-OPF5</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<!-- Bootstrap --> 
+    	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    	<link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	
+	<body>
+		<div class="container">
+	        <table>
+	            <tr>
+	                <td>
+	                    <h2>Confirmar Equipos</h2>
+	                </td>
+	            </tr>
+	        </table>
+	        
+	        <form wicket:id="confirmarEquiposForm" class="form-horizontal">
+		    
+	      			    
+	      	<table class="table table-striped table-bordered table-condensed">
+           		<caption align=top>Resultados</caption>
+           		<thead>
+	           		<tr>
+	               		<th id="main">Equipo 1</th>
+	               	</tr>
+	            </thead>
+				<tbody>
+	               	<tr wicket:id="primerEquipo">
+	                   	<td>
+	                   	    <a href="#" wicket:id="link1" > <label wicket:id="nombre">unJugador1</label> </a> 
+	               	    </td> 
+	               	</tr>
+               	</tbody>
+           	</table>
+           	
+           	<table class="table table-striped table-bordered table-condensed">
+           		<caption align=top>Resultados</caption>
+           		<thead>
+	           		<tr>
+	               		<th id="main">Equipo 2</th>
+	               	</tr>
+	            </thead>
+				<tbody>
+	               	<tr wicket:id="segundoEquipo">
+	                   	<td>
+	                   	    <a href="" wicket:id="link2" > <label wicket:id="nombre">unJugador1</label> </a> 
+	               	    </td> 
+	               	</tr>
+               	</tbody>
+           	</table>
+		  <div align=center>
+	      <button class="btn btn-primary" wicket:id="btnConfirmar">Confirmar los Equipos</button>
+	      <button class="btn btn-primary" wicket:id="btnVolver">Cancelar</button>
+	      </div>    			    
+	      			    
+<!-- 			<h3 wicket:id="feedbackPanel"   style="background-color: red" ></h3> -->
+		    </form>
+		</div>
+	</body>
+</html>
+	

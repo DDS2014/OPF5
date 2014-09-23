@@ -24,7 +24,7 @@
 			    <tr>
 			    	<td> 
 			    		<label>Criterio de seleccion: </label>
-			    		<select>
+			    		<select wicket:id="criterioDeSeleccion">
 			    			<option>Par-impar</option>
 				    		<option>1,4,5,8,9</option>
 						</select> 
@@ -33,7 +33,7 @@
 				<tr>
 					<td> 
 						<label>Criterio de ordenamiento: </label>
-			    		<select>
+			    		<select wicket:id="criterioDeOrdenamiento">
 			    			<option>Por handicap</option>
 							<option>Por promedio de notas del ultimo partido</option>
 							<option>Por promedio de notas de los ultimos n partidos</option>
@@ -45,30 +45,9 @@
 	       
 	       <div align=center>
 	       		<button wicket:id="btnGenerar" class="btn btn-primary">Generar!</button>
+	       		<button wicket:id="btnVolver" class="btn btn-primary">Volver</button>
        		</div>
-	      			    
-	      	<table class="table table-striped table-bordered table-condensed">
-           		<caption align=top>Resultados</caption>
-           		<thead>
-	           		<tr>
-	               		<th id="main">Equipo 1</th>
-	               		<th id="main">Equipo 2</th>
-	               	</tr>
-	            </thead>
-				<tbody>
-	               	<tr>
-	                   	<td>
-	                   	    <span>unJugador1</span> 
-	               	    </td> 
-	           	        <td>
-	       	            	<span>unJugador2</span>
-	   	                </td> 
-	               	</tr>
-               	</tbody>
-           	</table>
-		  <div align=center>
-	      <button class="btn btn-primary">Confirmar los Equipos</button>
-	      </div>    			    
+	      			    			    
 	      			    
 <!-- 			<h3 wicket:id="feedbackPanel"   style="background-color: red" ></h3> -->
 		    </form>
