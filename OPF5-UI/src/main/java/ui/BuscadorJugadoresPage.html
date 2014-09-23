@@ -65,13 +65,17 @@
 	              	<div class="controls">
 	   		       	</div>
    		       	</div>
+	            
    		       	<div class="form-actions">
                 	<button wicket:id="buscar" class="btn btn-primary" type="submit">Buscar</button>
                 	<button wicket:id="limpiar" class="btn">Limpiar</button>
             	</div>
         	</div>
-            <br/>
             
+            <div wicket:id="feedbackPanel" class="alert alert-error">  
+			</div>
+			 
+			<br/>	
            	<table class="table table-striped table-bordered table-condensed">
            		<thead>
 	           		<tr>
@@ -98,6 +102,9 @@
 	               	</tr>
                	</tbody>
            	</table>
+           	<div class="form-actions">
+               	<button wicket:id="btnVolver" class="btn" type="submit">Volver</button>
+           	</div>
             <br/>
         </form>
       </div>

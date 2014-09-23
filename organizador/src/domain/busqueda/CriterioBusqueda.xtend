@@ -11,7 +11,12 @@ abstract class CriterioBusqueda extends Entity {
 	}
 	
 	def List<Jugador> buscar(List<Jugador> jugadores){
+		this.validar
 		jugadores.filter[j|match(j)].toList()
+	}
+	
+	def validar(){
+		
 	}
 	
 	def Boolean match(Jugador j){

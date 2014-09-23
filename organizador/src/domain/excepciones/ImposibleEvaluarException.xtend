@@ -1,11 +1,14 @@
 package domain.excepciones
 
-class ImposibleEvaluarException extends RuntimeException //todo agregar comportamiento especifico
+import org.uqbar.commons.model.UserException
+
+class ImposibleEvaluarException extends UserException //todo agregar comportamiento especifico
 {
 	String motivo;
 	
 	new(String mensaje)
 	{
+		super(mensaje)
 		this.motivo = mensaje;
 	}
 }

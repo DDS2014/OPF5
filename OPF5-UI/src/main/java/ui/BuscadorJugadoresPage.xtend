@@ -14,10 +14,13 @@ import org.apache.wicket.markup.html.form.DropDownChoice
 import domain.busqueda.CriterioBusqueda
 import domain.busqueda.*
 import java.util.Date
+import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.uqbar.commons.model.UserException
 
 class BuscadorJugadoresPage  extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 	var BuscadorDeJugadores buscador
+	var HomePage parentPage;
 	
 	var WebMarkupContainer selectorDiv;
 	var WebMarkupContainer inputDivs
@@ -28,14 +31,32 @@ class BuscadorJugadoresPage  extends WebPage {
 	var WebMarkupContainer promedioDiv
 	var WebMarkupContainer infraccionesDiv
 	
-	new(){
+	new(HomePage parentPage){
 		this.buscador = new BuscadorDeJugadores
+		this.parentPage = parentPage
 		val Form<BuscadorDeJugadores> buscarForm = new Form<BuscadorDeJugadores>("buscarJugadoresForm", new CompoundPropertyModel<BuscadorDeJugadores>(this.buscador))
 		this.agregarSelectorBusqueda(buscarForm)
 		this.agregarCamposBusqueda(buscarForm)
 		this.agregarGrillaResultados(buscarForm)
+		this.agregarFeedbackPanel(buscarForm)
+		this.agregarBotonVolver(buscarForm)
 		this.addChild(buscarForm)
 		this.buscarJugadores()
+	}
+	
+	def agregarBotonVolver(Form<BuscadorDeJugadores> form) {
+		val volverBtn = new XButton("btnVolver")
+		volverBtn.onClick = [| volver() ]
+		form.addChild(volverBtn)
+	}
+	
+	def volver()
+	{
+		responsePage = parentPage
+	}
+	
+	def agregarFeedbackPanel(Form<BuscadorDeJugadores> form) {
+		form.addChild(new FeedbackPanel("feedbackPanel"))
 	}
 	
 	def agregarSelectorBusqueda(Form<BuscadorDeJugadores> parent) {
@@ -84,15 +105,15 @@ class BuscadorJugadoresPage  extends WebPage {
 		div.addChild(divPromedio)
 		this.promedioDiv = divPromedio
 		//Infracciones
-//		var divInfracciones = new WebMarkupContainer("infraccionesDiv")
-//		divInfracciones.addChild(new DropDownChoice<CriterioBusqueda>("criterio") =>
-//			[choices = buscador.criterioInfracciones.criterios])
-//		div.addChild(divInfracciones)
-//		this.infraccionesDiv = divInfracciones
+		var divInfracciones = new WebMarkupContainer("infraccionesDiv")
+		divInfracciones.addChild(new DropDownChoice<CriterioBusqueda>("criterio") =>
+			[choices = buscador.criterioInfracciones.criterios])
+		div.addChild(divInfracciones)
+		this.infraccionesDiv = divInfracciones
 		
 		//ACTIONS
 		div.addChild(new XButton("buscar")
-			.onClick = [| this.buscarJugadores ]
+			.onClick = [| buscarJugadores ]
 		)
 		div.addChild(new XButton("limpiar")
 			.onClick = [| limpiar ]
@@ -110,7 +131,13 @@ class BuscadorJugadoresPage  extends WebPage {
 	}
 	
 	def buscarJugadores() {
-		this.buscador.search()
+		try{
+			this.buscador.search()
+		} catch (UserException e) {
+			info(e.getMessage())
+		} catch (RuntimeException e) {
+			error("Ocurrió un error al realizar la búsqueda solicitada.")
+		}
 	}
 
 	def seleccionarCriterio(){
@@ -132,6 +159,8 @@ class BuscadorJugadoresPage  extends WebPage {
 			else if(buscador.criterio.class == BusquedaCompuesta)
 				this.infraccionesDiv.setVisible(true)
 		}
+		else
+			info("Debe seleccionar un criterio de búsqueda.")
 	}
 	
 	def ocultarDivs(){
@@ -140,7 +169,7 @@ class BuscadorJugadoresPage  extends WebPage {
 		this.fechaDiv.setVisible(false)
 		this.handicapDivs.setVisible(false)
 		this.promedioDiv.setVisible(false)
-//		this.infraccionesDiv.setVisible(false)
+		this.infraccionesDiv.setVisible(false)
 	}
 	
 	def agregarGrillaResultados(Form<BuscadorDeJugadores> parent) {

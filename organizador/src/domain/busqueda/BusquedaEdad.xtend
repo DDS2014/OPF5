@@ -2,6 +2,7 @@ package domain.busqueda
 
 import java.util.Date
 import domain.Jugador
+import org.uqbar.commons.model.UserException
 
 class BusquedaEdad extends CriterioBusqueda{
 	
@@ -12,9 +13,11 @@ class BusquedaEdad extends CriterioBusqueda{
 	}
 	
 	def override match(Jugador j){
-		if(this.fecha != null)
-			return j.fechaNacimiento < this.fecha
-		else
-			return true
+		return j.fechaNacimiento < this.fecha
+	}
+	
+	def override validar(){
+		if(fecha == null)
+			throw new UserException("Debe ingresar una fecha.")
 	}
 }

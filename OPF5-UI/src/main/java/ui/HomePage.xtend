@@ -31,7 +31,7 @@ class HomePage extends WebPage {
 	}
 	
 	def buscar() {
-		responsePage = new BuscadorJugadoresPage
+		responsePage = new BuscadorJugadoresPage(this)
 	}
 	
 	def generar() {

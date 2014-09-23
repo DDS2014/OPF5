@@ -24,33 +24,12 @@ class BuscadorDeJugadores implements Serializable
 	@Property BusquedaHandicap criterioHandicap
 	@Property BusquedaPromedio criterioPromedio
 	@Property BusquedaCompuesta criterioInfracciones
-		
+	
+	// ********************************************************
+	// ** Init
+	// ********************************************************
 	new(){
 		this.createCriterios
-	}
-	
-	// ********************************************************
-	// ** Acciones
-	// ********************************************************
-	def void search() { 
-		resultados = new ArrayList<Jugador>
-		resultados = getHomeJugadores().search(this.criterio)
-	}
-	
-	def void clear() {
-		this.criterio = null
-		this.criterioNombre.nombre = null
-		this.criterioApodo.apodo = null
-		this.criterioEdad.fecha = null
-		this.criterioHandicap.desde = 0
-		this.criterioHandicap.hasta = 10//TODO: ver cuanto es el máximo de handicap
-		this.criterioPromedio.desde = 0
-		this.criterioPromedio.hasta = 10
-		this.search()
-	}
-	
-	def HomeJugadores getHomeJugadores() {
-		ApplicationContext::instance.getSingleton(typeof(Jugador))
 	}
 	
 	def createCriterios(){
@@ -70,5 +49,29 @@ class BuscadorDeJugadores implements Serializable
 		this.criterioInfracciones.criterios.add(new BusquedaInfracciones("Con infracciones",true))
 		this.criterioInfracciones.criterios.add(new BusquedaInfracciones("Sin infracciones",false))
 		this.criteriosDisponibles.add(this.criterioInfracciones)
+	}
+	
+	def HomeJugadores getHomeJugadores() {
+		ApplicationContext::instance.getSingleton(typeof(Jugador))
+	}
+	
+	// ********************************************************
+	// ** Acciones
+	// ********************************************************
+	def void search() { 
+		resultados = new ArrayList<Jugador>
+		resultados = getHomeJugadores().search(this.criterio)
+	}
+	
+	def void clear() {
+		this.criterio = null
+		this.criterioNombre.nombre = null
+		this.criterioApodo.apodo = null
+		this.criterioEdad.fecha = null
+		this.criterioHandicap.desde = null
+		this.criterioHandicap.hasta = null//TODO: ver cuanto es el máximo de handicap
+		this.criterioPromedio.desde = null
+		this.criterioPromedio.hasta = null
+		this.search()
 	}
 }

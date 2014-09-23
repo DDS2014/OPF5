@@ -12,9 +12,6 @@ class BusquedaNombre extends CriterioBusqueda{
 	def override match(Jugador j){
 		if(this.nombre.nullOrEmpty)
 			return true;
-		if(j!=null && !j.nombre.nullOrEmpty)
-			j.nombre.startsWith(this.nombre)
-		else
-			return false
+		j.nombre.toLowerCase.startsWith(this.nombre.toLowerCase)
 	}
 }

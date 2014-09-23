@@ -12,10 +12,6 @@ class BusquedaApodo extends CriterioBusqueda {
 	def override match(Jugador j){
 		if(this.apodo.nullOrEmpty)
 			return true;
-		if(j!=null && !j.apodo.nullOrEmpty)
-			j.apodo.contains(this.apodo)
-		else
-			return false
+		j.apodo.toLowerCase.contains(this.apodo.toLowerCase)
 	}
-	
 }
