@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<title>Info del Jugador-OPF5</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<!-- Bootstrap --> 
+    	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    	<link href="css/bootstrap-theme.css" rel="stylesheet" media="screen">  
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	
+	<body>
+	
+		<h1>Info del Jugador</h1>
+		<form wicket:id="infoJugadorForm">
+		<table>
+		<caption align=top style=font-size:25px wicket:id="jugador.nombre">Nombre de Jugador</caption>
+			<tr><td> <div style=font-size:18px>Apodo: </div> <span wicket:id="jugador.apodo">unApodo</span></td></tr>
+			<tr><td> <div style=font-size:18px>Handicap: </div> <span wicket:id="jugador.handicap">unHandi</span></td></tr>
+			<tr><td> <div style=font-size:18px>Promedio del ultimo Partido: </div> <span>ultPromedio</span></td></tr>
+			<tr><td> <div style=font-size:18px>Promedio Global:</div>  <span>promGlobal</span></td></tr>
+			<tr><td> <div style=font-size:18px>Edad:</div> <span wicket:id="jugador.edad">edad</span></td></tr>
+			
+		<tr>
+			<td><table class="table table-condensed"  style="width:100%">
+			<caption style=font-size:18px>Amigos </caption>
+			<thead><tr>
+	            <th>Nombre</th>
+	            <th>Apodo</th>
+	            <th>Handicap</th>
+	            <th>Promedio</th>
+	        </tr></thead>
+	        <tbody><tr wicket:id="jugador.amigos">
+	                   	<td>
+	                   	    <span wicket:id="nombre">unNombre</span> 
+	               	    </td> 
+	           	        <td>
+	       	            	<span wicket:id="apodo">unApodo</span>
+	   	                </td> 
+	           	        <td>
+	       	            	<span wicket:id="handicap">unHandi</span>
+	   	                </td> 
+	           	        <td>
+	       	            	<span>unProm</span>
+	   	                </td> 
+	   	    </tr></tbody>
+	        </table></td>
+	    </tr>    
+		</table>
+		
+		<button wicket:id="btnVolver">Volver</button>
+		</form>
+	</body>
+</html>
