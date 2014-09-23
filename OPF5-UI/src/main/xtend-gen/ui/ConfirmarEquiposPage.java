@@ -46,7 +46,7 @@ public class ConfirmarEquiposPage extends WebPage {
           CompoundPropertyModel<Object> _asCompoundModel = ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.<Object>asCompoundModel(_modelObject);
           item.setModel(_asCompoundModel);
           Object _modelObject_1 = item.getModelObject();
-          LinkJugador _linkJugador = new LinkJugador("link1", ((Jugador) _modelObject_1));
+          LinkJugador _linkJugador = new LinkJugador("link1", ((Jugador) _modelObject_1), ConfirmarEquiposPage.this);
           ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.addChild(item, _linkJugador);
         }
       };
@@ -57,7 +57,7 @@ public class ConfirmarEquiposPage extends WebPage {
           CompoundPropertyModel<Object> _asCompoundModel = ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.<Object>asCompoundModel(_modelObject);
           item.setModel(_asCompoundModel);
           Object _modelObject_1 = item.getModelObject();
-          LinkJugador _linkJugador = new LinkJugador("link2", ((Jugador) _modelObject_1));
+          LinkJugador _linkJugador = new LinkJugador("link2", ((Jugador) _modelObject_1), ConfirmarEquiposPage.this);
           ConfirmarEquiposPage.this._wicketExtensionFactoryMethods.addChild(item, _linkJugador);
         }
       };

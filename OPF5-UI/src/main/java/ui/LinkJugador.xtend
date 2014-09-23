@@ -4,11 +4,12 @@ import org.uqbar.wicket.xtend.XLink
 import org.apache.wicket.behavior.SimpleAttributeModifier
 import domain.Jugador
 import org.apache.wicket.markup.html.basic.Label
+import org.apache.wicket.markup.html.WebPage
 
 class LinkJugador extends XLink<Jugador> //????????????
 {
 	
-	new(String ID, Jugador jugador) 
+	new(String ID, Jugador jugador, WebPage parentPage) 
 	{
 		super(ID)
 		this.add(new Label("nombre"))
@@ -18,7 +19,7 @@ class LinkJugador extends XLink<Jugador> //????????????
 		}
 
 		
-		//this.onClick = [| responsePage = new DatosJugadorPage(jugador)]
+		//this.onClick = [| responsePage = new DatosJugadorPage(jugador, parentPage)]
 	}
 	
 }

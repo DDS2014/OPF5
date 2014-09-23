@@ -40,12 +40,12 @@ class ConfirmarEquiposPage extends WebPage {
 		
 		listaEquipo1.populateItem = [ item | 
 			item.model = item.modelObject.asCompoundModel
-			item.addChild = new LinkJugador("link1", item.modelObject as Jugador)]
+			item.addChild = new LinkJugador("link1", item.modelObject as Jugador, this)]
 //			item.addChild = new XLink("link1").add(new Label("nombre"))]
 		//codigo repetido, usar foreach?
 		listaEquipo2.populateItem = [ item | 
 			item.model = item.modelObject.asCompoundModel
-			item.addChild = new LinkJugador("link2", item.modelObject as Jugador)]
+			item.addChild = new LinkJugador("link2", item.modelObject as Jugador, this)]
 //			item.addChild = new XLink("link2").add(new Label("nombre"))]
 		
 		form.addChild(listaEquipo1)
