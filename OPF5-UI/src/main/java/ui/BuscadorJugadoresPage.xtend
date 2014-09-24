@@ -176,7 +176,7 @@ class BuscadorJugadoresPage  extends WebPage {
 		val listView = new XListView("resultados")
 		listView.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
-			item.addChild(new Label("nombre"))
+			item.addChild(new LinkJugador("link", item.modelObject, this))
 			item.addChild(new Label("apodo"))
 			item.addChild(new Label("handicap"))
 			item.addChild(new Label("promedioUltimoPartido"))

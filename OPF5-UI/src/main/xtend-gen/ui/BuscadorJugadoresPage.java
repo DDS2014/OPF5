@@ -2,6 +2,7 @@ package ui;
 
 import applicationModel.BuscadorDeJugadores;
 import com.google.common.base.Objects;
+import domain.Jugador;
 import domain.busqueda.BusquedaApodo;
 import domain.busqueda.BusquedaCompuesta;
 import domain.busqueda.BusquedaEdad;
@@ -20,27 +21,28 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.uqbar.commons.model.UserException;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
 import org.uqbar.wicket.xtend.XListView;
+import ui.HomePage;
+import ui.LinkJugador;
 
 @SuppressWarnings("all")
 public class BuscadorJugadoresPage extends WebPage {
   @Extension
-  private WicketExtensionFactoryMethods _wicketExtensionFactoryMethods = new Function0<WicketExtensionFactoryMethods>() {
-    public WicketExtensionFactoryMethods apply() {
-      WicketExtensionFactoryMethods _wicketExtensionFactoryMethods = new WicketExtensionFactoryMethods();
-      return _wicketExtensionFactoryMethods;
-    }
-  }.apply();
+  private WicketExtensionFactoryMethods _wicketExtensionFactoryMethods = new WicketExtensionFactoryMethods();
   
   private BuscadorDeJugadores buscador;
+  
+  private HomePage parentPage;
   
   private WebMarkupContainer selectorDiv;
   
@@ -58,26 +60,50 @@ public class BuscadorJugadoresPage extends WebPage {
   
   private WebMarkupContainer infraccionesDiv;
   
-  public BuscadorJugadoresPage() {
+  public BuscadorJugadoresPage(final HomePage parentPage) {
     BuscadorDeJugadores _buscadorDeJugadores = new BuscadorDeJugadores();
     this.buscador = _buscadorDeJugadores;
+    this.parentPage = parentPage;
     CompoundPropertyModel<BuscadorDeJugadores> _compoundPropertyModel = new CompoundPropertyModel<BuscadorDeJugadores>(this.buscador);
-    Form<BuscadorDeJugadores> _form = new Form<BuscadorDeJugadores>("buscarJugadoresForm", _compoundPropertyModel);
-    final Form<BuscadorDeJugadores> buscarForm = _form;
+    final Form<BuscadorDeJugadores> buscarForm = new Form<BuscadorDeJugadores>("buscarJugadoresForm", _compoundPropertyModel);
     this.agregarSelectorBusqueda(buscarForm);
     this.agregarCamposBusqueda(buscarForm);
     this.agregarGrillaResultados(buscarForm);
+    this.agregarFeedbackPanel(buscarForm);
+    this.agregarBotonVolver(buscarForm);
     this._wicketExtensionFactoryMethods.addChild(this, buscarForm);
     this.buscarJugadores();
+  }
+  
+  public MarkupContainer agregarBotonVolver(final Form<BuscadorDeJugadores> form) {
+    MarkupContainer _xblockexpression = null;
+    {
+      final XButton volverBtn = new XButton("btnVolver");
+      final Procedure0 _function = new Procedure0() {
+        public void apply() {
+          BuscadorJugadoresPage.this.volver();
+        }
+      };
+      volverBtn.setOnClick(_function);
+      _xblockexpression = this._wicketExtensionFactoryMethods.addChild(form, volverBtn);
+    }
+    return _xblockexpression;
+  }
+  
+  public void volver() {
+    this.setResponsePage(this.parentPage);
+  }
+  
+  public MarkupContainer agregarFeedbackPanel(final Form<BuscadorDeJugadores> form) {
+    FeedbackPanel _feedbackPanel = new FeedbackPanel("feedbackPanel");
+    return this._wicketExtensionFactoryMethods.addChild(form, _feedbackPanel);
   }
   
   public WebMarkupContainer agregarSelectorBusqueda(final Form<BuscadorDeJugadores> parent) {
     WebMarkupContainer _xblockexpression = null;
     {
-      WebMarkupContainer _webMarkupContainer = new WebMarkupContainer("selectorDiv");
-      WebMarkupContainer div = _webMarkupContainer;
-      XButton _xButton = new XButton("seleccionar");
-      final XButton selectButton = _xButton;
+      WebMarkupContainer div = new WebMarkupContainer("selectorDiv");
+      final XButton selectButton = new XButton("seleccionar");
       final Procedure0 _function = new Procedure0() {
         public void apply() {
           BuscadorJugadoresPage.this.seleccionarCriterio();
@@ -95,8 +121,7 @@ public class BuscadorJugadoresPage extends WebPage {
       DropDownChoice<CriterioBusqueda> _doubleArrow = ObjectExtensions.<DropDownChoice<CriterioBusqueda>>operator_doubleArrow(_dropDownChoice, _function_1);
       this._wicketExtensionFactoryMethods.addChild(div, _doubleArrow);
       this._wicketExtensionFactoryMethods.addChild(parent, div);
-      WebMarkupContainer _selectorDiv = this.selectorDiv = div;
-      _xblockexpression = (_selectorDiv);
+      _xblockexpression = this.selectorDiv = div;
     }
     return _xblockexpression;
   }
@@ -104,44 +129,37 @@ public class BuscadorJugadoresPage extends WebPage {
   public Component agregarCamposBusqueda(final Form<BuscadorDeJugadores> parent) {
     Component _xblockexpression = null;
     {
-      WebMarkupContainer _webMarkupContainer = new WebMarkupContainer("inputDivs");
-      WebMarkupContainer div = _webMarkupContainer;
-      WebMarkupContainer _webMarkupContainer_1 = new WebMarkupContainer("nombreDiv");
-      WebMarkupContainer divNombre = _webMarkupContainer_1;
+      WebMarkupContainer div = new WebMarkupContainer("inputDivs");
+      WebMarkupContainer divNombre = new WebMarkupContainer("nombreDiv");
       TextField<String> _textField = new TextField<String>("criterioNombre.nombre");
       this._wicketExtensionFactoryMethods.addChild(divNombre, _textField);
       this._wicketExtensionFactoryMethods.addChild(div, divNombre);
       this.nombreDiv = divNombre;
-      WebMarkupContainer _webMarkupContainer_2 = new WebMarkupContainer("apodoDiv");
-      WebMarkupContainer divApodo = _webMarkupContainer_2;
+      WebMarkupContainer divApodo = new WebMarkupContainer("apodoDiv");
       TextField<String> _textField_1 = new TextField<String>("criterioApodo.apodo");
       this._wicketExtensionFactoryMethods.addChild(divApodo, _textField_1);
       this._wicketExtensionFactoryMethods.addChild(div, divApodo);
       this.apodoDiv = divApodo;
-      WebMarkupContainer _webMarkupContainer_3 = new WebMarkupContainer("fechaDiv");
-      WebMarkupContainer divFecha = _webMarkupContainer_3;
+      WebMarkupContainer divFecha = new WebMarkupContainer("fechaDiv");
       TextField<Date> _textField_2 = new TextField<Date>("criterioEdad.fecha");
       this._wicketExtensionFactoryMethods.addChild(divFecha, _textField_2);
       this._wicketExtensionFactoryMethods.addChild(div, divFecha);
       this.fechaDiv = divFecha;
-      WebMarkupContainer _webMarkupContainer_4 = new WebMarkupContainer("handicapDiv");
-      WebMarkupContainer divHandicap = _webMarkupContainer_4;
+      WebMarkupContainer divHandicap = new WebMarkupContainer("handicapDiv");
       TextField<Double> _textField_3 = new TextField<Double>("criterioHandicap.desde");
       this._wicketExtensionFactoryMethods.addChild(divHandicap, _textField_3);
       TextField<Double> _textField_4 = new TextField<Double>("criterioHandicap.hasta");
       this._wicketExtensionFactoryMethods.addChild(divHandicap, _textField_4);
       this._wicketExtensionFactoryMethods.addChild(div, divHandicap);
       this.handicapDivs = divHandicap;
-      WebMarkupContainer _webMarkupContainer_5 = new WebMarkupContainer("promedioDiv");
-      WebMarkupContainer divPromedio = _webMarkupContainer_5;
+      WebMarkupContainer divPromedio = new WebMarkupContainer("promedioDiv");
       TextField<Double> _textField_5 = new TextField<Double>("criterioPromedio.desde");
       this._wicketExtensionFactoryMethods.addChild(divPromedio, _textField_5);
       TextField<Double> _textField_6 = new TextField<Double>("criterioPromedio.hasta");
       this._wicketExtensionFactoryMethods.addChild(divPromedio, _textField_6);
       this._wicketExtensionFactoryMethods.addChild(div, divPromedio);
       this.promedioDiv = divPromedio;
-      WebMarkupContainer _webMarkupContainer_6 = new WebMarkupContainer("infraccionesDiv");
-      WebMarkupContainer divInfracciones = _webMarkupContainer_6;
+      WebMarkupContainer divInfracciones = new WebMarkupContainer("infraccionesDiv");
       DropDownChoice<CriterioBusqueda> _dropDownChoice = new DropDownChoice<CriterioBusqueda>("criterio");
       final Procedure1<DropDownChoice<CriterioBusqueda>> _function = new Procedure1<DropDownChoice<CriterioBusqueda>>() {
         public void apply(final DropDownChoice<CriterioBusqueda> it) {
@@ -172,8 +190,7 @@ public class BuscadorJugadoresPage extends WebPage {
       this._wicketExtensionFactoryMethods.addChild(div, _setOnClick_1);
       this._wicketExtensionFactoryMethods.addChild(parent, div);
       this.inputDivs = div;
-      Component _setVisible = this.inputDivs.setVisible(false);
-      _xblockexpression = (_setVisible);
+      _xblockexpression = this.inputDivs.setVisible(false);
     }
     return _xblockexpression;
   }
@@ -183,14 +200,26 @@ public class BuscadorJugadoresPage extends WebPage {
     {
       this.buscador.clear();
       this.selectorDiv.setVisible(true);
-      Component _setVisible = this.inputDivs.setVisible(false);
-      _xblockexpression = (_setVisible);
+      _xblockexpression = this.inputDivs.setVisible(false);
     }
     return _xblockexpression;
   }
   
   public void buscarJugadores() {
-    this.buscador.search();
+    try {
+      this.buscador.search();
+    } catch (final Throwable _t) {
+      if (_t instanceof UserException) {
+        final UserException e = (UserException)_t;
+        String _message = e.getMessage();
+        this.info(_message);
+      } else if (_t instanceof RuntimeException) {
+        final RuntimeException e_1 = (RuntimeException)_t;
+        this.error("Ocurrió un error al realizar la búsqueda solicitada.");
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
   }
   
   public Component seleccionarCriterio() {
@@ -208,48 +237,42 @@ public class BuscadorJugadoresPage extends WebPage {
         Class<? extends CriterioBusqueda> _class = _criterio_1.getClass();
         boolean _equals = Objects.equal(_class, BusquedaNombre.class);
         if (_equals) {
-          Component _setVisible = this.nombreDiv.setVisible(true);
-          _xifexpression_1 = _setVisible;
+          _xifexpression_1 = this.nombreDiv.setVisible(true);
         } else {
           Component _xifexpression_2 = null;
           CriterioBusqueda _criterio_2 = this.buscador.getCriterio();
           Class<? extends CriterioBusqueda> _class_1 = _criterio_2.getClass();
           boolean _equals_1 = Objects.equal(_class_1, BusquedaApodo.class);
           if (_equals_1) {
-            Component _setVisible_1 = this.apodoDiv.setVisible(true);
-            _xifexpression_2 = _setVisible_1;
+            _xifexpression_2 = this.apodoDiv.setVisible(true);
           } else {
             Component _xifexpression_3 = null;
             CriterioBusqueda _criterio_3 = this.buscador.getCriterio();
             Class<? extends CriterioBusqueda> _class_2 = _criterio_3.getClass();
             boolean _equals_2 = Objects.equal(_class_2, BusquedaEdad.class);
             if (_equals_2) {
-              Component _setVisible_2 = this.fechaDiv.setVisible(true);
-              _xifexpression_3 = _setVisible_2;
+              _xifexpression_3 = this.fechaDiv.setVisible(true);
             } else {
               Component _xifexpression_4 = null;
               CriterioBusqueda _criterio_4 = this.buscador.getCriterio();
               Class<? extends CriterioBusqueda> _class_3 = _criterio_4.getClass();
               boolean _equals_3 = Objects.equal(_class_3, BusquedaHandicap.class);
               if (_equals_3) {
-                Component _setVisible_3 = this.handicapDivs.setVisible(true);
-                _xifexpression_4 = _setVisible_3;
+                _xifexpression_4 = this.handicapDivs.setVisible(true);
               } else {
                 Component _xifexpression_5 = null;
                 CriterioBusqueda _criterio_5 = this.buscador.getCriterio();
                 Class<? extends CriterioBusqueda> _class_4 = _criterio_5.getClass();
                 boolean _equals_4 = Objects.equal(_class_4, BusquedaPromedio.class);
                 if (_equals_4) {
-                  Component _setVisible_4 = this.promedioDiv.setVisible(true);
-                  _xifexpression_5 = _setVisible_4;
+                  _xifexpression_5 = this.promedioDiv.setVisible(true);
                 } else {
                   Component _xifexpression_6 = null;
                   CriterioBusqueda _criterio_6 = this.buscador.getCriterio();
                   Class<? extends CriterioBusqueda> _class_5 = _criterio_6.getClass();
                   boolean _equals_5 = Objects.equal(_class_5, BusquedaCompuesta.class);
                   if (_equals_5) {
-                    Component _setVisible_5 = this.infraccionesDiv.setVisible(true);
-                    _xifexpression_6 = _setVisible_5;
+                    _xifexpression_6 = this.infraccionesDiv.setVisible(true);
                   }
                   _xifexpression_5 = _xifexpression_6;
                 }
@@ -261,9 +284,11 @@ public class BuscadorJugadoresPage extends WebPage {
           }
           _xifexpression_1 = _xifexpression_2;
         }
-        _xblockexpression = (_xifexpression_1);
+        _xblockexpression = _xifexpression_1;
       }
       _xifexpression = _xblockexpression;
+    } else {
+      this.info("Debe seleccionar un criterio de búsqueda.");
     }
     return _xifexpression;
   }
@@ -276,8 +301,7 @@ public class BuscadorJugadoresPage extends WebPage {
       this.fechaDiv.setVisible(false);
       this.handicapDivs.setVisible(false);
       this.promedioDiv.setVisible(false);
-      Component _setVisible = this.infraccionesDiv.setVisible(false);
-      _xblockexpression = (_setVisible);
+      _xblockexpression = this.infraccionesDiv.setVisible(false);
     }
     return _xblockexpression;
   }
@@ -285,26 +309,25 @@ public class BuscadorJugadoresPage extends WebPage {
   public MarkupContainer agregarGrillaResultados(final Form<BuscadorDeJugadores> parent) {
     MarkupContainer _xblockexpression = null;
     {
-      XListView<Object> _xListView = new XListView<Object>("resultados");
-      final XListView<Object> listView = _xListView;
-      final Procedure1<ListItem<Object>> _function = new Procedure1<ListItem<Object>>() {
-        public void apply(final ListItem<Object> item) {
-          Object _modelObject = item.getModelObject();
-          CompoundPropertyModel<Object> _asCompoundModel = BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.<Object>asCompoundModel(_modelObject);
+      final XListView<Jugador> listView = new XListView<Jugador>("resultados");
+      final Procedure1<ListItem<Jugador>> _function = new Procedure1<ListItem<Jugador>>() {
+        public void apply(final ListItem<Jugador> item) {
+          Jugador _modelObject = item.getModelObject();
+          CompoundPropertyModel<Jugador> _asCompoundModel = BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.<Jugador>asCompoundModel(_modelObject);
           item.setModel(_asCompoundModel);
-          Label _label = new Label("nombre");
+          Jugador _modelObject_1 = item.getModelObject();
+          LinkJugador _linkJugador = new LinkJugador("link", _modelObject_1, BuscadorJugadoresPage.this);
+          BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _linkJugador);
+          Label _label = new Label("apodo");
           BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label);
-          Label _label_1 = new Label("apodo");
+          Label _label_1 = new Label("handicap");
           BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label_1);
-          Label _label_2 = new Label("handicap");
+          Label _label_2 = new Label("promedioUltimoPartido");
           BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label_2);
-          Label _label_3 = new Label("promedioUltimoPartido");
-          BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label_3);
         }
       };
       listView.setPopulateItem(_function);
-      MarkupContainer _addChild = this._wicketExtensionFactoryMethods.addChild(parent, listView);
-      _xblockexpression = (_addChild);
+      _xblockexpression = this._wicketExtensionFactoryMethods.addChild(parent, listView);
     }
     return _xblockexpression;
   }
