@@ -16,6 +16,8 @@ import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 import org.apache.wicket.markup.html.form.TextField
 import java.math.BigDecimal
+import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.uqbar.commons.model.UserException
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -34,6 +36,7 @@ class GenerarEquiposPage extends WebPage {
 		this.agregarOpciones(generarForm)
 		this.agregarAcciones(generarForm)
 		this.agregarGrilla(generarForm)
+		this.agregarFeedbackPanel(generarForm)
 		this.addChild(generarForm)
 
 		
@@ -75,11 +78,20 @@ class GenerarEquiposPage extends WebPage {
 	
 	def generar()
 	{
-		this.generador.generar()
-		responsePage = new ConfirmarEquiposPage(this.generador, this)
+		try
+		{
+			this.generador.generar()
+			responsePage = new ConfirmarEquiposPage(this.generador, this)
+		} catch (UserException e) {
+			info(e.getMessage())
+		} catch (RuntimeException e) {
+			error("Ocurrió un error al intentar generar el equipo. Error: " + e.message)
+		}
 	}
 	
-	
+	def agregarFeedbackPanel(Form<GeneradorDeEquipos> form) {
+		form.addChild(new FeedbackPanel("feedbackPanel"))
+	}	
 	
 	
 	

@@ -136,7 +136,7 @@ class BuscadorJugadoresPage  extends WebPage {
 		} catch (UserException e) {
 			info(e.getMessage())
 		} catch (RuntimeException e) {
-			error("Ocurrió un error al realizar la búsqueda solicitada.")
+			error("Ocurrió un error al realizar la búsqueda solicitada. Error: " + e.message)
 		}
 	}
 
