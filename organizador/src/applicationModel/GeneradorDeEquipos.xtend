@@ -11,17 +11,23 @@ import java.util.ArrayList
 import home.HomeJugadores
 import home.HomePartido
 import org.uqbar.commons.utils.ApplicationContext
+import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
+import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 
 @org.uqbar.commons.utils.Observable
 class GeneradorDeEquipos implements Serializable
 //IMPORTANTE: feature envy en todas partes??? convendrá ir desde la UI directamente a pegarle al partido?
 {
 	Partido partido;
-	Criterio criterioDeOrdenamiento;
-	Generacion criterioDeSeleccion;	
+	Criterio criterioDeOrdenamiento; //criterio seleccionado
+	Generacion criterioDeSeleccion;	 //generacion seleccionado
 	List<Jugador> primerEquipo;
 	List<Jugador> segundoEquipo;
-	
+	@Property ArrayList<Generacion> criteriosDeSeleccion;
+	@Property ArrayList<Criterio> criteriosDeOrdenamiento;
+	@Property CriterioDeLasUltimasCalificaciones criterioDeLasUltimasCalificaciones
 
 	new()
 	{
@@ -30,6 +36,14 @@ class GeneradorDeEquipos implements Serializable
 			this.inscribirJugadores()
 		this.primerEquipo = new ArrayList<Jugador>
 		this.segundoEquipo = new ArrayList<Jugador>
+		criteriosDeSeleccion = new ArrayList<Generacion>
+		criteriosDeSeleccion.add(new GeneracionConcreta())
+		criteriosDeSeleccion.add(new GeneracionParImpar())
+		
+		criteriosDeOrdenamiento = new ArrayList<Criterio>
+		criteriosDeOrdenamiento.add(new CriterioDelHandicap)
+		criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones()
+		criteriosDeOrdenamiento.add(criterioDeLasUltimasCalificaciones)
 	}
 	
 	

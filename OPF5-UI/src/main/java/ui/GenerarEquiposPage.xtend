@@ -14,6 +14,8 @@ import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
+import org.apache.wicket.markup.html.form.TextField
+import java.math.BigDecimal
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -40,12 +42,14 @@ class GenerarEquiposPage extends WebPage {
 	def agregarOpciones(Form<GeneradorDeEquipos> form) 
 	{
 		form.addChild( new DropDownChoice<Criterio>("criterioDeOrdenamiento") => 
-		[choices = this.getCriteriosOrdenamiento()
-		 choiceRenderer = choiceRenderer([Criterio cr | cr.nombreDelCriterio])]) //alguien dijo refactor?
-		
+		[choices = this.generador.criteriosDeOrdenamiento 
+		 choiceRenderer = choiceRenderer([Criterio cr | cr.nombreDelCriterio])]) 
+		 
+		 form.addChild(new TextField<Integer>("criterioDeLasUltimasCalificaciones.cantidadDeCalificaciones"))
+
 		form.addChild( new DropDownChoice<Generacion>("criterioDeSeleccion") => 
-		[choices = this.getCriteriosSeleccion()
-		 choiceRenderer = choiceRenderer([Generacion gen | gen.nombreDelAlgoritmo])]) //alguien dijo refactor?
+		[choices = this.generador.criteriosDeSeleccion
+		 choiceRenderer = choiceRenderer([Generacion gen | gen.nombreDelAlgoritmo])]) 
 	}
 	
 	def agregarGrilla(Form<GeneradorDeEquipos> form) 
@@ -75,26 +79,8 @@ class GenerarEquiposPage extends WebPage {
 		responsePage = new ConfirmarEquiposPage(this.generador, this)
 	}
 	
-
-	
-	def getCriteriosOrdenamiento()
-	{
-		var criterios = new ArrayList<Criterio>
-		criterios.add(new CriterioDelHandicap)
-		criterios.add(new CriterioDeLasUltimasCalificaciones(3)) //ese 3 hardcodeado so strong. FIXME ver cómo podemos hacer para pedirle ese número al usuario
-		// criterios.add(new CriterioDelUltimoPartido) este no sirve, necesito la comunidad
-		//y el criterio compuesto?
-		//obviamente necesitamos una interfaz para definir el criterio compuesto y la cantidad de calificaciones
-		return criterios
-	}
 	
 	
-	def getCriteriosSeleccion()
-	{
-		var criterios = new ArrayList<Generacion>
-		criterios.add(new GeneracionConcreta())
-		criterios.add(new GeneracionParImpar())
-		return criterios
-	}
+	
 	
 }
