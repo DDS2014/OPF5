@@ -59,7 +59,7 @@ class InfoJugadorPage extends WebPage {
 		
 		listAmigos.populateItem = [ item |
 			item.model = item.modelObject.asCompoundModel
-			item.addChild(new Label("nombre"))
+			item.addChild(new LinkJugador("link", item.modelObject, this))
 			item.addChild(new Label("apodo"))
 			item.addChild(new Label("handicap"))
 			item.addChild(new Label("promedioGlobal"))
