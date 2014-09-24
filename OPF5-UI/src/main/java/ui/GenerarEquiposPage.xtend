@@ -1,23 +1,18 @@
 package ui
 
-import org.apache.wicket.markup.html.WebPage
-import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import applicationModel.GeneradorDeEquipos
-import org.apache.wicket.markup.html.form.Form
-import org.apache.wicket.model.CompoundPropertyModel
-import org.uqbar.wicket.xtend.XButton
-import org.apache.wicket.markup.html.form.DropDownChoice
-import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
-import java.util.ArrayList
-import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
-import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
-import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
-import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
+import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
+import org.apache.wicket.markup.html.WebPage
+import org.apache.wicket.markup.html.form.DropDownChoice
+import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.TextField
-import java.math.BigDecimal
 import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.apache.wicket.model.CompoundPropertyModel
 import org.uqbar.commons.model.UserException
+import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
+import org.uqbar.wicket.xtend.XButton
+import org.uqbar.wicket.xtend.XForm
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -32,7 +27,7 @@ class GenerarEquiposPage extends WebPage {
 	new(HomePage parentPage){
 		this.generador = new GeneradorDeEquipos
 		this.parentPage = parentPage;
-		val Form<GeneradorDeEquipos> generarForm = new Form<GeneradorDeEquipos>("generarEquiposForm", new CompoundPropertyModel<GeneradorDeEquipos>(this.generador))
+		val XForm<GeneradorDeEquipos> generarForm = new XForm<GeneradorDeEquipos>("generarEquiposForm", new CompoundPropertyModel<GeneradorDeEquipos>(this.generador))
 		this.agregarOpciones(generarForm)
 		this.agregarAcciones(generarForm)
 		this.agregarGrilla(generarForm)
