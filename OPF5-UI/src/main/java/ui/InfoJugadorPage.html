@@ -17,8 +17,8 @@
 		<caption align=top style=font-size:25px wicket:id="nombre">Nombre de Jugador</caption>
 			<tr><td> <div style=font-size:18px>Apodo: </div> <span wicket:id="apodo">unApodo</span></td></tr>
 			<tr><td> <div style=font-size:18px>Handicap: </div> <span wicket:id="handicap">unHandi</span></td></tr>
-			<tr><td> <div style=font-size:18px>Promedio del ultimo Partido: </div> <span>ultPromedio</span></td></tr>
-			<tr><td> <div style=font-size:18px>Promedio Global:</div>  <span>promGlobal</span></td></tr>
+			<tr><td> <div style=font-size:18px>Promedio del ultimo Partido: </div> <span wicket:id="promedioUltimoPartido" >ultPromedio</span></td></tr>
+			<tr><td> <div style=font-size:18px>Promedio Global:</div>  <span wicket:id="promedioGlobal">promGlobal</span></td></tr>
 			<tr><td> <div style=font-size:18px>Edad:</div> <span wicket:id="edad">edad</span></td></tr>
 			
 		<tr>
@@ -41,11 +41,30 @@
 	       	            	<span wicket:id="handicap">unHandi</span>
 	   	                </td> 
 	           	        <td>
-	       	            	<span>unProm</span>
+	       	            	<span wicket:id="promedioGlobal">unProm</span>
 	   	                </td> 
 	   	    </tr></tbody>
 	        </table></td>
-	    </tr>    
+	    </tr> 
+	    
+	    <tr>
+			<td><table class="table table-condensed"  style="width:100%">
+			<caption style=font-size:18px>Infracciones </caption>
+			<thead><tr>
+	            <th>Fecha y Hora</th>
+	            <th>Motivo</th>
+	        </tr></thead>
+	        <tbody><tr wicket:id="infracciones">
+	                   	<td>
+	                   	    <span wicket:id="fecha">unaFecha</span> 
+	               	    </td> 
+	           	        <td>
+	       	            	<span wicket:id="motivo">unMotivo</span>
+	   	                </td>    
+			</tr></tbody>
+			</table></td>
+		</tr>
+				
 		</table>
 		
 		<button wicket:id="btnVolver">Volver</button>

@@ -1,17 +1,17 @@
 package domain
 
-import domain.infracciones.Infraccion
-import java.util.HashSet
-import domain.inscripcion.TipoDeInscripcion
 import domain.calificaciones.Calificacion
-import domain.excepciones.ImposibleCalificarException
 import domain.excepciones.ImposibleBajarseException
+import domain.excepciones.ImposibleCalificarException
+import domain.infracciones.Infraccion
+import domain.inscripcion.TipoDeInscripcion
 import java.util.ArrayList
-import java.util.Comparator
 import java.util.Collections
-import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.model.Entity
+import java.util.Comparator
 import java.util.Date
+import java.util.HashSet
+import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.Observable
 
 @Observable
 public class Jugador extends Entity implements Comparator<Calificacion> 
@@ -25,7 +25,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	@Property String email
 	@Property TipoDeInscripcion modalidad
 	@Property ArrayList<Jugador> amigos;
-	@Property HashSet<Infraccion> infracciones;
+	@Property ArrayList<Infraccion> infracciones;
 	@Property ArrayList<Calificacion> calificaciones;
 	@Property Date fechaNacimiento;
 	
@@ -34,7 +34,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 		this.nombre=nombre
 		this.edad=edad
 		this.amigos = new ArrayList();
-		this.infracciones = new HashSet();
+		this.infracciones = new ArrayList();
 		this.modalidad = modalidad;
 		modalidad.setCliente(this);
 		this.calificaciones=new ArrayList();
@@ -42,7 +42,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	
 	new() {
 		this.amigos = new ArrayList();
-		this.infracciones = new HashSet();
+		this.infracciones = new ArrayList();
 		this.calificaciones=new ArrayList();
 	}
 
@@ -124,6 +124,19 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 			return this.calificaciones.last.puntaje
 		else
 			return 0
+	}
+	
+	def double promedioGlobal(){
+		if (this.calificaciones.isEmpty)
+		return 0
+		else
+		{var suma = 0 as double
+		var cantidadAPromediar = calificaciones.length()
+		var puntajesAPromediar = calificaciones.map[calif | calif.getPuntaje()]
+		for(puntaje:puntajesAPromediar)
+		{suma = suma + puntaje}
+		return suma/cantidadAPromediar
+		}
 	}
 	
 	def Boolean tieneInfracciones(){

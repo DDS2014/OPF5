@@ -22,17 +22,28 @@ class InfoJugadorPage extends WebPage {
 		this.agregarAcciones(infoJugadorForm)
 		this.agregarGrillaDatos(infoJugadorForm)
 		this.agregarGrillaAmigos(infoJugadorForm)
+		this.agregarGrillaInfracciones(infoJugadorForm)
 		this.addChild(infoJugadorForm)
+	}
+	
+	def agregarGrillaInfracciones(Form<Jugador> form) {
+		var listInfracciones = new XListView("infracciones")
+		
+		listInfracciones.populateItem = [ item |
+			item.model = item.modelObject.asCompoundModel
+			item.addChild(new Label("fecha"))
+			item.addChild(new Label("motivo"))
+		]	
+		form.addChild(listInfracciones)		
 	}
 	
 	def agregarGrillaDatos(Form<Jugador> form) {
 		form.addChild(new Label("nombre"))
 		form.addChild(new Label("apodo"))
 		form.addChild(new Label("handicap"))
-		//form.addChild(new Label("jugador.promedioUltimo"))
-		//form.addChild(new Label("jugador.promedioGlobal"))
+		form.addChild(new Label("promedioUltimoPartido"))
+		form.addChild(new Label("promedioGlobal"))
 		form.addChild(new Label("edad"))
-		
 	
 	}
 	
@@ -51,7 +62,7 @@ class InfoJugadorPage extends WebPage {
 			item.addChild(new Label("nombre"))
 			item.addChild(new Label("apodo"))
 			item.addChild(new Label("handicap"))
-			//item.addChild(new Label("promedio"))
+			item.addChild(new Label("promedioGlobal"))
 		]	
 		form.addChild(listAmigos)		
 	}
