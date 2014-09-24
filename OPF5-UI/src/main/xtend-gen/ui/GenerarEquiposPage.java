@@ -2,17 +2,14 @@ package ui;
 
 import applicationModel.GeneradorDeEquipos;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion;
-import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta;
-import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar;
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio;
-import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones;
-import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap;
 import java.util.ArrayList;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -51,8 +48,8 @@ public class GenerarEquiposPage extends WebPage {
       DropDownChoice<Criterio> _dropDownChoice = new DropDownChoice<Criterio>("criterioDeOrdenamiento");
       final Procedure1<DropDownChoice<Criterio>> _function = new Procedure1<DropDownChoice<Criterio>>() {
         public void apply(final DropDownChoice<Criterio> it) {
-          ArrayList<Criterio> _criteriosOrdenamiento = GenerarEquiposPage.this.getCriteriosOrdenamiento();
-          it.setChoices(_criteriosOrdenamiento);
+          ArrayList<Criterio> _criteriosDeOrdenamiento = GenerarEquiposPage.this.generador.getCriteriosDeOrdenamiento();
+          it.setChoices(_criteriosDeOrdenamiento);
           final Function1<Criterio, String> _function = new Function1<Criterio, String>() {
             public String apply(final Criterio cr) {
               return cr.getNombreDelCriterio();
@@ -64,11 +61,13 @@ public class GenerarEquiposPage extends WebPage {
       };
       DropDownChoice<Criterio> _doubleArrow = ObjectExtensions.<DropDownChoice<Criterio>>operator_doubleArrow(_dropDownChoice, _function);
       this._wicketExtensionFactoryMethods.addChild(form, _doubleArrow);
+      TextField<Integer> _textField = new TextField<Integer>("criterioDeLasUltimasCalificaciones.cantidadDeCalificaciones");
+      this._wicketExtensionFactoryMethods.addChild(form, _textField);
       DropDownChoice<Generacion> _dropDownChoice_1 = new DropDownChoice<Generacion>("criterioDeSeleccion");
       final Procedure1<DropDownChoice<Generacion>> _function_1 = new Procedure1<DropDownChoice<Generacion>>() {
         public void apply(final DropDownChoice<Generacion> it) {
-          ArrayList<Generacion> _criteriosSeleccion = GenerarEquiposPage.this.getCriteriosSeleccion();
-          it.setChoices(_criteriosSeleccion);
+          ArrayList<Generacion> _criteriosDeSeleccion = GenerarEquiposPage.this.generador.getCriteriosDeSeleccion();
+          it.setChoices(_criteriosDeSeleccion);
           final Function1<Generacion, String> _function = new Function1<Generacion, String>() {
             public String apply(final Generacion gen) {
               return gen.getNombreDelAlgoritmo();
@@ -119,23 +118,5 @@ public class GenerarEquiposPage extends WebPage {
     this.generador.generar();
     ConfirmarEquiposPage _confirmarEquiposPage = new ConfirmarEquiposPage(this.generador, this);
     this.setResponsePage(_confirmarEquiposPage);
-  }
-  
-  public ArrayList<Criterio> getCriteriosOrdenamiento() {
-    ArrayList<Criterio> criterios = new ArrayList<Criterio>();
-    CriterioDelHandicap _criterioDelHandicap = new CriterioDelHandicap();
-    criterios.add(_criterioDelHandicap);
-    CriterioDeLasUltimasCalificaciones _criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones(3);
-    criterios.add(_criterioDeLasUltimasCalificaciones);
-    return criterios;
-  }
-  
-  public ArrayList<Generacion> getCriteriosSeleccion() {
-    ArrayList<Generacion> criterios = new ArrayList<Generacion>();
-    GeneracionConcreta _generacionConcreta = new GeneracionConcreta();
-    criterios.add(_generacionConcreta);
-    GeneracionParImpar _generacionParImpar = new GeneracionParImpar();
-    criterios.add(_generacionParImpar);
-    return criterios;
   }
 }

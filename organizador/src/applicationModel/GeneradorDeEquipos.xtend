@@ -11,26 +11,54 @@ import java.util.ArrayList
 import home.HomeJugadores
 import home.HomePartido
 import org.uqbar.commons.utils.ApplicationContext
+import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
+import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
+import domain.sugerencias.Comunidad
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
 
 @org.uqbar.commons.utils.Observable
 class GeneradorDeEquipos implements Serializable
 //IMPORTANTE: feature envy en todas partes??? convendrá ir desde la UI directamente a pegarle al partido?
 {
 	Partido partido;
-	Criterio criterioDeOrdenamiento;
-	Generacion criterioDeSeleccion;	
+	Criterio criterioDeOrdenamiento; //criterio seleccionado
+	Generacion criterioDeSeleccion;	 //generacion seleccionado
 	List<Jugador> primerEquipo;
 	List<Jugador> segundoEquipo;
-	
+	@Property ArrayList<Generacion> criteriosDeSeleccion;
+	@Property ArrayList<Criterio> criteriosDeOrdenamiento;
+	@Property CriterioDeLasUltimasCalificaciones criterioDeLasUltimasCalificaciones
+	Comunidad comunidad
 
 	new()
 	{
 		this.partido = homePartido.allInstances.get(0) //me gusta el workaround "provisorio"
 		if(this.partido.hayLugaresLibres)
 			this.inscribirJugadores()
+		
+		this.agregarComunidad()
+		
 		this.primerEquipo = new ArrayList<Jugador>
 		this.segundoEquipo = new ArrayList<Jugador>
+		
+		criteriosDeSeleccion = new ArrayList<Generacion>
+		criteriosDeSeleccion.add(new GeneracionConcreta())
+		criteriosDeSeleccion.add(new GeneracionParImpar())
+		
+		criteriosDeOrdenamiento = new ArrayList<Criterio>
+		criteriosDeOrdenamiento.add(new CriterioDelHandicap)
+		criteriosDeOrdenamiento.add(new CriterioDelUltimoPartido(comunidad))
+		criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones()
+		criteriosDeOrdenamiento.add(criterioDeLasUltimasCalificaciones)
 	}
+	
+	def agregarComunidad(){
+		  this.comunidad = new Comunidad
+		  this.comunidad.organizarPartido(this.partido)
+		  this.partido.jugadoresConfirmados.forEach[j|this.comunidad.agregar(j)]
+	 }
 	
 	
 	def generar()
