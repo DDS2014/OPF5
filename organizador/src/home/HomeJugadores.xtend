@@ -14,30 +14,94 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	}
 	
 	def void init() {
-		this.create("Juan","Juancito",new InscripcionEstandar,9)
-		this.create("Jose","Pepe",new InscripcionEstandar,6)
-		this.create("Nicolás","Nico",new InscripcionEstandar,10)
-		this.create("Diego","Diego",new InscripcionEstandar,6)
-		this.create("Roberto","Tito",new InscripcionEstandar,7)
-		this.create("Jorge","Jorge",new InscripcionEstandar,6)
-		this.create("Pablo","Pablo",new InscripcionEstandar,6)
-		this.create("Hernán","Hernán",new InscripcionEstandar,9)
-		this.create("Esteban","Esteban",new InscripcionEstandar,6)
-		this.create("Alberto","Beto",new InscripcionEstandar,6)
+//		this.create("Juan","Juancito",new InscripcionEstandar,9,18)
+//		this.create("Jose","Pepe",new InscripcionEstandar,6,19)
+//		this.create("Nicolás","Nico",new InscripcionEstandar,10,21)
+//		this.create("Diego","Diego",new InscripcionEstandar,6,47)
+//		this.create("Roberto","Tito",new InscripcionEstandar,7,32)
+//		this.create("Jorge","Jorge",new InscripcionEstandar,6,20)
+//		this.create("Pablo","Pablo",new InscripcionEstandar,6,33)
+//		this.create("Hernán","Hernán",new InscripcionEstandar,9,45)
+//		this.create("Esteban","Esteban",new InscripcionEstandar,6,19)
+//		this.create("Alberto","Beto",new InscripcionEstandar,6,25)
+	var diego = new Jugador("Diego", 32, new InscripcionEstandar());
+	var facundo = new Jugador("Facundo", 26, new InscripcionEstandar());
+	var marcos = new Jugador("Marcos", 28, new InscripcionEstandar());
+	var pepe = new Jugador("Pepe", 42, new InscripcionEstandar());
+	var leo = new Jugador("Leo", 22, new InscripcionEstandar());
+	var homero = new Jugador("Homero", 29, new InscripcionEstandar());
+	var esteban = new Jugador("Esteban", 20, new InscripcionEstandar());
+	var luis = new Jugador("Luis", 17, new InscripcionEstandar());
+	var alejandro = new Jugador("Alejandro", 34, new InscripcionEstandar());
+	var martin = new Jugador("Martin",29, new InscripcionEstandar());
+	
+	diego.setHandicap(10);
+	facundo.setHandicap(3);
+	marcos.setHandicap(5);
+	pepe.setHandicap(6);
+	leo.setHandicap(10);
+	homero.setHandicap(8);
+	esteban.setHandicap(9);
+	luis.setHandicap(7);
+	alejandro.setHandicap(4);
+	martin.setHandicap(2);
+	
+	diego.setApodo("D10s");
+	facundo.setApodo("Facu");
+	marcos.setApodo("Marquitos");
+	pepe.setApodo("Pep");
+	leo.setApodo("Messi");
+	homero.setApodo("Homer");
+	esteban.setApodo("El Bichi");
+	luis.setApodo("Luisi");
+	alejandro.setApodo("Ale");
+	martin.setApodo("Tincho");
+	
+	diego.hacerseAmigoDe(leo);
+	diego.hacerseAmigoDe(esteban);
+	diego.hacerseAmigoDe(alejandro);
+	diego.hacerseAmigoDe(homero);
+	diego.hacerseAmigoDe(marcos);
+	
+	alejandro.hacerseAmigoDe(facundo);
+	
+	alejandro.hacerseAmigoDe(esteban);
+	homero.hacerseAmigoDe(esteban);
+	luis.hacerseAmigoDe(esteban);
+	martin.hacerseAmigoDe(esteban);
+	
+	martin.hacerseAmigoDe(leo);
+	facundo.hacerseAmigoDe(leo);
+	marcos.hacerseAmigoDe(leo);
+	esteban.hacerseAmigoDe(leo);
+	
+	this.create(diego);
+	this.create(facundo);
+	this.create(marcos);
+	this.create(pepe);
+	this.create(leo);
+	this.create(homero);
+	this.create(esteban);
+	this.create(luis);
+	this.create(alejandro);
+	this.create(martin);
 	}
 	
 	// ********************************************************
 	// ** Altas y bajas
 	// ********************************************************
-	def void create(String nombre, String apodo, TipoDeInscripcion modalidad, double handicap) {
-		var jugador = new Jugador()
-		jugador.nombre = nombre
-		jugador.apodo = apodo
-		jugador.modalidad = modalidad
-		modalidad.setCliente(jugador);
-		jugador.handicap = handicap
-		this.create(jugador)
-	}
+//	def void create(String nombre, String apodo, TipoDeInscripcion modalidad, double handicap, int edad) {
+//		var jugador = new Jugador()
+//		jugador.nombre = nombre
+//		jugador.apodo = apodo
+//		jugador.edad = edad
+//		jugador.modalidad = modalidad
+//		modalidad.setCliente(jugador);
+//		jugador.handicap = handicap
+//		this.create(jugador)
+//	}
+	
+	
 	
 	// ********************************************************
 	// ** Búsquedas
