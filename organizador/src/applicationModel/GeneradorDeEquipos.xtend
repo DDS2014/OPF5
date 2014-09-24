@@ -15,6 +15,8 @@ import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionParImpar
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
+import domain.sugerencias.Comunidad
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
 
 @org.uqbar.commons.utils.Observable
 class GeneradorDeEquipos implements Serializable
@@ -28,23 +30,35 @@ class GeneradorDeEquipos implements Serializable
 	@Property ArrayList<Generacion> criteriosDeSeleccion;
 	@Property ArrayList<Criterio> criteriosDeOrdenamiento;
 	@Property CriterioDeLasUltimasCalificaciones criterioDeLasUltimasCalificaciones
+	Comunidad comunidad
 
 	new()
 	{
 		this.partido = homePartido.allInstances.get(0) //me gusta el workaround "provisorio"
 		if(this.partido.hayLugaresLibres)
 			this.inscribirJugadores()
+		
+		this.agregarComunidad()
+		
 		this.primerEquipo = new ArrayList<Jugador>
 		this.segundoEquipo = new ArrayList<Jugador>
+		
 		criteriosDeSeleccion = new ArrayList<Generacion>
 		criteriosDeSeleccion.add(new GeneracionConcreta())
 		criteriosDeSeleccion.add(new GeneracionParImpar())
 		
 		criteriosDeOrdenamiento = new ArrayList<Criterio>
 		criteriosDeOrdenamiento.add(new CriterioDelHandicap)
+		criteriosDeOrdenamiento.add(new CriterioDelUltimoPartido(comunidad))
 		criterioDeLasUltimasCalificaciones = new CriterioDeLasUltimasCalificaciones()
 		criteriosDeOrdenamiento.add(criterioDeLasUltimasCalificaciones)
 	}
+	
+	def agregarComunidad(){
+		  this.comunidad = new Comunidad
+		  this.comunidad.organizarPartido(this.partido)
+		  this.partido.jugadoresConfirmados.forEach[j|this.comunidad.agregar(j)]
+	 }
 	
 	
 	def generar()
