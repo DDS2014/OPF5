@@ -6,6 +6,8 @@ import domain.Jugador
 import domain.busqueda.CriterioBusqueda
 import domain.inscripcion.TipoDeInscripcion
 import domain.inscripcion.InscripcionEstandar
+import domain.calificaciones.Calificacion
+import domain.infracciones.Infraccion
 
 @Observable
 class HomeJugadores extends CollectionBasedHome<Jugador> {
@@ -74,6 +76,59 @@ class HomeJugadores extends CollectionBasedHome<Jugador> {
 	facundo.hacerseAmigoDe(leo);
 	marcos.hacerseAmigoDe(leo);
 	esteban.hacerseAmigoDe(leo);
+	
+	diego.calificaciones.add(new Calificacion(10))
+	diego.calificaciones.add(new Calificacion(10))
+	diego.calificaciones.add(new Calificacion(10))
+	diego.calificaciones.add(new Calificacion(10))
+
+	pepe.calificaciones.add(new Calificacion(9))
+	pepe.calificaciones.add(new Calificacion(8))
+	pepe.calificaciones.add(new Calificacion(7))
+	pepe.calificaciones.add(new Calificacion(9))
+
+	leo.calificaciones.add(new Calificacion(10))
+	leo.calificaciones.add(new Calificacion(7))
+	leo.calificaciones.add(new Calificacion(8))
+	leo.calificaciones.add(new Calificacion(9))
+
+	facundo.calificaciones.add(new Calificacion(10))
+	facundo.calificaciones.add(new Calificacion(5))
+	facundo.calificaciones.add(new Calificacion(7))
+	facundo.calificaciones.add(new Calificacion(8))
+	
+	marcos.calificaciones.add(new Calificacion(6))
+	marcos.calificaciones.add(new Calificacion(6))
+	marcos.calificaciones.add(new Calificacion(4))
+	marcos.calificaciones.add(new Calificacion(10))
+	
+	homero.calificaciones.add(new Calificacion(5))
+	homero.calificaciones.add(new Calificacion(5))
+	homero.calificaciones.add(new Calificacion(5))
+	homero.calificaciones.add(new Calificacion(5))
+	
+	esteban.calificaciones.add(new Calificacion(9))
+	esteban.calificaciones.add(new Calificacion(6))
+	esteban.calificaciones.add(new Calificacion(9))
+	esteban.calificaciones.add(new Calificacion(9))
+	
+	luis.calificaciones.add(new Calificacion(4))
+	luis.calificaciones.add(new Calificacion(5))
+	luis.calificaciones.add(new Calificacion(10))
+	luis.calificaciones.add(new Calificacion(7))
+	
+	alejandro.calificaciones.add(new Calificacion(7))
+	alejandro.calificaciones.add(new Calificacion(3))
+	alejandro.calificaciones.add(new Calificacion(6))
+	alejandro.calificaciones.add(new Calificacion(1))
+	
+	martin.calificaciones.add(new Calificacion(3))
+	martin.calificaciones.add(new Calificacion(9))
+	martin.calificaciones.add(new Calificacion(7))
+	martin.calificaciones.add(new Calificacion(6))
+	
+	diego.aplicarInfraccion(new Infraccion("Dopping Positivo"))
+	homero.aplicarInfraccion(new Infraccion("Llego Borracho"))
 	
 	this.create(diego);
 	this.create(facundo);

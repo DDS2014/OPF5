@@ -18,4 +18,10 @@ public class Calificacion {
 		this.calificador=calificador
 		this.fecha = new Date();
 	} 
+	
+	new (int puntaje){
+		this.puntaje=puntaje
+	}
+	
+	
 }
