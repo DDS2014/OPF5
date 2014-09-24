@@ -9,6 +9,8 @@ import org.uqbar.wicket.xtend.XButton
 import org.uqbar.wicket.xtend.XListView
 import domain.Jugador
 import java.util.ArrayList
+import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.uqbar.commons.model.UserException
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -27,6 +29,7 @@ class ConfirmarEquiposPage extends WebPage {
 		val Form<GeneradorDeEquipos> confirmarForm = new Form<GeneradorDeEquipos>("confirmarEquiposForm", new CompoundPropertyModel<GeneradorDeEquipos>(this.generador))
 		this.agregarAcciones(confirmarForm)
 		this.agregarGrilla(confirmarForm)
+		this.agregarFeedbackPanel(confirmarForm)
 		this.addChild(confirmarForm)
 
 		
@@ -61,8 +64,14 @@ class ConfirmarEquiposPage extends WebPage {
 	
 	def confirmar()
 	{
-		this.generador.confirmar()
-		volver()
+		try{
+			this.generador.confirmar()
+			volver()
+		} catch (UserException e) {
+			info(e.getMessage())
+		} catch (RuntimeException e) {
+			error("Ocurrió un error al intentar confirmar el equipo. Error: " + e.message)
+		}
 	}
 	
 	def volver()
@@ -71,7 +80,9 @@ class ConfirmarEquiposPage extends WebPage {
 	}
 	
 
-	
+	def agregarFeedbackPanel(Form<GeneradorDeEquipos> form) {
+		form.addChild(new FeedbackPanel("feedbackPanel"))
+	}	
 
 	
 }
