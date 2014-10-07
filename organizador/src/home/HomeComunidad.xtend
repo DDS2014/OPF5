@@ -90,7 +90,32 @@ class HomeComunidad extends Comunidad {
 		this.agregar(luis)
 		this.agregar(alejandro)
 		this.agregar(martin)
+		
+		this.inscribirJugadores(partido1)
+		this.inscribirJugadores(partido2)
+		this.inscribirJugadores(partido3)
+		
+		diego.calificar(10,"barrilete cosmico",partido2,leo)
+		diego.calificar(10,"de que planeta viniste",partido2,alejandro)
+		
+		diego.calificar(10,"crack",partido3,facundo)
+		diego.calificar(10,"genio genio",partido3,luis)
+		
+		diego.calificar(1,"le cortaron las piernas",partido1,pepe)
+		diego.calificar(2,"no estuvo a la altura",partido1,esteban)
+		
+		leo.calificar(10,"balon de oro",partido2,martin)
+		leo.calificar(9,"goleador del equipo",partido2,esteban)
+		
+		leo.calificar(7,"un poco impreciso",partido3,marcos)
+		leo.calificar(6,"le falto un poco",partido3,facundo)
+		
+		leo.calificar(10,"volvio a su nivel",partido1,alejandro)
+		leo.calificar(10,"ooole ole ole,leeo leo",partido1,luis)
+
 	}
+	
+	
 	
 	def getJugadores(){
 		return aprobados
@@ -103,7 +128,9 @@ class HomeComunidad extends Comunidad {
 			return aprobados.toList
 	}
 	
-	
+	def inscribirJugadores(Partido partido){ //TODO REVISAR: esto nose si es hardcodeo
+		aprobados.forEach[j|j.inscribirse(partido)]
+	}
 
 	
 }

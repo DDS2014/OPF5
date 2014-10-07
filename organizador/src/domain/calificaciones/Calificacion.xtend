@@ -19,9 +19,9 @@ public class Calificacion {
 		this.fecha = new Date();
 	} 
 	
-	new (int puntaje){
-		this.puntaje=puntaje
-	}
+//	new (int puntaje){
+//		this.puntaje=puntaje
+//	}
 	
 	
 }
