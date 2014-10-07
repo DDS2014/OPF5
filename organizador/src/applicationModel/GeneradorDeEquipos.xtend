@@ -17,6 +17,7 @@ import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelHandicap
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 import domain.sugerencias.Comunidad
 import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
+import home.HomeComunidad
 
 @org.uqbar.commons.utils.Observable
 class GeneradorDeEquipos implements Serializable
@@ -34,7 +35,7 @@ class GeneradorDeEquipos implements Serializable
 
 	new()
 	{
-		this.partido = homePartido.allInstances.get(0) //me gusta el workaround "provisorio"
+		this.partido = homeComunidad.getPartidos.get(0) //me gusta el workaround "provisorio"
 		if(this.partido.hayLugaresLibres)
 			this.inscribirJugadores()
 		
@@ -70,7 +71,7 @@ class GeneradorDeEquipos implements Serializable
 	}
 	
 	def inscribirJugadores(){
-		var jugadores = homeJugadores.jugadores
+		var jugadores = homeComunidad.jugadores
 		jugadores.forEach[j|j.inscribirse(this.partido)]
 	}
 	
@@ -87,11 +88,11 @@ class GeneradorDeEquipos implements Serializable
 		this.segundoEquipo.addAll(this.partido.segundoEquipo)
 	}
 	
-	def HomeJugadores getHomeJugadores() {
-		ApplicationContext::instance.getSingleton(typeof(Jugador))
+	def HomeComunidad getHomeComunidad() {
+		ApplicationContext::instance.getSingleton(typeof(Comunidad))
 	}
 	
-	def HomePartido getHomePartido() {
-		ApplicationContext::instance.getSingleton(typeof(Partido))
-	}
+//	def HomePartido getHomePartido() {
+//		ApplicationContext::instance.getSingleton(typeof(Partido))
+//	}
 }

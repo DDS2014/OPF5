@@ -8,6 +8,8 @@ import java.util.ArrayList
 import org.uqbar.commons.utils.ApplicationContext
 import java.util.Date
 import domain.busqueda.*
+import domain.sugerencias.Comunidad
+import home.HomeComunidad
 
 @org.uqbar.commons.utils.Observable
 class BuscadorDeJugadores implements Serializable
@@ -51,8 +53,8 @@ class BuscadorDeJugadores implements Serializable
 		this.criteriosDisponibles.add(this.criterioInfracciones)
 	}
 	
-	def HomeJugadores getHomeJugadores() {
-		ApplicationContext::instance.getSingleton(typeof(Jugador))
+	def HomeComunidad getHomeComunidad() {
+		ApplicationContext::instance.getSingleton(typeof(Comunidad))
 	}
 	
 	// ********************************************************
@@ -60,7 +62,7 @@ class BuscadorDeJugadores implements Serializable
 	// ********************************************************
 	def void search() { 
 		resultados = new ArrayList<Jugador>
-		resultados = getHomeJugadores().search(this.criterio)
+		resultados = getHomeComunidad().search(this.criterio)
 	}
 	
 	def void clear() {
