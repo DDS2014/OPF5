@@ -3,7 +3,6 @@ package applicationModel
 import java.io.Serializable
 import java.util.List
 import domain.Jugador
-import home.HomeJugadores
 import java.util.ArrayList
 import org.uqbar.commons.utils.ApplicationContext
 import java.util.Date

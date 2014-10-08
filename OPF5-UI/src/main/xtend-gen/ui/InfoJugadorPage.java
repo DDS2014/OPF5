@@ -1,6 +1,8 @@
 package ui;
 
 import domain.Jugador;
+import domain.sugerencias.Comunidad;
+import home.HomeComunidad;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -10,6 +12,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.uqbar.commons.utils.ApplicationContext;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
 import org.uqbar.wicket.xtend.XListView;
@@ -66,7 +69,10 @@ public class InfoJugadorPage extends WebPage {
       this._wicketExtensionFactoryMethods.addChild(form, _label_1);
       Label _label_2 = new Label("handicap");
       this._wicketExtensionFactoryMethods.addChild(form, _label_2);
-      Label _label_3 = new Label("promedioUltimoPartido");
+      HomeComunidad _homeComunidad = this.getHomeComunidad();
+      double _promedioUltimoPartido = _homeComunidad.promedioUltimoPartido(this.jugador);
+      String _string = Double.valueOf(_promedioUltimoPartido).toString();
+      Label _label_3 = new Label("promedioUltimoPartido", ((String) _string));
       this._wicketExtensionFactoryMethods.addChild(form, _label_3);
       Label _label_4 = new Label("promedioGlobal");
       this._wicketExtensionFactoryMethods.addChild(form, _label_4);
@@ -119,5 +125,10 @@ public class InfoJugadorPage extends WebPage {
   
   public void volver() {
     this.setResponsePage(this.parentPage);
+  }
+  
+  public HomeComunidad getHomeComunidad() {
+    ApplicationContext _instance = ApplicationContext.getInstance();
+    return _instance.<HomeComunidad>getSingleton(Comunidad.class);
   }
 }

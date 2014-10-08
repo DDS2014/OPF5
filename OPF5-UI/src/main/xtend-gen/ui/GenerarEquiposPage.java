@@ -10,14 +10,18 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.uqbar.commons.model.UserException;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
+import org.uqbar.wicket.xtend.XForm;
 import ui.ConfirmarEquiposPage;
 import ui.HomePage;
 
@@ -35,10 +39,11 @@ public class GenerarEquiposPage extends WebPage {
     this.generador = _generadorDeEquipos;
     this.parentPage = parentPage;
     CompoundPropertyModel<GeneradorDeEquipos> _compoundPropertyModel = new CompoundPropertyModel<GeneradorDeEquipos>(this.generador);
-    final Form<GeneradorDeEquipos> generarForm = new Form<GeneradorDeEquipos>("generarEquiposForm", _compoundPropertyModel);
+    final XForm<GeneradorDeEquipos> generarForm = new XForm<GeneradorDeEquipos>("generarEquiposForm", _compoundPropertyModel);
     this.agregarOpciones(generarForm);
     this.agregarAcciones(generarForm);
     this.agregarGrilla(generarForm);
+    this.agregarFeedbackPanel(generarForm);
     this._wicketExtensionFactoryMethods.addChild(this, generarForm);
   }
   
@@ -115,8 +120,28 @@ public class GenerarEquiposPage extends WebPage {
   }
   
   public void generar() {
-    this.generador.generar();
-    ConfirmarEquiposPage _confirmarEquiposPage = new ConfirmarEquiposPage(this.generador, this);
-    this.setResponsePage(_confirmarEquiposPage);
+    try {
+      this.generador.generar();
+      ConfirmarEquiposPage _confirmarEquiposPage = new ConfirmarEquiposPage(this.generador, this);
+      this.setResponsePage(_confirmarEquiposPage);
+    } catch (final Throwable _t) {
+      if (_t instanceof UserException) {
+        final UserException e = (UserException)_t;
+        String _message = e.getMessage();
+        this.info(_message);
+      } else if (_t instanceof RuntimeException) {
+        final RuntimeException e_1 = (RuntimeException)_t;
+        String _message_1 = e_1.getMessage();
+        String _plus = ("Ocurrió un error al intentar generar el equipo. Error: " + _message_1);
+        this.error(_plus);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
+  }
+  
+  public MarkupContainer agregarFeedbackPanel(final Form<GeneradorDeEquipos> form) {
+    FeedbackPanel _feedbackPanel = new FeedbackPanel("feedbackPanel");
+    return this._wicketExtensionFactoryMethods.addChild(form, _feedbackPanel);
   }
 }

@@ -7,6 +7,9 @@ import org.apache.wicket.markup.html.form.Form
 import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.markup.html.basic.Label
 import org.uqbar.wicket.xtend.XListView
+import home.HomeComunidad
+import org.uqbar.commons.utils.ApplicationContext
+import domain.sugerencias.Comunidad
 
 class InfoJugadorPage extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -41,7 +44,7 @@ class InfoJugadorPage extends WebPage {
 		form.addChild(new Label("nombre"))
 		form.addChild(new Label("apodo"))
 		form.addChild(new Label("handicap"))
-		form.addChild(new Label("promedioUltimoPartido"))
+		form.addChild(new Label("promedioUltimoPartido", getHomeComunidad().promedioUltimoPartido(jugador).toString() as String))
 		form.addChild(new Label("promedioGlobal"))
 		form.addChild(new Label("edad"))
 	
@@ -70,5 +73,11 @@ class InfoJugadorPage extends WebPage {
 	def volver() {
 		responsePage = parentPage
 	}
+	
+	def HomeComunidad getHomeComunidad() 
+	{
+		ApplicationContext::instance.getSingleton(typeof(Comunidad))
+	}
+	
 	
 }

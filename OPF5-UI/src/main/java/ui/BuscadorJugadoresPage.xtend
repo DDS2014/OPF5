@@ -16,6 +16,10 @@ import domain.busqueda.*
 import java.util.Date
 import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.uqbar.commons.model.UserException
+import home.HomeComunidad
+import domain.sugerencias.Comunidad
+import org.uqbar.commons.utils.ApplicationContext
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
 
 class BuscadorJugadoresPage  extends WebPage {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
@@ -179,8 +183,14 @@ class BuscadorJugadoresPage  extends WebPage {
 			item.addChild(new LinkJugador("link", item.modelObject, this))
 			item.addChild(new Label("apodo"))
 			item.addChild(new Label("handicap"))
-			item.addChild(new Label("promedioUltimoPartido"))
+			item.addChild(new Label("promedioUltimoPartido", getHomeComunidad().promedioUltimoPartido(item.modelObject).toString() as String))
 		]
 		parent.addChild(listView)
 	}
+	
+	def HomeComunidad getHomeComunidad() 
+	{
+		ApplicationContext::instance.getSingleton(typeof(Comunidad))
+	}
+	
 }

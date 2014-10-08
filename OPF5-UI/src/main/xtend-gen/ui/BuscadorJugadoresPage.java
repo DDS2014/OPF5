@@ -10,6 +10,8 @@ import domain.busqueda.BusquedaHandicap;
 import domain.busqueda.BusquedaNombre;
 import domain.busqueda.BusquedaPromedio;
 import domain.busqueda.CriterioBusqueda;
+import domain.sugerencias.Comunidad;
+import home.HomeComunidad;
 import java.util.Date;
 import java.util.List;
 import org.apache.wicket.Component;
@@ -29,6 +31,7 @@ import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.uqbar.commons.model.UserException;
+import org.uqbar.commons.utils.ApplicationContext;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
 import org.uqbar.wicket.xtend.XListView;
@@ -215,7 +218,9 @@ public class BuscadorJugadoresPage extends WebPage {
         this.info(_message);
       } else if (_t instanceof RuntimeException) {
         final RuntimeException e_1 = (RuntimeException)_t;
-        this.error("Ocurrió un error al realizar la búsqueda solicitada.");
+        String _message_1 = e_1.getMessage();
+        String _plus = ("Ocurrió un error al realizar la búsqueda solicitada. Error: " + _message_1);
+        this.error(_plus);
       } else {
         throw Exceptions.sneakyThrow(_t);
       }
@@ -322,7 +327,11 @@ public class BuscadorJugadoresPage extends WebPage {
           BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label);
           Label _label_1 = new Label("handicap");
           BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label_1);
-          Label _label_2 = new Label("promedioUltimoPartido");
+          HomeComunidad _homeComunidad = BuscadorJugadoresPage.this.getHomeComunidad();
+          Jugador _modelObject_2 = item.getModelObject();
+          double _promedioUltimoPartido = _homeComunidad.promedioUltimoPartido(_modelObject_2);
+          String _string = Double.valueOf(_promedioUltimoPartido).toString();
+          Label _label_2 = new Label("promedioUltimoPartido", ((String) _string));
           BuscadorJugadoresPage.this._wicketExtensionFactoryMethods.addChild(item, _label_2);
         }
       };
@@ -330,5 +339,10 @@ public class BuscadorJugadoresPage extends WebPage {
       _xblockexpression = this._wicketExtensionFactoryMethods.addChild(parent, listView);
     }
     return _xblockexpression;
+  }
+  
+  public HomeComunidad getHomeComunidad() {
+    ApplicationContext _instance = ApplicationContext.getInstance();
+    return _instance.<HomeComunidad>getSingleton(Comunidad.class);
   }
 }

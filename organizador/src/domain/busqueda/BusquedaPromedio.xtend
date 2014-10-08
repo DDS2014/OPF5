@@ -1,6 +1,10 @@
 package domain.busqueda 
 import domain.Jugador
 import org.uqbar.commons.model.UserException
+import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
+import home.HomeComunidad
+import org.uqbar.commons.utils.ApplicationContext
+import domain.sugerencias.Comunidad
 
 class BusquedaPromedio extends CriterioBusqueda{
 	@Property Double desde
@@ -11,7 +15,7 @@ class BusquedaPromedio extends CriterioBusqueda{
 	}
 	
 	def override match(Jugador j){
-		val promedio = j.promedioUltimoPartido
+		val promedio = getHomeComunidad().promedioUltimoPartido(j)
 		return promedio >= desde && promedio <= hasta
 	}
 	
@@ -24,5 +28,9 @@ class BusquedaPromedio extends CriterioBusqueda{
 		
 		if(desde>hasta)
 			throw new UserException("El campo desde no puede ser mayor al campo hasta.")
+	}
+	
+	def HomeComunidad getHomeComunidad() {
+		ApplicationContext::instance.getSingleton(typeof(Comunidad))
 	}
 }

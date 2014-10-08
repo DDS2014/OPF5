@@ -7,10 +7,13 @@ import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.uqbar.commons.model.UserException;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
 import org.uqbar.wicket.xtend.XListView;
@@ -33,6 +36,7 @@ public class ConfirmarEquiposPage extends WebPage {
     final Form<GeneradorDeEquipos> confirmarForm = new Form<GeneradorDeEquipos>("confirmarEquiposForm", _compoundPropertyModel);
     this.agregarAcciones(confirmarForm);
     this.agregarGrilla(confirmarForm);
+    this.agregarFeedbackPanel(confirmarForm);
     this._wicketExtensionFactoryMethods.addChild(this, confirmarForm);
   }
   
@@ -84,11 +88,31 @@ public class ConfirmarEquiposPage extends WebPage {
   }
   
   public void confirmar() {
-    this.generador.confirmar();
-    this.volver();
+    try {
+      this.generador.confirmar();
+      this.volver();
+    } catch (final Throwable _t) {
+      if (_t instanceof UserException) {
+        final UserException e = (UserException)_t;
+        String _message = e.getMessage();
+        this.info(_message);
+      } else if (_t instanceof RuntimeException) {
+        final RuntimeException e_1 = (RuntimeException)_t;
+        String _message_1 = e_1.getMessage();
+        String _plus = ("Ocurrió un error al intentar confirmar el equipo. Error: " + _message_1);
+        this.error(_plus);
+      } else {
+        throw Exceptions.sneakyThrow(_t);
+      }
+    }
   }
   
   public void volver() {
     this.setResponsePage(this.parentPage);
+  }
+  
+  public MarkupContainer agregarFeedbackPanel(final Form<GeneradorDeEquipos> form) {
+    FeedbackPanel _feedbackPanel = new FeedbackPanel("feedbackPanel");
+    return this._wicketExtensionFactoryMethods.addChild(form, _feedbackPanel);
   }
 }

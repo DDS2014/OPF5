@@ -96,13 +96,13 @@ class HomeComunidad extends Comunidad {
 		this.inscribirJugadores(partido3)
 		
 		diego.calificar(10,"barrilete cosmico",partido2,leo)
-		diego.calificar(10,"de que planeta viniste",partido2,alejandro)
+		diego.calificar(8,"de que planeta viniste",partido2,alejandro)
 		
 		diego.calificar(10,"crack",partido3,facundo)
 		diego.calificar(10,"genio genio",partido3,luis)
 		
 		diego.calificar(1,"le cortaron las piernas",partido1,pepe)
-		diego.calificar(2,"no estuvo a la altura",partido1,esteban)
+		diego.calificar(5,"no estuvo a la altura",partido1,esteban)
 		
 		leo.calificar(10,"balon de oro",partido2,martin)
 		leo.calificar(9,"goleador del equipo",partido2,esteban)

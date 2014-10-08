@@ -6,7 +6,7 @@ import domain.inscripcion.TipoDeInscripcion
 import domain.Partido
 import java.util.ArrayList
 import java.util.Comparator
-import java.util.Collections
+import java.util.Collectionsimport domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
 
 public class Comunidad implements Comparator<Partido>{
 	@Property HashSet<Jugador> aprobados
@@ -53,6 +53,11 @@ public class Comunidad implements Comparator<Partido>{
 		Collections.sort(this.partidos, this);
 		return partidos.get(0);
 
+	}
+	
+	def promedioUltimoPartido(Jugador jugador)
+	{
+		new CriterioDelUltimoPartido(this).evaluarJugador(jugador)
 	}
 
 	override compare(Partido arg0, Partido arg1) //ordena los partidos del más reciente al más viejo

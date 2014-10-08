@@ -118,12 +118,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 		
 	}
 	
-	def double promedioUltimoPartido(){
-		if(this.calificaciones.length > 0)
-			return this.calificaciones.last.puntaje
-		else
-			return 0
-	}
+
 	
 	def double promedioGlobal(){
 		if (this.calificaciones.isEmpty)

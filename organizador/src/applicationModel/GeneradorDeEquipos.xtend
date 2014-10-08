@@ -8,7 +8,6 @@ import java.util.List
 
 import java.io.Serializable
 import java.util.ArrayList
-import home.HomeJugadores
 import home.HomePartido
 import org.uqbar.commons.utils.ApplicationContext
 import domain.generacionDeEquipos.algoritmosDeGeneracion.GeneracionConcreta
