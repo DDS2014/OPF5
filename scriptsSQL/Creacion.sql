@@ -8,8 +8,8 @@ create table Jugadores
 	Email varchar(50) not null,
 	FechaNacimiento DateTime not null,
 	Handicap tinyint not null,
-	Id_Modalidad int not null,
-	Id_Condicion int
+	Id_Modalidad int not null--,
+	--Id_Condicion int
 );
 
 create table Partidos
@@ -28,19 +28,20 @@ create table Jugadores_Partidos
 	primary key (Id_Partido, Id_Jugador)
 );
 
-create table Condiciones
-(
-	Id_Condicion int primary key,
-    TipoCondicion varchar(20),
-	Edad tinyint,
-	CantidadDeJugadores tinyint,
-	MinimoDeEdad tinyint,
-	MinimoDeJugadores tinyint
-);
+--create table Condiciones
+--(
+--	Id_Condicion int primary key,
+--    TipoCondicion varchar(20),
+--	Edad tinyint,
+--	CantidadDeJugadores tinyint,
+--	MinimoDeEdad tinyint,
+--	MinimoDeJugadores tinyint
+--);
 
 create table Modalidades
 (
 	Id_Modalidad int primary key,
+	Descripcion varchar(20),
 	Prioridad tinyint
 );
 
@@ -93,8 +94,8 @@ create table Denegaciones
 ALTER TABLE Jugadores
 		ADD CONSTRAINT FK_Modalidad
         FOREIGN KEY (Id_Modalidad) REFERENCES Modalidades (Id_Modalidad),
-        add CONSTRAINT FK_Condiciones
-        FOREIGN KEY (Id_Condicion) REFERENCES Condiciones (Id_Condicion);
+        --add CONSTRAINT FK_Condiciones
+        --FOREIGN KEY (Id_Condicion) REFERENCES Condiciones (Id_Condicion);
 
 ALTER TABLE Jugadores_Partidos 
 		ADD CONSTRAINT FK_Jugador
@@ -128,9 +129,9 @@ ALTER TABLE Sugerencias
 		ADD CONSTRAINT FK_Denegacion
         FOREIGN KEY (Id_Sugerencia) REFERENCES Sugerencias (Id_Sugerencia);
 
-insert into Modalidades (Id_Modalidad, Prioridad) values (1, 1);
-insert into Modalidades (Id_Modalidad, Prioridad) values (2, 2);
-insert into Modalidades (Id_Modalidad, Prioridad) values (3, 3);
+insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (1, 'Estándar', 1);
+insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (2, 'Solidaria', 2);
+insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (3, 'Condicional', 3);
 
         
 insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
