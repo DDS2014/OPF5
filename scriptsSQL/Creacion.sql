@@ -1,3 +1,4 @@
+# CREATE
 create table Jugadores
 (
 	Id_Jugador int AUTO_INCREMENT primary key,
@@ -22,34 +23,44 @@ create table Jugadores_Partidos
 (
 	Id_Partido int,
 	Id_Jugador int,
-	FechaDeInscripcion DateTime,
-	Equipo tinyint,
+	FechaDeInscripcion DateTime NOT NULL,
+	Equipo tinyint NULL,
+	primary key (Id_Partido, Id_Jugador)
+);
+
+create table Bajas
+(
+	Id_Partido int,
+	Id_Jugador int,
+	Fecha DateTime NOT NULL,
+	Reemplazante int NULL,
+    Motivo varchar(255),
 	primary key (Id_Partido, Id_Jugador)
 );
 
 create table Modalidades
 (
 	Id_Modalidad int primary key,
-	Descripcion varchar(20),
-	Prioridad tinyint
+	Descripcion varchar(20) NOT NULL,
+	Prioridad tinyint NOT NULL
 );
 
 create table Calificaciones
 (
 	Id_Calificacion int AUTO_INCREMENT primary key,
-	Id_JugadorCalificado int,
-	Id_JugadorCalificador int,
-	Id_Partido int,
-	Puntaje tinyint,
+	Id_JugadorCalificado int NOT NULL,
+	Id_JugadorCalificador int NOT NULL,
+	Id_Partido int NOT NULL,
+	Puntaje tinyint NOT NULL,
 	Critica varchar(255),
-	Fecha DateTime
+	Fecha DateTime NOT NULL
 );
 
 create table Infracciones
 (
 	Id_Infracccion int AUTO_INCREMENT primary key,
-	Jugador int,
-    Fecha DateTime,
+	Jugador int NOT NULL,
+    Fecha DateTime NOT NULL,
 	Motivo varchar(255)
 );
 
@@ -69,17 +80,18 @@ create table Sugerencias
 	FechaNacimiento DateTime,
 	Documento varchar(8),
 	Email varchar(50),
-	Id_Jugador int
+	Id_Jugador int NULL
 );
 
 create table Denegaciones
 (
 	Id_Denegacion int AUTO_INCREMENT primary key,
-    Fecha DateTime,
+    Fecha DateTime NOT NULL,
 	Motivo varchar(255),
-    Id_Sugerencia int
+    Id_Sugerencia int NOT NULL
 );
 
+# FOREIGN KEYS
 ALTER TABLE Jugadores
 		ADD CONSTRAINT FK_Modalidad
         FOREIGN KEY (Id_Modalidad) REFERENCES Modalidades (Id_Modalidad);
@@ -90,6 +102,10 @@ ALTER TABLE Jugadores_Partidos
 		ADD CONSTRAINT FK_Partido
         FOREIGN KEY (Id_Partido) REFERENCES Partidos (Id_Partido);
 
+ALTER TABLE Bajas
+		ADD CONSTRAINT FK_Baja_Jugador
+        FOREIGN KEY (Id_Jugador, Id_Partido) REFERENCES Jugadores_Partidos (Id_Jugador, Id_Partido);
+        
 ALTER TABLE Calificaciones
 		ADD CONSTRAINT FK_JugadorCalificado
         FOREIGN KEY (Id_JugadorCalificado) REFERENCES Jugadores (Id_Jugador),
@@ -116,6 +132,7 @@ ALTER TABLE Sugerencias
 		ADD CONSTRAINT FK_Denegacion
         FOREIGN KEY (Id_Sugerencia) REFERENCES Sugerencias (Id_Sugerencia);
 
+# INSERTS
 insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (1, 'Estándar', 1);
 insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (2, 'Solidaria', 2);
 insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (3, 'Condicional', 3);
@@ -211,3 +228,88 @@ insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equi
 values (3,8,'2014-10-09',2);
 insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
 values (3,10,'2014-10-08',2);
+
+INSERT INTO infracciones(Jugador, Fecha, Motivo)
+VALUES(1,NOW(),'No llega a tiempo.');
+INSERT INTO infracciones(Jugador, Fecha, Motivo)
+VALUES(1,NOW(),'Lesionado.');
+INSERT INTO infracciones(Jugador, Fecha, Motivo)
+VALUES(1,NOW(),'No le gusto el equipo.');
+INSERT INTO infracciones(Jugador, Fecha, Motivo)
+VALUES(1,NOW(),'Enfermedad.');
+INSERT INTO infracciones(Jugador, Fecha, Motivo)
+VALUES(2,NOW(),'Lesionado.');
+
+
+# FUNCTIONS
+DROP FUNCTION IF EXISTS Fn_EsMalo;
+DELIMITER //
+CREATE FUNCTION Fn_EsMalo(idJugador int)
+  RETURNS boolean
+BEGIN
+  RETURN (SELECT (handicap <= 5) AS es_malo
+		FROM jugadores
+		WHERE Id_Jugador = idJugador);
+END;
+//
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS Fn_GetEdad;
+DELIMITER //
+CREATE FUNCTION Fn_GetEdad(fecha DateTime)
+  RETURNS int
+BEGIN
+	RETURN ((YEAR(current_time) - YEAR(fecha)) - ((DATE_FORMAT(current_time, '00-%m-%d') < DATE_FORMAT(fecha, '00-%m-%d'))));
+END;
+//
+DELIMITER ;
+
+
+# STORED PROCEDURES
+ DROP PROCEDURE IF EXISTS Sp_GetJugadoresMalos;
+ DELIMITER //
+ CREATE PROCEDURE Sp_GetJugadoresMalos()
+   BEGIN
+	SELECT * FROM jugadores
+		WHERE Fn_EsMalo(Id_Jugador);
+   END//
+ DELIMITER ;
+ 
+ DROP PROCEDURE IF EXISTS Sp_GetJugadoresAMejorar;
+DELIMITER //
+ CREATE PROCEDURE Sp_GetJugadoresAMejorar()
+   BEGIN
+	SELECT * FROM jugadores
+		WHERE Fn_EsMalo(Id_Jugador) and Fn_GetEdad(FechaNacimiento) <= 25;
+   END//
+ DELIMITER ;
+ 
+ DROP PROCEDURE IF EXISTS Sp_GetJugadoresTraicioneros;
+DELIMITER //
+CREATE PROCEDURE Sp_GetJugadoresTraicioneros()
+BEGIN
+    SELECT @auxId := j.Id_Jugador FROM jugadores j
+	INNER JOIN infracciones i
+		ON j.Id_Jugador = i.Jugador
+	WHERE i.Fecha >= DATE_ADD(NOW(),INTERVAL -1 MONTH)
+	GROUP BY j.Id_Jugador
+	HAVING COUNT(*) > 3;
+    
+    SELECT * FROM Jugadores
+    WHERE Id_Jugador = @auxId;
+END //
+DELIMITER ;
+
+
+# TRIGGERS
+DROP TRIGGER IF EXISTS Trg_MultarBaja;
+DELIMITER //
+CREATE TRIGGER Trg_MultarBaja AFTER INSERT ON Bajas
+FOR EACH ROW
+BEGIN
+	if (NEW.Reemplazante IS NULL) THEN
+		INSERT INTO infracciones(Jugador, Fecha, Motivo)
+		VALUES(NEW.Id_Jugador,NOW(),'Dado de baja.');
+	END IF;
+END;//
+DELIMITER ;
