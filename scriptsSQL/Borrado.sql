@@ -1,12 +1,15 @@
 
 
 ALTER TABLE Jugadores 
-	drop foreign key FK_Modalidad,
-	drop foreign key FK_Condiciones;
+	drop foreign key FK_Modalidad;
+	
     
 ALTER TABLE Jugadores_Partidos 
 	drop foreign key FK_Partido,
 	drop foreign key FK_Jugador;
+
+ALTER TABLE Bajas
+	drop foreign key FK_Baja_Jugador;
 
 ALTER TABLE Calificaciones 
 	drop foreign key FK_JugadorCalificado,
@@ -26,4 +29,4 @@ ALTER TABLE Sugerencias
 ALTER TABLE Denegaciones
 	drop foreign key FK_Denegacion;
     
-drop table Jugadores, Partidos, Jugadores_Partidos, Condiciones, Modalidades, Calificaciones, Infracciones, Amistades, Sugerencias, Denegaciones;
+drop table Jugadores, Partidos, Jugadores_Partidos, Modalidades, Calificaciones, Infracciones, Amistades, Sugerencias, Denegaciones, Bajas;

@@ -96,7 +96,7 @@ ALTER TABLE Jugadores
 		ADD CONSTRAINT FK_Modalidad
         FOREIGN KEY (Id_Modalidad) REFERENCES Modalidades (Id_Modalidad);
 
-ALTER TABLE Jugadores_Partidos 
+ALTER TABLE Jugadores_Partidos
 		ADD CONSTRAINT FK_Jugador
         FOREIGN KEY (Id_Jugador) REFERENCES Jugadores (Id_Jugador),
 		ADD CONSTRAINT FK_Partido
@@ -131,6 +131,7 @@ ALTER TABLE Sugerencias
  ALTER TABLE Denegaciones
 		ADD CONSTRAINT FK_Denegacion
         FOREIGN KEY (Id_Sugerencia) REFERENCES Sugerencias (Id_Sugerencia);
+
 
 # INSERTS
 insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (1, 'Estándar', 1);
@@ -240,6 +241,93 @@ VALUES(1,NOW(),'Enfermedad.');
 INSERT INTO infracciones(Jugador, Fecha, Motivo)
 VALUES(2,NOW(),'Lesionado.');
 
+
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (1,2);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (1,3);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (1,5);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (2,3);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (2,7);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (2,9);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (2,5);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (2,6);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (2,4);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (3,9);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (4,9);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (4,10);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (5,10);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (6,10);
+insert into Amistades (Id_Jugador1, Id_Jugador2)
+values (9,10);
+
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador) 
+values ( 'Juan', 'Casas', 'pepe', 21765454, 'pepe@gmail.com', '1945-05-12', 1);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador) 
+values ( 'Diego', 'Marado', 'd10s', 27768654, 'diegote@gmail.com', '1970-03-08', 2);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)  
+values ('Esteban', 'Casas', 'bichi', 31765454, 'bichigol@gmail.com', '1989-07-02', 3);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador) 
+values ('Claudio', 'Pol', 'cani', 31765954, 'pajaro@gmail.com', '1975-12-23', 4);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador) 
+values ('Roberto', 'Casas', 'rober', 18545194, 'roro@gmail.com', '1973-09-02', 5);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador) 
+values ('Homero', 'Tompson', 'homer', 1765454, 'nosoysimpson@gmail.com', '1950-01-04', 6);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Carlos', 'Saul', 'carlitos', 38995454, 'noventas@gmail.com', '1990-09-09', 7);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Leonardo', 'Lolo', 'lenny', 36176990, 'lennin@gmail.com', '1953-11-1', 8);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Marcos', 'Palmas', 'loco', 21363551, 'locopalmas@gmail.com', '1991-10-21', 9);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Leo', 'Messi', 'pulga', 41765454, 'leo10@gmail.com', '1990-5-23', 10);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Alan', 'Pappo', 'carpo', 47127389, 'pappo@gmail.com', '1995-05-05', NULL);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Joaquin', 'Perez', 'jota', 22710454, 'jpg@gmail.com', '1978-04-21', NULL);
+insert into Sugerencias (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Id_Jugador)
+values ('Leon', 'Lopes', 'lop', 31745959, 'leonlo@gmail.com', '1991-02-13', NULL);
+
+
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (2,1,2,10,'de que planeta viniste','2014-09-22');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (2,8,3,10,'genio genio','2014-09-22');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (2,10,3,10,'crack','2014-09-11');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (3,1,2,5,'maso','2014-09-22');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (3,6,3,6,'regular','2014-09-22');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (3,7,3,5,'cinco','2014-09-11');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (4,1,2,9,'goleador','2014-09-22');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (1,10,3,4,'pesimo','2014-09-22');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (2,5,3,9,'nueve','2014-09-11');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (8,2,3,2,'malisimo','2014-09-11');
+insert into Calificaciones (Id_JugadorCalificado, Id_JugadorCalificador, Id_Partido, Puntaje, Critica, Fecha)
+values (3,2,3,7,'zafo','2014-09-11');
+
+insert into Denegaciones (Fecha, Motivo, Id_Sugerencia)
+values ('2014-07-02', 'No se lleva con Diego', 11);
+insert into Denegaciones (Fecha, Motivo, Id_Sugerencia)
+values ('2014-08-23', 'Es un raton', 13);
 
 # FUNCTIONS
 DROP FUNCTION IF EXISTS Fn_EsMalo;
