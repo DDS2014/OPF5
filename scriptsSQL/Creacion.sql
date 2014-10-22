@@ -8,8 +8,7 @@ create table Jugadores
 	Email varchar(50) not null,
 	FechaNacimiento DateTime not null,
 	Handicap tinyint not null,
-	Id_Modalidad int not null--,
-	--Id_Condicion int
+	Id_Modalidad int not null
 );
 
 create table Partidos
@@ -27,16 +26,6 @@ create table Jugadores_Partidos
 	Equipo tinyint,
 	primary key (Id_Partido, Id_Jugador)
 );
-
---create table Condiciones
---(
---	Id_Condicion int primary key,
---    TipoCondicion varchar(20),
---	Edad tinyint,
---	CantidadDeJugadores tinyint,
---	MinimoDeEdad tinyint,
---	MinimoDeJugadores tinyint
---);
 
 create table Modalidades
 (
@@ -93,9 +82,7 @@ create table Denegaciones
 
 ALTER TABLE Jugadores
 		ADD CONSTRAINT FK_Modalidad
-        FOREIGN KEY (Id_Modalidad) REFERENCES Modalidades (Id_Modalidad),
-        --add CONSTRAINT FK_Condiciones
-        --FOREIGN KEY (Id_Condicion) REFERENCES Condiciones (Id_Condicion);
+        FOREIGN KEY (Id_Modalidad) REFERENCES Modalidades (Id_Modalidad);
 
 ALTER TABLE Jugadores_Partidos 
 		ADD CONSTRAINT FK_Jugador
@@ -134,26 +121,26 @@ insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (2, 'Solid
 insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (3, 'Condicional', 3);
 
         
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ( 'Juan', 'Casas', 'pepe', 21765454, 'pepe@gmail.com', '1945-05-12', 6, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ( 'Diego', 'Marado', 'd10s', 27768654, 'diegote@gmail.com', '1970-03-08', 10, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion)  
-values ('Esteban', 'Casas', 'bichi', 31765454, 'bichigol@gmail.com', '1989-07-02', 9, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Claudio', 'Pol', 'cani', 31765954, 'pajaro@gmail.com', '1975-12-23', 8, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Roberto', 'Casas', 'rober', 18545194, 'roro@gmail.com', '1973-09-02', 5, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Homero', 'Tompson', 'homer', 1765454, 'nosoysimpson@gmail.com', '1950-01-04', 2, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Carlos', 'Saul', 'carlitos', 38995454, 'noventas@gmail.com', '1990-09-09', 3, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Leonardo', 'Lolo', 'lenny', 36176990, 'lennin@gmail.com', '1953-11-1', 7, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Marcos', 'Palmas', 'loco', 21363551, 'locopalmas@gmail.com', '1991-10-21', 7, 1, NULL);
-insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad, Id_Condicion) 
-values ('Leo', 'Messi', 'pulga', 41765454, 'leo10@gmail.com', '1990-5-23', 10, 1, NULL);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ( 'Juan', 'Casas', 'pepe', 21765454, 'pepe@gmail.com', '1945-05-12', 6, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ( 'Diego', 'Marado', 'd10s', 27768654, 'diegote@gmail.com', '1970-03-08', 10, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad)  
+values ('Esteban', 'Casas', 'bichi', 31765454, 'bichigol@gmail.com', '1989-07-02', 9, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Claudio', 'Pol', 'cani', 31765954, 'pajaro@gmail.com', '1975-12-23', 8, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Roberto', 'Casas', 'rober', 18545194, 'roro@gmail.com', '1973-09-02', 5, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Homero', 'Tompson', 'homer', 1765454, 'nosoysimpson@gmail.com', '1950-01-04', 2, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Carlos', 'Saul', 'carlitos', 38995454, 'noventas@gmail.com', '1990-09-09', 3, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Leonardo', 'Lolo', 'lenny', 36176990, 'lennin@gmail.com', '1953-11-1', 7, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Marcos', 'Palmas', 'loco', 21363551, 'locopalmas@gmail.com', '1991-10-21', 7, 1);
+insert into Jugadores (Nombre,	Apellido,	Apodo,	Documento,	Email, FechaNacimiento, Handicap, Id_Modalidad) 
+values ('Leo', 'Messi', 'pulga', 41765454, 'leo10@gmail.com', '1990-5-23', 10, 1);
 
 insert into Partidos (Fecha, Estado)
 values ('2014-10-21', 'A');
@@ -224,5 +211,3 @@ insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equi
 values (3,8,'2014-10-09',2);
 insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
 values (3,10,'2014-10-08',2);
-
-
