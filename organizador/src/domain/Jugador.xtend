@@ -12,9 +12,12 @@ import java.util.Date
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
 
+
 @Observable
 public class Jugador extends Entity implements Comparator<Calificacion> 
 {
+
+
 	@Property String nombre
 	@Property String apellido
 	@Property String apodo
