@@ -18,9 +18,9 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 {
 
 
-	@Property String nombre
-	@Property String apellido
-	@Property String apodo
+	String nombre
+	String apellido
+	String apodo
 	@Property int edad
 	@Property double handicap
 	@Property String documento
@@ -30,6 +30,7 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	@Property ArrayList<Infraccion> infracciones;
 	@Property ArrayList<Calificacion> calificaciones;
 	@Property Date fechaNacimiento;
+	
 	
 	new(String nombre,int edad, TipoDeInscripcion modalidad)
 	{
@@ -47,6 +48,14 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 		this.infracciones = new ArrayList();
 		this.calificaciones=new ArrayList();
 	}
+	
+	def getNombre()	{ nombre }
+	def setNombre(String n) { nombre = n }
+	def getApellido() { apellido }
+	def setApellido(String a) { apellido = a }
+	def getApodo() { apodo }
+	def setApodo(String a) { apodo = a }
+	
 
 
 	//la amistad se hace en dos pasos para que haya simetría (si yo soy tu amigo, vos sos mi amigo)	
