@@ -21,8 +21,8 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	String nombre
 	String apellido
 	String apodo
-	@Property int edad
-	@Property double handicap
+	int edad
+	double handicap
 	@Property String documento
 	@Property String email
 	@Property TipoDeInscripcion modalidad
@@ -55,6 +55,11 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	def setApellido(String a) { apellido = a }
 	def getApodo() { apodo }
 	def setApodo(String a) { apodo = a }
+	def getEdad() { edad }
+	def setEdad(int e) { edad = e }
+	def getHandicap() { handicap }
+	def setHandicap(double h) { handicap = h }
+	
 	
 
 
