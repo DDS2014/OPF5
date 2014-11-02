@@ -11,10 +11,10 @@ import java.util.Comparator
 import java.util.Date
 import org.uqbar.commons.model.Entity
 import org.uqbar.commons.utils.Observable
-
+import java.io.Serializable
 
 @Observable
-public class Jugador extends Entity implements Comparator<Calificacion> 
+public class Jugador extends Entity implements Comparator<Calificacion>, Serializable 
 {
 
 
@@ -23,13 +23,13 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	String apodo
 	int edad
 	double handicap
-	@Property String documento
-	@Property String email
-	@Property TipoDeInscripcion modalidad
-	@Property ArrayList<Jugador> amigos;
-	@Property ArrayList<Infraccion> infracciones;
-	@Property ArrayList<Calificacion> calificaciones;
-	@Property Date fechaNacimiento;
+	String documento
+	String email
+	TipoDeInscripcion modalidad
+	ArrayList<Jugador> amigos;
+	ArrayList<Infraccion> infracciones;
+	ArrayList<Calificacion> calificaciones;
+	Date fechaNacimiento;
 	
 	
 	new(String nombre,int edad, TipoDeInscripcion modalidad)
@@ -59,9 +59,20 @@ public class Jugador extends Entity implements Comparator<Calificacion>
 	def setEdad(int e) { edad = e }
 	def getHandicap() { handicap }
 	def setHandicap(double h) { handicap = h }
-	
-	
-
+	def getDocumento () { documento }
+	def setDocumento(String d) { documento = d }
+	def getEmail() { email }
+	def setEmail(String e) { email = e }
+	def getModalidad () { modalidad }
+	def setModalidad (TipoDeInscripcion m) { modalidad = m }
+	def getAmigos() { amigos }
+	def setAmigos(ArrayList<Jugador> a) { amigos = a}
+	def getInfracciones() { infracciones }
+	def setInfracciones (ArrayList<Infraccion> i) { infracciones = i }
+	def getCalificaciones() { calificaciones }
+	def setCalificaciones(ArrayList<Calificacion> c ) { calificaciones = c }
+	def getFechaNacimiento() { fechaNacimiento }
+	def setFechaNacimiento(Date f) { fechaNacimiento = f }
 
 	//la amistad se hace en dos pasos para que haya simetría (si yo soy tu amigo, vos sos mi amigo)	
 	def hacerseAmigoDe(Jugador nuevoAmigo)
