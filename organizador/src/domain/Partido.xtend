@@ -15,19 +15,21 @@ import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
 import org.uqbar.commons.utils.Observable
 import org.uqbar.commons.model.Entity
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
+import java.io.Serializable
 
 @Observable
-public class Partido extends Entity implements Comparator<Jugador> { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
-	@Property Date fecha
-	@Property List<Jugador> jugadoresConfirmados
-	@Property List<PartidoObserver> observers 
+public class Partido extends Entity implements Comparator<Jugador>, Serializable 
+{ //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
+	Date fecha
+	List<Jugador> jugadoresConfirmados
+	List<PartidoObserver> observers 
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
-	@Property InterfazDistribuidorDeMails distribuidor
+	InterfazDistribuidorDeMails distribuidor
 	Hashtable<Jugador, Date> fechasDeInscripcion;
-	@Property Criterio criterioDeOrdenamiento;
-	@Property List<Jugador> primerEquipo
-	@Property List<Jugador> segundoEquipo
-	@Property Generacion algoritmo;
+	Criterio criterioDeOrdenamiento;
+	List<Jugador> primerEquipo
+	List<Jugador> segundoEquipo
+	Generacion algoritmo;
 	PartidoState estado;
 	
 	//CONSTRUCTOR
@@ -40,6 +42,38 @@ public class Partido extends Entity implements Comparator<Jugador> { //para desc
 		this.segundoEquipo = new ArrayList();
 		this.estado = new PartidoAbierto_State();
 	}
+	
+	//constructor sin parametros para hibernate
+	new()
+	{
+		
+	}
+	
+	
+	//getters y setters para hibernate
+	def getFecha(){ fecha }
+	def setFecha(Date f) { fecha = f}
+	def getJugadoresConfirmados() { jugadoresConfirmados }
+	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
+	def getObservers() { observers }
+	def setObservers(List<PartidoObserver> o) {observers = o}
+	def getDistribuidor() { distribuidor }
+	def setDistribuidor(InterfazDistribuidorDeMails d) { distribuidor = d }
+	def getFechasDeInscripcion() { fechasDeInscripcion }
+	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
+	def getCriterioDeOrdenamiento() { criterioDeOrdenamiento }
+	def setCriterioDeOrdenamiento(Criterio c) {criterioDeOrdenamiento = c }
+	def getPrimerEquipo() { primerEquipo }
+	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
+	def getSegundoEquipo() { segundoEquipo }
+	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
+	def getAlgoritmo() { algoritmo }
+	def setAlgoritmo (Generacion a) { algoritmo = a }
+	def getEstado() { estado }
+	def setEstado(PartidoState e) {estado = e }
+	
+	
+	
 	
 	def estaInscripto(Jugador jugador)
 	{
