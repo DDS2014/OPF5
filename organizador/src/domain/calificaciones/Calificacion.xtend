@@ -5,11 +5,11 @@ import domain.Jugador
 import java.util.Date
 
 public class Calificacion {
-	@Property int puntaje
-	@Property String critica
-	@Property Partido partido
-	@Property Jugador calificador
-	@Property Date fecha
+	int puntaje
+	String critica
+	Partido partido
+	Jugador calificador
+	Date fecha
 	
 	new(int puntaje,String critica,Partido partido,Jugador calificador){
 		this.puntaje=puntaje
@@ -22,6 +22,25 @@ public class Calificacion {
 //	new (int puntaje){
 //		this.puntaje=puntaje
 //	}
+	
+	//constructor sin parametros para hibernate
+	new()
+	{
+		
+	}	
+	
+	//getters y setters para hibernate
+	def getPuntaje() { puntaje }
+	def setPuntaje(int p) { puntaje = p }
+	def getCritica() { critica }
+	def setCritica(String c) { critica = c }
+	def getPartido() { partido }
+	def setPartido(Partido p) { partido = p }
+	def getCalificador() { calificador }
+	def setCalificacdor(Jugador c) { calificador = c }
+	def getFecha() { fecha }
+	def setFecha(Date f) { fecha = f }
+	
 	
 	
 }
