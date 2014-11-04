@@ -5,7 +5,7 @@ import domain.Partido
 import domain.Jugador
 
 public class InscripcionEstandar extends TipoDeInscripcion{
-	@Property int prioridad=1
+	//int prioridad=1
 
 
 	 

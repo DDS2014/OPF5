@@ -6,7 +6,7 @@ import domain.excepciones.NoSeCumpleLaCondicionParaAnotarseException
 import domain.inscripcion.condiciones.Condicion
 
 public class InscripcionCondicional extends TipoDeInscripcion{
-	@Property int prioridad=3
+	//int prioridad=3
 	@Property Condicion condicion
 	
 	new(Condicion condicion)

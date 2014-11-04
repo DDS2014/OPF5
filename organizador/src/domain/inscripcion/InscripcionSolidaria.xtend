@@ -6,7 +6,7 @@ import domain.Jugador
 
 public class InscripcionSolidaria extends TipoDeInscripcion
 {
-	@Property int prioridad=2
+	//int prioridad=2
 
 
 	
