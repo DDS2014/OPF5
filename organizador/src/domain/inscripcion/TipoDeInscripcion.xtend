@@ -7,8 +7,14 @@ import java.util.List
 import domain.Jugador
 
 public abstract class TipoDeInscripcion {
-	@Property int prioridad
-	@Property Jugador participante;
+	int prioridad
+	Jugador participante;
+	
+	
+	def getPrioridad() { prioridad }
+	def setPrioridad(int p) { prioridad = p }
+	def getParticipante() { participante }
+	def setParticipante(Jugador p) { participante = p }
 	
 	def void setCliente(Jugador jugador)
 	{

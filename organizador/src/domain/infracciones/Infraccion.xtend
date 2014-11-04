@@ -4,14 +4,26 @@ import java.util.Date
 
 class Infraccion 
 {
-	@Property Date fecha;
-	@Property String motivo;
+	Date fecha;
+	String motivo;
 	
 	new(String motivo)
 	{
 		this.fecha = new Date();
 		this.motivo = motivo;
 	}
+	
+	//constructor sin parametros para hibernate
+	new()
+	{
+		
+	}
+	
+	//getters y setters para hibernate
+	def getFecha() { fecha }
+	def setFecha(Date f) { fecha = f }
+	def getMotivo() { motivo }
+	def setMotivo(String m) { motivo = m }
 	
 
 }
