@@ -7,12 +7,22 @@ import domain.inscripcion.condiciones.Condicion
 
 public class InscripcionCondicional extends TipoDeInscripcion{
 	//int prioridad=3
-	@Property Condicion condicion
+	Condicion condicion
 	
 	new(Condicion condicion)
 	{
 		this.condicion=condicion
 	}
+	
+	new()
+	{
+		
+	}
+	
+	
+	//getters y setters para hibernate
+	def getCondicion() { condicion }
+	def setCondicion(Condicion c) { condicion = c }
 	
 	override inscribir(Jugador participante, Partido partido){
 		if(!condicion.seCumple(partido))
