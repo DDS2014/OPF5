@@ -13,13 +13,22 @@ import java.util.Hashtable
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
 import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.model.Entity
 import domain.enviadorDeMails.InterfazDistribuidorDeMails
 import java.io.Serializable
+import javax.persistence.Entity
+import javax.persistence.Table
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
+import javax.persistence.ManyToMany
+import javax.persistence.JoinTable
 
+@Entity
+@Table(name="Partidos")
 @Observable
-public class Partido extends Entity implements Comparator<Jugador>, Serializable 
+public class Partido implements Comparator<Jugador>, Serializable 
 { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
+	private Long id
 	Date fecha
 	List<Jugador> jugadoresConfirmados
 	List<PartidoObserver> observers 
@@ -51,24 +60,35 @@ public class Partido extends Entity implements Comparator<Jugador>, Serializable
 	
 	
 	//getters y setters para hibernate
+	@Id
+	@GeneratedValue
+	@Column(name="Id_Partido")
+	def getId() {id}
+	def setId(Long value) {id = value}
+	@Column(name="Fecha")
 	def getFecha(){ fecha }
 	def setFecha(Date f) { fecha = f}
+	@ManyToMany
 	def getJugadoresConfirmados() { jugadoresConfirmados }
 	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
-	def getObservers() { observers }
-	def setObservers(List<PartidoObserver> o) {observers = o}
-	def getDistribuidor() { distribuidor }
-	def setDistribuidor(InterfazDistribuidorDeMails d) { distribuidor = d }
-	def getFechasDeInscripcion() { fechasDeInscripcion }
-	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
-	def getCriterioDeOrdenamiento() { criterioDeOrdenamiento }
-	def setCriterioDeOrdenamiento(Criterio c) {criterioDeOrdenamiento = c }
+	//estos atributos deberian ir en la tabla de Jugadores_Partidos segun el DER,
+	//pero nose como agregarlos--->
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
+	def getFechasDeInscripcion() { fechasDeInscripcion }
+	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
+	//
+	def getObservers() { observers }
+	def setObservers(List<PartidoObserver> o) {observers = o}
+	def getDistribuidor() { distribuidor }
+	def setDistribuidor(InterfazDistribuidorDeMails d) { distribuidor = d }
+	def getCriterioDeOrdenamiento() { criterioDeOrdenamiento }
+	def setCriterioDeOrdenamiento(Criterio c) {criterioDeOrdenamiento = c }
 	def getAlgoritmo() { algoritmo }
 	def setAlgoritmo (Generacion a) { algoritmo = a }
+	@Column(name="Estado")
 	def getEstado() { estado }
 	def setEstado(PartidoState e) {estado = e }
 	

@@ -4,9 +4,11 @@ package domain.inscripcion
 import domain.Partido
 import domain.excepciones.NoHayLugarParaAnotarseException
 import java.util.List
-import domain.Jugador
+import domain.Jugadorimport java.io.Serializable
+import javax.persistence.Entity
 
-public abstract class TipoDeInscripcion {
+@Entity
+public abstract class TipoDeInscripcion implements Serializable {
 	int prioridad
 	Jugador participante;
 	

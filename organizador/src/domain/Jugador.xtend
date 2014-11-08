@@ -5,19 +5,28 @@ import domain.excepciones.ImposibleBajarseException
 import domain.excepciones.ImposibleCalificarException
 import domain.infracciones.Infraccion
 import domain.inscripcion.TipoDeInscripcion
+import java.io.Serializable
 import java.util.ArrayList
 import java.util.Collections
 import java.util.Comparator
 import java.util.Date
-import org.uqbar.commons.model.Entity
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.ManyToMany
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
+import javax.persistence.Table
 import org.uqbar.commons.utils.Observable
-import java.io.Serializable
 
+@Entity
+@Table(name="Jugadores")
 @Observable
-public class Jugador extends Entity implements Comparator<Calificacion>, Serializable 
+public class Jugador  implements Comparator<Calificacion>, Serializable 
 {
 
-
+	private Long id
 	String nombre
 	String apellido
 	String apodo
@@ -49,28 +58,46 @@ public class Jugador extends Entity implements Comparator<Calificacion>, Seriali
 		this.calificaciones=new ArrayList();
 	}
 	
+
+	@Id
+	@GeneratedValue
+	@Column(name="Id_Jugador")
+	def getId() {id}
+	def setId(Long value) {id = value}
+	@Column(name="Nombre") 
 	def getNombre()	{ nombre }
 	def setNombre(String n) { nombre = n }
+	@Column(name="Apellido")
 	def getApellido() { apellido }
 	def setApellido(String a) { apellido = a }
+	@Column(name="Apodo")
 	def getApodo() { apodo }
 	def setApodo(String a) { apodo = a }
+	@Column(name="Edad")
 	def getEdad() { edad }
 	def setEdad(int e) { edad = e }
+	@Column(name="Handicap")
 	def getHandicap() { handicap }
 	def setHandicap(double h) { handicap = h }
+	@Column(name="Documento")
 	def getDocumento () { documento }
 	def setDocumento(String d) { documento = d }
+	@Column(name="Email")
 	def getEmail() { email }
 	def setEmail(String e) { email = e }
+	@ManyToOne
 	def getModalidad () { modalidad }
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
+	@ManyToMany
 	def getAmigos() { amigos }
 	def setAmigos(ArrayList<Jugador> a) { amigos = a}
+	@OneToMany
 	def getInfracciones() { infracciones }
 	def setInfracciones (ArrayList<Infraccion> i) { infracciones = i }
+	@OneToMany
 	def getCalificaciones() { calificaciones }
 	def setCalificaciones(ArrayList<Calificacion> c ) { calificaciones = c }
+	@Column(name="FechaNacimiento")
 	def getFechaNacimiento() { fechaNacimiento }
 	def setFechaNacimiento(Date f) { fechaNacimiento = f }
 

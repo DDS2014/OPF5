@@ -2,9 +2,19 @@ package domain.calificaciones
 
 import domain.Partido
 import domain.Jugador
-import java.util.Date
+import java.util.Dateimport java.io.Serializable
+import javax.persistence.Entity
+import javax.persistence.Table
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
+import javax.persistence.OneToMany
+import javax.persistence.ManyToOne
 
-public class Calificacion {
+@Entity
+@Table(name="Calificaciones")
+public class Calificacion implements Serializable {
+	private Long id
 	int puntaje
 	String critica
 	Partido partido
@@ -30,14 +40,24 @@ public class Calificacion {
 	}	
 	
 	//getters y setters para hibernate
+	@Id
+	@GeneratedValue
+	@Column(name="Id_Calificacion")
+	def getId() {id}
+	def setId(Long value) {id = value}
+	@Column(name="Puntaje")
 	def getPuntaje() { puntaje }
 	def setPuntaje(int p) { puntaje = p }
+	@Column(name="Critica")
 	def getCritica() { critica }
 	def setCritica(String c) { critica = c }
+	@ManyToOne
 	def getPartido() { partido }
 	def setPartido(Partido p) { partido = p }
+	@ManyToOne
 	def getCalificador() { calificador }
 	def setCalificacdor(Jugador c) { calificador = c }
+	@Column(name="Fecha")
 	def getFecha() { fecha }
 	def setFecha(Date f) { fecha = f }
 	
