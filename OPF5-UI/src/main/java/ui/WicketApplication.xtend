@@ -1,9 +1,9 @@
 package ui
 
-//import domain.sugerencias.Comunidad
-//import home.HomeComunidad
+import domain.sugerencias.Comunidad
+import home.HomeComunidad
 import org.apache.wicket.protocol.http.WebApplication
-//import org.uqbar.commons.utils.ApplicationContext
+import org.uqbar.commons.utils.ApplicationContext
 import dao.SessionManager
 
 /**
@@ -23,7 +23,7 @@ class WicketApplication extends WebApplication {
 //		ApplicationContext.instance.configureSingleton(Jugador, new HomeJugadores)
 //		ApplicationContext.instance.configureSingleton(Partido, new HomePartido)
 //		*********
-//		ApplicationContext.instance.configureSingleton(Comunidad, new HomeComunidad) 
+		ApplicationContext.instance.configureSingleton(Comunidad, new HomeComunidad) 
 //		*********
 		// add your configuration here
 	}
