@@ -6,13 +6,21 @@ import domain.excepciones.NoHayLugarParaAnotarseException
 import java.util.List
 import domain.Jugadorimport java.io.Serializable
 import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.Column
 
 @Entity
 public abstract class TipoDeInscripcion implements Serializable {
 	int prioridad
 	Jugador participante;
+	int id;
 	
-	
+	@Id
+	@GeneratedValue
+	@Column
+	def getId() { id }
+	def setId(int i){ id = i }
 	def getPrioridad() { prioridad }
 	def setPrioridad(int p) { prioridad = p }
 	def getParticipante() { participante }

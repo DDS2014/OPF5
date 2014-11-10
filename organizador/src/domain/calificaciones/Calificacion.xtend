@@ -56,7 +56,7 @@ public class Calificacion implements Serializable {
 	def setPartido(Partido p) { partido = p }
 	@ManyToOne
 	def getCalificador() { calificador }
-	def setCalificacdor(Jugador c) { calificador = c }
+	def setCalificador(Jugador c) { calificador = c }
 	@Column(name="Fecha")
 	def getFecha() { fecha }
 	def setFecha(Date f) { fecha = f }

@@ -22,6 +22,10 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.ManyToMany
 import javax.persistence.JoinTable
+import javax.persistence.Transient
+import javax.persistence.Enumerated
+import javax.persistence.EnumType
+import javax.persistence.Embedded
 
 @Entity
 @Table(name="Partidos")
@@ -73,22 +77,29 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
 	//estos atributos deberian ir en la tabla de Jugadores_Partidos segun el DER,
 	//pero nose como agregarlos--->
+	//ya fue, hacemos tres tablas en vez de una, bien rustico
+	@ManyToMany
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
+	@ManyToMany
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
 	def getFechasDeInscripcion() { fechasDeInscripcion }
 	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
 	//
+	@Transient
 	def getObservers() { observers }
 	def setObservers(List<PartidoObserver> o) {observers = o}
+	@Transient
 	def getDistribuidor() { distribuidor }
 	def setDistribuidor(InterfazDistribuidorDeMails d) { distribuidor = d }
+	@Transient
 	def getCriterioDeOrdenamiento() { criterioDeOrdenamiento }
 	def setCriterioDeOrdenamiento(Criterio c) {criterioDeOrdenamiento = c }
+	@Transient
 	def getAlgoritmo() { algoritmo }
 	def setAlgoritmo (Generacion a) { algoritmo = a }
-	@Column(name="Estado")
+	@Embedded
 	def getEstado() { estado }
 	def setEstado(PartidoState e) {estado = e }
 	
