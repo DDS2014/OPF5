@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import org.uqbar.commons.utils.Observable
+import java.util.List
 
 @Entity
 @Table(name="Jugadores")
@@ -35,9 +36,9 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	String documento
 	String email
 	TipoDeInscripcion modalidad
-	ArrayList<Jugador> amigos;
-	ArrayList<Infraccion> infracciones;
-	ArrayList<Calificacion> calificaciones;
+	List<Jugador> amigos;
+	List<Infraccion> infracciones;
+	List<Calificacion> calificaciones;
 	Date fechaNacimiento;
 	
 	
@@ -85,7 +86,7 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	@Column(name="Email")
 	def getEmail() { email }
 	def setEmail(String e) { email = e }
-	@ManyToOne
+	@ManyToOne(targetEntity = TipoDeInscripcion )
 	def getModalidad () { modalidad }
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
 	@ManyToMany
