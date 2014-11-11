@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.OneToMany
 import javax.persistence.ManyToOne
+import javax.persistence.CascadeType
 
 @Entity
 @Table(name="Calificaciones")
@@ -51,10 +52,10 @@ public class Calificacion implements Serializable {
 	@Column(name="Critica")
 	def getCritica() { critica }
 	def setCritica(String c) { critica = c }
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	def getPartido() { partido }
 	def setPartido(Partido p) { partido = p }
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	def getCalificador() { calificador }
 	def setCalificador(Jugador c) { calificador = c }
 	@Column(name="Fecha")

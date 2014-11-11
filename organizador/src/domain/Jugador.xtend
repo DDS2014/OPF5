@@ -87,7 +87,7 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	@Column(name="Email")
 	def getEmail() { email }
 	def setEmail(String e) { email = e }
-	@ManyToOne(targetEntity = TipoDeInscripcion )
+	@ManyToOne(targetEntity = TipoDeInscripcion, cascade=CascadeType.ALL )
 	def getModalidad () { modalidad }
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
 	@ManyToMany(cascade=CascadeType.ALL)

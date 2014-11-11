@@ -9,6 +9,9 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
+import javax.persistence.OneToMany
+import javax.persistence.CascadeType
+import javax.persistence.ManyToOne
 
 @Entity
 public abstract class TipoDeInscripcion implements Serializable {
@@ -21,8 +24,10 @@ public abstract class TipoDeInscripcion implements Serializable {
 	@Column
 	def getId() { id }
 	def setId(int i){ id = i }
+	@Column
 	def getPrioridad() { prioridad }
 	def setPrioridad(int p) { prioridad = p }
+	@ManyToOne(targetEntity = Jugador, cascade=CascadeType.ALL)
 	def getParticipante() { participante }
 	def setParticipante(Jugador p) { participante = p }
 	

@@ -21,12 +21,7 @@ import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.Column
 import javax.persistence.ManyToMany
-import javax.persistence.JoinTable
 import javax.persistence.Transient
-import javax.persistence.Enumerated
-import javax.persistence.EnumType
-import javax.persistence.Embedded
-import javax.persistence.OneToOne
 import javax.persistence.CascadeType
 
 @Entity
@@ -81,13 +76,13 @@ public class Partido implements Comparator<Jugador>, Serializable
 	//estos atributos deberian ir en la tabla de Jugadores_Partidos segun el DER,
 	//pero nose como agregarlos--->
 	//ya fue, hacemos tres tablas en vez de una, bien rustico
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(targetEntity = Jugador, cascade=CascadeType.ALL)
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
-	@ManyToMany(cascade=CascadeType.ALL)
+	@ManyToMany(targetEntity = Jugador, cascade=CascadeType.ALL)
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
-	@Transient//FIXME esto en realidad hay que persistirlo pero no se como!!
+	@Transient()//FIXME esto en realidad hay que persistirlo pero no se como!!
 	def getFechasDeInscripcion() { fechasDeInscripcion }
 	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
 	//
