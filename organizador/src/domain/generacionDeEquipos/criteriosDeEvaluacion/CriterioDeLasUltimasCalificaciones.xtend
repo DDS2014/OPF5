@@ -3,8 +3,9 @@ package domain.generacionDeEquipos.criteriosDeEvaluacion
 import domain.Jugador
 import domain.excepciones.ImposibleEvaluarException
 import org.uqbar.commons.model.UserException
+import java.io.Serializable
 
-class CriterioDeLasUltimasCalificaciones extends Criterio
+class CriterioDeLasUltimasCalificaciones extends Criterio implements Serializable
 {
 	@Property int cantidadDeCalificaciones;
 	

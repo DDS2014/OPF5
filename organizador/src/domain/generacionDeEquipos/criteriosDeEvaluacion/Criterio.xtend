@@ -4,9 +4,9 @@ import domain.Jugador
 import domain.calificaciones.Calificacion
 import java.util.Collection
 import java.util.Comparator
+import java.io.Serializable
 
-
-abstract class Criterio implements Comparator<Jugador>
+abstract class Criterio implements Comparator<Jugador>, Serializable
 {
 	def double evaluarJugador(Jugador jugador)
 	@Property String nombreDelCriterio

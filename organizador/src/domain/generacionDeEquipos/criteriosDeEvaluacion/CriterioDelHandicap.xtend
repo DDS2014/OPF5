@@ -1,8 +1,9 @@
 package domain.generacionDeEquipos.criteriosDeEvaluacion
 
 import domain.Jugador
+import java.io.Serializable
 
-class CriterioDelHandicap extends Criterio
+class CriterioDelHandicap extends Criterio implements Serializable
 {
 	new()
 	{

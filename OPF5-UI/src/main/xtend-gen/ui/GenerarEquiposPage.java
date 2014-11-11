@@ -1,6 +1,8 @@
 package ui;
 
 import applicationModel.GeneradorDeEquipos;
+import dao.SessionManager;
+import domain.Partido;
 import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion;
 import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure0;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.hibernate.Session;
 import org.uqbar.commons.model.UserException;
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods;
 import org.uqbar.wicket.xtend.XButton;
@@ -99,6 +102,10 @@ public class GenerarEquiposPage extends WebPage {
       final Procedure0 _function = new Procedure0() {
         public void apply() {
           GenerarEquiposPage.this.generar();
+          Session _session = SessionManager.getSession();
+          Partido _partido = GenerarEquiposPage.this.generador.getPartido();
+          _session.saveOrUpdate(_partido);
+          SessionManager.commit();
         }
       };
       generarBtn.setOnClick(_function);

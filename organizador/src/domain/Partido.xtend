@@ -84,6 +84,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	@ManyToMany
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
+	@Transient //FIXME esto en realidad hay que persistirlo pero no se como!!
 	def getFechasDeInscripcion() { fechasDeInscripcion }
 	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
 	//

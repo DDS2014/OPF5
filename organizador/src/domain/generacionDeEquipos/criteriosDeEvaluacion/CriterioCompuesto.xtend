@@ -2,8 +2,9 @@ package domain.generacionDeEquipos.criteriosDeEvaluacion
 
 import domain.Jugador
 import java.util.ArrayList
+import java.io.Serializable
 
-class CriterioCompuesto extends Criterio
+class CriterioCompuesto extends Criterio implements Serializable
 {
 	ArrayList<Criterio> subCriterios;
 	

@@ -21,7 +21,7 @@ import home.HomeComunidad
 class GeneradorDeEquipos implements Serializable
 //IMPORTANTE: feature envy en todas partes??? convendrá ir desde la UI directamente a pegarle al partido?
 {
-	Partido partido;
+	@Property Partido partido;
 	Criterio criterioDeOrdenamiento; //criterio seleccionado
 	Generacion criterioDeSeleccion;	 //generacion seleccionado
 	List<Jugador> primerEquipo;

@@ -3,8 +3,9 @@ package domain.generacionDeEquipos.criteriosDeEvaluacion
 import domain.Jugador
 import domain.sugerencias.Comunidad
 import java.util.ArrayList
+import java.io.Serializable
 
-class CriterioDelUltimoPartido extends Criterio
+class CriterioDelUltimoPartido extends Criterio implements Serializable
 {
 	Comunidad comunidad; //lleva una comunidad porque es la entidad que engloba los partidos y necesito saber cuál fué el último partido jugado
 	

@@ -13,6 +13,7 @@ import org.uqbar.commons.model.UserException
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.uqbar.wicket.xtend.XButton
 import org.uqbar.wicket.xtend.XForm
+import dao.SessionManager
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -57,7 +58,11 @@ class GenerarEquiposPage extends WebPage {
 	
 	def agregarAcciones(Form<GeneradorDeEquipos> form) {
 		val generarBtn = new XButton("btnGenerar")
-		generarBtn.onClick = [| this.generar() ]
+		generarBtn.onClick = [| this.generar()
+								SessionManager::getSession().saveOrUpdate(this.generador.partido) //esto queda así de cho... poco elegante, porque nos falta el feature de poder elegir el partido
+								SessionManager::commit()
+		]
+		
 		form.addChild(generarBtn)
 		
 		val volverBtn = new XButton("btnVolver")
@@ -76,6 +81,7 @@ class GenerarEquiposPage extends WebPage {
 		try
 		{
 			this.generador.generar()
+			
 			responsePage = new ConfirmarEquiposPage(this.generador, this)
 		} catch (UserException e) {
 			info(e.getMessage())
