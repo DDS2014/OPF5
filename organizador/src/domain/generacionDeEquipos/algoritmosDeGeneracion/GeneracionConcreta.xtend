@@ -3,9 +3,9 @@ package domain.generacionDeEquipos.algoritmosDeGeneracion
 
 import domain.Jugador
 import java.util.List
-import java.util.ArrayList
+import java.util.ArrayListimport java.io.Serializable
 
-class GeneracionConcreta extends Generacion{
+class GeneracionConcreta extends Generacion implements Serializable{
 	ArrayList<Integer> primerEquipoPos=newArrayList(1,4,5,8,9)
 	ArrayList<Integer> segundoEquipoPos=newArrayList(2,3,6,7,10)
 	

@@ -4,12 +4,13 @@ import org.apache.wicket.markup.html.WebPage
 import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import org.uqbar.wicket.xtend.XButton
 import org.apache.wicket.markup.html.form.Form
+import java.io.Serializable
 
 /**
  * 
  * @author ?
  */
-class HomePage extends WebPage {
+class HomePage extends WebPage implements Serializable {
 	extension WicketExtensionFactoryMethods = new WicketExtensionFactoryMethods
 
 	new() {

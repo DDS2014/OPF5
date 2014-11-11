@@ -14,9 +14,6 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
 		<mapping class="domain.Partido"/>
-		<mapping class="domain.PartidoState"/>
-		<mapping class="domain.PartidoAbierto_State"/>
-		<mapping class="domain.PartidoConEquiposConfirmados_State"/>
 		<mapping class="domain.Jugador"/>
 		<mapping class="domain.inscripcion.TipoDeInscripcion"/>
 		<mapping class="domain.infracciones.Infraccion"/>

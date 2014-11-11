@@ -3,9 +3,9 @@ package domain.generacionDeEquipos.algoritmosDeGeneracion
 import domain.Partido
 import domain.excepciones.ImposibleGenerarEquiposException
 import domain.Jugador
-import java.util.List
+import java.util.Listimport java.io.Serializable
 
-abstract class Generacion {
+abstract class Generacion implements Serializable{
 	@Property Partido partido;
 	@Property String nombreDelAlgoritmo
 	

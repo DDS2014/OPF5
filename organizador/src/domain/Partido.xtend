@@ -26,6 +26,7 @@ import javax.persistence.Transient
 import javax.persistence.Enumerated
 import javax.persistence.EnumType
 import javax.persistence.Embedded
+import javax.persistence.OneToOne
 
 @Entity
 @Table(name="Partidos")
@@ -44,6 +45,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	List<Jugador> segundoEquipo
 	Generacion algoritmo;
 	PartidoState estado;
+	String charEstado;
 	
 	//CONSTRUCTOR
 	new(Date fecha){
@@ -100,9 +102,12 @@ public class Partido implements Comparator<Jugador>, Serializable
 	@Transient
 	def getAlgoritmo() { algoritmo }
 	def setAlgoritmo (Generacion a) { algoritmo = a }
-	@Embedded
+	@Transient
 	def getEstado() { estado }
-	def setEstado(PartidoState e) {estado = e }
+	def setEstado(PartidoState e) {estado = e; charEstado=e.estado_char }
+	@Column //porque Hibernate NO QUIERE persistir el state
+	def getCharEstado() { charEstado }
+	def setCharEstado(String c){charEstado=c}
 	
 	
 	

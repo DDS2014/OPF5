@@ -2,9 +2,9 @@ package domain.generacionDeEquipos.algoritmosDeGeneracion
 
 
 import domain.Jugador
-import java.util.List
+import java.util.Listimport java.io.Serializable
 
-class GeneracionParImpar extends Generacion{
+class GeneracionParImpar extends Generacion implements Serializable{
 	
 	new()
 	{

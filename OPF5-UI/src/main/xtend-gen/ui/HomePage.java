@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.Serializable;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
@@ -14,7 +15,7 @@ import ui.GenerarEquiposPage;
  * @author ?
  */
 @SuppressWarnings("all")
-public class HomePage extends WebPage {
+public class HomePage extends WebPage implements Serializable {
   @Extension
   private WicketExtensionFactoryMethods _wicketExtensionFactoryMethods = new WicketExtensionFactoryMethods();
   

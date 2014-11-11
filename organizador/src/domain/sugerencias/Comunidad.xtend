@@ -7,8 +7,9 @@ import domain.Partido
 import java.util.ArrayList
 import java.util.Comparator
 import java.util.Collectionsimport domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
+import java.io.Serializable
 
-public class Comunidad implements Comparator<Partido>{
+public class Comunidad implements Comparator<Partido>, Serializable{
 	@Property HashSet<Jugador> aprobados
 	@Property HashSet<Sugerencia> pendientes
 	@Property HashSet<Denegacion> rechazados
