@@ -20,6 +20,7 @@ import javax.persistence.OneToMany
 import javax.persistence.Table
 import org.uqbar.commons.utils.Observable
 import java.util.List
+import javax.persistence.CascadeType
 
 @Entity
 @Table(name="Jugadores")
@@ -89,15 +90,15 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	@ManyToOne(targetEntity = TipoDeInscripcion )
 	def getModalidad () { modalidad }
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	def getAmigos() { amigos }
-	def setAmigos(ArrayList<Jugador> a) { amigos = a}
-	@OneToMany
+	def setAmigos(List<Jugador> a) { amigos = a}
+	@OneToMany(cascade=CascadeType.ALL)
 	def getInfracciones() { infracciones }
-	def setInfracciones (ArrayList<Infraccion> i) { infracciones = i }
-	@OneToMany
+	def setInfracciones (List<Infraccion> i) { infracciones = i }
+	@OneToMany(cascade=CascadeType.ALL)
 	def getCalificaciones() { calificaciones }
-	def setCalificaciones(ArrayList<Calificacion> c ) { calificaciones = c }
+	def setCalificaciones(List<Calificacion> c ) { calificaciones = c }
 	@Column(name="FechaNacimiento")
 	def getFechaNacimiento() { fechaNacimiento }
 	def setFechaNacimiento(Date f) { fechaNacimiento = f }

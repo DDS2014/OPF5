@@ -27,6 +27,7 @@ import javax.persistence.Enumerated
 import javax.persistence.EnumType
 import javax.persistence.Embedded
 import javax.persistence.OneToOne
+import javax.persistence.CascadeType
 
 @Entity
 @Table(name="Partidos")
@@ -74,19 +75,19 @@ public class Partido implements Comparator<Jugador>, Serializable
 	@Column(name="Fecha")
 	def getFecha(){ fecha }
 	def setFecha(Date f) { fecha = f}
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	def getJugadoresConfirmados() { jugadoresConfirmados }
 	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
 	//estos atributos deberian ir en la tabla de Jugadores_Partidos segun el DER,
 	//pero nose como agregarlos--->
 	//ya fue, hacemos tres tablas en vez de una, bien rustico
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
-	@Transient //FIXME esto en realidad hay que persistirlo pero no se como!!
+	@Transient//FIXME esto en realidad hay que persistirlo pero no se como!!
 	def getFechasDeInscripcion() { fechasDeInscripcion }
 	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
 	//
