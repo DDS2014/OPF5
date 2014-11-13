@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Column
 
 @Entity
-@Table(name="Infracciones")
+@Table(name="infracciones")
 class Infraccion implements Serializable
 {
 	private Long id
@@ -31,12 +31,14 @@ class Infraccion implements Serializable
 	//getters y setters para hibernate
 	@Id
 	@GeneratedValue
-	@Column(name="Id_Jugador")
+	@Column(name="Id_Infraccion")
 	def getId(){id}
 	def setId(Long i){id=i}
+	
 	@Column(name="Fecha")
 	def getFecha() { fecha }
 	def setFecha(Date f) { fecha = f }
+
 	@Column(name="Motivo")
 	def getMotivo() { motivo }
 	def setMotivo(String m) { motivo = m }

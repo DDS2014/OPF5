@@ -1,31 +1,33 @@
 package domain
 
+import domain.enviadorDeMails.InterfazDistribuidorDeMails
+import domain.excepciones.JugadorNoFueAnotadoException
+import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
+import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
 import domain.infracciones.Infraccion
 import domain.notificaciones.PartidoObserver
+import java.io.Serializable
 import java.util.ArrayList
 import java.util.Collections
 import java.util.Comparator
 import java.util.Date
-import java.util.List
-//import domain.enviadorDeMails.InterfazDistribuidorDeMails
-import domain.excepciones.JugadorNoFueAnotadoException
 import java.util.Hashtable
-import domain.generacionDeEquipos.criteriosDeEvaluacion.Criterio
-import domain.generacionDeEquipos.algoritmosDeGeneracion.Generacion
-import org.uqbar.commons.utils.Observable
-import domain.enviadorDeMails.InterfazDistribuidorDeMails
-import java.io.Serializable
-import javax.persistence.Entity
-import javax.persistence.Table
-import javax.persistence.Id
-import javax.persistence.GeneratedValue
-import javax.persistence.Column
-import javax.persistence.ManyToMany
-import javax.persistence.Transient
+import java.util.List
 import javax.persistence.CascadeType
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
+import javax.persistence.ManyToMany
+import javax.persistence.Table
+import javax.persistence.Transient
+import org.uqbar.commons.utils.Observable
+import org.hibernate.annotations.WhereJoinTable
 
 @Entity
-@Table(name="Partidos")
+@Table(name="partidos")
 @Observable
 public class Partido implements Comparator<Jugador>, Serializable 
 { //para descartar la solución decorator, no implementar EventoDeportivo y cambiar los "override" que fallen por "def"
@@ -51,7 +53,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 		this.fechasDeInscripcion = new Hashtable();
 		this.primerEquipo = new ArrayList();
 		this.segundoEquipo = new ArrayList();
-		this.estado = new PartidoAbierto_State();
+		this.estado = PartidoState::ABIERTO;
 	}
 	
 	//constructor sin parametros para hibernate
@@ -70,18 +72,33 @@ public class Partido implements Comparator<Jugador>, Serializable
 	@Column(name="Fecha")
 	def getFecha(){ fecha }
 	def setFecha(Date f) { fecha = f}
+	
 	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
+		inverseJoinColumns=@JoinColumn(name="Id_Jugador")
+	)
 	def getJugadoresConfirmados() { jugadoresConfirmados }
 	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
+	
 	//estos atributos deberian ir en la tabla de Jugadores_Partidos segun el DER,
 	//pero nose como agregarlos--->
 	//ya fue, hacemos tres tablas en vez de una, bien rustico
-	@ManyToMany(targetEntity = Jugador, cascade=CascadeType.ALL)
+	@ManyToMany(cascade=CascadeType.ALL)
+	@WhereJoinTable(clause="Equipo = 1")
+	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
+		inverseJoinColumns=@JoinColumn(name="Id_Jugador")
+	)
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
-	@ManyToMany(targetEntity = Jugador, cascade=CascadeType.ALL)
+
+	@ManyToMany(cascade=CascadeType.ALL)
+	@WhereJoinTable(clause="Equipo = 2")
+	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
+		inverseJoinColumns=@JoinColumn(name="Id_Jugador"),
+	)
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
+
 	@Transient()//FIXME esto en realidad hay que persistirlo pero no se como!!
 	def getFechasDeInscripcion() { fechasDeInscripcion }
 	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
@@ -98,13 +115,10 @@ public class Partido implements Comparator<Jugador>, Serializable
 	@Transient
 	def getAlgoritmo() { algoritmo }
 	def setAlgoritmo (Generacion a) { algoritmo = a }
-	@Transient
-	def getEstado() { estado }
-	def setEstado(PartidoState e) {estado = e; charEstado=e.estado_char }
-	@Column //porque Hibernate NO QUIERE persistir el state
-	def getCharEstado() { charEstado }
-	def setCharEstado(String c){charEstado=c}
 	
+	@Column(name="estado_char")
+	def getEstado() { estado }
+	def setEstado(PartidoState e) {estado = e }
 	
 	
 	
@@ -225,7 +239,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def confirmarEquipos()
 	{
 		if (!hayEquipo) throw new RuntimeException("No se puede confirmar los equipos ya que no se generaron correctamente"); //todo agregar una excepción propia para esto
-		this.estado = new PartidoConEquiposConfirmados_State();	
+		this.estado = PartidoState::CONFIRMADO;	
 	}
 
 	def hayEquipo() 

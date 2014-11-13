@@ -8,6 +8,7 @@ import domain.infracciones.Infraccion
 import domain.Partido
 import java.util.Date
 import domain.busqueda.CriterioBusqueda
+import dao.SessionManager
 
 @Observable
 class HomeComunidad extends Comunidad {

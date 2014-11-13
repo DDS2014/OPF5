@@ -10,20 +10,21 @@ import java.util.ArrayList
 import java.util.Collections
 import java.util.Comparator
 import java.util.Date
+import java.util.List
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToMany
-import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
+import javax.persistence.Transient
 import org.uqbar.commons.utils.Observable
-import java.util.List
-import javax.persistence.CascadeType
 
 @Entity
-@Table(name="Jugadores")
+@Table(name="jugadores")
 @Observable
 public class Jugador  implements Comparator<Calificacion>, Serializable 
 {
@@ -87,18 +88,26 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	@Column(name="Email")
 	def getEmail() { email }
 	def setEmail(String e) { email = e }
-	@ManyToOne(targetEntity = TipoDeInscripcion, cascade=CascadeType.ALL )
+	
+	//@ManyToOne(targetEntity = TipoDeInscripcion, cascade=CascadeType.ALL )
+	@Transient
 	def getModalidad () { modalidad }
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
+	
 	@ManyToMany(cascade=CascadeType.ALL)
 	def getAmigos() { amigos }
 	def setAmigos(List<Jugador> a) { amigos = a}
+	
 	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="Jugador")
 	def getInfracciones() { infracciones }
 	def setInfracciones (List<Infraccion> i) { infracciones = i }
+	
 	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="Id_JugadorCalificado")
 	def getCalificaciones() { calificaciones }
 	def setCalificaciones(List<Calificacion> c ) { calificaciones = c }
+	
 	@Column(name="FechaNacimiento")
 	def getFechaNacimiento() { fechaNacimiento }
 	def setFechaNacimiento(Date f) { fechaNacimiento = f }

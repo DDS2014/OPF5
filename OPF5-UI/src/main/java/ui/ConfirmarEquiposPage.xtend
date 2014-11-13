@@ -1,16 +1,17 @@
 package ui
 
-import org.apache.wicket.markup.html.WebPage
-import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
 import applicationModel.GeneradorDeEquipos
-import org.apache.wicket.markup.html.form.Form
-import org.apache.wicket.model.CompoundPropertyModel
-import org.uqbar.wicket.xtend.XButton
-import org.uqbar.wicket.xtend.XListView
+import dao.SessionManager
 import domain.Jugador
 import java.util.ArrayList
+import org.apache.wicket.markup.html.WebPage
+import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.panel.FeedbackPanel
+import org.apache.wicket.model.CompoundPropertyModel
 import org.uqbar.commons.model.UserException
+import org.uqbar.wicket.xtend.WicketExtensionFactoryMethods
+import org.uqbar.wicket.xtend.XButton
+import org.uqbar.wicket.xtend.XListView
 
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDeLasUltimasCalificaciones
 //import domain.generacionDeEquipos.criteriosDeEvaluacion.CriterioDelUltimoPartido
@@ -66,6 +67,7 @@ class ConfirmarEquiposPage extends WebPage {
 	{
 		try{
 			this.generador.confirmar()
+			SessionManager::commit
 			volver()
 		} catch (UserException e) {
 			info(e.getMessage())
