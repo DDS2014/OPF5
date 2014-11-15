@@ -1,29 +1,29 @@
 # CREATE
 create table Jugadores
 (
-	Id_Jugador int AUTO_INCREMENT primary key,
+	Id_Jugador bigint AUTO_INCREMENT primary key,
 	Nombre varchar(50) not null,
 	Apellido varchar(50) not null,
 	Apodo varchar(50) not null,
 	Documento varchar(8) not null,
 	Email varchar(50) not null,
 	FechaNacimiento DateTime not null,
-    Edad tinyint not null,
-	Handicap tinyint not null,
+    Edad int not null,
+	Handicap double not null,
 	Id_Modalidad int not null
 );
 
 create table Partidos
 (
-	Id_Partido int AUTO_INCREMENT primary key,
+	Id_Partido bigint AUTO_INCREMENT primary key,
 	Fecha DateTime not null,
-	Estado CHAR(1) not null
+	Estado CHAR(1) not null 
 );
 
 create table Jugadores_Partidos
 (
-	Id_Partido int,
-	Id_Jugador int,
+	Id_Partido bigint,
+	Id_Jugador bigint,
 	FechaDeInscripcion DateTime NOT NULL,
 	Equipo tinyint NULL,
 	primary key (Id_Partido, Id_Jugador)
@@ -31,10 +31,10 @@ create table Jugadores_Partidos
 
 create table Bajas
 (
-	Id_Partido int,
-	Id_Jugador int,
+	Id_Partido bigint,
+	Id_Jugador bigint,
 	Fecha DateTime NOT NULL,
-	Reemplazante int NULL,
+	Reemplazante bigint NULL,
     Motivo varchar(255),
 	primary key (Id_Partido, Id_Jugador)
 );
@@ -48,27 +48,27 @@ create table Modalidades
 
 create table Calificaciones
 (
-	Id_Calificacion int AUTO_INCREMENT primary key,
-	Id_JugadorCalificado int NOT NULL,
-	Id_JugadorCalificador int NOT NULL,
-	Id_Partido int NOT NULL,
-	Puntaje tinyint NOT NULL,
+	Id_Calificacion bigint AUTO_INCREMENT primary key,
+	Id_JugadorCalificado bigint NOT NULL,
+	Id_JugadorCalificador bigint NOT NULL,
+	Id_Partido bigint NOT NULL,
+	Puntaje int NOT NULL,
 	Critica varchar(255),
 	Fecha DateTime NOT NULL
 );
 
 create table Infracciones
 (
-	Id_Infracccion int AUTO_INCREMENT primary key,
-	Jugador int NOT NULL,
+	Id_Infraccion bigint AUTO_INCREMENT primary key,
+	Jugador bigint NOT NULL,
     Fecha DateTime NOT NULL,
 	Motivo varchar(255)
 );
 
 create table Amistades
 (
-	Id_Jugador1 int,
-	Id_Jugador2 int,
+	Id_Jugador1 bigint,
+	Id_Jugador2 bigint,
     primary key (Id_Jugador1, Id_Jugador2)
 );
 
@@ -81,7 +81,7 @@ create table Sugerencias
 	FechaNacimiento DateTime,
 	Documento varchar(8),
 	Email varchar(50),
-	Id_Jugador int NULL
+	Id_Jugador bigint NULL
 );
 
 create table Denegaciones

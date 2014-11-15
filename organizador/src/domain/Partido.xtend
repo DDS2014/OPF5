@@ -25,6 +25,8 @@ import javax.persistence.Table
 import javax.persistence.Transient
 import org.uqbar.commons.utils.Observable
 import org.hibernate.annotations.WhereJoinTable
+import javax.persistence.Enumerated
+import javax.persistence.EnumType
 
 @Entity
 @Table(name="partidos")
@@ -73,7 +75,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def setFecha(Date f) { fecha = f}
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
+	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador")
 	)
 	def getJugadoresConfirmados() { jugadoresConfirmados }
@@ -84,7 +86,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	//ya fue, hacemos tres tablas en vez de una, bien rustico
 	@ManyToMany(cascade=CascadeType.ALL)
 	@WhereJoinTable(clause="Equipo = 1")
-	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
+	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador")
 	)
 	def getPrimerEquipo() { primerEquipo }
@@ -92,7 +94,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 
 	@ManyToMany(cascade=CascadeType.ALL)
 	@WhereJoinTable(clause="Equipo = 2")
-	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
+	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador"))
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
@@ -114,7 +116,8 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def getAlgoritmo() { algoritmo }
 	def setAlgoritmo (Generacion a) { algoritmo = a }
 	
-	@Column(name="estado_char")
+	@Column(name="Estado")
+	@Enumerated(EnumType.STRING) //fixme esto da todo el nombre del enum, no el char
 	def getEstado() { estado }
 	def setEstado(PartidoState e) {estado = e }
 	

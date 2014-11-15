@@ -22,6 +22,7 @@ import javax.persistence.OneToMany
 import javax.persistence.Table
 import javax.persistence.Transient
 import org.uqbar.commons.utils.Observable
+import javax.persistence.JoinTable
 
 @Entity
 @Table(name="jugadores")
@@ -34,7 +35,7 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	String apellido
 	String apodo
 	int edad
-	double handicap
+	double handicap //que alguien me explique por qué esto es un double
 	String documento
 	String email
 	TipoDeInscripcion modalidad
@@ -66,7 +67,8 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	@GeneratedValue
 	@Column(name="Id_Jugador")
 	def getId() {id}
-	def setId(Long value) {id = value}
+	def setId(Long value
+	) {id = value}
 	@Column(name="Nombre") 
 	def getNombre()	{ nombre }
 	def setNombre(String n) { nombre = n }
@@ -95,6 +97,9 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
 	
 	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="Amistades", joinColumns=@JoinColumn(name="Id_Jugador1"), 
+								inverseJoinColumns = @JoinColumn(name="Id_Jugador2")
+				)	
 	def getAmigos() { amigos }
 	def setAmigos(List<Jugador> a) { amigos = a}
 	

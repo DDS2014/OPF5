@@ -50,7 +50,7 @@ public class Calificacion implements Serializable {
 	
 	@Column(name="Puntaje")
 	def getPuntaje() { puntaje }
-	def setPuntaje(int p) { puntaje = p }
+	def setPuntaje(byte p) { puntaje = p }
 	
 	@Column(name="Critica")
 	def getCritica() { critica }
