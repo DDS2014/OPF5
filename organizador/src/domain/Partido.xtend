@@ -43,7 +43,6 @@ public class Partido implements Comparator<Jugador>, Serializable
 	List<Jugador> segundoEquipo
 	Generacion algoritmo;
 	PartidoState estado;
-	String charEstado;
 	
 	//CONSTRUCTOR
 	new(Date fecha){
@@ -94,8 +93,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	@ManyToMany(cascade=CascadeType.ALL)
 	@WhereJoinTable(clause="Equipo = 2")
 	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Equipo"), 
-		inverseJoinColumns=@JoinColumn(name="Id_Jugador"),
-	)
+		inverseJoinColumns=@JoinColumn(name="Id_Jugador"))
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
 

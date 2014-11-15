@@ -143,7 +143,7 @@ insert into Modalidades (Id_Modalidad, Descripcion, Prioridad) values (3, 'Condi
 insert into Jugadores (Nombre, Apellido, Apodo,	Documento, Email, FechaNacimiento, Edad, Handicap, Id_Modalidad) 
 values ( 'Juan', 'Casas', 'pepe', 21765454, 'pepe@gmail.com', '1945-05-12', 69, 6, 1);
 insert into Jugadores (Nombre, Apellido, Apodo,	Documento, Email, FechaNacimiento, Edad, Handicap, Id_Modalidad)
-values ( 'Diego', 'Marado', 'd10s', 27768654, 'diegote@gmail.com', '1970-03-08', 44,c10, 1);
+values ( 'Diego', 'Marado', 'd10s', 27768654, 'diegote@gmail.com', '1970-03-08', 44, 10, 1);
 insert into Jugadores (Nombre, Apellido, Apodo, Documento, Email, FechaNacimiento, Edad, Handicap, Id_Modalidad)  
 values ('Esteban', 'Casas', 'bichi', 31765454, 'bichigol@gmail.com', '1989-07-02', 25, 9, 1);
 insert into Jugadores (Nombre, Apellido, Apodo, Documento, Email, FechaNacimiento, Edad, Handicap, Id_Modalidad) 

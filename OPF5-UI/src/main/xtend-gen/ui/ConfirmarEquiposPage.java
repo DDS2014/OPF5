@@ -1,6 +1,7 @@
 package ui;
 
 import applicationModel.GeneradorDeEquipos;
+import dao.SessionManager;
 import domain.Jugador;
 import java.util.ArrayList;
 import org.apache.wicket.MarkupContainer;
@@ -90,6 +91,7 @@ public class ConfirmarEquiposPage extends WebPage {
   public void confirmar() {
     try {
       this.generador.confirmar();
+      SessionManager.commit();
       this.volver();
     } catch (final Throwable _t) {
       if (_t instanceof UserException) {
