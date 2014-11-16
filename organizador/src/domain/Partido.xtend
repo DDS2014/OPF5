@@ -81,20 +81,15 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def getJugadoresConfirmados() { jugadoresConfirmados }
 	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
 	
-	//estos atributos deberian ir en la tabla de Jugadores_Partidos segun el DER,
-	//pero nose como agregarlos--->
-	//ya fue, hacemos tres tablas en vez de una, bien rustico
 	@ManyToMany(cascade=CascadeType.ALL)
-	@WhereJoinTable(clause="Equipo = 1")
-	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Partido"), 
+	@JoinTable(name="Equipos1", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador")
 	)
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
 
 	@ManyToMany(cascade=CascadeType.ALL)
-	@WhereJoinTable(clause="Equipo = 2")
-	@JoinTable(name="jugadores_partidos", joinColumns=@JoinColumn(name="Id_Partido"), 
+	@JoinTable(name="Equipos2", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador"))
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}

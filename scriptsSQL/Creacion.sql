@@ -24,10 +24,26 @@ create table Jugadores_Partidos
 (
 	Id_Partido bigint,
 	Id_Jugador bigint,
-	FechaDeInscripcion DateTime NOT NULL,
+	FechaDeInscripcion DateTime,
 	Equipo tinyint NULL,
 	primary key (Id_Partido, Id_Jugador)
 );
+
+create table Equipos1
+(
+	Id_Partido bigint,
+	Id_Jugador bigint,
+	primary key (Id_Partido, Id_Jugador)
+);
+
+create table Equipos2
+(
+	Id_Partido bigint,
+	Id_Jugador bigint,
+	primary key (Id_Partido, Id_Jugador)
+);
+
+
 
 create table Bajas
 (
@@ -103,6 +119,18 @@ ALTER TABLE Jugadores_Partidos
 		ADD CONSTRAINT FK_Partido
         FOREIGN KEY (Id_Partido) REFERENCES Partidos (Id_Partido);
 
+ALTER TABLE Equipos1
+		ADD CONSTRAINT FK_Jugador_E1
+        FOREIGN KEY (Id_Jugador) REFERENCES Jugadores (Id_Jugador),
+		ADD CONSTRAINT FK_Partido_E1
+        FOREIGN KEY (Id_Partido) REFERENCES Partidos (Id_Partido);
+		
+ALTER TABLE Equipos2
+		ADD CONSTRAINT FK_Jugador_E2
+        FOREIGN KEY (Id_Jugador) REFERENCES Jugadores (Id_Jugador),
+		ADD CONSTRAINT FK_Partido_E2
+        FOREIGN KEY (Id_Partido) REFERENCES Partidos (Id_Partido);
+		
 ALTER TABLE Bajas
 		ADD CONSTRAINT FK_Baja_Jugador
         FOREIGN KEY (Id_Jugador, Id_Partido) REFERENCES Jugadores_Partidos (Id_Jugador, Id_Partido);

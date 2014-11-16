@@ -6,6 +6,7 @@ import org.junit.Test
 import static dao.SessionManager.*
 import domain.inscripcion.InscripcionEstandar
 import java.util.Date
+import domain.Partido
 
 class TestHibernate 
 {	
@@ -24,6 +25,14 @@ class TestHibernate
 		j.fechaNacimiento = new Date()
 		
 		session.save(j)
+		
+		
+		var p = new Partido(new Date())
+	
+		j.inscribirse(p)
+		p.agregarAlPrimerEquipo(j)
+		
+		session.save(p)
 		
 		commit
 		closeSession
