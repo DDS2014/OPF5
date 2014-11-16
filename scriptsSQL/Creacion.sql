@@ -25,7 +25,6 @@ create table Jugadores_Partidos
 	Id_Partido bigint,
 	Id_Jugador bigint,
 	FechaDeInscripcion DateTime,
-	Equipo tinyint NULL,
 	primary key (Id_Partido, Id_Jugador)
 );
 
@@ -196,68 +195,68 @@ values ('2014-09-21', 'CONFIRMADO');
 insert into Partidos (Fecha, Estado)
 values ('2014-10-10', 'CONFIRMADO');
 
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,1,'2014-10-05',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,2,'2014-10-05',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,3,'2014-10-05',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,4,'2014-10-05',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,5,'2014-10-05',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,6,'2014-10-05',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,7,'2014-10-05',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,8,'2014-10-05',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,9,'2014-10-05',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (1,10,'2014-10-05',2);
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,1,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,2,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,3,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,4,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,5,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,6,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,7,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,8,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,9,'2014-10-05');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (1,10,'2014-10-05');
 
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,1,'2014-09-15',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,3,'2014-09-15',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,5,'2014-09-15',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,7,'2014-09-15',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,9,'2014-09-15',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,2,'2014-09-15',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,4,'2014-09-15',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,6,'2014-09-15',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,8,'2014-09-15',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (2,10,'2014-09-15',2);
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,1,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,3,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,5,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,7,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,9,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,2,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,4,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,6,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,8,'2014-09-15');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (2,10,'2014-09-15');
 
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,1,'2014-10-09',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,3,'2014-10-07',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,5,'2014-10-08',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,7,'2014-10-08',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,9,'2014-10-08',1);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,2,'2014-10-09',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,4,'2014-10-06',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,6,'2014-10-07',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,8,'2014-10-09',2);
-insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
-values (3,10,'2014-10-08',2);
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,1,'2014-10-09');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,3,'2014-10-07');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,5,'2014-10-08');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,7,'2014-10-08');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,9,'2014-10-08');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,2,'2014-10-09');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,4,'2014-10-06');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,6,'2014-10-07');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,8,'2014-10-09');
+insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
+values (3,10,'2014-10-08');
 
 INSERT INTO infracciones(Jugador, Fecha, Motivo)
 VALUES(1,NOW(),'No llega a tiempo.');
