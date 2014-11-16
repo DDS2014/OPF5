@@ -23,6 +23,10 @@ import javax.persistence.Table
 import javax.persistence.Transient
 import org.uqbar.commons.utils.Observable
 import javax.persistence.JoinTable
+import javax.persistence.ManyToOne
+
+
+//IMPORTANTE: falta persistir modalidad
 
 @Entity
 @Table(name="jugadores")
@@ -91,8 +95,7 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	def getEmail() { email }
 	def setEmail(String e) { email = e }
 	
-	//@ManyToOne(targetEntity = TipoDeInscripcion, cascade=CascadeType.ALL )
-	@Transient
+	@Transient //esto hay que hacerlo un enum...
 	def getModalidad () { modalidad }
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
 	

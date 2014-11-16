@@ -4,20 +4,20 @@ create table Jugadores
 	Id_Jugador bigint AUTO_INCREMENT primary key,
 	Nombre varchar(50) not null,
 	Apellido varchar(50) not null,
-	Apodo varchar(50) not null,
+	Apodo varchar(50),
 	Documento varchar(8) not null,
 	Email varchar(50) not null,
 	FechaNacimiento DateTime not null,
     Edad int not null,
 	Handicap double not null,
-	Id_Modalidad int not null
+	Id_Modalidad int
 );
 
 create table Partidos
 (
 	Id_Partido bigint AUTO_INCREMENT primary key,
 	Fecha DateTime not null,
-	Estado CHAR(1) not null 
+	Estado varchar(20) not null 
 );
 
 create table Jugadores_Partidos
@@ -162,11 +162,11 @@ insert into Jugadores (Nombre, Apellido, Apodo, Documento, Email, FechaNacimient
 values ('Leo', 'Messi', 'pulga', 41765454, 'leo10@gmail.com', '1990-5-23', 24, 10, 1);
 
 insert into Partidos (Fecha, Estado)
-values ('2014-10-21', 'A');
+values ('2014-10-21', 'ABIERTO');
 insert into Partidos (Fecha, Estado)
-values ('2014-09-21', 'C');
+values ('2014-09-21', 'CONFIRMADO');
 insert into Partidos (Fecha, Estado)
-values ('2014-10-10', 'C');
+values ('2014-10-10', 'CONFIRMADO');
 
 insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion, Equipo)
 values (1,1,'2014-10-05',1);
