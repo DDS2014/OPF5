@@ -10,13 +10,13 @@ import java.util.Collectionsimport domain.generacionDeEquipos.criteriosDeEvalua
 import java.io.Serializable
 
 public class Comunidad implements Comparator<Partido>, Serializable{
-	@Property HashSet<Jugador> aprobados
+	@Property ArrayList<Jugador> aprobados
 	@Property HashSet<Sugerencia> pendientes
 	@Property HashSet<Denegacion> rechazados
 	@Property ArrayList<Partido> partidos
 	
 	new(){
-		this.aprobados=new HashSet();
+		this.aprobados= new ArrayList();
 		this.pendientes=new HashSet();
 		this.rechazados=new HashSet();
 		this.partidos = new ArrayList();

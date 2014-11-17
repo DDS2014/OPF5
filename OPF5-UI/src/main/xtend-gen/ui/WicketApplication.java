@@ -2,7 +2,7 @@ package ui;
 
 import dao.SessionManager;
 import domain.sugerencias.Comunidad;
-import home.HomeComunidad;
+import home.HomeComunidadSQL;
 import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.uqbar.commons.utils.ApplicationContext;
@@ -22,8 +22,10 @@ public class WicketApplication extends WebApplication {
   public void init() {
     super.init();
     SessionManager.startApplication();
+    SessionManager.openSession();
+    HomeComunidadSQL comunidadSQL = new HomeComunidadSQL();
+    comunidadSQL.configurar();
     ApplicationContext _instance = ApplicationContext.getInstance();
-    HomeComunidad _homeComunidad = new HomeComunidad();
-    _instance.<HomeComunidad>configureSingleton(Comunidad.class, _homeComunidad);
+    _instance.<HomeComunidadSQL>configureSingleton(Comunidad.class, comunidadSQL);
   }
 }
