@@ -59,7 +59,6 @@ class GenerarEquiposPage extends WebPage {
 	def agregarAcciones(Form<GeneradorDeEquipos> form) {
 		val generarBtn = new XButton("btnGenerar")
 		generarBtn.onClick = [| this.generar()
-								SessionManager::getSession().saveOrUpdate(this.generador.partido) //esto queda así de cho... poco elegante, porque nos falta el feature de poder elegir el partido
 								SessionManager::commit()
 		]
 		

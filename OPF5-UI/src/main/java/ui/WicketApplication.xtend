@@ -23,7 +23,7 @@ class WicketApplication extends WebApplication {
 //		ApplicationContext.instance.configureSingleton(Jugador, new HomeJugadores)
 //		ApplicationContext.instance.configureSingleton(Partido, new HomePartido)
 //		*********
-		ApplicationContext.instance.configureSingleton(Comunidad, new HomeComunidad) 
+		ApplicationContext.instance.configureSingleton(Comunidad, new HomeComunidad) //esto se tiene que cambiar por la home comunidad SQL
 //		*********
 		// add your configuration here
 	}

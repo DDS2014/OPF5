@@ -55,7 +55,9 @@ class ConfirmarEquiposPage extends WebPage {
 	
 	def agregarAcciones(Form<GeneradorDeEquipos> form) {
 		val generarBtn = new XButton("btnConfirmar")
-		generarBtn.onClick = [| this.confirmar() ]
+		generarBtn.onClick = [| this.confirmar() 
+								SessionManager::commit()
+		]
 		form.addChild(generarBtn)
 		
 		val volverBtn = new XButton("btnVolver")

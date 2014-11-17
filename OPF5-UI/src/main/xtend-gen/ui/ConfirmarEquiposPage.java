@@ -72,6 +72,7 @@ public class ConfirmarEquiposPage extends WebPage {
       final Procedure0 _function = new Procedure0() {
         public void apply() {
           ConfirmarEquiposPage.this.confirmar();
+          SessionManager.commit();
         }
       };
       generarBtn.setOnClick(_function);

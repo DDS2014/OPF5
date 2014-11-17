@@ -27,6 +27,10 @@ import org.uqbar.commons.utils.Observable
 import org.hibernate.annotations.WhereJoinTable
 import javax.persistence.Enumerated
 import javax.persistence.EnumType
+import javax.persistence.ElementCollection
+import javax.persistence.MapKeyColumn
+import javax.persistence.CollectionTable
+import java.util.Dictionary
 
 @Entity
 @Table(name="partidos")
@@ -39,7 +43,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	List<PartidoObserver> observers 
 	public static final String MAIL_ADMINISTRADOR="admin@admin.com" 
 	InterfazDistribuidorDeMails distribuidor
-	Hashtable<Jugador, Date> fechasDeInscripcion;
+	Dictionary<Jugador, Date> fechasDeInscripcion;
 	Criterio criterioDeOrdenamiento;
 	List<Jugador> primerEquipo
 	List<Jugador> segundoEquipo
@@ -94,7 +98,7 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}
 
-	@Transient()//FIXME esto en realidad hay que persistirlo pero no se como!!
+	@Transient // FIXME no me deja usar @ElementCollection porque dice que no es una colección...
 	def getFechasDeInscripcion() { fechasDeInscripcion }
 	def setFechasDeInscripcion(Hashtable<Jugador, Date> f) { fechasDeInscripcion = f  }
 	//

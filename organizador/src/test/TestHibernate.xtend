@@ -24,8 +24,6 @@ class TestHibernate
 		j.email = "elmaskpo@hotmail.com"
 		j.fechaNacimiento = new Date()
 		
-		session.save(j)
-		
 		
 		var p = new Partido(new Date())
 	
