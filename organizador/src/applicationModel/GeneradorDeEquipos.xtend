@@ -68,10 +68,10 @@ class GeneradorDeEquipos implements Serializable
 		this.refresh()
 	}
 	
-	def inscribirJugadores(){
-		var jugadores = homeComunidad.jugadores
-		jugadores.forEach[j|partido.confirmarAsistencia(j)]
-	}
+//	def inscribirJugadores(){
+//		var jugadores = homeComunidad.jugadores
+//		jugadores.forEach[j|partido.confirmarAsistencia(j)]
+//	}
 	
 	def confirmar()
 	{
