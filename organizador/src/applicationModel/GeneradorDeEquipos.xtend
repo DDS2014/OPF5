@@ -33,9 +33,9 @@ class GeneradorDeEquipos implements Serializable
 
 	new()
 	{
-		this.partido = homeComunidad.getPartidos.get(0) //me gusta el workaround "provisorio"
-		if(this.partido.hayLugaresLibres)
-			this.inscribirJugadores()
+		this.partido = homeComunidad.getPartidoRelevante() 
+//		if(this.partido.hayLugaresLibres)
+//			this.inscribirJugadores()
 		
 		this.agregarComunidad()
 		

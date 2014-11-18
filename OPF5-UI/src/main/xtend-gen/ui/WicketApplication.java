@@ -23,7 +23,7 @@ public class WicketApplication extends WebApplication {
     super.init();
     SessionManager.startApplication();
     SessionManager.openSession();
-    HomeComunidadSQL comunidadSQL = new HomeComunidadSQL();
+    HomeComunidadSQL comunidadSQL = new HomeComunidadSQL(2);
     comunidadSQL.configurar();
     ApplicationContext _instance = ApplicationContext.getInstance();
     _instance.<HomeComunidadSQL>configureSingleton(Comunidad.class, comunidadSQL);

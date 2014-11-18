@@ -189,11 +189,11 @@ insert into Jugadores (Nombre, Apellido, Apodo, Documento, Email, FechaNacimient
 values ('Leo', 'Messi', 'pulga', 41765454, 'leo10@gmail.com', '1990-5-23', 24, 10, 1);
 
 insert into Partidos (Fecha, Estado)
-values ('2014-10-21', 'ABIERTO');
+values ('2014-10-21', 'CONFIRMADO');
 insert into Partidos (Fecha, Estado)
 values ('2014-09-21', 'CONFIRMADO');
 insert into Partidos (Fecha, Estado)
-values ('2014-10-10', 'CONFIRMADO');
+values ('2014-10-10', 'ABIERTO');
 
 insert into Jugadores_Partidos (Id_Partido, Id_Jugador, FechaDeInscripcion)
 values (1,1,'2014-10-05');

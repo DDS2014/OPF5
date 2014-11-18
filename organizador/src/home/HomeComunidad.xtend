@@ -181,6 +181,11 @@ class HomeComunidad extends Comunidad {
 			return aprobados.toList
 	}
 	
+	def getPartidoRelevante()
+	{
+		this.getPartidos.get(0)
+	}
+	
 	def inscribirJugadores(Partido partido){ //TODO REVISAR: esto nose si es hardcodeo
 		aprobados.forEach[j|j.inscribirse(partido)]
 	}
