@@ -100,7 +100,7 @@ public class Jugador  implements Comparator<Calificacion>, Serializable
 	def setModalidad (TipoDeInscripcion m) { modalidad = m }
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="Amistades", joinColumns=@JoinColumn(name="Id_Jugador1"), 
+	@JoinTable(name="amistades", joinColumns=@JoinColumn(name="Id_Jugador1"), 
 								inverseJoinColumns = @JoinColumn(name="Id_Jugador2")
 				)	
 	def getAmigos() { amigos }

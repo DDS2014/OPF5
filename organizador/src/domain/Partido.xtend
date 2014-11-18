@@ -86,14 +86,14 @@ public class Partido implements Comparator<Jugador>, Serializable
 	def setJugadoresConfirmados(List<Jugador> j) { jugadoresConfirmados = j }
 	
 	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="Equipos1", joinColumns=@JoinColumn(name="Id_Partido"), 
+	@JoinTable(name="equipos1", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador")
 	)
 	def getPrimerEquipo() { primerEquipo }
 	def setPrimerEquipo(List<Jugador> j) { primerEquipo = j }
 
 	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="Equipos2", joinColumns=@JoinColumn(name="Id_Partido"), 
+	@JoinTable(name="equipos2", joinColumns=@JoinColumn(name="Id_Partido"), 
 		inverseJoinColumns=@JoinColumn(name="Id_Jugador"))
 	def getSegundoEquipo() { segundoEquipo }
 	def setSegundoEquipo(List<Jugador> j) {segundoEquipo = j}

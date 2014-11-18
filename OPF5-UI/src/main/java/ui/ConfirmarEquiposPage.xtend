@@ -69,7 +69,7 @@ class ConfirmarEquiposPage extends WebPage {
 	{
 		try{
 			this.generador.confirmar()
-			SessionManager::commit
+			//SessionManager::commit
 			volver()
 		} catch (UserException e) {
 			info(e.getMessage())
