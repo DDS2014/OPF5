@@ -67,7 +67,7 @@ class SessionManager {
 		if(session != null){
 			println("Cierro la transaccion")
 			if(session.transaction.active)
-				session.transaction.rollback
+				session.transaction.rollback 
 			session.close
 			tlSession.set(null)
 		}		

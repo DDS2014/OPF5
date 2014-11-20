@@ -22,8 +22,6 @@ class WicketApplication extends WebApplication {
 		super.init()
 		SessionManager::startApplication
 		SessionManager::openSession
-//		ApplicationContext.instance.configureSingleton(Jugador, new HomeJugadores)
-//		ApplicationContext.instance.configureSingleton(Partido, new HomePartido)
 //		*********
 		var comunidadSQL = new HomeComunidadSQL(2)
 		comunidadSQL.configurar()
